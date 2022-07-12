@@ -15,6 +15,10 @@ const routes: Routes = [
       {
         path: 'paragraphs', loadChildren: () => import('./paragraphs/paragraphs.module')
           .then(m => m.ParagraphsModule)
+      },
+      {
+        path: 'deductives', loadChildren: () => import('./deductives/deductives.module')
+          .then(m => m.DeductivesModule)
       }
       //{ path: 'home', component: CategoriesComponent },//ok
     ]

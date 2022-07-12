@@ -253,6 +253,10 @@ export const MENU_ITEMS: NbMenuItem[] = [
         title: 'Parrafos',
         link: '/pages/admin/paragraphs',
       },
+      {
+        title: 'Deductivas',
+        link: '/pages/admin/deductives',
+      },
 
     ],
   },

@@ -16,8 +16,20 @@ import { LegendsService } from './services/legends.service';
 
 import { ParagraphsApi } from './api/paragraphs.api';
 import { ParagraphsService } from './services/paragraphs.service';
+import { DeductiveService } from './services/deductive.service';
+import { DeductiveApi } from './api/deductive.api';
 
-const API = [CategoryApi, ImageCategoryApi, GoodScheduleApi,  HttpService, LegendsApi, ParagraphsApi];
+
+
+const API = [
+  CategoryApi, 
+  ImageCategoryApi, 
+  GoodScheduleApi, 
+  HttpService, 
+  LegendsApi, 
+  ParagraphsApi,
+  DeductiveApi
+];
 
 const SERVICES = [
   //{ provide: GoodScheduleData, useClass: GoodScheduleService },
@@ -25,7 +37,8 @@ const SERVICES = [
   CategoryService,
   ImageCategoryService,
   LegendsService,
-  ParagraphsService
+  ParagraphsService,
+  DeductiveService
 ];
 
 @NgModule({
