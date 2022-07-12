@@ -1,0 +1,25 @@
+<nb-card class="cat-card">
+    <nb-card-header>
+
+        <span class="title">
+            Lista de categorias
+        </span>
+
+        <!--
+    <nb-select  class="type-select">
+        <nb-option value="t">Test</nb-option>
+    </nb-select>
+-->
+        <div class="add-select">
+            <!--<button type="submit" nbButton status="primary">Nueva</button>-->
+            <button (click)="openWindowCategory()" nbButton status="primary">Nueva</button>
+        </div>
+
+    </nb-card-header>
+
+    <nb-card-body>
+        <ng2-smart-table [settings]="settings" [source]="categories" (delete)="onDeleteConfirm($event)"
+            (edit)="editRow($event)">
+        </ng2-smart-table>
+    </nb-card-body>
+</nb-card>

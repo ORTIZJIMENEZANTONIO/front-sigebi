@@ -1,0 +1,88 @@
+NGX-ADMIN -INDEP
+
+Integration
+----
+Start and test
+
+npm start
+
+-- Crer módulo de authentication
+cd src/app
+ng g m @auth --routing=true --module=app.module.ts
+
+
+cd src\app\@core
+mkdir backend
+cd backend
+mkdir common
+cd common
+mkdir api
+mkdir services
+
+cd \src\app\
+--ng g m @core\backend\common --routing=true --module=@core\core.module.ts
+ng g m @core\backend\common-backend --routing=true --module=@core\core.module.ts
+
+pasar a drecorio common y ajustar en core-module.ts
+
+mkdir interfaces
+cd interfaces
+mkdir common
+
+--PAGINAS
+
+cd pages
+mkdir programming
+ng g m pages\programming --routing=true --module=pages\pages.module.ts
+
+crear página
+desde app
+ng g c pages\programming\goods-schedule --module=pages\programming\programming.module.ts
+
+
+--
+agregar opción al menu (side bar)
+
+
+----
+como opera:
+1- Se genera un modulo
+2. se generan los componentes
+3. Se enrutan usna el modulo de routing
+4. Se modifica el sidebar para incluir el menu-- pages-menu.ts
+
+--
+-- Crer módulo de administración
+cd src/app/pages
+ng g m admin --routing=true
+
+-- Crer módulo de subastas
+ng g m auction --routing=true
+
+
+-- Crer módulo principal (main)
+ng g m main --routing=true
+
+-- Crer módulo compartido, se usara desde otros modulos
+ng g m shared --routing=true
+
+
+pagunas de categorias principal
+cd pages
+mkdir main
+cd main
+
+Crear modulo de categorias (sin routing)
+ng g m categories --> solo crea (categories.module.ts)
+
+crear pagina
+
+ng g c categories\subcategories --module=categories\categories.module.ts
+ng g c categories\recomendations --module=categories\categories.module.ts
+ng g c categories\category-item --module=categories\categories.module.ts
+
+
+
+crear página
+desde app
+ng g c pages\programming\goods-schedule --module=pages\programming\programming.module.ts

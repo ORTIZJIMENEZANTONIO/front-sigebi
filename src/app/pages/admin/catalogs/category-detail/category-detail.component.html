@@ -1,0 +1,47 @@
+<nb-card>
+    <!--
+    <nb-card-header>Agregar categoria</nb-card-header>
+-->
+    <nb-card-body>
+        <form [formGroup]="categoryForm">
+            <input type="hidden" formControlName="id" id="name" />
+            <div class="form-group row">
+                <label for="name" class="label col-sm-3 col-form-label">Nombre</label>
+                <div class="col-sm-9">
+                <input type="text" nbInput fullWidth id="name" placeholder="Nombre" formControlName="name" class="form-control"
+                    [status]="(name?.errors?.required || name?.hasError('minlength') || name?.hasError('maxlength') || name?.hasError('pattern')) && name.touched ? 'danger' : ''">
+                <ngx-validation-message label="Nombre" [showMinLength]="name?.hasError('minlength')"
+                    [showMaxLength]="name?.hasError('maxlength')" [showRequired]="name?.errors?.required && name.touched"
+                    [showPattern]="name?.hasError('pattern') && name.touched" minLength=1 maxLength=255>
+                </ngx-validation-message>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="photo" class="label col-sm-3 col-form-label">Foto</label>
+                <div class="col-sm-9">
+                    <input type="file" id="photo" formControlName="photo" nbInput fullWidth (change)="selectFile($event)" [accept]="requiredFileType">
+                </div>
+            </div>
+            <div class="form-group row" *ngIf="category.imageUrl != null" >
+                <label for="photo" class="label col-sm-3 col-form-label">Foto actual</label>
+                <div class="col-sm-9">
+                    <img class="card-img-top img-fluid category_image" [src]="this.dom.bypassSecurityTrustUrl(category.imageUrl)">
+
+                </div>
+            </div>
+            <div *ngIf="currentFile" class="progress">
+                <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar"
+                    attr.aria-valuenow="{{ progress }}" aria-valuemin="0" aria-valuemax="100" [ngStyle]="{ width: progress + '%' }">
+                    {{ progress }}%
+                </div>
+
+            </div>
+            <br/>
+            <div class="form-group row">
+                <div class="offset-sm-3 col-sm-9">
+                    <button type="submit" nbButton status="primary" [disabled]="!categoryForm.valid" (click)="register()">Guardar</button>
+                </div>
+            </div>
+        </form>
+    </nb-card-body>
+</nb-card>

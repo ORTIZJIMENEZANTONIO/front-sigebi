@@ -1,0 +1,61 @@
+<div class="container-fluid pr-5 pl-5">
+  <div class="row">
+    <div class="col-12">
+      <h4 class="text" style="">Recommendations</h4>
+    </div>
+  </div>
+  <hr>
+  <!--
+  <div class="row rounded bg-light p-2">
+    <div class="col-12 ">
+      <app-home-recomendations></app-home-recomendations>
+    </div>
+  </div>
+  <hr>
+  <div class="col-12">
+    <h4 class="text" style="">Explore Categories</h4>
+  </div>
+  <hr>
+  <div class="row card-columns">
+    <app-home-category-item class="col-md-4 p-3" [Item]="category"  *ngFor="let category of (state$ | async).Categories"></app-home-category-item>
+  </div>
+-->
+
+
+<div class="row" >
+  <div class="col-lg-4" *ngFor="let category of categories">
+    <nb-card size="small">
+      <nb-card-header>
+        <img class="card-img-top img-fluid category_image"
+          [src]="this.dom.bypassSecurityTrustUrl(category.imageUrl)">
+      </nb-card-header>
+      <nb-card-body>
+              {{category.name}}
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>
+
+<!--
+<div class="card">
+  <div class="image_container make_pointer">
+    <img class="card-img-top img-fluid category_image"
+      [src]="this.dom.bypassSecurityTrustUrl('data:image/jpg;base64,' + Item.imageUrl)">
+    <div class="text_overlay" (click)="shop_byCat(Item.id)">
+      <div class="category_text">See All >></div>
+    </div>
+  </div>
+  <div class="card-body" style="padding: 0;">
+    <a style="cursor: pointer;">
+      <h5 class="card-title pt-3 pl-3">{{Item.name}}</h5>
+    </a>
+    <ul class="list-group list-group-flush">
+      <app-home-subcategories [Subcategory]="subCat" *ngFor="let subCat of Item.SubCategories ">
+      </app-home-subcategories>
+    </ul>
+  </div>
+</div>
+-->
+</div>
+
+
