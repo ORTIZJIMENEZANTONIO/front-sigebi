@@ -115,7 +115,7 @@ export class GenericListComponent extends BasePage {
 
   readGerenic = ((pageIndex:number, pageSize:number) => {
     this.generics = null;
-    this.service.list(pageIndex, pageSize, 'generics').subscribe((generics:any) =>  {
+    this.service.list(pageIndex, pageSize).subscribe((generics:any) =>  {
       this.generics = generics.data;
       this.length = generics.count;
     }, 

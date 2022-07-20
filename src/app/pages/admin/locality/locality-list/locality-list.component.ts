@@ -107,7 +107,7 @@ export class LocalityListComponent extends BasePage {
 
   readLocality = ((pageIndex:number, pageSize:number) => {
     this.localitys = null;
-    this.service.list(pageIndex, pageSize, 'locality-sae').subscribe((localitys:any) =>  {
+    this.service.list(pageIndex, pageSize).subscribe((localitys:any) =>  {
       this.localitys = localitys.data;
       this.length = localitys.count;
     }, 

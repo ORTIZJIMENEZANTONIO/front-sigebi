@@ -12,20 +12,21 @@ export class StatusProcessService {
     get gridDataSource(): DataSource {
         return this.api.dictamenDataSource;
     }
+    url = "status-process";
     
-    list(pageNumber: number = 1, pageSize: number = 10, url:string) {
-        const data = this.api.list(pageNumber, pageSize, url);
+    list(pageNumber: number = 1, pageSize: number = 10) {
+        const data = this.api.list(pageNumber, pageSize, this.url);
         return data;
     }
     register(statusProcess: StatusProcessModel): Observable<StatusProcessModel>{
-        return this.api.register(statusProcess);
+        return this.api.register(statusProcess, this.url);
     }
 
     update(id:number, statusProcess: StatusProcessModel): Observable<StatusProcessModel>{
-        return this.api.update(id, statusProcess);
+        return this.api.update(id, statusProcess, this.url);
     }
 
     delete(id:number){
-        return this.api.delete(id);
+        return this.api.delete(id, this.url);
     }
 }

@@ -103,7 +103,7 @@ export class MunicipalityListComponent extends BasePage {
 
   readMunicipality = ((pageIndex:number, pageSize:number) => {
     this.municipalitys = null;
-    this.service.list(pageIndex, pageSize, 'municipality-sae').subscribe((municipalitys:any) =>  {
+    this.service.list(pageIndex, pageSize).subscribe((municipalitys:any) =>  {
       this.municipalitys = municipalitys.data;
       this.length = municipalitys.count;
     }, 

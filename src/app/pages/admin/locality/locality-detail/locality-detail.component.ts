@@ -40,7 +40,7 @@ export class LocalityDetailComponent extends BaseApp {
     }
     
   ngOnInit(): void {
-    this.serviceMunicipality.listAll('locality-sae').subscribe(data =>{
+    this.serviceMunicipality.listAll().subscribe(data =>{
       this.municipalitys = data['data'];
     },err =>{
       console.log(err);

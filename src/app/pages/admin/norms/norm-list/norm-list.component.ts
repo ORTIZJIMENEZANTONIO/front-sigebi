@@ -132,7 +132,7 @@ export class NormListComponent extends BasePage {
 
   readNorm = ((pageIndex:number, pageSize:number) => {
     this.norms = null;
-    this.service.list(pageIndex, pageSize, 'norms').subscribe((norms:any) =>  {
+    this.service.list(pageIndex, pageSize).subscribe((norms:any) =>  {
       this.norms = norms.data;
       this.length = norms.count;
     }, 

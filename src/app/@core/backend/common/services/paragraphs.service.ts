@@ -12,20 +12,21 @@ export class ParagraphsService {
     get gridDataSource(): DataSource {
         return this.api.dictamenDataSource;
     }
-    
-    list(pageNumber: number = 1, pageSize: number = 10, url:string) {
-        const data = this.api.list(pageNumber, pageSize, url);
+    url = "cat-paragraphs";
+
+    list(pageNumber: number = 1, pageSize: number = 10) {
+        const data = this.api.list(pageNumber, pageSize, this.url);
         return data;
     }
     register(legendData: ParagraphsModel): Observable<ParagraphsModel>{
-        return this.api.register(legendData);
+        return this.api.register(legendData, this.url);
     }
 
     update(id:number, legendData: ParagraphsModel): Observable<ParagraphsModel>{
-        return this.api.update(id, legendData);
+        return this.api.update(id, legendData, this.url);
     }
 
     delete(id:number){
-        return this.api.delete(id);
+        return this.api.delete(id, this.url);
     }
 }

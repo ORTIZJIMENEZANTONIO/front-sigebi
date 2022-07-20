@@ -98,7 +98,7 @@ export class ParagraphsListComponent extends BasePage {
 
   readParagraphs = ((pageIndex:number, pageSize:number) => {
     this.paragraphs = null;
-    this.service.list(pageIndex, pageSize, 'cat-paragraphs').subscribe((paragraphs:any) =>  {
+    this.service.list(pageIndex, pageSize).subscribe((paragraphs:any) =>  {
       this.paragraphs = paragraphs.data;
       this.length = paragraphs.count;
     }, 

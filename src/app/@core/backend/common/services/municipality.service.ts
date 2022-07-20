@@ -12,22 +12,23 @@ export class MunicipalityService {
     get gridDataSource(): DataSource {
         return this.api.dictamenDataSource;
     }
+    url = "municipality-sae";
     
-    list(pageNumber: number = 1, pageSize: number = 10, url:string) {
-        return this.api.list(pageNumber, pageSize, url);
+    list(pageNumber: number = 1, pageSize: number = 10) {
+        return this.api.list(pageNumber, pageSize, this.url);
     }
-    listAll(url:string) {
-        return this.api.listAll(url);
+    listAll() {
+        return this.api.listAll(this.url);
     }
     register(municipality: MunicipalityModel): Observable<MunicipalityModel>{
-        return this.api.register(municipality);
+        return this.api.register(municipality, this.url);
     }
 
     update(id:number, municipality: MunicipalityModel): Observable<MunicipalityModel>{
-        return this.api.update(id, municipality);
+        return this.api.update(id, municipality, this.url);
     }
 
     delete(id:number){
-        return this.api.delete(id);
+        return this.api.delete(id, this.url);
     }
 }

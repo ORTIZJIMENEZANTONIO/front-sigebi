@@ -12,25 +12,26 @@ export class LocalityService {
     get gridDataSource(): DataSource {
         return this.api.dictamenDataSource;
     }
+    url = "locality-sae";
     
-    list(pageNumber: number = 1, pageSize: number = 10, url:string) {
-        const data = this.api.list(pageNumber, pageSize, url);
+    list(pageNumber: number = 1, pageSize: number = 10) {
+        const data = this.api.list(pageNumber, pageSize, this.url);
         return data;
     }
         
-    listAll(url:string) {
-        const data = this.api.listAll(url);
+    listAll() {
+        const data = this.api.listAll(this.url);
         return data;
     }
     register(locality: LocalityModel): Observable<LocalityModel>{
-        return this.api.register(locality);
+        return this.api.register(locality,this.url);
     }
 
     update(id:number, locality: LocalityModel): Observable<LocalityModel>{
-        return this.api.update(id, locality);
+        return this.api.update(id, locality,this.url);
     }
 
     delete(id:number){
-        return this.api.delete(id);
+        return this.api.delete(id,this.url);
     }
 }

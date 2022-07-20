@@ -88,7 +88,7 @@ export class StatusProcessListComponent extends BasePage {
 
   readStatusProcess = ((pageIndex:number, pageSize:number) => {
     this.statusProcess = null;
-    this.service.list(pageIndex, pageSize, 'status-process').subscribe((statusProcess:any) =>  {
+    this.service.list(pageIndex, pageSize).subscribe((statusProcess:any) =>  {
       this.statusProcess = statusProcess.data;
       this.length = statusProcess.count;
     }, 

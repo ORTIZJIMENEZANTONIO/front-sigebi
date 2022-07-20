@@ -95,7 +95,7 @@ export class DictamentListComponent extends BasePage {
 
   readDictamen = ((pageIndex:number, pageSize:number) => {
     this.paragraphs = null;
-    this.service.list(pageIndex, pageSize,'opinion').subscribe((paragraphs:any) =>  {
+    this.service.list(pageIndex, pageSize).subscribe((paragraphs:any) =>  {
       this.paragraphs = paragraphs.data;
       this.length = paragraphs.count;
     }, 

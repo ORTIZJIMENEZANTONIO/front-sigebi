@@ -19,13 +19,16 @@ export class CatalogApi {
     this.apiController = url;
       return this.api.get(this.apiController);
     }
-  register(paragraph: any): Observable<any>{
+  register(paragraph: any,url:string): Observable<any>{
+    this.apiController = url;
     return this.api.post(this.apiController, paragraph);
   }
-  update(id: number, paragraph:any){
-      return this.api.put(this.apiController+'/'+id, paragraph);
+  update(id: number, paragraph:any, url:string){
+    this.apiController = url;
+    return this.api.put(this.apiController+'/'+id, paragraph);
   }
-  delete(id: number){
+  delete(id: number, url:string){
+    this.apiController = url;
     return this.api.delete(this.apiController+'/'+id);
   }
 }

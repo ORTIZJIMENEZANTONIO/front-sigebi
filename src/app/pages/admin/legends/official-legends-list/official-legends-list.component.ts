@@ -107,7 +107,7 @@ export class OfficialLegendsListComponent extends BasePage {
 
   readLegends = ((pageIndex:number, pageSize:number) => {
     this.legends = null;
-    this.service.list(pageIndex, pageSize, 'official-legends').subscribe((legends:any) =>  {
+    this.service.list(pageIndex, pageSize).subscribe((legends:any) =>  {
       this.legends = legends.data;
       this.length = legends.count;
     }, 

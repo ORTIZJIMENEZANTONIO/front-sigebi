@@ -115,7 +115,7 @@ export class NonDeliveryReasonsListComponent extends BasePage {
 
   readReasons = ((pageIndex:number, pageSize:number) => {
     this.reasons = null;
-    this.service.list(pageIndex, pageSize, 'non-delivery-reasons').subscribe((reasons:any) =>  {
+    this.service.list(pageIndex, pageSize).subscribe((reasons:any) =>  {
       this.reasons = reasons.data;
       this.length = reasons.count;
     }, 
