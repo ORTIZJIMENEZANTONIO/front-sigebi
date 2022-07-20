@@ -19,6 +19,14 @@ const routes: Routes = [
       {
         path: 'deductives', loadChildren: () => import('./deductives/deductives.module')
           .then(m => m.DeductivesModule)
+      },
+      {
+        path: 'dictaments', loadChildren: () => import('./dictamens/dictamens.module')
+          .then(m => m.DictamensModule)
+      },
+      {
+        path: 'sinister', loadChildren: () => import('./type-sinister/type-sinister.module')
+          .then(m => m.TypeSinisterModule)
       }
       //{ path: 'home', component: CategoriesComponent },//ok
     ]

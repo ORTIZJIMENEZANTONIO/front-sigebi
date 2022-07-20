@@ -15,6 +15,7 @@ import { AdminRoutingModule, routedComponents } from './admin-routing.module';
   declarations: [
     //AdminComponent
     ...routedComponents,
+    
     // ParagraphsComponent,
   ],
   imports: [
