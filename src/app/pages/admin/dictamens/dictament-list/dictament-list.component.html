@@ -1,0 +1,27 @@
+<nb-card class="cat-card">
+    <nb-card-header>
+
+        <span class="title">
+            Lista de dictamen
+        </span>
+
+        <div class="add-select">
+            <button (click)="openWindowDictamen()"nbButton status="primary">Nueva</button>
+        </div>
+
+    </nb-card-header>
+
+    <nb-card-body>
+        <ng2-smart-table [settings]="settings" [source]="paragraphs" (delete)="onDeleteConfirm($event)"
+            (edit)="editRow($event)">
+        </ng2-smart-table>
+        <mat-paginator [length]="length"
+               [pageSize]="pageSize"
+               [pageSizeOptions]="pageSizeOptions"
+               (page)="changesPage($event)"
+               [pageIndex] ="pageEvent.pageIndex"
+               >
+        </mat-paginator>
+
+    </nb-card-body>
+</nb-card>

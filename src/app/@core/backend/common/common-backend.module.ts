@@ -18,18 +18,19 @@ import { ParagraphsApi } from './api/paragraphs.api';
 import { ParagraphsService } from './services/paragraphs.service';
 import { DeductiveService } from './services/deductive.service';
 import { DeductiveApi } from './api/deductive.api';
-
-
+import { Dictamenservice } from './services/dictamen.service';
+import { DictamentApi } from './api/dictamens.api';
 
 const API = [
-  CategoryApi, 
-  ImageCategoryApi, 
-  GoodScheduleApi, 
-  HttpService, 
-  LegendsApi, 
-  ParagraphsApi,
-  DeductiveApi
-];
+  CategoryApi,
+  ImageCategoryApi,
+  GoodScheduleApi,
+  HttpService,
+   LegendsApi,
+    ParagraphsApi,
+    DeductiveApi,
+    DictamentApi
+  ];
 
 const SERVICES = [
   //{ provide: GoodScheduleData, useClass: GoodScheduleService },
@@ -38,7 +39,8 @@ const SERVICES = [
   ImageCategoryService,
   LegendsService,
   ParagraphsService,
-  DeductiveService
+  DeductiveService,
+  Dictamenservice
 ];
 
 @NgModule({
