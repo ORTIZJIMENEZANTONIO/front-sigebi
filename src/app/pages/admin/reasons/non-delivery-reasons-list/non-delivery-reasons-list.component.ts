@@ -1,18 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { NbToastrService, NbWindowControlButtonsConfig, NbWindowService} from '@nebular/theme';
 import { BasePage } from '../../../../@core/shared/base-page';
-import { LegendsService } from '../../../../@core/backend/common/services/legends.service';
-import { OfficialLegendsDetailComponent } from '../official-legends-detail/official-legends-detail.component';
+import { NonDeliveryReasonsService } from '../../../../@core/backend/common/services/nonDeliveryReasons.service';
+import { NonDeliveryReasonsDetailComponent } from '../non-delivery-reasons-detail/non-delivery-reasons-detail.component';
 import {MatPaginatorIntl, PageEvent} from '@angular/material/paginator';
+import Swal from 'sweetalert2';
+
 
 @Component({
-  selector: 'ngx-official-legends-list',
-  templateUrl: './official-legends-list.component.html',
-  styleUrls: ['./official-legends-list.component.scss']
+  selector: 'ngx-non-delivery-reasons-list',
+  templateUrl: './non-delivery-reasons-list.component.html',
+  styleUrls: ['./non-delivery-reasons-list.component.scss']
 })
-export class OfficialLegendsListComponent extends BasePage {
-
-  constructor(private service: LegendsService, public toastrService: NbToastrService,
+export class NonDeliveryReasonsListComponent extends BasePage {
+  constructor(private service: NonDeliveryReasonsService, public toastrService: NbToastrService,
     private windowService: NbWindowService, private paginator: MatPaginatorIntl) {
     super(toastrService);
     this.paginator.itemsPerPageLabel = "Registros por página";
@@ -28,14 +29,12 @@ export class OfficialLegendsListComponent extends BasePage {
     pageSize:10,
     length:100
   };
-
   setPageSizeOptions(setPageSizeOptionsInput: string) {
     if (setPageSizeOptionsInput) {
       this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
     }
   }
-
-  legends: any;
+  reasons: any;
   settings = {
     actions: {
       columnTitle: 'Acciones',
@@ -69,8 +68,18 @@ export class OfficialLegendsListComponent extends BasePage {
         //editable: false,
         // width: '25px'
       },
-      legend: {
-        title: 'Leyenda',
+      reasonType: {
+        title: 'Tipo de motivo',
+        type: 'string',
+        editable: true,
+      },
+      eventType: {
+        title: 'Tipo de evento',
+        type: 'string',
+        editable: true,
+      },
+      reason: {
+        title: 'Motivo',
         type: 'string',
         editable: true,
       },
@@ -100,16 +109,15 @@ export class OfficialLegendsListComponent extends BasePage {
     },
     noDataMessage: "No se encontrarón registros"
   };
-
   ngOnInit(): void {
-    this.readLegends(0,10);
+    this.readReasons(0,10);
   }
 
-  readLegends = ((pageIndex:number, pageSize:number) => {
-    this.legends = null;
-    this.service.list(pageIndex, pageSize, 'official-legends').subscribe((legends:any) =>  {
-      this.legends = legends.data;
-      this.length = legends.count;
+  readReasons = ((pageIndex:number, pageSize:number) => {
+    this.reasons = null;
+    this.service.list(pageIndex, pageSize, 'non-delivery-reasons').subscribe((reasons:any) =>  {
+      this.reasons = reasons.data;
+      this.length = reasons.count;
     }, 
     error => this.onLoadFailed('danger','Error conexión',error.message)
     );
@@ -118,19 +126,31 @@ export class OfficialLegendsListComponent extends BasePage {
 
   changesPage (event){
     this.pageEvent = event;
-    this.readLegends(event.pageIndex, event.pageSize)
+    this.readReasons(event.pageIndex, event.pageSize)
+
   }
 
   onDeleteConfirm(event): void {
-    if (window.confirm('Are you sure you want to delete?')) {
-      this.service.delete(event.data.id).subscribe(data =>{
-        this.readLegends(this.pageEvent.pageIndex, this.pageEvent.pageSize);
-      },err =>{
-        console.log(err);
-      })
-    } else {
-      event.confirm.reject();
-    }
+    Swal.fire({
+      title: 'Esta seguro de eliminar el registro?',
+      text: "Esta acción no es revertible!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText:'Cancelar',
+      confirmButtonText: 'Si'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.service.delete(event.data.id).subscribe(data =>{
+          this.readReasons(this.pageEvent.pageIndex, this.pageEvent.pageSize);
+        },err =>{
+          console.log(err);
+        })
+       
+      }
+    })
+    
   }
 
   editRow(event) {
@@ -139,15 +159,15 @@ export class OfficialLegendsListComponent extends BasePage {
       maximize: false,
       fullScreen: false,
     };
-    const modalRef = this.windowService.open(OfficialLegendsDetailComponent, { title: `Editar leyenda`, context: { legend: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
-      this.readLegends(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
+    const modalRef = this.windowService.open(NonDeliveryReasonsDetailComponent, { title: `Editar motivo no entrega`, context: { reason: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
+      this.readReasons(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
   
   }
 
-  openWindowLegend() {
-    const modalRef = this.windowService.open(OfficialLegendsDetailComponent, { title: `Nueva leyenda` }).onClose.subscribe(() => {
-      this.readLegends(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
+  openWindowReason() {
+    const modalRef = this.windowService.open(NonDeliveryReasonsDetailComponent, { title: `Nuevo motivo no entrega` }).onClose.subscribe(() => {
+      this.readReasons(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
     
   }

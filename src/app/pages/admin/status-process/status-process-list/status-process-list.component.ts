@@ -1,18 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { NbToastrService, NbWindowControlButtonsConfig, NbWindowService} from '@nebular/theme';
 import { BasePage } from '../../../../@core/shared/base-page';
-import { ParagraphsService } from '../../../../@core/backend/common/services/paragraphs.service';
-import { ParagraphsDetailComponent } from '../paragraphs-detail/paragraphs-detail.component';
+import { StatusProcessService } from '../../../../@core/backend/common/services/statusProcess.service';
+import { StatusProcessDetailComponent } from '../status-process-detail/status-process-detail.component';
 import {MatPaginatorIntl, PageEvent} from '@angular/material/paginator';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'ngx-paragraphs-list',
-  templateUrl: './paragraphs-list.component.html',
-  styleUrls: ['./paragraphs-list.component.scss']
+  selector: 'ngx-status-process-list',
+  templateUrl: './status-process-list.component.html',
+  styleUrls: ['./status-process-list.component.scss']
 })
-export class ParagraphsListComponent extends BasePage {
-  constructor(private service: ParagraphsService, public toastrService: NbToastrService,
+export class StatusProcessListComponent extends BasePage {
+
+  constructor(private service: StatusProcessService, public toastrService: NbToastrService,
     private windowService: NbWindowService, private paginator: MatPaginatorIntl) {
     super(toastrService);
     this.paginator.itemsPerPageLabel = "Registros por página";
@@ -34,7 +35,8 @@ export class ParagraphsListComponent extends BasePage {
       this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
     }
   }
-  paragraphs: any;
+
+  statusProcess: any;
   settings = {
     actions: {
       columnTitle: 'Acciones',
@@ -62,45 +64,33 @@ export class ParagraphsListComponent extends BasePage {
       confirmDelete: true,
     },
     columns: {
-      id: {
-        title: 'Registro',
-        type: 'number',
-        //editable: false,
-        // width: '25px'
+      status: {
+        title: 'Estatus',
+        type: 'string',
       },
-      paragraph: {
-        title: 'Párrafo',
+      process: {
+        title: 'Proceso',
         type: 'string',
         editable: true,
       },
-      userCreation: {
-        title: 'Creado por',
+      description: {
+        title: 'Descripción',
         type: 'string',
-      },
-      userModification: {
-        title: 'Modificado por',
-        type: 'string',
-      },
-      version: {
-        title: 'Version',
-        type: 'number',
-      },
-      reportName: {
-        title: 'Nombre reporte',
-        type: 'string',
-      },
+        editable: true,
+      }
     },
     noDataMessage: "No se encontrarón registros"
   };
+
   ngOnInit(): void {
-    this.readParagraphs(0,10);
+    this.readStatusProcess(0,10);
   }
 
-  readParagraphs = ((pageIndex:number, pageSize:number) => {
-    this.paragraphs = null;
-    this.service.list(pageIndex, pageSize, 'cat-paragraphs').subscribe((paragraphs:any) =>  {
-      this.paragraphs = paragraphs.data;
-      this.length = paragraphs.count;
+  readStatusProcess = ((pageIndex:number, pageSize:number) => {
+    this.statusProcess = null;
+    this.service.list(pageIndex, pageSize, 'status-process').subscribe((statusProcess:any) =>  {
+      this.statusProcess = statusProcess.data;
+      this.length = statusProcess.count;
     }, 
     error => this.onLoadFailed('danger','Error conexión',error.message)
     );
@@ -109,8 +99,7 @@ export class ParagraphsListComponent extends BasePage {
 
   changesPage (event){
     this.pageEvent = event;
-    this.readParagraphs(event.pageIndex, event.pageSize)
-
+    this.readStatusProcess(event.pageIndex, event.pageSize)
   }
 
   onDeleteConfirm(event): void {
@@ -125,8 +114,8 @@ export class ParagraphsListComponent extends BasePage {
       confirmButtonText: 'Si'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.service.delete(event.data.id).subscribe(data =>{
-          this.readParagraphs(this.pageEvent.pageIndex, this.pageEvent.pageSize);
+        this.service.delete(event.data.status).subscribe(data =>{
+          this.readStatusProcess(this.pageEvent.pageIndex, this.pageEvent.pageSize);
         },err =>{
           console.log(err);
         })
@@ -135,21 +124,22 @@ export class ParagraphsListComponent extends BasePage {
     })
     
   }
+
   editRow(event) {
     const buttonsConfig: NbWindowControlButtonsConfig = {
       minimize: false,
       maximize: false,
       fullScreen: false,
     };
-    const modalRef = this.windowService.open(ParagraphsDetailComponent, { title: `Editar parrafo`, context: { paragraph: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
-      this.readParagraphs(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
+    const modalRef = this.windowService.open(StatusProcessDetailComponent, { title: `Editar estatus proceso`, context: { statusProcess: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
+      this.readStatusProcess(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
   
   }
 
-  openWindowParagraph() {
-    const modalRef = this.windowService.open(ParagraphsDetailComponent, { title: `Nuevo parrafo` }).onClose.subscribe(() => {
-      this.readParagraphs(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
+  openWindowStatusProcess() {
+    const modalRef = this.windowService.open(StatusProcessDetailComponent, { title: `Nuevo estatus proceso` }).onClose.subscribe(() => {
+      this.readStatusProcess(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
     
   }

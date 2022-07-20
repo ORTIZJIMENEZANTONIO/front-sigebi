@@ -1,18 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { NbToastrService, NbWindowControlButtonsConfig, NbWindowService} from '@nebular/theme';
 import { BasePage } from '../../../../@core/shared/base-page';
-import { LegendsService } from '../../../../@core/backend/common/services/legends.service';
-import { OfficialLegendsDetailComponent } from '../official-legends-detail/official-legends-detail.component';
+import { GenericService } from '../../../../@core/backend/common/services/generic.service';
+import { GenericDatailComponent } from '../generic-datail/generic-datail.component';
 import {MatPaginatorIntl, PageEvent} from '@angular/material/paginator';
+import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'ngx-official-legends-list',
-  templateUrl: './official-legends-list.component.html',
-  styleUrls: ['./official-legends-list.component.scss']
+  selector: 'ngx-generic-list',
+  templateUrl: './generic-list.component.html',
+  styleUrls: ['./generic-list.component.scss']
 })
-export class OfficialLegendsListComponent extends BasePage {
+export class GenericListComponent extends BasePage {
 
-  constructor(private service: LegendsService, public toastrService: NbToastrService,
+  constructor(private service: GenericService, public toastrService: NbToastrService,
     private windowService: NbWindowService, private paginator: MatPaginatorIntl) {
     super(toastrService);
     this.paginator.itemsPerPageLabel = "Registros por página";
@@ -35,7 +36,7 @@ export class OfficialLegendsListComponent extends BasePage {
     }
   }
 
-  legends: any;
+  generics: any;
   settings = {
     actions: {
       columnTitle: 'Acciones',
@@ -69,8 +70,18 @@ export class OfficialLegendsListComponent extends BasePage {
         //editable: false,
         // width: '25px'
       },
-      legend: {
-        title: 'Leyenda',
+      name: {
+        title: 'Nombre',
+        type: 'string',
+        editable: true,
+      },
+      keyId: {
+        title: 'Identificador clave',
+        type: 'string',
+        editable: true,
+      },
+      description: {
+        title: 'Descripción',
         type: 'string',
         editable: true,
       },
@@ -86,30 +97,27 @@ export class OfficialLegendsListComponent extends BasePage {
         title: 'Version',
         type: 'number',
       },
-      status: {
+      active: {
         title: 'Estatus',
-        type: 'html',
-        valuePrepareFunction:(value) =>{
-          if(value == 0){
-            return '<strong><span class="badge badge-pill badge-success">Activo</span></strong>';
-          }else{
-            return '<strong><span class="badge badge-pill badge-warning">Inactivo</span></strong>';
-          }
-        }
+        type: 'string',
+      },
+      editable: {
+        title: 'Editable',
+        type: 'string',
       },
     },
     noDataMessage: "No se encontrarón registros"
   };
 
   ngOnInit(): void {
-    this.readLegends(0,10);
+    this.readGerenic(0,10);
   }
 
-  readLegends = ((pageIndex:number, pageSize:number) => {
-    this.legends = null;
-    this.service.list(pageIndex, pageSize, 'official-legends').subscribe((legends:any) =>  {
-      this.legends = legends.data;
-      this.length = legends.count;
+  readGerenic = ((pageIndex:number, pageSize:number) => {
+    this.generics = null;
+    this.service.list(pageIndex, pageSize, 'generics').subscribe((generics:any) =>  {
+      this.generics = generics.data;
+      this.length = generics.count;
     }, 
     error => this.onLoadFailed('danger','Error conexión',error.message)
     );
@@ -118,19 +126,30 @@ export class OfficialLegendsListComponent extends BasePage {
 
   changesPage (event){
     this.pageEvent = event;
-    this.readLegends(event.pageIndex, event.pageSize)
+    this.readGerenic(event.pageIndex, event.pageSize)
   }
 
   onDeleteConfirm(event): void {
-    if (window.confirm('Are you sure you want to delete?')) {
-      this.service.delete(event.data.id).subscribe(data =>{
-        this.readLegends(this.pageEvent.pageIndex, this.pageEvent.pageSize);
-      },err =>{
-        console.log(err);
-      })
-    } else {
-      event.confirm.reject();
-    }
+    Swal.fire({
+      title: 'Esta seguro de eliminar el registro?',
+      text: "Esta acción no es revertible!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText:'Cancelar',
+      confirmButtonText: 'Si'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.service.delete(event.data.name).subscribe(data =>{
+          this.readGerenic(this.pageEvent.pageIndex, this.pageEvent.pageSize);
+        },err =>{
+          console.log(err);
+        })
+       
+      }
+    })
+    
   }
 
   editRow(event) {
@@ -139,15 +158,15 @@ export class OfficialLegendsListComponent extends BasePage {
       maximize: false,
       fullScreen: false,
     };
-    const modalRef = this.windowService.open(OfficialLegendsDetailComponent, { title: `Editar leyenda`, context: { legend: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
-      this.readLegends(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
+    const modalRef = this.windowService.open(GenericDatailComponent, { title: `Editar generico`, context: { generic: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
+      this.readGerenic(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
   
   }
 
-  openWindowLegend() {
-    const modalRef = this.windowService.open(OfficialLegendsDetailComponent, { title: `Nueva leyenda` }).onClose.subscribe(() => {
-      this.readLegends(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
+  openWindowGeneric() {
+    const modalRef = this.windowService.open(GenericDatailComponent, { title: `Nueva generico` }).onClose.subscribe(() => {
+      this.readGerenic(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
     
   }

@@ -1,18 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { NbToastrService, NbWindowControlButtonsConfig, NbWindowService} from '@nebular/theme';
 import { BasePage } from '../../../../@core/shared/base-page';
-import { ParagraphsService } from '../../../../@core/backend/common/services/paragraphs.service';
-import { ParagraphsDetailComponent } from '../paragraphs-detail/paragraphs-detail.component';
+import { NormService } from '../../../../@core/backend/common/services/norm.service';
+import { NormDetailComponent } from '../norm-detail/norm-detail.component';
 import {MatPaginatorIntl, PageEvent} from '@angular/material/paginator';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'ngx-paragraphs-list',
-  templateUrl: './paragraphs-list.component.html',
-  styleUrls: ['./paragraphs-list.component.scss']
+  selector: 'ngx-norm-list',
+  templateUrl: './norm-list.component.html',
+  styleUrls: ['./norm-list.component.scss']
 })
-export class ParagraphsListComponent extends BasePage {
-  constructor(private service: ParagraphsService, public toastrService: NbToastrService,
+export class NormListComponent extends BasePage {
+
+  constructor(private service: NormService, public toastrService: NbToastrService,
     private windowService: NbWindowService, private paginator: MatPaginatorIntl) {
     super(toastrService);
     this.paginator.itemsPerPageLabel = "Registros por página";
@@ -34,7 +35,8 @@ export class ParagraphsListComponent extends BasePage {
       this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
     }
   }
-  paragraphs: any;
+
+  norms: any;
   settings = {
     actions: {
       columnTitle: 'Acciones',
@@ -68,13 +70,44 @@ export class ParagraphsListComponent extends BasePage {
         //editable: false,
         // width: '25px'
       },
-      paragraph: {
-        title: 'Párrafo',
+      norm: {
+        title: 'Norma',
         type: 'string',
         editable: true,
       },
-      userCreation: {
-        title: 'Creado por',
+      article: {
+        title: 'Artículo',
+        type: 'string',
+        editable: true,
+      },
+      type: {
+        title: 'Tipo',
+        type: 'string',
+        editable: true,
+      },
+      characteristics: {
+        title: 'Caracteristicas',
+        type: 'string',
+        editable: true,
+      },
+      merchandise: {
+        title: 'Mercancias',
+        type: 'string',
+      },
+      fundament: {
+        title: 'Fundamento',
+        type: 'string',
+      },
+      objective: {
+        title: 'Objetivo',
+        type: 'string',
+      },
+      destination: {
+        title: 'Destino',
+        type: 'string',
+      },
+      condition: {
+        title: 'Condición',
         type: 'string',
       },
       userModification: {
@@ -85,22 +118,23 @@ export class ParagraphsListComponent extends BasePage {
         title: 'Version',
         type: 'number',
       },
-      reportName: {
-        title: 'Nombre reporte',
+      status: {
+        title: 'Estatus',
         type: 'string',
       },
     },
     noDataMessage: "No se encontrarón registros"
   };
+
   ngOnInit(): void {
-    this.readParagraphs(0,10);
+    this.readNorm(0,10);
   }
 
-  readParagraphs = ((pageIndex:number, pageSize:number) => {
-    this.paragraphs = null;
-    this.service.list(pageIndex, pageSize, 'cat-paragraphs').subscribe((paragraphs:any) =>  {
-      this.paragraphs = paragraphs.data;
-      this.length = paragraphs.count;
+  readNorm = ((pageIndex:number, pageSize:number) => {
+    this.norms = null;
+    this.service.list(pageIndex, pageSize, 'norms').subscribe((norms:any) =>  {
+      this.norms = norms.data;
+      this.length = norms.count;
     }, 
     error => this.onLoadFailed('danger','Error conexión',error.message)
     );
@@ -109,8 +143,7 @@ export class ParagraphsListComponent extends BasePage {
 
   changesPage (event){
     this.pageEvent = event;
-    this.readParagraphs(event.pageIndex, event.pageSize)
-
+    this.readNorm(event.pageIndex, event.pageSize)
   }
 
   onDeleteConfirm(event): void {
@@ -126,7 +159,7 @@ export class ParagraphsListComponent extends BasePage {
     }).then((result) => {
       if (result.isConfirmed) {
         this.service.delete(event.data.id).subscribe(data =>{
-          this.readParagraphs(this.pageEvent.pageIndex, this.pageEvent.pageSize);
+          this.readNorm(this.pageEvent.pageIndex, this.pageEvent.pageSize);
         },err =>{
           console.log(err);
         })
@@ -135,21 +168,22 @@ export class ParagraphsListComponent extends BasePage {
     })
     
   }
+
   editRow(event) {
     const buttonsConfig: NbWindowControlButtonsConfig = {
       minimize: false,
       maximize: false,
       fullScreen: false,
     };
-    const modalRef = this.windowService.open(ParagraphsDetailComponent, { title: `Editar parrafo`, context: { paragraph: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
-      this.readParagraphs(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
+    const modalRef = this.windowService.open(NormDetailComponent, { title: `Editar norma`, context: { norm: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
+      this.readNorm(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
   
   }
 
-  openWindowParagraph() {
-    const modalRef = this.windowService.open(ParagraphsDetailComponent, { title: `Nuevo parrafo` }).onClose.subscribe(() => {
-      this.readParagraphs(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
+  openWindowNorm() {
+    const modalRef = this.windowService.open(NormDetailComponent, { title: `Nueva norma` }).onClose.subscribe(() => {
+      this.readNorm(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
     
   }

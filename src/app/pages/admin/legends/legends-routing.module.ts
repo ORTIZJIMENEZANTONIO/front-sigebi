@@ -6,11 +6,6 @@ import { OfficialLegendsListComponent } from './official-legends-list/official-l
 const routes: Routes = [
   {
     path: '', pathMatch: 'prefix', component: LegendsComponent, children: [
-      /*
-      {
-        path: 'home', loadChildren: () => import('./categories/categories.module')
-          .then(m => m.CategoriesModule)
-      }*/
       { path: 'official', component: OfficialLegendsListComponent },//ok
     ]
   }

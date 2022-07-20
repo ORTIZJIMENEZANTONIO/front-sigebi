@@ -21,6 +21,12 @@ import { DeductiveApi } from './api/deductive.api';
 import { DictamenService } from './services/dictamen.service';
 import { CatalogApi } from './api/catalog-api';
 import { SiniesterService } from './services/type-siniester.service';
+import { NonDeliveryReasonsService } from './services/nonDeliveryReasons.service';
+import { NormService } from './services/norm.service';
+import { GenericService } from './services/generic.service';
+import { StatusProcessService } from './services/statusProcess.service';
+import { MunicipalityService } from './services/municipality.service';
+import { LocalityService } from './services/locality.service';
 
 const API = [
   CategoryApi,
@@ -34,12 +40,16 @@ const API = [
   ];
 
 const SERVICES = [
-  //{ provide: GoodScheduleData, useClass: GoodScheduleService },
-  //{ provide: ImageCategoryData, useClass: ImageCategoryService }
   CategoryService,
   ImageCategoryService,
   LegendsService,
   ParagraphsService,
+  NonDeliveryReasonsService,
+  NormService,
+  GenericService,
+  StatusProcessService,
+  MunicipalityService,
+  LocalityService,
   DeductiveService,
   DictamenService,
   SiniesterService

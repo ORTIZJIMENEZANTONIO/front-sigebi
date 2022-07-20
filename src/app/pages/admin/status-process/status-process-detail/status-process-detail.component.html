@@ -1,0 +1,24 @@
+<nb-card>
+    <nb-card-body>
+        <form [formGroup]="formStatusProcess">
+            <div class="form-group row">
+                <input nbInput fullWidth formControlName="status" matInput placeholder="Estatus">
+                <label class="text-danger" *ngIf="validateStatusProcess['status'].hasError('pattern')"><small>Nombre de estatus inválido!</small></label>
+            </div>
+            <div class="form-group row">
+                <input nbInput fullWidth formControlName="process" matInput placeholder="Proceso">
+                <label class="text-danger" *ngIf="validateStatusProcess['process'].hasError('pattern')"><small>Nombre de proceso inválido!</small></label>
+            </div>
+            <div class="form-group row">
+                <input nbInput fullWidth formControlName="description" matInput placeholder="Descripción">
+                <label class="text-danger" *ngIf="validateStatusProcess['description'].hasError('pattern')"><small>Descripción inválida!</small></label>
+            </div>
+
+            <div class="form-group row">
+                <div class="offset-sm-3 col-sm-9">
+                    <button type="submit" nbButton status="primary" [disabled]="!formStatusProcess.valid" (click)="register()">{{actionBtn}}</button>
+                </div>
+            </div>
+        </form>
+    </nb-card-body>
+</nb-card>

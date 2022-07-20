@@ -3,10 +3,10 @@ import { Observable, of } from 'rxjs';
 
 import { DataSource } from 'ng2-smart-table/lib/lib/data-source/data-source';
 import { CatalogApi } from '../api/catalog-api';
-import { LegendsModel } from '../../../interfaces/auction/legends.model';
+import { LocalityModel } from '../../../interfaces/auction/locality.model';
 
 @Injectable()
-export class LegendsService {
+export class LocalityService {
     constructor(private api: CatalogApi) { }
 
     get gridDataSource(): DataSource {
@@ -17,12 +17,17 @@ export class LegendsService {
         const data = this.api.list(pageNumber, pageSize, url);
         return data;
     }
-    register(legendData: LegendsModel): Observable<LegendsModel>{
-        return this.api.register(legendData);
+        
+    listAll(url:string) {
+        const data = this.api.listAll(url);
+        return data;
+    }
+    register(locality: LocalityModel): Observable<LocalityModel>{
+        return this.api.register(locality);
     }
 
-    update(id:number, legendData: LegendsModel): Observable<LegendsModel>{
-        return this.api.update(id, legendData);
+    update(id:number, locality: LocalityModel): Observable<LocalityModel>{
+        return this.api.update(id, locality);
     }
 
     delete(id:number){

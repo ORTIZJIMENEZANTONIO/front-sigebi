@@ -21,6 +21,30 @@ const routes: Routes = [
           .then(m => m.DeductivesModule)
       },
       {
+        path: 'reasons', loadChildren: () => import('./reasons/reasons.module')
+          .then(m => m.ReasonsModule)
+      },
+      {
+        path: 'norms', loadChildren: () => import('./norms/norms.module')
+          .then(m => m.NormsModule)
+      },
+      {
+        path: 'generics', loadChildren: () => import('./generics/generics.module')
+          .then(m => m.GenericsModule)
+      },
+      {
+        path: 'status-process', loadChildren: () => import('./status-process/status-process.module')
+          .then(m => m.StatusProcessModule)
+      },
+      {
+        path: 'municipalitys', loadChildren: () => import('./municipalitys/municipalitys.module')
+          .then(m => m.MunicipalitysModule)
+      },
+      {
+        path: 'localitys', loadChildren: () => import('./locality/locality.module')
+          .then(m => m.LocalityModule)
+      },
+      {
         path: 'dictaments', loadChildren: () => import('./dictamens/dictamens.module')
           .then(m => m.DictamensModule)
       },

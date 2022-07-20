@@ -15,6 +15,10 @@ export class CatalogApi {
     const params = new HttpParams().set('inicio', `${pageNumber+1}`).set('pageSize', `${pageSize}`);
     return this.api.get(this.apiController, { params });
   }
+  listAll(url:string) {
+    this.apiController = url;
+      return this.api.get(this.apiController);
+    }
   register(paragraph: any): Observable<any>{
     return this.api.post(this.apiController, paragraph);
   }

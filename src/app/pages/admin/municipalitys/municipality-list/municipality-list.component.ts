@@ -1,18 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { NbToastrService, NbWindowControlButtonsConfig, NbWindowService} from '@nebular/theme';
 import { BasePage } from '../../../../@core/shared/base-page';
-import { LegendsService } from '../../../../@core/backend/common/services/legends.service';
-import { OfficialLegendsDetailComponent } from '../official-legends-detail/official-legends-detail.component';
+import { MunicipalityService } from '../../../../@core/backend/common/services/municipality.service';
+import { MunicipalityDetailComponent } from '../municipality-detail/municipality-detail.component';
 import {MatPaginatorIntl, PageEvent} from '@angular/material/paginator';
+import Swal from 'sweetalert2';
+
 
 @Component({
-  selector: 'ngx-official-legends-list',
-  templateUrl: './official-legends-list.component.html',
-  styleUrls: ['./official-legends-list.component.scss']
+  selector: 'ngx-municipality-list',
+  templateUrl: './municipality-list.component.html',
+  styleUrls: ['./municipality-list.component.scss']
 })
-export class OfficialLegendsListComponent extends BasePage {
+export class MunicipalityListComponent extends BasePage {
 
-  constructor(private service: LegendsService, public toastrService: NbToastrService,
+  constructor(private service: MunicipalityService, public toastrService: NbToastrService,
     private windowService: NbWindowService, private paginator: MatPaginatorIntl) {
     super(toastrService);
     this.paginator.itemsPerPageLabel = "Registros por página";
@@ -35,7 +37,7 @@ export class OfficialLegendsListComponent extends BasePage {
     }
   }
 
-  legends: any;
+  municipalitys: any;
   settings = {
     actions: {
       columnTitle: 'Acciones',
@@ -63,14 +65,19 @@ export class OfficialLegendsListComponent extends BasePage {
       confirmDelete: true,
     },
     columns: {
-      id: {
-        title: 'Registro',
+      key: {
+        title: 'Clave',
         type: 'number',
         //editable: false,
         // width: '25px'
       },
-      legend: {
-        title: 'Leyenda',
+      entity: {
+        title: 'Entidad',
+        type: 'string',
+        editable: true,
+      },
+      municipalityName: {
+        title: 'Nombre',
         type: 'string',
         editable: true,
       },
@@ -85,31 +92,20 @@ export class OfficialLegendsListComponent extends BasePage {
       version: {
         title: 'Version',
         type: 'number',
-      },
-      status: {
-        title: 'Estatus',
-        type: 'html',
-        valuePrepareFunction:(value) =>{
-          if(value == 0){
-            return '<strong><span class="badge badge-pill badge-success">Activo</span></strong>';
-          }else{
-            return '<strong><span class="badge badge-pill badge-warning">Inactivo</span></strong>';
-          }
-        }
-      },
+      }
     },
     noDataMessage: "No se encontrarón registros"
   };
 
   ngOnInit(): void {
-    this.readLegends(0,10);
+    this.readMunicipality(0,10);
   }
 
-  readLegends = ((pageIndex:number, pageSize:number) => {
-    this.legends = null;
-    this.service.list(pageIndex, pageSize, 'official-legends').subscribe((legends:any) =>  {
-      this.legends = legends.data;
-      this.length = legends.count;
+  readMunicipality = ((pageIndex:number, pageSize:number) => {
+    this.municipalitys = null;
+    this.service.list(pageIndex, pageSize, 'municipality-sae').subscribe((municipalitys:any) =>  {
+      this.municipalitys = municipalitys.data;
+      this.length = municipalitys.count;
     }, 
     error => this.onLoadFailed('danger','Error conexión',error.message)
     );
@@ -118,19 +114,30 @@ export class OfficialLegendsListComponent extends BasePage {
 
   changesPage (event){
     this.pageEvent = event;
-    this.readLegends(event.pageIndex, event.pageSize)
+    this.readMunicipality(event.pageIndex, event.pageSize)
   }
 
   onDeleteConfirm(event): void {
-    if (window.confirm('Are you sure you want to delete?')) {
-      this.service.delete(event.data.id).subscribe(data =>{
-        this.readLegends(this.pageEvent.pageIndex, this.pageEvent.pageSize);
-      },err =>{
-        console.log(err);
-      })
-    } else {
-      event.confirm.reject();
-    }
+    Swal.fire({
+      title: 'Esta seguro de eliminar el registro?',
+      text: "Esta acción no es revertible!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText:'Cancelar',
+      confirmButtonText: 'Si'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.service.delete(event.data.name).subscribe(data =>{
+          this.readMunicipality(this.pageEvent.pageIndex, this.pageEvent.pageSize);
+        },err =>{
+          console.log(err);
+        })
+       
+      }
+    })
+    
   }
 
   editRow(event) {
@@ -139,15 +146,15 @@ export class OfficialLegendsListComponent extends BasePage {
       maximize: false,
       fullScreen: false,
     };
-    const modalRef = this.windowService.open(OfficialLegendsDetailComponent, { title: `Editar leyenda`, context: { legend: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
-      this.readLegends(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
+    const modalRef = this.windowService.open(MunicipalityDetailComponent, { title: `Editar municipio`, context: { municipality: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
+      this.readMunicipality(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
   
   }
 
-  openWindowLegend() {
-    const modalRef = this.windowService.open(OfficialLegendsDetailComponent, { title: `Nueva leyenda` }).onClose.subscribe(() => {
-      this.readLegends(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
+  openWindowMunicipality() {
+    const modalRef = this.windowService.open(MunicipalityDetailComponent, { title: `Nueva municipio` }).onClose.subscribe(() => {
+      this.readMunicipality(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
     
   }
