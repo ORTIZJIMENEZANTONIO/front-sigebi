@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { NbToastrService, NbWindowControlButtonsConfig, NbWindowService } from '@nebular/theme';
-import { Dictamenservice } from '../../../../@core/backend/common/services/dictamen.service';
+import { service } from '../../../../@core/backend/common/services/service.service';
 import { BasePage } from '../../../../@core/shared/base-page';
 import { DictamentDetailComponent } from '../dictament-detail/dictament-detail.component';
 
@@ -12,7 +12,7 @@ import { DictamentDetailComponent } from '../dictament-detail/dictament-detail.c
 })
 export class DictamentListComponent extends BasePage {
 
-  constructor(private service: Dictamenservice, public toastrService: NbToastrService,
+  constructor(private service: service, public toastrService: NbToastrService,
     private windowService: NbWindowService, private paginator: MatPaginatorIntl) {
     super(toastrService);
     this.paginator.itemsPerPageLabel = "Registros por página";

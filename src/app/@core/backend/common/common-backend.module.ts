@@ -18,7 +18,7 @@ import { ParagraphsApi } from './api/paragraphs.api';
 import { ParagraphsService } from './services/paragraphs.service';
 import { DeductiveService } from './services/deductive.service';
 import { DeductiveApi } from './api/deductive.api';
-import { Dictamenservice } from './services/dictamen.service';
+import { service } from './services/service.service';
 import { DictamentApi } from './api/dictamens.api';
 
 const API = [
@@ -40,7 +40,7 @@ const SERVICES = [
   LegendsService,
   ParagraphsService,
   DeductiveService,
-  Dictamenservice
+  service
 ];
 
 @NgModule({
