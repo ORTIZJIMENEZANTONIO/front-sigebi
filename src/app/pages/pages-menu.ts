@@ -257,6 +257,10 @@ export const MENU_ITEMS: NbMenuItem[] = [
         title: 'Deductivas',
         link: '/pages/admin/deductives',
       },
+      {
+        title: 'Aclaraciones',
+        link: '/pages/admin/clarification',
+      },
 
     ],
   },

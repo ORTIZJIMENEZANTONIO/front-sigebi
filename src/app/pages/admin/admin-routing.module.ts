@@ -19,6 +19,10 @@ const routes: Routes = [
       {
         path: 'deductives', loadChildren: () => import('./deductives/deductives.module')
           .then(m => m.DeductivesModule)
+      },
+      {
+        path: 'clarification', loadChildren: () => import('./clarification/clarification.module')
+          .then(m => m.ClarificationModule)
       }
       //{ path: 'home', component: CategoriesComponent },//ok
     ]
