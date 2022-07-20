@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { NbWindowRef, NbWindowService, NB_WINDOW_CONTEXT } from '@nebular/theme';
-import { Dictamenservice } from '../../../../@core/backend/common/services/dictamen.service';
+import { service } from '../../../../@core/backend/common/services/service.service';
 import { BaseApp } from '../../../../@core/shared/base-app';
 
 @Component({
@@ -17,7 +17,7 @@ export class DictamentDetailComponent  extends BaseApp {
   opinionForm: FormGroup;
   opinion: any = {};
 
-  constructor(private fb: FormBuilder, protected cd: ChangeDetectorRef, protected router: Router, private service: Dictamenservice,
+  constructor(private fb: FormBuilder, protected cd: ChangeDetectorRef, protected router: Router, private service: service,
     public windowRef: NbWindowRef, @Inject(NB_WINDOW_CONTEXT) context, private dom: DomSanitizer,  private windowService: NbWindowService) { 
       super();
       if (null != context.opinion){

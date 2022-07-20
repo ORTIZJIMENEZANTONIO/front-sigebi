@@ -8,7 +8,7 @@ import { DictamentApi } from '../api/dictamens.api';
 import { Dictamen } from '../../../interfaces/auction/dictamen.model';
 
 @Injectable()
-export class Dictamenservice {
+export class service {
     constructor(private api: DictamentApi) { }
 
     get gridDataSource(): DataSource {
