@@ -18,8 +18,9 @@ import { ParagraphsApi } from './api/paragraphs.api';
 import { ParagraphsService } from './services/paragraphs.service';
 import { DeductiveService } from './services/deductive.service';
 import { DeductiveApi } from './api/deductive.api';
-import { service } from './services/service.service';
-import { DictamentApi } from './api/dictamens.api';
+import { DictamenService } from './services/dictamen.service';
+import { CatalogApi } from './api/catalog-api';
+import { SiniesterService } from './services/type-siniester.service';
 
 const API = [
   CategoryApi,
@@ -29,7 +30,7 @@ const API = [
    LegendsApi,
     ParagraphsApi,
     DeductiveApi,
-    DictamentApi
+    CatalogApi
   ];
 
 const SERVICES = [
@@ -40,7 +41,8 @@ const SERVICES = [
   LegendsService,
   ParagraphsService,
   DeductiveService,
-  service
+  DictamenService,
+  SiniesterService
 ];
 
 @NgModule({
