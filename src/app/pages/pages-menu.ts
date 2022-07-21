@@ -258,17 +258,20 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: '/pages/admin/deductives',
       },
       {
-<<<<<<< HEAD
         title: 'Aclaraciones',
         link: '/pages/admin/clarification',
-=======
+      },
+      {
         title: 'Dictamen',
         link: '/pages/admin/dictaments',
       },
       {
         title: 'Tipo Siniestro',
         link: '/pages/admin/sinister',
->>>>>>> 82b7ad4a74c55129c3ae10c61db3cb98c1df2a36
+      },
+      {
+        title: 'Banco',
+        link: '/pages/admin/bank',
       },
 
     ],

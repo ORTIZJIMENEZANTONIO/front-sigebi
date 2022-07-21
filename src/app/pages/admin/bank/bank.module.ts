@@ -10,18 +10,18 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
-import { DeductivesRoutingModule } from './deductives-routing.module';
-import { DeductiveDetailComponent } from './deductive-detail/deductive-detail.component';
-import { DeductiveListComponent } from './deductive-list/deductive-list.component';
+import { BankRoutingModule } from './bank-routing.module';
+import { BankListComponent } from './bank-list/bank-list.component';
+import { BankDetailComponent } from './bank-detail/bank-detail.component';
 
 @NgModule({
   declarations: [
-    DeductiveDetailComponent,
-    DeductiveListComponent
+    BankListComponent,
+    BankDetailComponent
   ],
   imports: [
     CommonModule,
-    DeductivesRoutingModule,
+    BankRoutingModule,
     FormsModule,
     ReactiveFormsModule,
     ComponentsModule,
@@ -37,4 +37,4 @@ import { DeductiveListComponent } from './deductive-list/deductive-list.componen
     MatFormFieldModule
   ]
 })
-export class DeductivesModule { }
+export class BankModule { }

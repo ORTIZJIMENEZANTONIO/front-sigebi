@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { DeductiveListComponent } from './deductive-list/deductive-list.component';
+import { BankListComponent } from './bank-list/bank-list.component';
 
 const routes: Routes = [
   {
-    path: '', component: DeductiveListComponent
+    path: '',
+    component: BankListComponent
   }
 ];
 
@@ -13,4 +14,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class DeductivesRoutingModule { }
+export class BankRoutingModule { }

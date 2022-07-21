@@ -5,9 +5,9 @@ import { HttpService } from './http.service';
 import { DataSource } from 'ng2-smart-table/lib/lib/data-source/data-source';
 
 @Injectable()
-export class DeductiveApi {
+export class ClarificationApi {
 
-  private readonly apiController: string = 'deductive';
+  private readonly apiController: string = 'clarification';
 
   constructor(private api: HttpService, private http: HttpClient) {}
   

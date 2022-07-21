@@ -4,14 +4,14 @@
       Lista de deductivas
     </span>
     <div class="add-select">
-      <button (click)="openWindowDeductive()"nbButton status="primary">Nueva</button>
+      <button (click)="openWindow()"nbButton status="primary">Nueva</button>
     </div>
   </nb-card-header>
 
   <nb-card-body>
     <ng2-smart-table 
       [settings]="settings" 
-      [source]="deductives" 
+      [source]="banks" 
       (delete)="onDeleteConfirm($event)"
       (edit)="editRow($event)">
     </ng2-smart-table>

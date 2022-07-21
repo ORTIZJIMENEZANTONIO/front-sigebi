@@ -1,20 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { NbToastrService, NbWindowControlButtonsConfig, NbWindowService } from '@nebular/theme';
 import { BasePage } from '../../../../@core/shared/base-page';
 
-import { ClarificationService } from '../../../../@core/backend/common/services/clarification.service';
-import { ClarificationDetailComponent } from '../clarification-detail/clarification-detail.component'; 
+import { BankService } from '../../../../@core/backend/common/services/bank.service';
+import { BankDetailComponent } from '../bank-detail/bank-detail.component';
 
 @Component({
-  selector: 'ngx-clarification-list',
-  templateUrl: './clarification-list.component.html',
-  styleUrls: ['./clarification-list.component.scss']
+  selector: 'ngx-bank-list',
+  templateUrl: './bank-list.component.html',
+  styleUrls: ['./bank-list.component.scss']
 })
-export class ClarificationListComponent extends BasePage {
+export class BankListComponent extends BasePage{
 
   constructor(
-    private service: ClarificationService, 
+    private service: BankService, 
     public  toastrService: NbToastrService,
     private windowService: NbWindowService, 
     private paginator: MatPaginatorIntl
@@ -38,7 +38,7 @@ export class ClarificationListComponent extends BasePage {
     if (setPageSizeOptionsInput)
       this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
   }
-  clarifications: any;
+  banks: any;
   settings = {
     actions: {
       columnTitle: 'Acciones',
@@ -66,34 +66,28 @@ export class ClarificationListComponent extends BasePage {
       confirmDelete: true,
     },
     columns: {
-      id: {
-        title: 'Identificador',
-        type: 'number',
+      bankCode: {
+        title: 'Registro',
+        type: 'string'
       },
-      clarification: {
-        title: 'Aclaración',
-        type: 'string',
-        editable: true,
-      },
-      type: {
-        title: 'Tipo',
-        type: 'number',
-        editable: true,
-      },
-      userCreation: {
-        title: 'Creado por',
+      name: {
+        title: 'Nombre',
         type: 'string',
       },
-      userModification: {
-        title: 'Modificado por',
-        type: 'string',
+      registerNumber: {
+        title: 'Número de registro',
+        type: 'number'
       },
-      version: {
-        title: 'Version',
+      ifdsc: {
+        title: 'Porcentaje inicial',
+        type: 'string'
+      },
+      dateType: {
+        title: 'Tipo de fecha',
         type: 'number',
       },
-      active: {
-        title: 'Activo',
+      code: {
+        title: 'Código',
         type: 'number',
       },
     },
@@ -101,14 +95,14 @@ export class ClarificationListComponent extends BasePage {
   };
 
   ngOnInit(): void {
-    this.readClarifications(0,10);
+    this.readBanks(0,10);
   }
 
-  readClarifications = ((pageIndex:number, pageSize:number) => {
-    this.clarifications = null;
-    this.service.list(pageIndex, pageSize).subscribe((clarifications:any) =>  {
-      this.clarifications = clarifications.data;
-      this.length = clarifications.count;
+  readBanks = ((pageIndex:number, pageSize:number) => {
+    this.banks = null;
+    this.service.list(pageIndex, pageSize).subscribe((banks:any) =>  {
+      this.banks = banks.data;
+      this.length = banks.count;
     }, 
     error => this.onLoadFailed('danger','Error conexión',error.message)
     );
@@ -120,13 +114,13 @@ export class ClarificationListComponent extends BasePage {
 
     }
     this.pageEvent = event;
-    this.readClarifications(event.pageIndex, event.pageSize)
+    this.readBanks(event.pageIndex, event.pageSize)
   }
 
   onDeleteConfirm(event): void {
     if (window.confirm('Are you sure you want to delete?')) {
-      this.service.delete(event.data.id).subscribe(data =>{
-        this.readClarifications(this.pageEvent.pageIndex, this.pageEvent.pageSize);
+      this.service.delete(event.data.id).subscribe( () => {
+        this.readBanks(this.pageEvent.pageIndex, this.pageEvent.pageSize);
       },err =>{
         console.log(err);
       })
@@ -141,15 +135,15 @@ export class ClarificationListComponent extends BasePage {
       maximize: false,
       fullScreen: false,
     };
-    const modalRef = this.windowService.open(ClarificationDetailComponent, { title: `Editar aclaración`, context: { clarification: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
-      this.readClarifications(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
+    const modalRef = this.windowService.open(BankDetailComponent, { title: `Editar deductiva`, context: { bank: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
+      this.readBanks(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
   
   }
 
   openWindow() {
-    const modalRef = this.windowService.open(ClarificationDetailComponent, { title: `Nuevo deductiva` }).onClose.subscribe(() => {
-      this.readClarifications(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
+    const modalRef = this.windowService.open(BankDetailComponent, { title: `Nuevo deductiva` }).onClose.subscribe(() => {
+      this.readBanks(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
     
   }

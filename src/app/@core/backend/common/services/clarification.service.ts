@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
 import { DataSource } from 'ng2-smart-table/lib/lib/data-source/data-source';
-import { DeductiveApi } from '../api/deductive.api';
+import { ClarificationApi } from '../api/clarification.api';
 import { DeductiveInterface } from '../../../interfaces/auction/deductive.model';
 
 @Injectable()
-export class DeductiveService {
-    constructor(private api: DeductiveApi) { }
+export class ClarificationService {
+  
+    constructor(private api: ClarificationApi) { }
 
     get gridDataSource(): DataSource {
         return this.api.deductiveDataSource;

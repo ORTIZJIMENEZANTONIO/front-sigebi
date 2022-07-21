@@ -5,26 +5,31 @@ import { HttpService } from './http.service';
 import { DataSource } from 'ng2-smart-table/lib/lib/data-source/data-source';
 
 @Injectable()
-export class DeductiveApi {
+export class BankApi {
 
-  private readonly apiController: string = 'deductive';
+  private readonly apiController: string = 'bank';
 
   constructor(private api: HttpService, private http: HttpClient) {}
   
-  get deductiveDataSource(): DataSource {
+  get dataSource(): DataSource {
     return this.api.getServerDataSource(`${this.api.apiUrl}/${this.apiController}`);
   }
+
   list(pageNumber: number, pageSize: number): Observable<any[]> {
     const params = new HttpParams().set('inicio', `${pageNumber+1}`).set('pageSize', `${pageSize}`);
     return this.api.get(this.apiController, { params });
   }
-  register(deductive: any): Observable<any>{
-    return this.api.post(this.apiController, deductive);
+
+  register(bank: any): Observable<any>{
+    return this.api.post(this.apiController, bank);
   }
-  update(id: number, deductive:any){
-      return this.api.put(this.apiController+'/'+id, deductive);
+
+  update(id: number, bank:any){
+    return this.api.put(this.apiController+'/'+id, bank);
   }
+
   delete(id: number){
     return this.api.delete(this.apiController+'/'+id);
   }
+
 }

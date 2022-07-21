@@ -16,22 +16,29 @@ import { LegendsService } from './services/legends.service';
 
 import { ParagraphsApi } from './api/paragraphs.api';
 import { ParagraphsService } from './services/paragraphs.service';
+
 import { DeductiveService } from './services/deductive.service';
 import { DeductiveApi } from './api/deductive.api';
+
+import { BankService } from './services/bank.service';
+import { BankApi } from './api/bank.api';
+
 import { DictamenService } from './services/dictamen.service';
 import { CatalogApi } from './api/catalog-api';
 import { SiniesterService } from './services/type-siniester.service';
+import { ClarificationService } from './services/clarification.service';
 
 const API = [
   CategoryApi,
   ImageCategoryApi,
   GoodScheduleApi,
   HttpService,
-   LegendsApi,
-    ParagraphsApi,
-    DeductiveApi,
-    CatalogApi
-  ];
+  LegendsApi,
+  ParagraphsApi,
+  BankApi,
+  DeductiveApi,
+  CatalogApi
+];
 
 const SERVICES = [
   //{ provide: GoodScheduleData, useClass: GoodScheduleService },
@@ -40,9 +47,11 @@ const SERVICES = [
   ImageCategoryService,
   LegendsService,
   ParagraphsService,
+  BankService,
   DeductiveService,
   DictamenService,
-  SiniesterService
+  SiniesterService,
+  ClarificationService
 ];
 
 @NgModule({

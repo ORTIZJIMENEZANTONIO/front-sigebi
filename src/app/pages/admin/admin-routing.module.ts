@@ -21,17 +21,20 @@ const routes: Routes = [
           .then(m => m.DeductivesModule)
       },
       {
-<<<<<<< HEAD
         path: 'clarification', loadChildren: () => import('./clarification/clarification.module')
           .then(m => m.ClarificationModule)
-=======
+      },
+      {
         path: 'dictaments', loadChildren: () => import('./dictamens/dictamens.module')
           .then(m => m.DictamensModule)
       },
       {
         path: 'sinister', loadChildren: () => import('./type-sinister/type-sinister.module')
           .then(m => m.TypeSinisterModule)
->>>>>>> 82b7ad4a74c55129c3ae10c61db3cb98c1df2a36
+      },
+      {
+        path: 'bank', loadChildren: () => import('./bank/bank.module')
+        .then(m => m.BankModule)
       }
       //{ path: 'home', component: CategoriesComponent },//ok
     ]
