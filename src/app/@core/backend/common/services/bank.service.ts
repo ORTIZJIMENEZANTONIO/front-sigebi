@@ -2,20 +2,22 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
 import { DataSource } from 'ng2-smart-table/lib/lib/data-source/data-source';
-import { BankApi } from '../api/bank.api';
 import { BankInterface } from '../../../interfaces/auction/bank.model'; 
+import { CatalogApi } from '../api/catalog-api'; 
 
 @Injectable()
 export class BankService {
   
-  constructor( private api: BankApi ) { }
+  constructor( private api: CatalogApi ) { }
 
+  protected url = "bank";
+  
   get gridDataSource(): DataSource {
     return this.api.dataSource;
   }
     
   list(pageNumber: number = 1, pageSize: number = 10) {
-    const data = this.api.list( pageNumber, pageSize );
+    const data = this.api.list( pageNumber, pageSize, this.url );
     return data;
   }
 

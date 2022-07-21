@@ -7,10 +7,10 @@ import { DataSource } from 'ng2-smart-table/lib/lib/data-source/data-source';
 export class CatalogApi {
   private  apiController: string;
   constructor(private api: HttpService, private http: HttpClient) {}
-  get dictamenDataSource(): DataSource {
+  get dataSource(): DataSource {
     return this.api.getServerDataSource(`${this.api.apiUrl}/${this.apiController}`);
   }
-  list(pageNumber: number, pageSize: number,url:string): Observable<any[]> {
+  list(pageNumber: number, pageSize: number,url: string): Observable<any[]> {
   this.apiController = url;
     const params = new HttpParams().set('inicio', `${pageNumber+1}`).set('pageSize', `${pageSize}`);
     return this.api.get(this.apiController, { params });

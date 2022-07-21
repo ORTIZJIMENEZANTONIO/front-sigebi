@@ -12,7 +12,7 @@ export class DictamenService {
     constructor(private api: CatalogApi) { }
 
     get gridDataSource(): DataSource {
-        return this.api.dictamenDataSource;
+        return this.api.dataSource;
     }
     
     list(pageNumber: number = 1, pageSize: number = 10,url:string) {

@@ -17,11 +17,8 @@ import { LegendsService } from './services/legends.service';
 import { ParagraphsApi } from './api/paragraphs.api';
 import { ParagraphsService } from './services/paragraphs.service';
 
-import { DeductiveService } from './services/deductive.service';
-import { DeductiveApi } from './api/deductive.api';
-
 import { BankService } from './services/bank.service';
-import { BankApi } from './api/bank.api';
+import { DeductiveService } from './services/deductive.service';
 
 import { DictamenService } from './services/dictamen.service';
 import { CatalogApi } from './api/catalog-api';
@@ -35,8 +32,6 @@ const API = [
   HttpService,
   LegendsApi,
   ParagraphsApi,
-  BankApi,
-  DeductiveApi,
   CatalogApi
 ];
 
