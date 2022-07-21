@@ -4,6 +4,7 @@ import { BasePage } from '../../../../@core/shared/base-page';
 import { ParagraphsService } from '../../../../@core/backend/common/services/paragraphs.service';
 import { ParagraphsDetailComponent } from '../paragraphs-detail/paragraphs-detail.component';
 import {MatPaginatorIntl, PageEvent} from '@angular/material/paginator';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'ngx-paragraphs-list',
@@ -107,25 +108,33 @@ export class ParagraphsListComponent extends BasePage {
   });
 
   changesPage (event){
-    if(event.pageSize!=this.pageSize){
-
-    }
     this.pageEvent = event;
-    this.readParagraphs(event.pageIndex * event.pageSize, event.pageSize)
+    this.readParagraphs(event.pageIndex, event.pageSize)
+
   }
 
   onDeleteConfirm(event): void {
-    if (window.confirm('Are you sure you want to delete?')) {
-      this.service.delete(event.data.id).subscribe(data =>{
-        this.readParagraphs(this.pageEvent.pageIndex, this.pageEvent.pageSize);
-      },err =>{
-        console.log(err);
-      })
-    } else {
-      event.confirm.reject();
-    }
+    Swal.fire({
+      title: 'Esta seguro de eliminar el registro?',
+      text: "Esta acción no es revertible!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText:'Cancelar',
+      confirmButtonText: 'Si'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.service.delete(event.data.id).subscribe(data =>{
+          this.readParagraphs(this.pageEvent.pageIndex, this.pageEvent.pageSize);
+        },err =>{
+          console.log(err);
+        })
+       
+      }
+    })
+    
   }
-
   editRow(event) {
     const buttonsConfig: NbWindowControlButtonsConfig = {
       minimize: false,

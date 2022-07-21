@@ -87,7 +87,7 @@ export class TypeSinisterListComponent extends BasePage {
 
   readDictamen = ((pageIndex:number, pageSize:number) => {
     this.list = null;
-    this.service.list(pageIndex, pageSize,'type-sinister').subscribe((dt:any) =>  {
+    this.service.list(pageIndex, pageSize).subscribe((dt:any) =>  {
       this.list = dt.data;
       this.length = dt.count;
     }, 

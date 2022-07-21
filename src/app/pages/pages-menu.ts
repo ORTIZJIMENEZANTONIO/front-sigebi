@@ -246,12 +246,36 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: '/pages/admin/catalogs/categories',
       },
       {
+        title: 'Genericos',
+        link: '/pages/admin/generics',
+      },
+      {
         title: 'Leyendas',
         link: '/pages/admin/legends/official',
       },
       {
+        title: 'Localidades',
+        link: '/pages/admin/localitys',
+      },
+      {
+        title: 'Motivos no entrega',
+        link: '/pages/admin/reasons/non-delivery-reasons',
+      },
+      {
+        title: 'Municipios',
+        link: '/pages/admin/municipalitys',
+      },
+      {
+        title: 'Normas',
+        link: '/pages/admin/norms',
+      },
+      {
         title: 'Parrafos',
         link: '/pages/admin/paragraphs',
+      },
+      {
+        title: 'Estatus proceso',
+        link: '/pages/admin/status-process',
       },
       {
         title: 'Deductivas',

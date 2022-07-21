@@ -1,0 +1,38 @@
+<nb-card>
+    <nb-card-body>
+        <form [formGroup]="formLocality">
+            <div class="form-group row">
+                <input maxlength="30" nbInput fullWidth formControlName="key" matInput placeholder="Clave">
+                <label class="text-danger" *ngIf="validateLocality['key'].hasError('pattern')"><small>Ingrese un nombre válido!</small></label>
+            </div>
+            <div class="form-group row">
+                <input maxlength="30" nbInput fullWidth formControlName="entityKey" matInput placeholder="Entidad">
+                <label class="text-danger" *ngIf="validateLocality['entityKey'].hasError('pattern')"><small>Ingrese un valor númerico!</small></label>
+            </div>
+            <div class="form-group row">
+                <select class="form-control" formControlName="municipalityKey" title="Seleccione un municipio">
+                    <option selected disabled >Municipio</option>
+                    <option [value]="item.key" *ngFor="let item of municipalitys">{{item.municipalityName}}</option>
+                </select>
+            </div>
+            <div class="form-group row">
+                <input maxlength="60" nbInput fullWidth formControlName="localityName" matInput placeholder="Localidad">
+                <label class="text-danger" *ngIf="validateLocality['localityName'].hasError('pattern')"><small>Ingrese un nombre válido!</small></label>
+            </div>
+            <div class="form-group row">
+                <input maxlength="60" nbInput fullWidth formControlName="ambitKey" matInput placeholder="Amb. Clave">
+                <label class="text-danger" *ngIf="validateLocality['ambitKey'].hasError('pattern')"><small>Ingrese un nombre válido!</small></label>
+            </div>
+            <div class="form-group row">
+                <input nbInput fullWidth formControlName="version" matInput placeholder="version">
+                <label class="text-danger" *ngIf="validateLocality['version'].hasError('pattern')"><small>Numero de versión no válida!</small></label>
+            </div>
+            <div class="form-group row">
+                <div class="offset-sm-3 col-sm-9">
+                    <button type="submit" nbButton status="primary" [disabled]="!formLocality.valid" (click)="register()">{{actionBtn}}</button>
+                </div>
+            </div>
+        </form>
+    </nb-card-body>
+</nb-card>
+

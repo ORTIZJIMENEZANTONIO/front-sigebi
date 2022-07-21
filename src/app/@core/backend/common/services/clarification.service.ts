@@ -20,15 +20,15 @@ export class ClarificationService {
         const data = this.api.list(pageNumber, pageSize, this.url);
         return data;
     }
-    register(legendData: DeductiveInterface): Observable<DeductiveInterface>{
-        return this.api.register(legendData);
+    register(data: DeductiveInterface): Observable<DeductiveInterface>{
+        return this.api.register(data, this.url);
     }
 
-    update(id:number, legendData: DeductiveInterface): Observable<DeductiveInterface>{
-        return this.api.update(id, legendData);
+    update(id:number, data: DeductiveInterface): Observable<DeductiveInterface>{
+        return this.api.update(id, data, this.url);
     }
 
     delete(id:number){
-        return this.api.delete(id);
+        return this.api.delete(id, this.url);
     }
 }

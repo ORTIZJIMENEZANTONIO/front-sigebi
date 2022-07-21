@@ -117,11 +117,8 @@ export class OfficialLegendsListComponent extends BasePage {
   });
 
   changesPage (event){
-    if(event.pageSize!=this.pageSize){
-
-    }
     this.pageEvent = event;
-    this.readLegends(event.pageIndex * event.pageSize, event.pageSize)
+    this.readLegends(event.pageIndex, event.pageSize)
   }
 
   onDeleteConfirm(event): void {

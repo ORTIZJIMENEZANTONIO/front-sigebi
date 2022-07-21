@@ -15,13 +15,20 @@ export class CatalogApi {
     const params = new HttpParams().set('inicio', `${pageNumber+1}`).set('pageSize', `${pageSize}`);
     return this.api.get(this.apiController, { params });
   }
-  register(paragraph: any): Observable<any>{
+  listAll(url:string) {
+    this.apiController = url;
+      return this.api.get(this.apiController);
+    }
+  register(paragraph: any,url:string): Observable<any>{
+    this.apiController = url;
     return this.api.post(this.apiController, paragraph);
   }
-  update(id: number, paragraph:any){
-      return this.api.put(this.apiController+'/'+id, paragraph);
+  update(id: number, paragraph:any, url:string){
+    this.apiController = url;
+    return this.api.put(this.apiController+'/'+id, paragraph);
   }
-  delete(id: number){
+  delete(id: number, url:string){
+    this.apiController = url;
     return this.api.delete(this.apiController+'/'+id);
   }
 }

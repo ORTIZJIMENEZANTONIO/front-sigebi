@@ -80,11 +80,11 @@ export class ClarificationListComponent extends BasePage {
         type: 'number',
         editable: true,
       },
-      userCreation: {
+      creationUser: {
         title: 'Creado por',
         type: 'string',
       },
-      userModification: {
+      editionUser: {
         title: 'Modificado por',
         type: 'string',
       },

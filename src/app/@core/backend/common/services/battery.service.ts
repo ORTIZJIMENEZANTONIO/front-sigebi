@@ -22,14 +22,14 @@ export class BankService {
   }
 
   register( data: BankInterface ): Observable<BankInterface>{
-    return this.api.register( data );
+    return this.api.register( data, this.url );
   }
 
-  update(id:number, legendData: BankInterface): Observable<BankInterface>{
-    return this.api.update( id, legendData );
+  update(id:number, data: BankInterface): Observable<BankInterface>{
+    return this.api.update( id, data, this.url );
   }
 
   delete(id:number){
-    return this.api.delete( id );
+    return this.api.delete( id, this.url );
   }
 }
