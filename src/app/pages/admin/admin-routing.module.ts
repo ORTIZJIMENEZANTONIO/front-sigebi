@@ -59,6 +59,10 @@ const routes: Routes = [
       {
         path: 'bank', loadChildren: () => import('./bank/bank.module')
         .then(m => m.BankModule)
+      },
+      {
+        path: 'battery', loadChildren: () => import('./battery/battery.module')
+        .then(m => m.BatteryModule)
       }
       //{ path: 'home', component: CategoriesComponent },//ok
     ]

@@ -242,8 +242,32 @@ export const MENU_ITEMS: NbMenuItem[] = [
     icon: 'folder',
     children: [
       {
+        title: 'Aclaraciones',
+        link: '/pages/admin/clarification',
+      },
+      {
+        title: 'Banco',
+        link: '/pages/admin/bank',
+      },
+      {
+        title: 'Bateria',
+        link: '/pages/admin/battery',
+      },
+      {
         title: 'Categorias',
         link: '/pages/admin/catalogs/categories',
+      },
+      {
+        title: 'Deductivas',
+        link: '/pages/admin/deductives',
+      },
+      {
+        title: 'Dictamen',
+        link: '/pages/admin/dictaments',
+      },
+      {
+        title: 'Estatus proceso',
+        link: '/pages/admin/status-process',
       },
       {
         title: 'Genericos',
@@ -272,31 +296,12 @@ export const MENU_ITEMS: NbMenuItem[] = [
       {
         title: 'Parrafos',
         link: '/pages/admin/paragraphs',
-      },
-      {
-        title: 'Estatus proceso',
-        link: '/pages/admin/status-process',
-      },
-      {
-        title: 'Deductivas',
-        link: '/pages/admin/deductives',
-      },
-      {
-        title: 'Aclaraciones',
-        link: '/pages/admin/clarification',
-      },
-      {
-        title: 'Dictamen',
-        link: '/pages/admin/dictaments',
-      },
+      },      
       {
         title: 'Tipo Siniestro',
         link: '/pages/admin/sinister',
       },
-      {
-        title: 'Banco',
-        link: '/pages/admin/bank',
-      },
+      
 
     ],
   },

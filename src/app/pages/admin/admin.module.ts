@@ -15,12 +15,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ComponentsModule } from '../../@components/components.module';
 
-
 @NgModule({
   declarations: [
     //AdminComponent
-    ...routedComponents,
-    
+    ...routedComponents,    
     // ParagraphsComponent,
   ],
   imports: [
