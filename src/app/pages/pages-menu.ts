@@ -258,6 +258,10 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: '/pages/admin/catalogs/categories',
       },
       {
+        title: 'Día festivo',
+        link: '/pages/admin/holiday',
+      },
+      {
         title: 'Deductivas',
         link: '/pages/admin/deductives',
       },

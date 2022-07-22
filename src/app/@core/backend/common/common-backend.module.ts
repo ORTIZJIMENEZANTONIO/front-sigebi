@@ -18,6 +18,8 @@ import { ParagraphsApi } from './api/paragraphs.api';
 import { ParagraphsService } from './services/paragraphs.service';
 
 import { BankService } from './services/bank.service';
+import { BatteryService } from './services/battery.service';
+import { HolidayService } from './services/holiday.service';
 import { DeductiveService } from './services/deductive.service';
 
 import { DictamenService } from './services/dictamen.service';
@@ -56,7 +58,9 @@ const SERVICES = [
   DeductiveService,
   DictamenService,
   SiniesterService,
-  ClarificationService
+  ClarificationService,
+  BatteryService,
+  HolidayService
 ];
 
 @NgModule({

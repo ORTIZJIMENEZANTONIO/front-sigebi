@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminComponent } from './admin.component';
+
 const routes: Routes = [
   {
     path: '', pathMatch: 'prefix', component: AdminComponent, children: [
@@ -63,7 +64,11 @@ const routes: Routes = [
       {
         path: 'battery', loadChildren: () => import('./battery/battery.module')
         .then(m => m.BatteryModule)
-      }
+      },
+      {
+        path: 'holiday', loadChildren: () => import('./holiday/holiday.module')
+        .then(m => m.HolidayModule)
+      },
       //{ path: 'home', component: CategoriesComponent },//ok
     ]
   }

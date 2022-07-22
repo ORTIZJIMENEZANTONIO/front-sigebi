@@ -2,29 +2,30 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
 import { DataSource } from 'ng2-smart-table/lib/lib/data-source/data-source';
-import { BatteryInterface } from '../../../interfaces/auction/battery.model';  
 import { CatalogApi } from '../api/catalog-api'; 
+import { HolidayInterface } from '../../../interfaces/auction/holiday.module';
 
 @Injectable()
-export class BatteryService {
+export class HolidayService {
   
   constructor( private api: CatalogApi ) { }
 
-  protected url = "battery";
+  url = "holiday";
   
   get gridDataSource(): DataSource {
     return this.api.dataSource;
   }
     
   list(pageNumber: number = 1, pageSize: number = 10) {
-    return this.api.list( pageNumber, pageSize, this.url );
+    const data = this.api.list( pageNumber, pageSize, this.url );
+    return data;
   }
 
-  register( data: BatteryInterface ): Observable<BatteryInterface>{
+  register( data: HolidayInterface ): Observable<HolidayInterface>{
     return this.api.register( data, this.url );
   }
 
-  update(id:number, data: BatteryInterface): Observable<BatteryInterface>{
+  update(id:number, data: HolidayInterface): Observable<HolidayInterface>{
     return this.api.update( id, data, this.url );
   }
 

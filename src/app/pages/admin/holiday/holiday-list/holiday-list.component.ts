@@ -3,18 +3,18 @@ import { MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { NbToastrService, NbWindowControlButtonsConfig, NbWindowService } from '@nebular/theme';
 import { BasePage } from '../../../../@core/shared/base-page';
 
-import { DeductiveService } from '../../../../@core/backend/common/services/deductive.service';
-import { DeductiveDetailComponent } from '../deductive-detail/deductive-detail.component';
+import { HolidayService } from '../../../../@core/backend/common/services/holiday.service';
+import { HolidayDetailComponent } from '../holiday-detail/holiday-detail.component';
 
 @Component({
-  selector: 'ngx-deductive-list',
-  templateUrl: './deductive-list.component.html',
-  styleUrls: ['./deductive-list.component.scss']
+  selector: 'ngx-holiday-list',
+  templateUrl: './holiday-list.component.html',
+  styleUrls: ['./holiday-list.component.scss']
 })
-export class DeductiveListComponent extends BasePage {
+export class HolidayListComponent extends BasePage {
 
   constructor(
-    private service: DeductiveService, 
+    private service: HolidayService, 
     public  toastrService: NbToastrService,
     private windowService: NbWindowService, 
     private paginator: MatPaginatorIntl
@@ -34,7 +34,7 @@ export class DeductiveListComponent extends BasePage {
     length:100
   };
 
-  deductives: any;
+  holidays: any;
   settings = {
     actions: {
       columnTitle: 'Acciones',
@@ -66,21 +66,13 @@ export class DeductiveListComponent extends BasePage {
         title: 'Registro',
         type: 'number'
       },
-      serviceType: {
-        title: 'Tipo de servicio',
+      holidayDate: {
+        title: 'Fecha',
         type: 'string',
       },
-      weightedDeduction: {
-        title: 'Ponderación',
-        type: 'number'
-      },
-      startingRankPercentage: {
-        title: 'Porcentaje inicial',
-        type: 'number'
-      },
-      finalRankPercentage: {
-        title: 'Porcentaje final',
-        type: 'number'
+      description: {
+        title: 'Descripción',
+        type: 'string'
       },
       creationUser: {
         title: 'Creado por',
@@ -105,16 +97,12 @@ export class DeductiveListComponent extends BasePage {
           }
         }
       },
-      contractNumber: {
-        title: 'No. de contrato',
-        type: 'number',
-      },
     },
     noDataMessage: "No se encontrarón registros"
   };
 
   ngOnInit(): void {
-    this.readDeductives(0,10);
+    this.readHolidays(0,10);
   }
   
   setPageSizeOptions(setPageSizeOptionsInput: string) {
@@ -122,15 +110,12 @@ export class DeductiveListComponent extends BasePage {
       this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
   }
 
-  readDeductives = ((pageIndex:number, pageSize:number) => {
-    this.deductives = null;
-    this.service.list(pageIndex, pageSize).subscribe((deductives:any) =>  {
-      this.deductives = deductives.data;
-      this.length = deductives.count;
-    }, 
-    error => this.onLoadFailed('danger','Error conexión',error.message)
-    );
-
+  readHolidays = ((pageIndex:number, pageSize:number) => {
+    this.holidays = null;
+    this.service.list(pageIndex, pageSize).subscribe((holidays:any) => {
+      this.holidays = holidays.data;
+      this.length = holidays.count;
+    }, error => this.onLoadFailed('danger','Error conexión',error.message) );
   });
 
   changesPage (event){
@@ -138,13 +123,13 @@ export class DeductiveListComponent extends BasePage {
 
     }
     this.pageEvent = event;
-    this.readDeductives(event.pageIndex, event.pageSize)
+    this.readHolidays(event.pageIndex, event.pageSize)
   }
 
   onDeleteConfirm(event): void {
     if (window.confirm('Are you sure you want to delete?')) {
-      this.service.delete(event.data.id).subscribe(data =>{
-        this.readDeductives(this.pageEvent.pageIndex, this.pageEvent.pageSize);
+      this.service.delete(event.data.id).subscribe( () => {
+        this.readHolidays(this.pageEvent.pageIndex, this.pageEvent.pageSize);
       },err =>{
         console.log(err);
       })
@@ -159,15 +144,15 @@ export class DeductiveListComponent extends BasePage {
       maximize: false,
       fullScreen: false,
     };
-    const modalRef = this.windowService.open(DeductiveDetailComponent, { title: `Editar deductiva`, context: { deductive: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
-      this.readDeductives(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
+    const modalRef = this.windowService.open(HolidayDetailComponent, { title: `Editar día festivo`, context: { holiday: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
+      this.readHolidays(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
   
   }
 
-  openWindowDeductive() {
-    const modalRef = this.windowService.open(DeductiveDetailComponent, { title: `Nuevo deductiva` }).onClose.subscribe(() => {
-      this.readDeductives(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
+  openWindow() {
+    const modalRef = this.windowService.open(HolidayDetailComponent, { title: `Nuevo día festivo` }).onClose.subscribe(() => {
+      this.readHolidays(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
     
   }

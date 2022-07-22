@@ -4,10 +4,10 @@ import { NbToastrService, NbWindowControlButtonsConfig, NbWindowService } from '
 import { BasePage } from '../../../../@core/shared/base-page';
 
 import { BatteryService } from '../../../../@core/backend/common/services/battery.service';
-import { BankDetailComponent } from '../../bank/bank-detail/bank-detail.component'; 
+import { BatteryDetailComponent } from '../battery-detail/battery-detail.component';
 
 @Component({
-  selector: 'ngx-bank-list',
+  selector: 'ngx-battery-list',
   templateUrl: './battery-list.component.html',
   styleUrls: ['./battery-list.component.scss']
 })
@@ -91,10 +91,10 @@ export class BatteryListComponent extends BasePage {
   };
 
   ngOnInit(): void {
-    this.readbatteries(0,10);
+    this.readBatteries(0,10);
   }
 
-  readbatteries = ((pageIndex:number, pageSize:number) => {
+  readBatteries = ((pageIndex:number, pageSize:number) => {
     this.batteries = null;
     this.service.list(pageIndex, pageSize).subscribe((batteries:any) =>  {
       this.batteries = batteries.data;
@@ -110,13 +110,13 @@ export class BatteryListComponent extends BasePage {
 
     }
     this.pageEvent = event;
-    this.readbatteries(event.pageIndex, event.pageSize)
+    this.readBatteries(event.pageIndex, event.pageSize)
   }
 
   onDeleteConfirm(event): void {
     if (window.confirm('Are you sure you want to delete?')) {
       this.service.delete(event.data.id).subscribe( () => {
-        this.readbatteries(this.pageEvent.pageIndex, this.pageEvent.pageSize);
+        this.readBatteries(this.pageEvent.pageIndex, this.pageEvent.pageSize);
       },err =>{
         console.log(err);
       })
@@ -131,15 +131,15 @@ export class BatteryListComponent extends BasePage {
       maximize: false,
       fullScreen: false,
     };
-    const modalRef = this.windowService.open(BankDetailComponent, { title: `Editar deductiva`, context: { bank: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
-      this.readbatteries(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
+    const modalRef = this.windowService.open(BatteryDetailComponent, { title: `Editar batteria`, context: { battery: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
+      this.readBatteries(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
   
   }
 
   openWindow() {
-    const modalRef = this.windowService.open(BankDetailComponent, { title: `Nuevo deductiva` }).onClose.subscribe(() => {
-      this.readbatteries(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
+    const modalRef = this.windowService.open(BatteryDetailComponent, { title: `Nueva bateria` }).onClose.subscribe(() => {
+      this.readBatteries(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
     
   }
