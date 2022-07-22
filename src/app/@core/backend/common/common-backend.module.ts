@@ -21,6 +21,7 @@ import { BankService } from './services/bank.service';
 import { BatteryService } from './services/battery.service';
 import { HolidayService } from './services/holiday.service';
 import { DeductiveService } from './services/deductive.service';
+import { ZipCodeService } from './services/zip-code.service';
 
 import { DictamenService } from './services/dictamen.service';
 import { CatalogApi } from './api/catalog-api';
@@ -60,7 +61,8 @@ const SERVICES = [
   SiniesterService,
   ClarificationService,
   BatteryService,
-  HolidayService
+  HolidayService,
+  ZipCodeService
 ];
 
 @NgModule({

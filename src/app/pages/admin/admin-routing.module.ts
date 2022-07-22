@@ -69,6 +69,10 @@ const routes: Routes = [
         path: 'holiday', loadChildren: () => import('./holiday/holiday.module')
         .then(m => m.HolidayModule)
       },
+      {
+        path: 'zip-code', loadChildren: () => import('./zip-code/zip-code.module')
+        .then(m => m.ZipCodeModule)
+      }
       //{ path: 'home', component: CategoriesComponent },//ok
     ]
   }
