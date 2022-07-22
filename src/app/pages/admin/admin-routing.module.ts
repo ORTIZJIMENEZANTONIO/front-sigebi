@@ -76,6 +76,10 @@ const routes: Routes = [
       {
         path: 'station', loadChildren: () => import('./station/station.module')
         .then(m => m.StationModule)
+      },
+      {
+        path: 'state-of-republic', loadChildren: () => import('./state-of-republic/state-of-republic.module')
+        .then(m => m.StateOfRepublicModule)
       }
       //{ path: 'home', component: CategoriesComponent },//ok
     ]

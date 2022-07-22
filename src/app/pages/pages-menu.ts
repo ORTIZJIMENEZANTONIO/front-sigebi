@@ -282,6 +282,10 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: '/pages/admin/status-process',
       },
       {
+        title: 'Estado',
+        link: '/pages/admin/state-of-republic',
+      },
+      {
         title: 'Genericos',
         link: '/pages/admin/generics',
       },
