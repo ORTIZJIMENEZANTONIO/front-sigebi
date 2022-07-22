@@ -51,6 +51,14 @@ const routes: Routes = [
       {
         path: 'sinister', loadChildren: () => import('./type-sinister/type-sinister.module')
           .then(m => m.TypeSinisterModule)
+      },
+      {
+        path: 'frantions', loadChildren: () => import('./fractions/fractions.module')
+          .then(m => m.FractionsModule)
+      },
+      {
+        path: 'typewarehouses', loadChildren: () => import('./type-warehouses/type-warehouses.module')
+          .then(m => m.TypeWarehousesModule)
       }
       //{ path: 'home', component: CategoriesComponent },//ok
     ]

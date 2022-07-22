@@ -1,0 +1,93 @@
+<nb-card>
+    <nb-card-body>
+        <form [formGroup]="formFraction" >
+            <div class="form-group row ">
+                <div class="col-md-6" >
+                    <input maxlength="30" class="styles" formControlName="code" matInput placeholder="Codigo">
+                    <label class="text-danger" *ngIf="validateFraction['code'].hasError('pattern')"><small>Campo inválido!</small></label>
+                </div>
+                <div class="col-md-6">
+                    <input maxlength="30" class="styles" formControlName="level" matInput placeholder="Nivel">
+                <label class="text-danger" *ngIf="validateFraction['level'].hasError('pattern')"><small>Campo inválido!</small></label>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-6 ">
+                    <input class="styles" formControlName="description" matInput placeholder="Descripción">
+                    <label class="text-danger" *ngIf="validateFraction['description'].hasError('pattern')"><small>Campo inválido!</small></label>
+                </div>
+                <div class="col-md-6">
+                    <input class="styles" formControlName="parentId" matInput placeholder="Padre">
+                    <label class="text-danger" *ngIf="validateFraction['parentId'].hasError('pattern')"><small>Campo inválido!</small></label>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-6">
+                    <input class="styles" formControlName="normId" matInput placeholder="Norma">
+                    <label class="text-danger" *ngIf="validateFraction['normId'].hasError('pattern')"><small>Campo inválido!</small></label>
+                </div>
+                <div class="col-md-6">
+                    <input maxlength="30" class="styles" formControlName="unit" matInput placeholder="Unidad">
+                    <label class="text-danger" *ngIf="validateFraction['unit'].hasError('pattern')"><small>Campo inválido!</small></label>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-6">
+                    <input class="styles" formControlName="clasificationId" matInput placeholder="Clasificacion">
+                <label class="text-danger" *ngIf="validateFraction['clasificationId'].hasError('pattern')"><small>Campo inválido!</small></label>
+                </div>
+                <div class="col-md-6">
+                    <input class="styles" formControlName="version" matInput placeholder="version">
+                    <label class="text-danger" *ngIf="validateFraction['version'].hasError('pattern')"><small>Numero de versión no válida!</small></label>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-6">
+                    <input class="styles" formControlName="relevantTypeId" matInput placeholder="Tipo relevante">
+                    <label class="text-danger" *ngIf="validateFraction['relevantTypeId'].hasError('pattern')"><small>Ingrese un campo númerico!</small></label>
+                </div>
+                <div class="col-md-6">
+                    <input  maxlength="30" class="styles" formControlName="codeErp1" matInput placeholder="Codigo Erp1">
+                    <label class="text-danger" *ngIf="validateFraction['codeErp1'].hasError('pattern')"><small>Ingrese máximo 20 caracteres!</small></label>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-6">
+                    <input  maxlength="30" class="styles" formControlName="codeErp2" matInput placeholder="Codigo Erp2">
+                    <label class="text-danger" *ngIf="validateFraction['codeErp2'].hasError('pattern')"><small>Ingrese máximo 30 caracteres!</small></label>
+                </div>
+                <div class="col-md-6">
+                    <input  maxlength="30" class="styles" formControlName="codeErp3" matInput placeholder="Codigo Erp3">
+                    <label class="text-danger" *ngIf="validateFraction['codeErp3'].hasError('pattern')"><small>Ingrese máximo 30 caracteres!</small></label>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-6">
+                    <input  maxlength="1" class="styles" formControlName="decimalAmount" matInput placeholder="Cantidad decimal">
+                    <label class="text-danger" *ngIf="validateFraction['decimalAmount'].hasError('pattern')"><small>Ingrese máximo 20 caracteres!</small></label>
+                </div>
+                <div class="col-md-6">
+                    <input  maxlength="20" class="styles" formControlName="status" matInput placeholder="Estatus">
+                    <label class="text-danger" *ngIf="validateFraction['status'].hasError('pattern')"><small>Ingrese máximo 20 caracteres!</small></label>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <input class="styles" formControlName="fractionCode" matInput placeholder="Codigo fracción">
+                    <label class="text-danger" *ngIf="validateFraction['fractionCode'].hasError('pattern')"><small>Ingrese un valor númerico!</small></label>
+                </div>
+            </div>
+
+            <div class="form-group row justify-content-center">
+                <div class="col-auto text-center">
+                    <button type="submit" nbButton status="primary" [disabled]="!formFraction.valid" (click)="register()">{{actionBtn}}</button>
+                </div>
+            </div>
+        </form>
+    </nb-card-body>
+</nb-card>

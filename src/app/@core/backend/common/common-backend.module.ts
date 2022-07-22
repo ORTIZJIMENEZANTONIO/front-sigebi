@@ -27,6 +27,8 @@ import { GenericService } from './services/generic.service';
 import { StatusProcessService } from './services/statusProcess.service';
 import { MunicipalityService } from './services/municipality.service';
 import { LocalityService } from './services/locality.service';
+import { FractionsService } from './services/fractions.service';
+import { TypeWarehouseService } from './services/typeWarehouses.service';
 
 const API = [
   CategoryApi,
@@ -52,7 +54,9 @@ const SERVICES = [
   LocalityService,
   DeductiveService,
   DictamenService,
-  SiniesterService
+  SiniesterService,
+  FractionsService,
+  TypeWarehouseService
 ];
 
 @NgModule({
