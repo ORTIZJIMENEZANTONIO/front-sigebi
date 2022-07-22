@@ -274,6 +274,10 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: '/pages/admin/dictaments',
       },
       {
+        title: 'Emisora',
+        link: '/pages/admin/station',
+      },
+      {
         title: 'Estatus proceso',
         link: '/pages/admin/status-process',
       },

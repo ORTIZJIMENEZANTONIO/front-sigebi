@@ -72,6 +72,10 @@ const routes: Routes = [
       {
         path: 'zip-code', loadChildren: () => import('./zip-code/zip-code.module')
         .then(m => m.ZipCodeModule)
+      },
+      {
+        path: 'station', loadChildren: () => import('./station/station.module')
+        .then(m => m.StationModule)
       }
       //{ path: 'home', component: CategoriesComponent },//ok
     ]
