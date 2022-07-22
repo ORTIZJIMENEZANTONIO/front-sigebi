@@ -1,13 +1,13 @@
-export interface ZipCodeInterface {
-  
-  code: string;
-  entityKey: string;
-  townshipKey: string
-  localityKey: string
-  settlementKey: string
+export interface HolidayInterface {
+
+  id: number | null;
+  holidayDate: Date;
+  description: string;
   creationUser: string
   creationDate: Date;
-  editionUser: string
+  editionUser: string;
   modificationDate: Date;
+  version: number | null;
+  status: number | null;
   
 }

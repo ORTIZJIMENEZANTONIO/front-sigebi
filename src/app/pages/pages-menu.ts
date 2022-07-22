@@ -258,6 +258,10 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: '/pages/admin/catalogs/categories',
       },
       {
+        title: 'Códigos postales',
+        link: '/pages/admin/zip-code',
+      },
+      {
         title: 'Día festivo',
         link: '/pages/admin/holiday',
       },

@@ -62,16 +62,24 @@ export class ZipCodeListComponent extends BasePage {
       confirmDelete: true,
     },
     columns: {
-      id: {
-        title: 'Registro',
-        type: 'number'
+      codeZip: {
+        title: 'Código',
+        type: 'string'
       },
-      holidayDate: {
-        title: 'Fecha',
+      entityKey: {
+        title: 'Clave entidad',
         type: 'string',
       },
-      description: {
-        title: 'Descripción',
+      townshipKey: {
+        title: 'townshipKey',
+        type: 'string'
+      },
+      localityKey: {
+        title: 'Localidad',
+        type: 'string'
+      },
+      settlementKey: {
+        title: 'Assentamiento',
         type: 'string'
       },
       creationUser: {
@@ -81,21 +89,6 @@ export class ZipCodeListComponent extends BasePage {
       editionUser: {
         title: 'Modificado por',
         type: 'string',
-      },
-      version: {
-        title: 'Version',
-        type: 'number',
-      },
-      status: {
-        title: 'Estatus',
-        type: 'html',
-        valuePrepareFunction:(value) =>{
-          if(value == 0){
-            return '<strong><span class="badge badge-pill badge-success">Activo</span></strong>';
-          }else{
-            return '<strong><span class="badge badge-pill badge-warning">Inactivo</span></strong>';
-          }
-        }
       },
     },
     noDataMessage: "No se encontrarón registros"

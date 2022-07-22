@@ -3,7 +3,7 @@ import { Observable, of } from 'rxjs';
 
 import { DataSource } from 'ng2-smart-table/lib/lib/data-source/data-source';
 import { CatalogApi } from '../api/catalog-api'; 
-import { ZipCodeInterface } from '../../../interfaces/auction/holiday.model'; 
+import { ZipCodeInterface } from '../../../interfaces/auction/zip.-code.model'; 
 
 @Injectable()
 export class ZipCodeService {

@@ -3,7 +3,7 @@ import { Observable, of } from 'rxjs';
 
 import { DataSource } from 'ng2-smart-table/lib/lib/data-source/data-source';
 import { CatalogApi } from '../api/catalog-api'; 
-import { HolidayInterface } from '../../../interfaces/auction/holiday.module';
+import { HolidayInterface } from '../../../interfaces/auction/holiday.model';
 
 @Injectable()
 export class HolidayService {
