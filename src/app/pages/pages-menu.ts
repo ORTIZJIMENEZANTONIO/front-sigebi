@@ -242,6 +242,10 @@ export const MENU_ITEMS: NbMenuItem[] = [
     icon: 'folder',
     children: [
       {
+        title: 'Abogados',
+        link: '/pages/admin/lawyer',
+      },
+      {
         title: 'Aclaraciones',
         link: '/pages/admin/clarification',
       },

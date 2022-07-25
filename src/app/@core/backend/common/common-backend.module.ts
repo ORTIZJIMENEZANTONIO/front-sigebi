@@ -35,6 +35,7 @@ import { MunicipalityService } from './services/municipality.service';
 import { LocalityService } from './services/locality.service';
 import { StationService } from './services/station.service';
 import { StateOfRepublicService } from './services/StateOFRepublic.service';
+import { LawyerService } from './services/lawyer.service';
 
 const API = [
   CategoryApi,
@@ -66,7 +67,8 @@ const SERVICES = [
   HolidayService,
   ZipCodeService,
   StationService,
-  StateOfRepublicService
+  StateOfRepublicService,
+  LawyerService
 ];
 
 @NgModule({

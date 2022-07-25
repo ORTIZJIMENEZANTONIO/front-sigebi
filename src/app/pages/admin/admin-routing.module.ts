@@ -80,6 +80,10 @@ const routes: Routes = [
       {
         path: 'state-of-republic', loadChildren: () => import('./state-of-republic/state-of-republic.module')
         .then(m => m.StateOfRepublicModule)
+      },
+      {
+        path: 'lawyer', loadChildren: () => import('./lawyer/lawyer.module')
+        .then(m => m.LawyerModule)
       }
       //{ path: 'home', component: CategoriesComponent },//ok
     ]
