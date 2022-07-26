@@ -1,20 +1,20 @@
 import { Component } from '@angular/core';
 import { MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { NbToastrService, NbWindowControlButtonsConfig, NbWindowService } from '@nebular/theme';
+import { SiabClasificationService } from '../../../../@core/backend/common/services/siab-clasification.service';
 import { BasePage } from '../../../../@core/shared/base-page';
 
-import { SettlementService } from '../../../../@core/backend/common/services/settlement.service';
-import { SettlementDetailComponent } from '../settlement-detail/settlement-detail.component';
+import { SiabClasificationDetailComponent } from '../siab-clasification-detail/siab-clasification-detail.component';
 
 @Component({
-  selector: 'ngx-settlement-list',
-  templateUrl: './settlement-list.component.html',
-  styleUrls: ['./settlement-list.component.scss']
+  selector: 'ngx-siab-clasification-list',
+  templateUrl: './siab-clasification-list.component.html',
+  styleUrls: ['./siab-clasification-list.component.scss']
 })
-export class SettlementListComponent extends BasePage {
+export class SiabClasificationListComponent extends BasePage {
 
   constructor(
-    private service: SettlementService, 
+    private service: SiabClasificationService, 
     public  toastrService: NbToastrService,
     private windowService: NbWindowService, 
     private paginator: MatPaginatorIntl
@@ -34,7 +34,7 @@ export class SettlementListComponent extends BasePage {
     length:100
   };
 
-  settlements: any;
+  siabClasifications: any;
 
   settings = {
     actions: {
@@ -63,7 +63,7 @@ export class SettlementListComponent extends BasePage {
       confirmDelete: true,
     },
     columns: {
-      code: {
+      id: {
         title: 'Registro',
         type: 'string',
       },
@@ -113,10 +113,10 @@ export class SettlementListComponent extends BasePage {
   }
 
   readStations = ((pageIndex:number, pageSize:number) => {
-    this.settlements = null;
-    this.service.list(pageIndex, pageSize).subscribe((settlement:any) => {
-      this.settlements = settlement.data;
-      this.length = settlement.count;
+    this.siabClasifications = null;
+    this.service.list(pageIndex, pageSize).subscribe((siabClasification:any) => {
+      this.siabClasifications = siabClasification.data;
+      this.length = siabClasification.count;
     }, error => this.onLoadFailed('danger','Error conexión',error.message) );
   });
 
@@ -146,17 +146,18 @@ export class SettlementListComponent extends BasePage {
       maximize: false,
       fullScreen: false,
     };
-    const modalRef = this.windowService.open(SettlementDetailComponent, { title: `Editar asentamiento`, context: { settlement: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
+    const modalRef = this.windowService.open(SiabClasificationDetailComponent, { title: `Editar clasificación`, context: { settlement: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
       this.readStations(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
   
   }
 
   openWindow() {
-    const modalRef = this.windowService.open(SettlementDetailComponent, { title: `Nuevo asentamiento` }).onClose.subscribe(() => {
+    const modalRef = this.windowService.open(SiabClasificationDetailComponent, { title: `Nuevo clasificación` }).onClose.subscribe(() => {
       this.readStations(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
     
   }
+
 
 }

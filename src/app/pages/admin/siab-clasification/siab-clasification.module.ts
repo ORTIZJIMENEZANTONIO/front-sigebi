@@ -10,18 +10,19 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
-import { SettlementRoutingModule } from './settlement-routing.module';
-import { SettlementDetailComponent } from './settlement-detail/settlement-detail.component';
-import { SettlementListComponent } from './settlement-list/settlement-list.component';
+import { SiabClasificationRoutingModule } from './siab-clasification-routing.module';
+import { SiabClasificationDetailComponent } from './siab-clasification-detail/siab-clasification-detail.component';
+import { SiabClasificationListComponent } from './siab-clasification-list/siab-clasification-list.component';
+
 
 @NgModule({
   declarations: [
-    SettlementDetailComponent,
-    SettlementListComponent
+    SiabClasificationDetailComponent,
+    SiabClasificationListComponent
   ],
   imports: [
     CommonModule,
-    SettlementRoutingModule,
+    SiabClasificationRoutingModule,
     FormsModule,
     ReactiveFormsModule,
     ComponentsModule,
@@ -37,4 +38,4 @@ import { SettlementListComponent } from './settlement-list/settlement-list.compo
     MatFormFieldModule
   ]
 })
-export class SettlementModule { }
+export class SiabClasificationModule { }

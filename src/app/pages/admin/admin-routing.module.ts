@@ -84,6 +84,14 @@ const routes: Routes = [
       {
         path: 'lawyer', loadChildren: () => import('./lawyer/lawyer.module')
         .then(m => m.LawyerModule)
+      },
+      {
+        path: 'settlement', loadChildren: () => import('./settlement/settlement.module')
+        .then(m => m.SettlementModule)
+      },
+      {
+        path: 'siab-clasification', loadChildren: () => import('./siab-clasification/siab-clasification.module')
+        .then(m => m.SiabClasificationModule)
       }
       //{ path: 'home', component: CategoriesComponent },//ok
     ]

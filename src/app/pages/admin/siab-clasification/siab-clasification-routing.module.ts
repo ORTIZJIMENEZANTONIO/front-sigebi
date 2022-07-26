@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { SettlementListComponent } from './settlement-list/settlement-list.component';
+import { SiabClasificationListComponent } from './siab-clasification-list/siab-clasification-list.component';
 
 const routes: Routes = [
   {
-    path: '', component: SettlementListComponent
+    path: '', component: SiabClasificationListComponent
   }
 ];
 
@@ -13,4 +13,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class SettlementRoutingModule { }
+export class SiabClasificationRoutingModule { }

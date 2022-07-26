@@ -36,6 +36,8 @@ import { LocalityService } from './services/locality.service';
 import { StationService } from './services/station.service';
 import { StateOfRepublicService } from './services/StateOFRepublic.service';
 import { LawyerService } from './services/lawyer.service';
+import { SettlementService } from './services/settlement.service';
+import { SiabClasificationService } from './services/siab-clasification.service';
 
 const API = [
   CategoryApi,
@@ -68,7 +70,9 @@ const SERVICES = [
   ZipCodeService,
   StationService,
   StateOfRepublicService,
-  LawyerService
+  LawyerService,
+  SettlementService,
+  SiabClasificationService
 ];
 
 @NgModule({

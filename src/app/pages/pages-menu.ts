@@ -250,6 +250,10 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: '/pages/admin/clarification',
       },
       {
+        title: 'Asentamientos',
+        link: '/pages/admin/settlement',
+      },
+      {
         title: 'Banco',
         link: '/pages/admin/bank',
       },
@@ -260,6 +264,10 @@ export const MENU_ITEMS: NbMenuItem[] = [
       {
         title: 'Categorias',
         link: '/pages/admin/catalogs/categories',
+      },
+      {
+        title: 'Clasificación SIAB',
+        link: '/pages/admin/siab-clasification',
       },
       {
         title: 'Códigos postales',
