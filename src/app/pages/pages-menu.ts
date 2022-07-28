@@ -286,6 +286,10 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: '/pages/admin/deductive-verification',
       },
       {
+        title: 'Delegaciones de estado',
+        link: '/pages/admin/delegation-state',
+      },
+      {
         title: 'Dictamen',
         link: '/pages/admin/dictaments',
       },

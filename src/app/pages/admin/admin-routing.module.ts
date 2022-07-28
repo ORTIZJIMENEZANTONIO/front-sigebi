@@ -104,6 +104,10 @@ const routes: Routes = [
       {
         path: 'deductive-verification', loadChildren: () => import('./deductive-verification/deductive-verification.module')
           .then(m => m.DeductiveVerificationModule)
+      },
+      {
+        path: 'delegation-state', loadChildren: () => import('./delegation-state/delegation-state.module')
+          .then(m => m.DelegationStateModule)
       }
       //{ path: 'home', component: CategoriesComponent },//ok
     ]

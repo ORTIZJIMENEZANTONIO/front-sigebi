@@ -38,6 +38,7 @@ import { SiabClasificationService } from './services/siab-clasification.service'
 import { FractionsService } from './services/fractions.service';
 import { TypeWarehouseService } from './services/typeWarehouses.service';
 import { DeductiveVerificationService } from './services/deductive-verification.service';
+import { DelegationStateService } from './services/delegation-state.service';
 
 
 const API = [
@@ -74,7 +75,8 @@ const SERVICES = [
   SiabClasificationService,
   FractionsService,
   TypeWarehouseService,
-  DeductiveVerificationService
+  DeductiveVerificationService,
+  DelegationStateService
 ];
 
 @NgModule({
