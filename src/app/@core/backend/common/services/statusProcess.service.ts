@@ -10,7 +10,7 @@ export class StatusProcessService {
     constructor(private api: CatalogApi) { }
 
     get gridDataSource(): DataSource {
-        return this.api.dictamenDataSource;
+        return this.api.dataSource;
     }
     url = "status-process";
     

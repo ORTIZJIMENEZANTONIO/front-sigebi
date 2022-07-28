@@ -143,7 +143,7 @@ export class FractionsListComponent extends BasePage {
 
   readFraction = ((pageIndex:number, pageSize:number) => {
     this.fractions = null;
-    this.service.list(pageIndex, pageSize, 'fractions').subscribe((fractions:any) =>  {
+    this.service.list(pageIndex, pageSize).subscribe((fractions:any) =>  {
       this.fractions = fractions.data;
       this.length = fractions.count;
     }, 

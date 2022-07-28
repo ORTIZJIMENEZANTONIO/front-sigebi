@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { NbToastrService, NbWindowControlButtonsConfig, NbWindowService } from '@nebular/theme';
 import { BasePage } from '../../../../@core/shared/base-page';
+
 import { DeductiveService } from '../../../../@core/backend/common/services/deductive.service';
 import { DeductiveDetailComponent } from '../deductive-detail/deductive-detail.component';
 
@@ -12,8 +13,12 @@ import { DeductiveDetailComponent } from '../deductive-detail/deductive-detail.c
 })
 export class DeductiveListComponent extends BasePage {
 
-  constructor(private service: DeductiveService, public toastrService: NbToastrService,
-    private windowService: NbWindowService, private paginator: MatPaginatorIntl) {
+  constructor(
+    private service: DeductiveService, 
+    public  toastrService: NbToastrService,
+    private windowService: NbWindowService, 
+    private paginator: MatPaginatorIntl
+  ) {
     super(toastrService);
     this.paginator.itemsPerPageLabel = "Registros por página";
   }
@@ -29,11 +34,6 @@ export class DeductiveListComponent extends BasePage {
     length:100
   };
 
-  setPageSizeOptions(setPageSizeOptionsInput: string) {
-    if (setPageSizeOptionsInput) {
-      this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
-    }
-  }
   deductives: any;
   settings = {
     actions: {
@@ -64,35 +64,29 @@ export class DeductiveListComponent extends BasePage {
     columns: {
       id: {
         title: 'Registro',
-        type: 'number',
-        //editable: false,
-        // width: '25px'
+        type: 'number'
       },
       serviceType: {
         title: 'Tipo de servicio',
         type: 'string',
-        editable: true,
       },
       weightedDeduction: {
         title: 'Ponderación',
-        type: 'number',
-        editable: true,
+        type: 'number'
       },
       startingRankPercentage: {
         title: 'Porcentaje inicial',
-        type: 'number',
-        editable: true,
+        type: 'number'
       },
       finalRankPercentage: {
         title: 'Porcentaje final',
-        type: 'number',
-        editable: true,
+        type: 'number'
       },
-      userCreation: {
+      creationUser: {
         title: 'Creado por',
         type: 'string',
       },
-      userModification: {
+      editionUser: {
         title: 'Modificado por',
         type: 'string',
       },
@@ -118,8 +112,14 @@ export class DeductiveListComponent extends BasePage {
     },
     noDataMessage: "No se encontrarón registros"
   };
+
   ngOnInit(): void {
     this.readDeductives(0,10);
+  }
+  
+  setPageSizeOptions(setPageSizeOptionsInput: string) {
+    if (setPageSizeOptionsInput)
+      this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
   }
 
   readDeductives = ((pageIndex:number, pageSize:number) => {

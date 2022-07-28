@@ -242,8 +242,60 @@ export const MENU_ITEMS: NbMenuItem[] = [
     icon: 'folder',
     children: [
       {
+        title: 'Abogados',
+        link: '/pages/admin/lawyer',
+      },
+      {
+        title: 'Aclaraciones',
+        link: '/pages/admin/clarification',
+      },
+      {
+        title: 'Asentamientos',
+        link: '/pages/admin/settlement',
+      },
+      {
+        title: 'Banco',
+        link: '/pages/admin/bank',
+      },
+      {
+        title: 'Bateria',
+        link: '/pages/admin/battery',
+      },
+      {
         title: 'Categorias',
         link: '/pages/admin/catalogs/categories',
+      },
+      {
+        title: 'Clasificación SIAB',
+        link: '/pages/admin/siab-clasification',
+      },
+      {
+        title: 'Códigos postales',
+        link: '/pages/admin/zip-code',
+      },
+      {
+        title: 'Día festivo',
+        link: '/pages/admin/holiday',
+      },
+      {
+        title: 'Deductivas',
+        link: '/pages/admin/deductives',
+      },
+      {
+        title: 'Dictamen',
+        link: '/pages/admin/dictaments',
+      },
+      {
+        title: 'Emisora',
+        link: '/pages/admin/station',
+      },
+      {
+        title: 'Estatus proceso',
+        link: '/pages/admin/status-process',
+      },
+      {
+        title: 'Estado',
+        link: '/pages/admin/state-of-republic',
       },
       {
         title: 'Genericos',
@@ -272,19 +324,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
       {
         title: 'Parrafos',
         link: '/pages/admin/paragraphs',
-      },
-      {
-        title: 'Estatus proceso',
-        link: '/pages/admin/status-process',
-      },
-      {
-        title: 'Deductivas',
-        link: '/pages/admin/deductives',
-      },
-      {
-        title: 'Dictamen',
-        link: '/pages/admin/dictaments',
-      },
+      },      
       {
         title: 'Tipo Siniestro',
         link: '/pages/admin/sinister',
@@ -293,7 +333,6 @@ export const MENU_ITEMS: NbMenuItem[] = [
         title: 'Tipo Almacen',
         link: '/pages/admin/typewarehouses',
       },
-
     ],
   },
   {
