@@ -15,13 +15,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ComponentsModule } from '../../@components/components.module';
 
-
 @NgModule({
   declarations: [
-    //AdminComponent
-    ...routedComponents,
-    
-    // ParagraphsComponent,
+    ...routedComponents
   ],
   imports: [
     CommonModule,
@@ -42,9 +38,6 @@ import { ComponentsModule } from '../../@components/components.module';
     MatPaginatorModule,
     MatInputModule,
     MatFormFieldModule
-    //GoodsModule,
-    //CatalogsModule,
-    //UserModule
   ],
   exports: [
     ThemeModule,

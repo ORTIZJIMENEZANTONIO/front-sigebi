@@ -1,4 +1,4 @@
-export class BatteryModel {
+export interface BatteryInterface {
   
   idBattery: number | null;
   storeCode: string;
