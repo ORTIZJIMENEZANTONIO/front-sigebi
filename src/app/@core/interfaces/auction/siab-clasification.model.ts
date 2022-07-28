@@ -14,4 +14,5 @@ export interface SiabClasificationInterface {
   editionUser: string | null;
   editionDate: Date | null;
   version: number | null;
+  
 }

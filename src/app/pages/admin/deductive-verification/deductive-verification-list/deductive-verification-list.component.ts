@@ -1,20 +1,20 @@
 import { Component } from '@angular/core';
 import { MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { NbToastrService, NbWindowControlButtonsConfig, NbWindowService } from '@nebular/theme';
-import { SiabClasificationService } from '../../../../@core/backend/common/services/siab-clasification.service';
 import { BasePage } from '../../../../@core/shared/base-page';
 
-import { SiabClasificationDetailComponent } from '../siab-clasification-detail/siab-clasification-detail.component';
+import { DeductiveVerificationService } from '../../../../@core/backend/common/services/deductive-verification.service';
+import { DeductiveVerificationDetailComponent } from '../deductive-verification-detail/deductive-verification-detail.component';
 
 @Component({
-  selector: 'ngx-siab-clasification-list',
-  templateUrl: './siab-clasification-list.component.html',
-  styleUrls: ['./siab-clasification-list.component.scss']
+  selector: 'ngx-deductive-verification-list',
+  templateUrl: './deductive-verification-list.component.html',
+  styleUrls: ['./deductive-verification-list.component.scss']
 })
-export class SiabClasificationListComponent extends BasePage {
+export class DeductiveVerificationListComponent extends BasePage {
 
   constructor(
-    private service: SiabClasificationService, 
+    private service: DeductiveVerificationService, 
     public  toastrService: NbToastrService,
     private windowService: NbWindowService, 
     private paginator: MatPaginatorIntl
@@ -34,7 +34,7 @@ export class SiabClasificationListComponent extends BasePage {
     length:100
   };
 
-  siabClasifications: any;
+  deductives: any;
 
   settings = {
     actions: {
@@ -67,37 +67,17 @@ export class SiabClasificationListComponent extends BasePage {
         title: 'Registro',
         type: 'string',
       },
-      typeId: {
-        title: 'Tipo',
-        type: 'string'
-      },
-      typeDescription: {
+      description: {
         title: 'Descripción',
         type: 'string'
       },
-      subtypeId: {
-        title: 'Subtipo',
+      percentagePena: {
+        title: 'Porcentaje Pena',
         type: 'string',
       },
-      subtypeDescription: {
-        title: 'Descripción del subtipo',
+      verificationType: {
+        title: 'Tipo de verificación',
         type: 'string',
-      },
-      ssubtypeId: {
-        title: 'Sub subtipo',
-        type: 'string',
-      },
-      ssubtypeDescription: {
-        title: 'Descripción del Sub subtipo',
-        type: 'number',
-      },
-      sssubtypeId: {
-        title: 'Sssubtipo',
-        type: 'string',
-      },
-      sssubtypeDescription: {
-        title: 'Descripción del Sssubtipo',
-        type: 'number',
       },
       creationUser: {
         title: 'Creado por',
@@ -106,11 +86,7 @@ export class SiabClasificationListComponent extends BasePage {
       editionUser: {
         title: 'Modificado por',
         type: 'string',
-      },
-      version: {
-        title: 'Version',
-        type: 'string',
-      },
+      }
     },
     noDataMessage: "No se encontrarón registros"
   };
@@ -125,10 +101,10 @@ export class SiabClasificationListComponent extends BasePage {
   }
 
   readStations = ((pageIndex:number, pageSize:number) => {
-    this.siabClasifications = null;
-    this.service.list(pageIndex, pageSize).subscribe((siabClasification:any) => {
-      this.siabClasifications = siabClasification.data;
-      this.length = siabClasification.count;
+    this.deductives = null;
+    this.service.list(pageIndex, pageSize).subscribe((deductives:any) => {
+      this.deductives = deductives.data;
+      this.length = deductives.count;
     }, error => this.onLoadFailed('danger','Error conexión',error.message) );
   });
 
@@ -158,14 +134,14 @@ export class SiabClasificationListComponent extends BasePage {
       maximize: false,
       fullScreen: false,
     };
-    const modalRef = this.windowService.open(SiabClasificationDetailComponent, { title: `Editar clasificación`, context: { settlement: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
+    const modalRef = this.windowService.open(DeductiveVerificationDetailComponent, { title: `Editar verificación deductiva`, context: { settlement: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
       this.readStations(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
   
   }
 
   openWindow() {
-    const modalRef = this.windowService.open(SiabClasificationDetailComponent, { title: `Nuevo clasificación` }).onClose.subscribe(() => {
+    const modalRef = this.windowService.open(DeductiveVerificationDetailComponent, { title: `Nuevo verificación deductiva` }).onClose.subscribe(() => {
       this.readStations(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
     

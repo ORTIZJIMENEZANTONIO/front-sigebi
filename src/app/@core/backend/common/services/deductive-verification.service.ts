@@ -3,14 +3,14 @@ import { Observable, of } from 'rxjs';
 
 import { DataSource } from 'ng2-smart-table/lib/lib/data-source/data-source';
 import { CatalogApi } from '../api/catalog-api';
-import { ClarificationInterface } from '../../../interfaces/auction/clarification.model';
+import { DeductiveVerificationInterface } from '../../../interfaces/auction/deductive-verification.model';
 
 @Injectable()
-export class ClarificationService {
+export class DeductiveVerificationService {
   
     constructor(private api: CatalogApi) { }
 
-    protected url = "clarification"; 
+    protected url = "deductive-verification"; 
 
     get gridDataSource(): DataSource {
         return this.api.dataSource;
@@ -20,11 +20,11 @@ export class ClarificationService {
         const data = this.api.list(pageNumber, pageSize, this.url);
         return data;
     }
-    register(data: ClarificationInterface): Observable<ClarificationInterface>{
+    register(data: DeductiveVerificationInterface): Observable<DeductiveVerificationInterface>{
         return this.api.register(data, this.url);
     }
 
-    update(id:number, data: ClarificationInterface): Observable<ClarificationInterface>{
+    update(id:number, data: DeductiveVerificationInterface): Observable<DeductiveVerificationInterface>{
         return this.api.update(id, data, this.url);
     }
 

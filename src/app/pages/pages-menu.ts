@@ -282,6 +282,10 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: '/pages/admin/deductives',
       },
       {
+        title: 'Deductivas Verificación',
+        link: '/pages/admin/deductive-verification',
+      },
+      {
         title: 'Dictamen',
         link: '/pages/admin/dictaments',
       },

@@ -100,6 +100,10 @@ const routes: Routes = [
       {
         path: 'typewarehouses', loadChildren: () => import('./type-warehouses/type-warehouses.module')
           .then(m => m.TypeWarehousesModule)
+      },
+      {
+        path: 'deductive-verification', loadChildren: () => import('./deductive-verification/deductive-verification.module')
+          .then(m => m.DeductiveVerificationModule)
       }
       //{ path: 'home', component: CategoriesComponent },//ok
     ]
