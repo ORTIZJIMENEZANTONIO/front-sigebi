@@ -11,10 +11,7 @@ import { ImageCategoryService } from './services/image-category.service';
 import { CategoryApi } from './api/category.api';
 import { CategoryService } from './services/category.service';
 
-import { LegendsApi } from './api/legends.api';
 import { LegendsService } from './services/legends.service';
-
-import { ParagraphsApi } from './api/paragraphs.api';
 import { ParagraphsService } from './services/paragraphs.service';
 
 import { BankService } from './services/bank.service';
@@ -38,14 +35,15 @@ import { StateOfRepublicService } from './services/StateOFRepublic.service';
 import { LawyerService } from './services/lawyer.service';
 import { SettlementService } from './services/settlement.service';
 import { SiabClasificationService } from './services/siab-clasification.service';
+import { FractionsService } from './services/fractions.service';
+import { TypeWarehouseService } from './services/typeWarehouses.service';
+
 
 const API = [
   CategoryApi,
   ImageCategoryApi,
   GoodScheduleApi,
   HttpService,
-  LegendsApi,
-  ParagraphsApi,
   CatalogApi
 ];
 
@@ -72,7 +70,9 @@ const SERVICES = [
   StateOfRepublicService,
   LawyerService,
   SettlementService,
-  SiabClasificationService
+  SiabClasificationService,
+  FractionsService,
+  TypeWarehouseService
 ];
 
 @NgModule({

@@ -329,8 +329,10 @@ export const MENU_ITEMS: NbMenuItem[] = [
         title: 'Tipo Siniestro',
         link: '/pages/admin/sinister',
       },
-      
-
+      {
+        title: 'Tipo Almacen',
+        link: '/pages/admin/typewarehouses',
+      },
     ],
   },
   {

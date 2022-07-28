@@ -92,6 +92,14 @@ const routes: Routes = [
       {
         path: 'siab-clasification', loadChildren: () => import('./siab-clasification/siab-clasification.module')
         .then(m => m.SiabClasificationModule)
+      },
+      {
+        path: 'frantions', loadChildren: () => import('./fractions/fractions.module')
+          .then(m => m.FractionsModule)
+      },
+      {
+        path: 'typewarehouses', loadChildren: () => import('./type-warehouses/type-warehouses.module')
+          .then(m => m.TypeWarehousesModule)
       }
       //{ path: 'home', component: CategoriesComponent },//ok
     ]

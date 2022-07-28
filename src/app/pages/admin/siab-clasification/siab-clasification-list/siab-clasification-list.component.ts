@@ -67,28 +67,28 @@ export class SiabClasificationListComponent extends BasePage {
         title: 'Registro',
         type: 'string',
       },
-      keyEntity: {
-        title: 'Entidad',
-        type: 'string'
-      },
-      keyTownship: {
-        title: 'Municipio',
-        type: 'string'
-      },
-      keyLocality: {
-        title: 'Localidad',
-        type: 'string',
-      },
-      name: {
-        title: 'Nombre',
-        type: 'string',
-      },
-      type: {
+      typeId: {
         title: 'Tipo',
+        type: 'string'
+      },
+      typeDescription: {
+        title: 'Descripción',
+        type: 'string'
+      },
+      subtypeId: {
+        title: 'Subtipo',
         type: 'string',
       },
-      version: {
-        title: 'Versión',
+      subtypeDescription: {
+        title: 'Descripción del subtipo',
+        type: 'string',
+      },
+      ssubtypeId: {
+        title: 'Sub subtipo',
+        type: 'string',
+      },
+      ssubtypeDescription: {
+        title: 'Descripción del Sub subtipo',
         type: 'number',
       },
       creationUser: {

@@ -2,10 +2,9 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
 import { DataSource } from 'ng2-smart-table/lib/lib/data-source/data-source';
-import { ParagraphsApi } from '../api/paragraphs.api';
-import { ParagraphsModel } from '../../../interfaces/auction/paragraphs.model';
 import { CatalogApi } from '../api/catalog-api';
 import { Dictamen } from '../../../interfaces/auction/dictamen.model';
+
 @Injectable()
 export class SiniesterService {
     constructor(private api: CatalogApi) { }
