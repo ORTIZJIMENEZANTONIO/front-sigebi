@@ -290,6 +290,10 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: '/pages/admin/delegation-state',
       },
       {
+        title: 'Delegaciones regionales',
+        link: '/pages/admin/regional-delegation',
+      },
+      {
         title: 'Dictamen',
         link: '/pages/admin/dictaments',
       },
