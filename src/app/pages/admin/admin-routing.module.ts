@@ -100,6 +100,26 @@ const routes: Routes = [
       {
         path: 'typewarehouses', loadChildren: () => import('./type-warehouses/type-warehouses.module')
           .then(m => m.TypeWarehousesModule)
+      },
+      {
+        path: 'deductive-verification', loadChildren: () => import('./deductive-verification/deductive-verification.module')
+          .then(m => m.DeductiveVerificationModule)
+      },
+      {
+        path: 'delegation-state', loadChildren: () => import('./delegation-state/delegation-state.module')
+          .then(m => m.DelegationStateModule)
+      },
+      {
+        path: 'regional-delegation', loadChildren: () => import('./regional-delegation/regional-delegation.module')
+          .then(m => m.RegionalDelegationModule)
+      },
+      {
+        path: 'general-status', loadChildren: () => import('./general-status/general-status.module')
+          .then(m => m.GeneralStatusModule)
+      },
+      {
+        path: 'warehouse', loadChildren: () => import('./warehouse/warehouse.module')
+          .then(m => m.WarehouseModule)
       }
       //{ path: 'home', component: CategoriesComponent },//ok
     ]

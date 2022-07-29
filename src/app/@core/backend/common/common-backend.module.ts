@@ -37,6 +37,11 @@ import { SettlementService } from './services/settlement.service';
 import { SiabClasificationService } from './services/siab-clasification.service';
 import { FractionsService } from './services/fractions.service';
 import { TypeWarehouseService } from './services/typeWarehouses.service';
+import { DeductiveVerificationService } from './services/deductive-verification.service';
+import { DelegationStateService } from './services/delegation-state.service';
+import { RegionalDelegationService } from './services/regional-delegation.service';
+import { GeneralStatusService } from './services/general-status.service';
+import { WarehouseService } from './services/warehouse.service';
 
 
 const API = [
@@ -72,7 +77,12 @@ const SERVICES = [
   SettlementService,
   SiabClasificationService,
   FractionsService,
-  TypeWarehouseService
+  TypeWarehouseService,
+  DeductiveVerificationService,
+  DelegationStateService,
+  RegionalDelegationService,
+  GeneralStatusService,
+  WarehouseService
 ];
 
 @NgModule({

@@ -95,10 +95,10 @@ export class BankListComponent extends BasePage{
   };
 
   ngOnInit(): void {
-    this.readBanks(0,10);
+    this.readData(0,10);
   }
 
-  readBanks = ((pageIndex:number, pageSize:number) => {
+  readData = ((pageIndex:number, pageSize:number) => {
     this.banks = null;
     this.service.list(pageIndex, pageSize).subscribe((banks:any) =>  {
       this.banks = banks.data;
@@ -114,13 +114,13 @@ export class BankListComponent extends BasePage{
 
     }
     this.pageEvent = event;
-    this.readBanks(event.pageIndex, event.pageSize)
+    this.readData(event.pageIndex, event.pageSize)
   }
 
   onDeleteConfirm(event): void {
     if (window.confirm('Are you sure you want to delete?')) {
       this.service.delete(event.data.id).subscribe( () => {
-        this.readBanks(this.pageEvent.pageIndex, this.pageEvent.pageSize);
+        this.readData(this.pageEvent.pageIndex, this.pageEvent.pageSize);
       },err =>{
         console.log(err);
       })
@@ -136,14 +136,14 @@ export class BankListComponent extends BasePage{
       fullScreen: false,
     };
     const modalRef = this.windowService.open(BankDetailComponent, { title: `Editar deductiva`, context: { bank: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
-      this.readBanks(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
+      this.readData(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
   
   }
 
   openWindow() {
     const modalRef = this.windowService.open(BankDetailComponent, { title: `Nuevo deductiva` }).onClose.subscribe(() => {
-      this.readBanks(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
+      this.readData(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
     
   }

@@ -1,4 +1,4 @@
-export interface ClarificationDto {
+export interface ClarificationInterface {
 
   id: number | null;
   clarification: string | null;

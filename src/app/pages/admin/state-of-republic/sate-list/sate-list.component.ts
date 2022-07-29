@@ -110,7 +110,7 @@ export class SateListComponent extends BasePage {
   };
 
   ngOnInit(): void {
-    this.readStations(0,10);
+    this.readData(0,10);
   }
   
   setPageSizeOptions(setPageSizeOptionsInput: string) {
@@ -118,7 +118,7 @@ export class SateListComponent extends BasePage {
       this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
   }
 
-  readStations = ((pageIndex:number, pageSize:number) => {
+  readData = ((pageIndex:number, pageSize:number) => {
     this.states = null;
     this.service.list(pageIndex, pageSize).subscribe((states:any) => {
       this.states = states.data;
@@ -131,13 +131,13 @@ export class SateListComponent extends BasePage {
 
     }
     this.pageEvent = event;
-    this.readStations(event.pageIndex, event.pageSize)
+    this.readData(event.pageIndex, event.pageSize)
   }
 
   onDeleteConfirm(event): void {
     if (window.confirm('Are you sure you want to delete?')) {
       this.service.delete(event.data.id).subscribe( () => {
-        this.readStations(this.pageEvent.pageIndex, this.pageEvent.pageSize);
+        this.readData(this.pageEvent.pageIndex, this.pageEvent.pageSize);
       },err =>{
         console.error(err);
       })
@@ -153,14 +153,14 @@ export class SateListComponent extends BasePage {
       fullScreen: false,
     };
     const modalRef = this.windowService.open(SateDetailComponent, { title: `Editar estado`, context: { state: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
-      this.readStations(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
+      this.readData(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
   
   }
 
   openWindow() {
     const modalRef = this.windowService.open(SateDetailComponent, { title: `Nuevo estado` }).onClose.subscribe(() => {
-      this.readStations(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
+      this.readData(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
     
   }

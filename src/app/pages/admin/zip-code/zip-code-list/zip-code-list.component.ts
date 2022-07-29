@@ -95,7 +95,7 @@ export class ZipCodeListComponent extends BasePage {
   };
 
   ngOnInit(): void {
-    this.readZipCodes(0,10);
+    this.readData(0,10);
   }
   
   setPageSizeOptions(setPageSizeOptionsInput: string) {
@@ -103,7 +103,7 @@ export class ZipCodeListComponent extends BasePage {
       this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
   }
 
-  readZipCodes = ((pageIndex:number, pageSize:number) => {
+  readData = ((pageIndex:number, pageSize:number) => {
     this.zipCodes = null;
     this.service.list(pageIndex, pageSize).subscribe((zipCodes:any) => {
       this.zipCodes = zipCodes.data;
@@ -116,13 +116,13 @@ export class ZipCodeListComponent extends BasePage {
 
     }
     this.pageEvent = event;
-    this.readZipCodes(event.pageIndex, event.pageSize)
+    this.readData(event.pageIndex, event.pageSize)
   }
 
   onDeleteConfirm(event): void {
     if (window.confirm('Are you sure you want to delete?')) {
       this.service.delete(event.data.id).subscribe( () => {
-        this.readZipCodes(this.pageEvent.pageIndex, this.pageEvent.pageSize);
+        this.readData(this.pageEvent.pageIndex, this.pageEvent.pageSize);
       },err =>{
         console.log(err);
       })
@@ -138,14 +138,14 @@ export class ZipCodeListComponent extends BasePage {
       fullScreen: false,
     };
     const modalRef = this.windowService.open(ZipCodeDetailComponent, { title: `Editar código postal`, context: { holiday: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
-      this.readZipCodes(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
+      this.readData(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
   
   }
 
   openWindow() {
     const modalRef = this.windowService.open(ZipCodeDetailComponent, { title: `Nuevo código postal` }).onClose.subscribe(() => {
-      this.readZipCodes(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
+      this.readData(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
     
   }

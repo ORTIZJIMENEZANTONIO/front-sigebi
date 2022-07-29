@@ -114,7 +114,7 @@ export class DeductiveListComponent extends BasePage {
   };
 
   ngOnInit(): void {
-    this.readDeductives(0,10);
+    this.readData(0,10);
   }
   
   setPageSizeOptions(setPageSizeOptionsInput: string) {
@@ -122,7 +122,7 @@ export class DeductiveListComponent extends BasePage {
       this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
   }
 
-  readDeductives = ((pageIndex:number, pageSize:number) => {
+  readData = ((pageIndex:number, pageSize:number) => {
     this.deductives = null;
     this.service.list(pageIndex, pageSize).subscribe((deductives:any) =>  {
       this.deductives = deductives.data;
@@ -138,13 +138,13 @@ export class DeductiveListComponent extends BasePage {
 
     }
     this.pageEvent = event;
-    this.readDeductives(event.pageIndex, event.pageSize)
+    this.readData(event.pageIndex, event.pageSize)
   }
 
   onDeleteConfirm(event): void {
     if (window.confirm('Are you sure you want to delete?')) {
       this.service.delete(event.data.id).subscribe(data =>{
-        this.readDeductives(this.pageEvent.pageIndex, this.pageEvent.pageSize);
+        this.readData(this.pageEvent.pageIndex, this.pageEvent.pageSize);
       },err =>{
         console.log(err);
       })
@@ -160,14 +160,14 @@ export class DeductiveListComponent extends BasePage {
       fullScreen: false,
     };
     const modalRef = this.windowService.open(DeductiveDetailComponent, { title: `Editar deductiva`, context: { deductive: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
-      this.readDeductives(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
+      this.readData(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
   
   }
 
   openWindowDeductive() {
     const modalRef = this.windowService.open(DeductiveDetailComponent, { title: `Nuevo deductiva` }).onClose.subscribe(() => {
-      this.readDeductives(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
+      this.readData(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
     
   }

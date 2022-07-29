@@ -3,7 +3,7 @@ import { Observable, of } from 'rxjs';
 
 import { DataSource } from 'ng2-smart-table/lib/lib/data-source/data-source';
 import { CatalogApi } from '../api/catalog-api';
-import { DeductiveInterface } from '../../../interfaces/auction/deductive.model';
+import { ClarificationInterface } from '../../../interfaces/auction/clarification.model';
 
 @Injectable()
 export class ClarificationService {
@@ -20,11 +20,11 @@ export class ClarificationService {
         const data = this.api.list(pageNumber, pageSize, this.url);
         return data;
     }
-    register(data: DeductiveInterface): Observable<DeductiveInterface>{
+    register(data: ClarificationInterface): Observable<ClarificationInterface>{
         return this.api.register(data, this.url);
     }
 
-    update(id:number, data: DeductiveInterface): Observable<DeductiveInterface>{
+    update(id:number, data: ClarificationInterface): Observable<ClarificationInterface>{
         return this.api.update(id, data, this.url);
     }
 

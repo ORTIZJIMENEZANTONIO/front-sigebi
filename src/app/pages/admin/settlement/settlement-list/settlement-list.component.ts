@@ -104,7 +104,7 @@ export class SettlementListComponent extends BasePage {
   };
 
   ngOnInit(): void {
-    this.readStations(0,10);
+    this.readData(0,10);
   }
   
   setPageSizeOptions(setPageSizeOptionsInput: string) {
@@ -112,7 +112,7 @@ export class SettlementListComponent extends BasePage {
       this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
   }
 
-  readStations = ((pageIndex:number, pageSize:number) => {
+  readData = ((pageIndex:number, pageSize:number) => {
     this.settlements = null;
     this.service.list(pageIndex, pageSize).subscribe((settlement:any) => {
       this.settlements = settlement.data;
@@ -125,13 +125,13 @@ export class SettlementListComponent extends BasePage {
 
     }
     this.pageEvent = event;
-    this.readStations(event.pageIndex, event.pageSize)
+    this.readData(event.pageIndex, event.pageSize)
   }
 
   onDeleteConfirm(event): void {
     if (window.confirm('Are you sure you want to delete?')) {
       this.service.delete(event.data.id).subscribe( () => {
-        this.readStations(this.pageEvent.pageIndex, this.pageEvent.pageSize);
+        this.readData(this.pageEvent.pageIndex, this.pageEvent.pageSize);
       },err =>{
         console.error(err);
       })
@@ -147,14 +147,14 @@ export class SettlementListComponent extends BasePage {
       fullScreen: false,
     };
     const modalRef = this.windowService.open(SettlementDetailComponent, { title: `Editar asentamiento`, context: { settlement: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
-      this.readStations(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
+      this.readData(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
   
   }
 
   openWindow() {
     const modalRef = this.windowService.open(SettlementDetailComponent, { title: `Nuevo asentamiento` }).onClose.subscribe(() => {
-      this.readStations(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
+      this.readData(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
     
   }
