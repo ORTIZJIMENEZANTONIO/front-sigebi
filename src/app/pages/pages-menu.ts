@@ -250,6 +250,10 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: '/pages/admin/clarification',
       },
       {
+        title: 'Almacenes',
+        link: '/pages/admin/warehouse',
+      },
+      {
         title: 'Asentamientos',
         link: '/pages/admin/settlement',
       },

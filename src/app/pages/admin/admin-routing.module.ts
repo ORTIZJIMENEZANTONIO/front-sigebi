@@ -116,6 +116,10 @@ const routes: Routes = [
       {
         path: 'general-status', loadChildren: () => import('./general-status/general-status.module')
           .then(m => m.GeneralStatusModule)
+      },
+      {
+        path: 'warehouse', loadChildren: () => import('./warehouse/warehouse.module')
+          .then(m => m.WarehouseModule)
       }
       //{ path: 'home', component: CategoriesComponent },//ok
     ]
