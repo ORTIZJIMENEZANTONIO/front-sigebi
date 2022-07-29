@@ -112,7 +112,7 @@ export class RegionalDelegationListComponent extends BasePage {
   };
 
   ngOnInit(): void {
-    this.readStations(0,10);
+    this.readData(0,10);
   }
   
   setPageSizeOptions(setPageSizeOptionsInput: string) {
@@ -120,7 +120,7 @@ export class RegionalDelegationListComponent extends BasePage {
       this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
   }
 
-  readStations = ((pageIndex:number, pageSize:number) => {
+  readData = ((pageIndex:number, pageSize:number) => {
     this.regionalDelegations = null;
     this.service.list(pageIndex, pageSize).subscribe((regionalDelegations:any) => {
       this.regionalDelegations = regionalDelegations.data;
@@ -133,13 +133,13 @@ export class RegionalDelegationListComponent extends BasePage {
 
     }
     this.pageEvent = event;
-    this.readStations(event.pageIndex, event.pageSize)
+    this.readData(event.pageIndex, event.pageSize)
   }
 
   onDeleteConfirm(event): void {
     if (window.confirm('Are you sure you want to delete?')) {
       this.service.delete(event.data.id).subscribe( () => {
-        this.readStations(this.pageEvent.pageIndex, this.pageEvent.pageSize);
+        this.readData(this.pageEvent.pageIndex, this.pageEvent.pageSize);
       },err =>{
         console.error(err);
       })
@@ -155,14 +155,14 @@ export class RegionalDelegationListComponent extends BasePage {
       fullScreen: false,
     };
     const modalRef = this.windowService.open(RegionalDelegationDetailComponent, { title: `Editar asentamiento`, context: { settlement: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
-      this.readStations(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
+      this.readData(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
   
   }
 
   openWindow() {
     const modalRef = this.windowService.open(RegionalDelegationDetailComponent, { title: `Nuevo asentamiento` }).onClose.subscribe(() => {
-      this.readStations(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
+      this.readData(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
     
   }

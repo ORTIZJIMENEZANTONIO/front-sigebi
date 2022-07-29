@@ -110,7 +110,7 @@ export class StationListComponent extends BasePage {
   };
 
   ngOnInit(): void {
-    this.readStations(0,10);
+    this.readData(0,10);
   }
   
   setPageSizeOptions(setPageSizeOptionsInput: string) {
@@ -118,7 +118,7 @@ export class StationListComponent extends BasePage {
       this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
   }
 
-  readStations = ((pageIndex:number, pageSize:number) => {
+  readData = ((pageIndex:number, pageSize:number) => {
     this.stations = null;
     this.service.list(pageIndex, pageSize).subscribe((stations:any) => {
       this.stations = stations.data;
@@ -131,13 +131,13 @@ export class StationListComponent extends BasePage {
 
     }
     this.pageEvent = event;
-    this.readStations(event.pageIndex, event.pageSize)
+    this.readData(event.pageIndex, event.pageSize)
   }
 
   onDeleteConfirm(event): void {
     if (window.confirm('Are you sure you want to delete?')) {
       this.service.delete(event.data.id).subscribe( () => {
-        this.readStations(this.pageEvent.pageIndex, this.pageEvent.pageSize);
+        this.readData(this.pageEvent.pageIndex, this.pageEvent.pageSize);
       },err =>{
         console.log(err);
       })
@@ -153,14 +153,14 @@ export class StationListComponent extends BasePage {
       fullScreen: false,
     };
     const modalRef = this.windowService.open(StationDetailComponent, { title: `Editar emisora`, context: { station: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
-      this.readStations(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
+      this.readData(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
   
   }
 
   openWindow() {
     const modalRef = this.windowService.open(StationDetailComponent, { title: `Nuevo emisora` }).onClose.subscribe(() => {
-      this.readStations(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
+      this.readData(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
     
   }

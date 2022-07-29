@@ -91,7 +91,7 @@ export class DelegationStateListComponent extends BasePage {
   };
 
   ngOnInit(): void {
-    this.readgelegationsStates(0,10);
+    this.readData(0,10);
   }
   
   setPageSizeOptions(setPageSizeOptionsInput: string) {
@@ -99,7 +99,7 @@ export class DelegationStateListComponent extends BasePage {
       this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
   }
 
-  readgelegationsStates = ((pageIndex:number, pageSize:number) => {
+  readData = ((pageIndex:number, pageSize:number) => {
     this.delegationsStates = null;
     this.service.list(pageIndex, pageSize).subscribe((delegationsStates:any) =>  {
       this.delegationsStates = delegationsStates.data;
@@ -115,13 +115,13 @@ export class DelegationStateListComponent extends BasePage {
 
     }
     this.pageEvent = event;
-    this.readgelegationsStates(event.pageIndex, event.pageSize)
+    this.readData(event.pageIndex, event.pageSize)
   }
 
   onDeleteConfirm(event): void {
     if (window.confirm('Are you sure you want to delete?')) {
       this.service.delete(event.data.id).subscribe(data =>{
-        this.readgelegationsStates(this.pageEvent.pageIndex, this.pageEvent.pageSize);
+        this.readData(this.pageEvent.pageIndex, this.pageEvent.pageSize);
       },err =>{
         console.log(err);
       })
@@ -137,14 +137,14 @@ export class DelegationStateListComponent extends BasePage {
       fullScreen: false,
     };
     const modalRef = this.windowService.open(DelegationStateDetailComponent, { title: `Editar delegación estado`, context: { deductive: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
-      this.readgelegationsStates(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
+      this.readData(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
   
   }
 
   openWindow() {
     const modalRef = this.windowService.open(DelegationStateDetailComponent, { title: `Nuevo delegación estado` }).onClose.subscribe(() => {
-      this.readgelegationsStates(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
+      this.readData(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
     
   }
