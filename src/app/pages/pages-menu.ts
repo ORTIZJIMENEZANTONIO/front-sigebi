@@ -302,12 +302,16 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: '/pages/admin/station',
       },
       {
-        title: 'Estatus proceso',
-        link: '/pages/admin/status-process',
-      },
-      {
         title: 'Estado',
         link: '/pages/admin/state-of-republic',
+      },
+      {
+        title: 'Estatus general',
+        link: '/pages/admin/general-status',
+      },
+      {
+        title: 'Estatus proceso',
+        link: '/pages/admin/status-process',
       },
       {
         title: 'Genericos',

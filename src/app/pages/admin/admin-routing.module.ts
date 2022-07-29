@@ -113,6 +113,10 @@ const routes: Routes = [
         path: 'regional-delegation', loadChildren: () => import('./regional-delegation/regional-delegation.module')
           .then(m => m.RegionalDelegationModule)
       },
+      {
+        path: 'general-status', loadChildren: () => import('./general-status/general-status.module')
+          .then(m => m.GeneralStatusModule)
+      }
       //{ path: 'home', component: CategoriesComponent },//ok
     ]
   }

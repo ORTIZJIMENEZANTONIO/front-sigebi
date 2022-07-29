@@ -1,7 +1,7 @@
 <nb-card class="cat-card">
   <nb-card-header>
     <span class="title">
-      Lista de delegaciones estados
+      Lista de estatus generales
     </span>
     <div class="add-select">
       <button (click)="openWindow()"nbButton status="primary">Nueva</button>
@@ -11,7 +11,7 @@
   <nb-card-body>
     <ng2-smart-table 
       [settings]="settings" 
-      [source]="delegationsStates" 
+      [source]="generalsStatus" 
       (delete)="onDeleteConfirm($event)"
       (edit)="editRow($event)">
     </ng2-smart-table>

@@ -40,6 +40,7 @@ import { TypeWarehouseService } from './services/typeWarehouses.service';
 import { DeductiveVerificationService } from './services/deductive-verification.service';
 import { DelegationStateService } from './services/delegation-state.service';
 import { RegionalDelegationService } from './services/regional-delegation.service';
+import { GeneralStatusService } from './services/general-status.service';
 
 
 const API = [
@@ -78,7 +79,8 @@ const SERVICES = [
   TypeWarehouseService,
   DeductiveVerificationService,
   DelegationStateService,
-  RegionalDelegationService
+  RegionalDelegationService,
+  GeneralStatusService
 ];
 
 @NgModule({

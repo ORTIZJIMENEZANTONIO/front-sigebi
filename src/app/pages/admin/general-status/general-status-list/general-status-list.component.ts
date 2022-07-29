@@ -3,18 +3,18 @@ import { MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { NbToastrService, NbWindowControlButtonsConfig, NbWindowService } from '@nebular/theme';
 import { BasePage } from '../../../../@core/shared/base-page';
 
-import { DelegationStateService } from '../../../../@core/backend/common/services/delegation-state.service';
-import { DelegationStateDetailComponent } from '../delegation-state-detail/delegation-state-detail.component';
+import { GeneralStatusService } from '../../../../@core/backend/common/services/general-status.service';
+import { GeneralStatusDetailComponent } from '../general-status-detail/general-status-detail.component';
 
 @Component({
-  selector: 'ngx-delegation-state-list',
-  templateUrl: './delegation-state-list.component.html',
-  styleUrls: ['./delegation-state-list.component.scss']
+  selector: 'ngx-general-status-list',
+  templateUrl: './general-status-list.component.html',
+  styleUrls: ['./general-status-list.component.scss']
 })
-export class DelegationStateListComponent extends BasePage {
+export class GeneralStatusListComponent extends BasePage {
 
   constructor(
-    private service: DelegationStateService, 
+    private service: GeneralStatusService, 
     public  toastrService: NbToastrService,
     private windowService: NbWindowService, 
     private paginator: MatPaginatorIntl
@@ -34,7 +34,8 @@ export class DelegationStateListComponent extends BasePage {
     length:100
   };
 
-  delegationsStates: any;
+  generalsStatus: any;
+
   settings = {
     actions: {
       columnTitle: 'Acciones',
@@ -62,36 +63,20 @@ export class DelegationStateListComponent extends BasePage {
       confirmDelete: true,
     },
     columns: {
-      id: {
-        title: 'Registro',
-        type: 'number'
-      },
-      stateCode: {
-        title: 'Código de estado',
+      statusGeneral: {
+        title: 'Estatus general',
         type: 'string',
       },
-      version: {
-        title: 'Versión',
-        type: 'number'
-      },
-      keyState: {
-        title: 'Clave de estado',
-        type: 'number'
-      },
-      status: {
-        title: 'Estatus',
-        type: 'number'
-      },
-      editionUser: {
-        title: 'Modificado por',
+      statusProperty: {
+        title: 'Estatus bien',
         type: 'string',
-      }
+      },
     },
     noDataMessage: "No se encontrarón registros"
   };
 
   ngOnInit(): void {
-    this.readgelegationsStates(0,10);
+    this.readStations(0,10);
   }
   
   setPageSizeOptions(setPageSizeOptionsInput: string) {
@@ -99,15 +84,12 @@ export class DelegationStateListComponent extends BasePage {
       this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
   }
 
-  readgelegationsStates = ((pageIndex:number, pageSize:number) => {
-    this.delegationsStates = null;
-    this.service.list(pageIndex, pageSize).subscribe((delegationsStates:any) =>  {
-      this.delegationsStates = delegationsStates.data;
-      this.length = delegationsStates.count;
-    }, 
-    error => this.onLoadFailed('danger','Error conexión',error.message)
-    );
-
+  readStations = ((pageIndex:number, pageSize:number) => {
+    this.generalsStatus = null;
+    this.service.list(pageIndex, pageSize).subscribe((generalsStatus:any) => {
+      this.generalsStatus = generalsStatus.data;
+      this.length = generalsStatus.count;
+    }, error => this.onLoadFailed('danger','Error conexión',error.message) );
   });
 
   changesPage (event){
@@ -115,15 +97,15 @@ export class DelegationStateListComponent extends BasePage {
 
     }
     this.pageEvent = event;
-    this.readgelegationsStates(event.pageIndex, event.pageSize)
+    this.readStations(event.pageIndex, event.pageSize)
   }
 
   onDeleteConfirm(event): void {
     if (window.confirm('Are you sure you want to delete?')) {
-      this.service.delete(event.data.id).subscribe(data =>{
-        this.readgelegationsStates(this.pageEvent.pageIndex, this.pageEvent.pageSize);
+      this.service.delete(event.data.id).subscribe( () => {
+        this.readStations(this.pageEvent.pageIndex, this.pageEvent.pageSize);
       },err =>{
-        console.log(err);
+        console.error(err);
       })
     } else {
       event.confirm.reject();
@@ -136,18 +118,17 @@ export class DelegationStateListComponent extends BasePage {
       maximize: false,
       fullScreen: false,
     };
-    const modalRef = this.windowService.open(DelegationStateDetailComponent, { title: `Editar delegación estado`, context: { deductive: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
-      this.readgelegationsStates(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
+    const modalRef = this.windowService.open(GeneralStatusDetailComponent, { title: `Editar estatus general`, context: { settlement: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
+      this.readStations(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
   
   }
 
   openWindow() {
-    const modalRef = this.windowService.open(DelegationStateDetailComponent, { title: `Nuevo delegación estado` }).onClose.subscribe(() => {
-      this.readgelegationsStates(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
+    const modalRef = this.windowService.open(GeneralStatusDetailComponent, { title: `Nuevo estatus general` }).onClose.subscribe(() => {
+      this.readStations(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
     
   }
-
 
 }
