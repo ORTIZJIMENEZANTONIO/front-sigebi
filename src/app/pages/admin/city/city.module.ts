@@ -14,7 +14,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { MatSelectModule } from '@angular/material/select';
-import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 @NgModule({
   declarations: [
@@ -40,8 +39,7 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
     MatPaginatorModule,
     MatInputModule,
     MatFormFieldModule,
-    MatSelectModule,
-    NgxMatSelectSearchModule
+    MatSelectModule
   ],
   
 })

@@ -4,7 +4,6 @@ import { DomSanitizer } from '@angular/platform-browser';
 
 import { Router } from '@angular/router';
 import { NbWindowRef, NbWindowService, NB_WINDOW_CONTEXT } from '@nebular/theme';
-import { MatSelectSearchOptions, MAT_SELECTSEARCH_DEFAULT_OPTIONS } from 'ngx-mat-select-search';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { CityService } from '../../../../@core/backend/common/services/city.service';
 import { DelegationService } from '../../../../@core/backend/common/services/delegation.service';
@@ -15,16 +14,8 @@ import { BasePage } from '../../../../@core/shared/base-page';
 @Component({
   selector: 'ngx-city-detail',
   templateUrl: './city-detail.component.html',
-  styleUrls: ['./city-detail.component.scss'],
-  providers: [
-    {
-      provide: MAT_SELECTSEARCH_DEFAULT_OPTIONS,
-      useValue: <MatSelectSearchOptions>{
-        closeIcon: 'delete',
-        noEntriesFoundLabel: 'No options found',
-      }
-    }
-  ]
+  styleUrls: ['./city-detail.component.scss']
+ 
 })
 export class CityDetailComponent extends BasePage {
 
