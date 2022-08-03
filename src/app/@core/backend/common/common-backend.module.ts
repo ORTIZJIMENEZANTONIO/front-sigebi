@@ -54,6 +54,18 @@ import { TypeOrderServiceService } from './services/type-order-services.service'
 import { OfficesService } from './services/offices.service';
 import { GranteesService } from './services/grantees.service';
 import { EdosxcoorService } from './services/edos-x-coor.service';
+import { CityService } from './services/city.service';
+import { ClaimConclusionService } from './services/claim-conclusion.service';
+import { CourtService } from './services/court.service';
+import { DelegationService } from './services/delegation.service';
+import { DetailDelegationService } from './services/detail-delegation.service';
+import { HalfImageService } from './services/half-image.service';
+import { LockerService } from './services/locker.service';
+import { MediumPhotographyService } from './services/medium-photography.service';
+import { NotaryService } from './services/notary.service';
+import { PaymentsConceptService } from './services/payments-concept.service';
+import { ProficientService } from './services/proficient.service';
+import { SubdelegationService } from './services/subdelegation.service';
 
 
 
@@ -108,7 +120,23 @@ const SERVICES = [
   OfficesService,
   GranteesService,
   EdosxcoorService,
-  StationService
+  StationService,
+  CategoryService,
+  ImageCategoryService,
+  LegendsService,
+  ParagraphsService,
+  CityService,
+  DelegationService,
+  SubdelegationService,
+  DetailDelegationService,
+  PaymentsConceptService,
+  NotaryService,
+  LockerService,
+  ProficientService,
+  ClaimConclusionService,
+  CourtService,
+  HalfImageService,
+  MediumPhotographyService
 ];
 
 @NgModule({
