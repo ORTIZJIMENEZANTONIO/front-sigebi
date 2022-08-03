@@ -57,6 +57,7 @@ export class DictamentDetailComponent  extends BaseApp {
     if( this.actionBtn == "Guardar"){
       this.service.register(this.formOpinion.value).subscribe(data =>{
         console.log(data)
+        
         this.windowRef.close();
       },err =>{
         console.log(err);

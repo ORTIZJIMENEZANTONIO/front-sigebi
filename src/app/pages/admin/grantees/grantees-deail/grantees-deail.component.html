@@ -1,0 +1,61 @@
+<nb-card>
+    <nb-card-body>
+        <form [formGroup]="form">
+            <div class="form-group row">
+                <input nbInput fullWidth formControlName="description" matInput placeholder="Descrpcion">
+                <label class="text-danger" *ngIf="validateOpinion['description'].hasError('pattern')"><small>No válido!</small></label>
+            </div>
+            <div class="form-group row">
+                <input nbInput fullWidth formControlName="puesto" matInput placeholder="Puesto">
+                <label class="text-danger" *ngIf="validateOpinion['puesto'].hasError('pattern')"><small>No válido!</small></label>
+            </div>
+            <div class="form-group row">
+                <input nbInput fullWidth formControlName="type" matInput placeholder="Tipo">
+                <label class="text-danger" *ngIf="validateOpinion['type'].hasError('pattern')"><small>No válido!</small></label>
+            </div>
+            <div class="form-group row">
+                <input nbInput fullWidth formControlName="razonSocial" matInput placeholder="Razon social">
+                <label class="text-danger" *ngIf="validateOpinion['razonSocial'].hasError('pattern')"><small>No válido!</small></label>
+            </div>
+            <div class="form-group row">
+                <input nbInput fullWidth formControlName="street" matInput placeholder="Calle">
+                <label class="text-danger" *ngIf="validateOpinion['street'].hasError('pattern')"><small>No válido!</small></label>
+            </div>
+            <div class="form-group row">
+                <input nbInput fullWidth formControlName="noInside" matInput placeholder="No Interior">
+                <label class="text-danger" *ngIf="validateOpinion['noInside'].hasError('pattern')"><small>No válido!</small></label>
+            </div>
+            <div class="form-group row">
+                <input nbInput fullWidth formControlName="noExterior" matInput placeholder="No Exterior">
+                <label class="text-danger" *ngIf="validateOpinion['noExterior'].hasError('pattern')"><small>No válido!</small></label>
+            </div>
+            <div class="form-group row">
+                <input nbInput fullWidth formControlName="col" matInput placeholder="Colonia">
+                <label class="text-danger" *ngIf="validateOpinion['col'].hasError('pattern')"><small>No válido!</small></label>
+            </div>
+            <div class="form-group row">
+                <input nbInput fullWidth formControlName="nommun" matInput placeholder="Nommun">
+                <label class="text-danger" *ngIf="validateOpinion['nommun'].hasError('pattern')"><small>No válido!</small></label>
+            </div>
+            <div class="form-group row">
+                <input nbInput fullWidth formControlName="nomedo" matInput placeholder="Nomedo">
+                <label class="text-danger" *ngIf="validateOpinion['nomedo'].hasError('pattern')"><small>No válido!</small></label>
+            </div>
+            <div class="form-group row">
+                <input nbInput fullWidth formControlName="cp" matInput placeholder="CP">
+                <label class="text-danger" *ngIf="validateOpinion['cp'].hasError('pattern')"><small>No válido!</small></label>
+            </div>
+            <div class="form-group row">
+                <input nbInput fullWidth formControlName="usrStatus" matInput placeholder="Estado usuario">
+                <label class="text-danger" *ngIf="validateOpinion['usrStatus'].hasError('pattern')"><small>No válido!</small></label>
+            </div>
+        
+        
+            <div class="form-group row">
+                <div class="offset-sm-3 col-sm-9">
+                    <button type="submit" nbButton status="primary" [disabled]="!form.valid" (click)="register()">{{actionBtn}}</button>
+                </div>
+            </div>
+        </form>
+    </nb-card-body>
+</nb-card>

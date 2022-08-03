@@ -1,0 +1,30 @@
+<nb-card>
+    <nb-card-body>
+        <form [formGroup]="form">
+            <div class="form-group row">
+                <input nbInput fullWidth formControlName="description" matInput placeholder="Descripcion">
+                <label class="text-danger" *ngIf="validateOpinion['description'].hasError('pattern')"><small>No válido!</small></label>
+            </div>
+            <div class="form-group row">
+                <input nbInput fullWidth formControlName="noState" matInput placeholder="No estado">
+                <label class="text-danger" *ngIf="validateOpinion['noState'].hasError('pattern')"><small>No válido!</small></label>
+            </div>
+            <div class="form-group row">
+                <input nbInput fullWidth formControlName="state" matInput placeholder="Estado">
+                <label class="text-danger" *ngIf="validateOpinion['state'].hasError('pattern')"><small>No válido!</small></label>
+            </div>
+            <div class="form-group row">
+                <input nbInput fullWidth formControlName="stage" matInput placeholder="Etapa">
+                <label class="text-danger" *ngIf="validateOpinion['stage'].hasError('pattern')"><small>No válido!</small></label>
+            </div>
+           
+        
+            <div class="form-group row">
+                <div class="offset-sm-3 col-sm-9">
+                    <button type="submit" nbButton status="primary" [disabled]="!form.valid" (click)="register()">{{actionBtn}}</button>
+                </div>
+            </div>
+        </form>
+    </nb-card-body>
+</nb-card>
+

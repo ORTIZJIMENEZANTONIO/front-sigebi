@@ -120,7 +120,62 @@ const routes: Routes = [
       {
         path: 'warehouse', loadChildren: () => import('./warehouse/warehouse.module')
           .then(m => m.WarehouseModule)
+      },
+      {
+        path: 'typesettelement', loadChildren: () => import('./type-settlement/type-settlement.module')
+          .then(m => m.TypeSettlementModule)
+      },
+      {
+        path: 'typegood', loadChildren: () => import('./type-goods/type-goods.module')
+          .then(m => m.TypeGoodsModule)
+      },
+      {
+        path: 'typedocto', loadChildren: () => import('./type-docto/type-docto.module')
+          .then(m => m.TypeDoctoModule)
+      },
+      {
+        path: 'statustransfer', loadChildren: () => import('./status-transfer/status-transfer.module')
+          .then(m => m.StatusTransferModule)
+      },
+      {
+        path: 'statusmailbox', loadChildren: () => import('./mailbox-status/mailbox-status.module')
+          .then(m => m.MailboxStatusModule)
+      },
+      // {
+      //   path: 'typeservices', loadChildren: () => import('./type-services/type-services.module')
+      //     .then(m => m.TypeServicesModule)
+      // },
+        {
+        path: 'typerelevant', loadChildren: () => import('./type-relevant/type-relevant.module')
+          .then(m => m.TypeRelevantModule)
+      },
+      {
+        path: 'transferentes', loadChildren: () => import('./transferentes/transferentes.module')
+          .then(m => m.TransferentesModule)
+      },
+      {
+        path: 'typeorderservices', loadChildren: () => import('./type-order-service/type-order-service.module')
+          .then(m => m.TypeOrderServiceModule)
+      },
+      {
+        path: 'offices', loadChildren: () => import('./offices/offices.module')
+          .then(m => m.OfficesModule)
+      },
+      {
+        path: 'grantees', loadChildren: () => import('./grantees/grantees.module')
+          .then(m => m.GranteesModule)
+      },
+      {
+        path: 'edosxcoor', loadChildren: () => import('./edos-x-coor/edos-x-coor.module')
+          .then(m => m.EdosXCoorModule)
+      },
+      {
+        path: 'station', loadChildren: () => import('./station/station.module')
+          .then(m => m.StationModule)
       }
+      
+      
+
       //{ path: 'home', component: CategoriesComponent },//ok
     ]
   }

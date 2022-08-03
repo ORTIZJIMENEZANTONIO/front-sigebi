@@ -52,7 +52,17 @@ export class TypeWarehousesDetailComponent extends BaseApp {
 
   register(): void {
     if( this.actionBtn == "Guardar"){
-      this.service.register(this.form.value).subscribe(data =>{
+      let params = {
+        userCreation: 'Paul',
+        creationDate:new Date(),
+        userModificatio:'Paul',
+        modificatioDate:new Date(),
+        description: this.form.value.description,
+        version: this.form.value.version,
+        estatus: this.form.value.estatus,
+
+      }
+      this.service.register(params).subscribe(data =>{
         console.log(data)
         this.windowRef.close();
       },err =>{
