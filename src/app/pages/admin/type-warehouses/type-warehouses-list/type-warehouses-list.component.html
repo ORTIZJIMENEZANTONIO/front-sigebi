@@ -12,7 +12,7 @@
     </nb-card-header>
 
     <nb-card-body>
-        <ng2-smart-table [settings]="settings" [source]="paragraphs" (delete)="onDeleteConfirm($event)"
+        <ng2-smart-table [settings]="settings" [source]="list" (delete)="onDeleteConfirm($event)"
             (edit)="editRow($event)">
         </ng2-smart-table>
         <mat-paginator [length]="length"

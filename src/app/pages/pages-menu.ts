@@ -250,6 +250,10 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: '/pages/admin/clarification',
       },
       {
+        title: 'Almacenes',
+        link: '/pages/admin/warehouse',
+      },
+      {
         title: 'Asentamientos',
         link: '/pages/admin/settlement',
       },
@@ -282,6 +286,18 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: '/pages/admin/deductives',
       },
       {
+        title: 'Deductivas Verificación',
+        link: '/pages/admin/deductive-verification',
+      },
+      {
+        title: 'Delegaciones de estado',
+        link: '/pages/admin/delegation-state',
+      },
+      {
+        title: 'Delegaciones regionales',
+        link: '/pages/admin/regional-delegation',
+      },
+      {
         title: 'Dictamen',
         link: '/pages/admin/dictaments',
       },
@@ -290,12 +306,16 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: '/pages/admin/station',
       },
       {
-        title: 'Estatus proceso',
-        link: '/pages/admin/status-process',
-      },
-      {
         title: 'Estado',
         link: '/pages/admin/state-of-republic',
+      },
+      {
+        title: 'Estatus general',
+        link: '/pages/admin/general-status',
+      },
+      {
+        title: 'Estatus proceso',
+        link: '/pages/admin/status-process',
       },
       {
         title: 'Genericos',
@@ -333,6 +353,60 @@ export const MENU_ITEMS: NbMenuItem[] = [
         title: 'Tipo Almacen',
         link: '/pages/admin/typewarehouses',
       },
+      {
+        title: 'Tipo Asentamiento',
+        link: '/pages/admin/typesettelement',
+      },
+      {
+        title: 'Tipo Bienes',
+        link: '/pages/admin/typegood',
+      },
+      {
+        title: 'Tipo Docto',
+        link: '/pages/admin/typedocto',
+      },
+      {
+        title: 'Estado Transferencia',
+        link: '/pages/admin/statustransfer',
+      },
+      {
+        title: 'Estatus Buzon',
+        link: '/pages/admin/statusmailbox',
+      },
+      {
+        title: 'Tipo servicios',
+        link: '/pages/admin/typeservices',
+      },
+      {
+        title: 'Tipo relevante',
+        link: '/pages/admin/typerelevant',
+      },
+      {
+        title: 'Transferentes',
+        link: '/pages/admin/transferentes',
+      },
+      {
+        title: 'Tipo orden servicio',
+        link: '/pages/admin/typeorderservices',
+      },
+      {
+        title: 'Despachos',
+        link: '/pages/admin/offices',
+      },
+      {
+        title: 'Donatorios',
+        link: '/pages/admin/grantees',
+      },
+      {
+        title: 'Edos x Coor',
+        link: '/pages/admin/edosxcoor',
+      },
+      {
+        title: 'Emisoras',
+        link: '/pages/admin/station',
+      },
+      
+      
     ],
   },
   {

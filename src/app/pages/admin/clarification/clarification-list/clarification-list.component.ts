@@ -101,10 +101,10 @@ export class ClarificationListComponent extends BasePage {
   };
 
   ngOnInit(): void {
-    this.readClarifications(0,10);
+    this.readData(0,10);
   }
 
-  readClarifications = ((pageIndex:number, pageSize:number) => {
+  readData = ((pageIndex:number, pageSize:number) => {
     this.clarifications = null;
     this.service.list(pageIndex, pageSize).subscribe((clarifications:any) =>  {
       this.clarifications = clarifications.data;
@@ -120,13 +120,13 @@ export class ClarificationListComponent extends BasePage {
 
     }
     this.pageEvent = event;
-    this.readClarifications(event.pageIndex, event.pageSize)
+    this.readData(event.pageIndex, event.pageSize)
   }
 
   onDeleteConfirm(event): void {
     if (window.confirm('Are you sure you want to delete?')) {
       this.service.delete(event.data.id).subscribe(data =>{
-        this.readClarifications(this.pageEvent.pageIndex, this.pageEvent.pageSize);
+        this.readData(this.pageEvent.pageIndex, this.pageEvent.pageSize);
       },err =>{
         console.log(err);
       })
@@ -142,14 +142,14 @@ export class ClarificationListComponent extends BasePage {
       fullScreen: false,
     };
     const modalRef = this.windowService.open(ClarificationDetailComponent, { title: `Editar aclaración`, context: { clarification: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
-      this.readClarifications(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
+      this.readData(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
   
   }
 
   openWindow() {
     const modalRef = this.windowService.open(ClarificationDetailComponent, { title: `Nuevo deductiva` }).onClose.subscribe(() => {
-      this.readClarifications(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
+      this.readData(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
     
   }

@@ -33,7 +33,7 @@ export class TypeWarehousesListComponent extends BasePage {
       this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
     }
   }
-  paragraphs: any;
+  list: any;
   settings = {
     actions: {
       columnTitle: 'Acciones',
@@ -72,31 +72,29 @@ export class TypeWarehousesListComponent extends BasePage {
         type: 'string',
         editable: true,
       },
-      noRegistration: {
-        title: 'Numero de registro',
+      version: {
+        title: 'Versión',
         type: 'number',
       },
-      dict_ofi: {
-        title: 'Dictamen oficial',
-        type: 'string',
+      estatus: {
+        title: 'Estatus',
+        type: 'number',
       },
-      areaProcess: {
-        title: 'Area de tramite',
-        type: 'string',
-      }
+    
     },
     noDataMessage: "No se encontrarón registros"
   };
 
   ngOnInit(): void {
-    this.readDictamen(0,10); 
+    this.read(0,10); 
   }
 
-  readDictamen = ((pageIndex:number, pageSize:number) => {
-    this.paragraphs = null;
-    this.service.list(pageIndex, pageSize).subscribe((paragraphs:any) =>  {
-      this.paragraphs = paragraphs.data;
-      this.length = paragraphs.count;
+  read = ((pageIndex:number, pageSize:number) => {
+    this.list = null;
+    this.service.list(pageIndex, pageSize).subscribe((dt:any) =>  {
+      console.log(dt)
+      this.list = dt.data;
+      this.length = dt.count;
     }, 
     error => this.onLoadFailed('danger','Error conexión',error.message)
     );
@@ -108,7 +106,7 @@ export class TypeWarehousesListComponent extends BasePage {
 
     }
     this.pageEvent = event;
-    this.readDictamen(event.pageIndex * event.pageSize, event.pageSize)
+    this.read(event.pageIndex * event.pageSize, event.pageSize)
   }
 
   onDeleteConfirm(event): void {
@@ -120,7 +118,7 @@ export class TypeWarehousesListComponent extends BasePage {
         }else{
           this.onLoadFailed('danger','Error',data.message);
         }
-        this.readDictamen(this.pageEvent.pageIndex, this.pageEvent.pageSize);
+        this.read(this.pageEvent.pageIndex, this.pageEvent.pageSize);
       },err =>{
         console.log(err);
       })
@@ -137,14 +135,14 @@ export class TypeWarehousesListComponent extends BasePage {
     };
     console.log(event.data);
     const modalRef = this.windowService.open(TypeWarehousesDetailComponent, { title: `Editar dictamen`, context: { data: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
-      this.readDictamen(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
+      this.read(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
   
   }
 
   openWindowDictamen() {
     const modalRef = this.windowService.open(TypeWarehousesDetailComponent, { title: `Nuevo dictamen` }).onClose.subscribe(() => {
-      this.readDictamen(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
+      this.read(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
     
   }

@@ -102,7 +102,7 @@ export class HolidayListComponent extends BasePage {
   };
 
   ngOnInit(): void {
-    this.readHolidays(0,10);
+    this.readData(0,10);
   }
   
   setPageSizeOptions(setPageSizeOptionsInput: string) {
@@ -110,7 +110,7 @@ export class HolidayListComponent extends BasePage {
       this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
   }
 
-  readHolidays = ((pageIndex:number, pageSize:number) => {
+  readData = ((pageIndex:number, pageSize:number) => {
     this.holidays = null;
     this.service.list(pageIndex, pageSize).subscribe((holidays:any) => {
       this.holidays = holidays.data;
@@ -123,13 +123,13 @@ export class HolidayListComponent extends BasePage {
 
     }
     this.pageEvent = event;
-    this.readHolidays(event.pageIndex, event.pageSize)
+    this.readData(event.pageIndex, event.pageSize)
   }
 
   onDeleteConfirm(event): void {
     if (window.confirm('Are you sure you want to delete?')) {
       this.service.delete(event.data.id).subscribe( () => {
-        this.readHolidays(this.pageEvent.pageIndex, this.pageEvent.pageSize);
+        this.readData(this.pageEvent.pageIndex, this.pageEvent.pageSize);
       },err =>{
         console.log(err);
       })
@@ -145,14 +145,14 @@ export class HolidayListComponent extends BasePage {
       fullScreen: false,
     };
     const modalRef = this.windowService.open(HolidayDetailComponent, { title: `Editar día festivo`, context: { holiday: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
-      this.readHolidays(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
+      this.readData(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
   
   }
 
   openWindow() {
     const modalRef = this.windowService.open(HolidayDetailComponent, { title: `Nuevo día festivo` }).onClose.subscribe(() => {
-      this.readHolidays(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
+      this.readData(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
     
   }

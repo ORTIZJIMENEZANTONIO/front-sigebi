@@ -91,10 +91,10 @@ export class BatteryListComponent extends BasePage {
   };
 
   ngOnInit(): void {
-    this.readBatteries(0,10);
+    this.readData(0,10);
   }
 
-  readBatteries = ((pageIndex:number, pageSize:number) => {
+  readData = ((pageIndex:number, pageSize:number) => {
     this.batteries = null;
     this.service.list(pageIndex, pageSize).subscribe((batteries:any) =>  {
       this.batteries = batteries.data;
@@ -110,13 +110,13 @@ export class BatteryListComponent extends BasePage {
 
     }
     this.pageEvent = event;
-    this.readBatteries(event.pageIndex, event.pageSize)
+    this.readData(event.pageIndex, event.pageSize)
   }
 
   onDeleteConfirm(event): void {
     if (window.confirm('Are you sure you want to delete?')) {
       this.service.delete(event.data.id).subscribe( () => {
-        this.readBatteries(this.pageEvent.pageIndex, this.pageEvent.pageSize);
+        this.readData(this.pageEvent.pageIndex, this.pageEvent.pageSize);
       },err =>{
         console.log(err);
       })
@@ -132,14 +132,14 @@ export class BatteryListComponent extends BasePage {
       fullScreen: false,
     };
     const modalRef = this.windowService.open(BatteryDetailComponent, { title: `Editar batteria`, context: { battery: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
-      this.readBatteries(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
+      this.readData(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
   
   }
 
   openWindow() {
     const modalRef = this.windowService.open(BatteryDetailComponent, { title: `Nueva bateria` }).onClose.subscribe(() => {
-      this.readBatteries(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
+      this.readData(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
     
   }
