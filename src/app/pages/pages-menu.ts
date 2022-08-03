@@ -406,6 +406,58 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: '/pages/admin/station',
       },
       
+
+
+      {
+        title: 'Ciudades',
+        link: '/pages/admin/city',
+      },
+      {
+        title: 'Delegaciones',
+        link: '/pages/admin/delegation',
+      },
+      {
+        title:'Detalle Delegaciones',
+        link:'/pages/admin/detail-delegation'
+      },
+
+      {
+        title: 'SubDelegaciones',
+        link: '/pages/admin/subdelegation',
+      },
+      {
+        title: 'Concepto Pagos',
+        link: '/pages/admin/payments-concept',
+      },
+      {
+        title:'Notarios',
+        link:'/pages/admin/notary'
+      },
+      {
+        title:'Casilleros',
+        link:'/pages/admin/locker'
+      },
+      {
+        title:'Juzgados',
+        link:'/pages/admin/court'
+      },
+      {
+        title:'Conclusion siniestros',
+        link:'/pages/admin/claim-conclusion'
+      },
+      {
+        title:'Peritos',
+        link:'/pages/admin/proficient'
+      },
+      {
+        title:'Medio imagen',
+        link:'/pages/admin/half-image'
+      },
+      {
+        title:'Medio fotografia',
+        link:'/pages/admin/medium-photography'
+      }
+
       
     ],
   },

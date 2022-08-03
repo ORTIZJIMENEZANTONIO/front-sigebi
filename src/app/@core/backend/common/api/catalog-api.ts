@@ -15,6 +15,12 @@ export class CatalogApi {
     const params = new HttpParams().set('inicio', `${pageNumber+1}`).set('pageSize', `${pageSize}`);
     return this.api.get(this.apiController, { params });
   }
+  
+  search(text:string, url:string){
+    this.apiController = url;
+    const params = new HttpParams().set('text', `${text}`);
+    return this.api.get(this.apiController+'/search', { params });
+  }
   listAll(url:string) {
     this.apiController = url;
       return this.api.get(this.apiController);

@@ -172,9 +172,56 @@ const routes: Routes = [
       {
         path: 'station', loadChildren: () => import('./station/station.module')
           .then(m => m.StationModule)
+      },
+      {
+        path: 'city', loadChildren: () => import('./city/city.module')
+          .then(m => m.CityModule)
+      },
+      {
+        path: 'delegation', loadChildren: () => import('./delegation/delegation.module')
+          .then(m => m.DelegationModule)
+      },
+      {
+        path: 'detail-delegation', loadChildren: () => import('./detail-delegation/detail-delegation.module')
+          .then(m => m.DetailDelegationModule)
+      },
+      {
+        path: 'subdelegation', loadChildren: () => import('./subdelegation/subdelegation.module')
+          .then(m => m.SubdelegationModule) 
+      },
+      {
+        path: 'payments-concept', loadChildren: () => import('./payments-concept/payments-concept.module')
+          .then(m => m.PaymentsConceptModule) 
+      },
+      {
+        path: 'notary', loadChildren: () => import('./notary/notary.module')
+          .then(m => m.NotaryModule) 
+      },
+      {
+        path: 'proficient', loadChildren: () => import('./proficient/proficient.module')
+          .then(m => m.ProficientModule)
+      },
+      {
+        path: 'locker', loadChildren: () => import('./locker/locker.module')
+          .then(m => m.LockerModule)
+      },
+      {
+        path: 'court', loadChildren: () => import('./court/court.module')
+          .then(m => m.CourtModule)
+      },
+      {
+        path: 'claim-conclusion', loadChildren: () => import('./claim-conclusion/claim-conclusion.module')
+          .then(m => m.ClaimConclusionModule)
+      },
+      {
+        path: 'half-image', loadChildren: () => import('./half-image/half-image.module')
+          .then(m => m.HalfImageModule)
+      },
+      {
+        path: 'medium-photography', loadChildren: () => import('./medium-photography/medium-photography.module')
+          .then(m => m.MediumPhotographyModule)
       }
-      
-      
+
 
       //{ path: 'home', component: CategoriesComponent },//ok
     ]
