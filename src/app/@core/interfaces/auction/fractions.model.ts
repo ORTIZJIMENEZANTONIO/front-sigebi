@@ -1,10 +1,12 @@
+import { NormModel } from "./norm.model";
+
 export interface FractionsModel {
   id?:number;
   code:number;
   level:string;
   description:string;
   parentId:number;
-  normId:number;
+  normId:NormModel|number;
   unit:string;
   clasificationId:number;
   userCreation:string;

@@ -4,7 +4,9 @@ import { BasePage } from '../../../../@core/shared/base-page';
 import { FractionsService } from '../../../../@core/backend/common/services/fractions.service';
 import { FractionsDetailComponent } from '../fractions-detail/fractions-detail.component';
 import {MatPaginatorIntl, PageEvent} from '@angular/material/paginator';
-//import Swal from 'sweetalert2';
+import Swal from 'sweetalert2';
+import { FractionsModel } from '../../../../@core/interfaces/auction/fractions.model';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'ngx-fractions-list',
@@ -17,8 +19,22 @@ export class FractionsListComponent extends BasePage {
     private windowService: NbWindowService, private paginator: MatPaginatorIntl) {
     super(toastrService);
     this.paginator.itemsPerPageLabel = "Registros por página";
+    this.searchForm = new FormGroup({
+      text: new FormControl()
+    });
+    this.searchForm.controls['text'].valueChanges.subscribe((value:string)=>{
+      if(value.length > 0){
+        this.service.search(value).subscribe((rows:FractionsModel[])=>{
+          this.length = rows.length;
+          this.fractions = rows;
+        })
+      }else{
+        this.readFraction()
+      }
+    })
   }
 
+  searchForm:FormGroup;
   length = 100;
   pageSize = 10;
   pageSizeOptions: number[] = [5, 10, 25, 100];
@@ -27,7 +43,7 @@ export class FractionsListComponent extends BasePage {
   pageEvent: PageEvent = {
     pageIndex:0,
     pageSize:10,
-    length:100
+    length:0
   };
 
   setPageSizeOptions(setPageSizeOptionsInput: string) {
@@ -92,6 +108,9 @@ export class FractionsListComponent extends BasePage {
       normId: {
         title: 'Norma',
         type: 'string',
+        valuePrepareFunction:(value) =>{
+          return value.norm
+        }
       },
       unit: {
         title: 'Unidad',
@@ -138,12 +157,12 @@ export class FractionsListComponent extends BasePage {
   };
 
   ngOnInit(): void {
-    this.readFraction(0,10);
+    this.readFraction();
   }
 
-  readFraction = ((pageIndex:number, pageSize:number) => {
+  readFraction = (() => {
     this.fractions = null;
-    this.service.list(pageIndex, pageSize).subscribe((fractions:any) =>  {
+    this.service.list(this.pageEvent.pageIndex, this.pageEvent.pageSize).subscribe((fractions:any) =>  {
       this.fractions = fractions.data;
       this.length = fractions.count;
     }, 
@@ -154,29 +173,29 @@ export class FractionsListComponent extends BasePage {
 
   changesPage (event){
     this.pageEvent = event;
-    this.readFraction(event.pageIndex, event.pageSize)
+    this.readFraction()
   }
 
   onDeleteConfirm(event): void {
-    // Swal.fire({
-    //   title: 'Esta seguro de eliminar el registro?',
-    //   text: "Esta acción no es revertible!",
-    //   icon: 'warning',
-    //   showCancelButton: true,
-    //   confirmButtonColor: '#3085d6',
-    //   cancelButtonColor: '#d33',
-    //   cancelButtonText:'Cancelar',
-    //   confirmButtonText: 'Si'
-    // }).then((result) => {
-    //   if (result.isConfirmed) {
-    //     this.service.delete(event.data.name).subscribe(data =>{
-    //       this.readFraction(this.pageEvent.pageIndex, this.pageEvent.pageSize);
-    //     },err =>{
-    //       console.log(err);
-    //     })
+    Swal.fire({
+      title: 'Esta seguro de eliminar el registro?',
+      text: "Esta acción no es revertible!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText:'Cancelar',
+      confirmButtonText: 'Si'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.service.delete(event.data.name).subscribe(data =>{
+          this.readFraction();
+        },err =>{
+          console.log(err);
+        })
        
-    //   }
-    // })
+      }
+    })
     
   }
 
@@ -187,14 +206,14 @@ export class FractionsListComponent extends BasePage {
       fullScreen: false,
     };
     const modalRef = this.windowService.open(FractionsDetailComponent, { title: `Editar fraccion`, context: { fraction: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
-      this.readFraction(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
+      this.readFraction();
     });
   
   }
 
   openWindowFractions() {
     const modalRef = this.windowService.open(FractionsDetailComponent, { title: `Nueva fraccion` }).onClose.subscribe(() => {
-      this.readFraction(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
+      this.readFraction();
     });
     
   }

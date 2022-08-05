@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { NbToastrService, NbWindowControlButtonsConfig, NbWindowService} from '@nebular/theme';
 import { BasePage } from '../../../../@core/shared/base-page';
+import { NormModel } from '../../../../@core/interfaces/auction/norm.model';
 import { NormService } from '../../../../@core/backend/common/services/norm.service';
 import { NormDetailComponent } from '../norm-detail/norm-detail.component';
 import {MatPaginatorIntl, PageEvent} from '@angular/material/paginator';
@@ -17,7 +19,22 @@ export class NormListComponent extends BasePage {
     private windowService: NbWindowService, private paginator: MatPaginatorIntl) {
     super(toastrService);
     this.paginator.itemsPerPageLabel = "Registros por página";
+    this.searchForm = new FormGroup({
+      text: new FormControl()
+    });
+    this.searchForm.controls['text'].valueChanges.subscribe((value:string)=>{
+      if(value.length > 0){
+        this.service.search(value).subscribe((rows:NormModel[])=>{
+          this.length = rows.length;
+          this.norms = rows;
+        })
+      }else{
+        this.readNorm()
+      }
+    })
   }
+
+  searchForm:FormGroup;
 
   length = 100;
   pageSize = 10;
@@ -27,7 +44,7 @@ export class NormListComponent extends BasePage {
   pageEvent: PageEvent = {
     pageIndex:0,
     pageSize:10,
-    length:100
+    length:0
   };
 
   setPageSizeOptions(setPageSizeOptionsInput: string) {
@@ -42,7 +59,7 @@ export class NormListComponent extends BasePage {
       columnTitle: 'Acciones',
       add: true,
       edit: true,
-      delete: true,
+      delete: false,
     },
     pager : {
       display : false,
@@ -127,12 +144,12 @@ export class NormListComponent extends BasePage {
   };
 
   ngOnInit(): void {
-    this.readNorm(0,10);
+    this.readNorm();
   }
 
-  readNorm = ((pageIndex:number, pageSize:number) => {
+  readNorm = (() => {
     this.norms = null;
-    this.service.list(pageIndex, pageSize).subscribe((norms:any) =>  {
+    this.service.list(this.pageEvent.pageIndex, this.pageEvent.pageSize).subscribe((norms:any) =>  {
       this.norms = norms.data;
       this.length = norms.count;
     }, 
@@ -143,7 +160,7 @@ export class NormListComponent extends BasePage {
 
   changesPage (event){
     this.pageEvent = event;
-    this.readNorm(event.pageIndex, event.pageSize)
+    this.readNorm()
   }
 
   onDeleteConfirm(event): void {
@@ -159,7 +176,7 @@ export class NormListComponent extends BasePage {
     }).then((result) => {
       if (result.isConfirmed) {
         this.service.delete(event.data.id).subscribe(data =>{
-          this.readNorm(this.pageEvent.pageIndex, this.pageEvent.pageSize);
+          this.readNorm();
         },err =>{
           console.log(err);
         })
@@ -176,14 +193,14 @@ export class NormListComponent extends BasePage {
       fullScreen: false,
     };
     const modalRef = this.windowService.open(NormDetailComponent, { title: `Editar norma`, context: { norm: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
-      this.readNorm(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
+      this.readNorm();
     });
   
   }
 
   openWindowNorm() {
     const modalRef = this.windowService.open(NormDetailComponent, { title: `Nueva norma` }).onClose.subscribe(() => {
-      this.readNorm(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
+      this.readNorm();
     });
     
   }

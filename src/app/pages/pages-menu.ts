@@ -318,6 +318,10 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: '/pages/admin/status-process',
       },
       {
+        title: 'Fracciones',
+        link: '/pages/admin/fractions',
+      },
+      {
         title: 'Genericos',
         link: '/pages/admin/generics',
       },

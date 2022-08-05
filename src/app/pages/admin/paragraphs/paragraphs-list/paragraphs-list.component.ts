@@ -5,6 +5,8 @@ import { ParagraphsService } from '../../../../@core/backend/common/services/par
 import { ParagraphsDetailComponent } from '../paragraphs-detail/paragraphs-detail.component';
 import {MatPaginatorIntl, PageEvent} from '@angular/material/paginator';
 import Swal from 'sweetalert2';
+import { ParagraphsModel } from '../../../../@core/interfaces/auction/paragraphs.model';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'ngx-paragraphs-list',
@@ -16,7 +18,22 @@ export class ParagraphsListComponent extends BasePage {
     private windowService: NbWindowService, private paginator: MatPaginatorIntl) {
     super(toastrService);
     this.paginator.itemsPerPageLabel = "Registros por página";
+    this.searchForm = new FormGroup({
+      text: new FormControl()
+    });
+    this.searchForm.controls['text'].valueChanges.subscribe((value:string)=>{
+      if(value.length > 0){
+        this.service.search(value).subscribe((rows:ParagraphsModel[])=>{
+          this.length = rows.length;
+          this.paragraphs = rows;
+        })
+      }else{
+        this.readParagraphs()
+      }
+    })
   }
+
+  searchForm:FormGroup;
 
   length = 100;
   pageSize = 10;
@@ -40,7 +57,7 @@ export class ParagraphsListComponent extends BasePage {
       columnTitle: 'Acciones',
       add: true,
       edit: true,
-      delete: true,
+      delete: false,
     },
     pager : {
       display : false,
@@ -93,12 +110,12 @@ export class ParagraphsListComponent extends BasePage {
     noDataMessage: "No se encontrarón registros"
   };
   ngOnInit(): void {
-    this.readParagraphs(0,10);
+    this.readParagraphs();
   }
 
-  readParagraphs = ((pageIndex:number, pageSize:number) => {
+  readParagraphs = (() => {
     this.paragraphs = null;
-    this.service.list(pageIndex, pageSize).subscribe((paragraphs:any) =>  {
+    this.service.list(this.pageEvent.pageIndex, this.pageEvent.pageSize).subscribe((paragraphs:any) =>  {
       this.paragraphs = paragraphs.data;
       this.length = paragraphs.count;
     }, 
@@ -109,7 +126,7 @@ export class ParagraphsListComponent extends BasePage {
 
   changesPage (event){
     this.pageEvent = event;
-    this.readParagraphs(event.pageIndex, event.pageSize)
+    this.readParagraphs()
 
   }
 
@@ -126,7 +143,7 @@ export class ParagraphsListComponent extends BasePage {
     }).then((result) => {
       if (result.isConfirmed) {
         this.service.delete(event.data.id).subscribe(data =>{
-          this.readParagraphs(this.pageEvent.pageIndex, this.pageEvent.pageSize);
+          this.readParagraphs();
         },err =>{
           console.log(err);
         })
@@ -142,14 +159,14 @@ export class ParagraphsListComponent extends BasePage {
       fullScreen: false,
     };
     const modalRef = this.windowService.open(ParagraphsDetailComponent, { title: `Editar parrafo`, context: { paragraph: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
-      this.readParagraphs(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
+      this.readParagraphs();
     });
   
   }
 
   openWindowParagraph() {
     const modalRef = this.windowService.open(ParagraphsDetailComponent, { title: `Nuevo parrafo` }).onClose.subscribe(() => {
-      this.readParagraphs(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
+      this.readParagraphs();
     });
     
   }

@@ -18,6 +18,9 @@ export class NormService {
         const data = this.api.list(pageNumber, pageSize, this.url);
         return data;
     }
+    search(text:string){
+        return this.api.search(text,this.url);
+    }
     register(legendData: NormModel): Observable<NormModel>{
         return this.api.register(legendData, this.url);
     }
