@@ -67,6 +67,7 @@ import { PaymentsConceptService } from './services/payments-concept.service';
 import { ProficientService } from './services/proficient.service';
 import { SubdelegationService } from './services/subdelegation.service';
 import { StorehouseService } from './services/storehouse.service';
+import { SafeService } from './services/safe.service';
 
 
 
@@ -138,7 +139,8 @@ const SERVICES = [
   CourtService,
   HalfImageService,
   MediumPhotographyService,
-  StorehouseService
+  StorehouseService,
+  SafeService
 ];
 
 @NgModule({
