@@ -352,7 +352,15 @@ export const MENU_ITEMS: NbMenuItem[] = [
       {
         title: 'Parrafos',
         link: '/pages/admin/paragraphs',
-      },      
+      },  
+      {
+        title: 'Preguntas',
+        link: '/pages/admin/question',
+      },   
+      {
+        title: 'Procedencia',
+        link: '/pages/admin/origin',
+      },    
       {
         title: 'Tipo Siniestro',
         link: '/pages/admin/sinister',

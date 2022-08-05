@@ -68,6 +68,8 @@ import { ProficientService } from './services/proficient.service';
 import { SubdelegationService } from './services/subdelegation.service';
 import { StorehouseService } from './services/storehouse.service';
 import { SafeService } from './services/safe.service';
+import { QuestionService } from './services/question.service';
+import { OriginService } from './services/origin.service';
 
 
 
@@ -140,7 +142,9 @@ const SERVICES = [
   HalfImageService,
   MediumPhotographyService,
   StorehouseService,
-  SafeService
+  SafeService,
+  QuestionService,
+  OriginService
 ];
 
 @NgModule({
