@@ -18,6 +18,9 @@ export class ParagraphsService {
         const data = this.api.list(pageNumber, pageSize, this.url);
         return data;
     }
+    search(text:string){
+        return this.api.search(text,this.url);
+    }
     register(legendData: ParagraphsModel): Observable<ParagraphsModel>{
         return this.api.register(legendData, this.url);
     }

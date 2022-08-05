@@ -2,7 +2,7 @@
     <nb-card-body>
         <form [formGroup]="formReason">
             <div class="form-group row">
-                <input nbInput fullWidth formControlName="reasonType" matInput placeholder="Tipo de motivo">
+                <input nbInput fullWidth maxlength="50" formControlName="reasonType" matInput placeholder="Tipo de motivo">
                 <label class="text-danger" *ngIf="validateReason['reasonType'].hasError('pattern')"><small>Tipo motivo no válido!</small></label>
             </div>
             <div class="form-group row">
