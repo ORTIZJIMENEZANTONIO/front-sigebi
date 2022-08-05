@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
-import { NbButtonModule, NbCardModule, NbSelectModule, NbInputModule, NbWindowModule} from '@nebular/theme';
+import {NbAutocompleteModule,  NbButtonModule, NbCardModule, NbSelectModule, NbInputModule, NbWindowModule} from '@nebular/theme';
 import { ThemeModule } from '../../../@theme/theme.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ComponentsModule } from '../../../@components/components.module';
@@ -33,7 +33,8 @@ import { FractionsListComponent } from './fractions-list/fractions-list.componen
     FractionsRoutingModule,
     MatPaginatorModule,
     MatInputModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    NbAutocompleteModule
   ]
 })
 export class FractionsModule { }

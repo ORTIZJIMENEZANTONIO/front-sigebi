@@ -1,6 +1,6 @@
 export interface NonDeliveryReasonsModel {
   id:number;
-  reasonType:number;
+  reasonType:string;
   eventType:string;
   reason:string;
   userCreation:string;

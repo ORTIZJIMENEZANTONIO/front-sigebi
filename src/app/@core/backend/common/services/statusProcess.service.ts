@@ -18,6 +18,9 @@ export class StatusProcessService {
         const data = this.api.list(pageNumber, pageSize, this.url);
         return data;
     }
+    search(text:string){
+        return this.api.search(text,this.url);
+    }
     register(statusProcess: StatusProcessModel): Observable<StatusProcessModel>{
         return this.api.register(statusProcess, this.url);
     }

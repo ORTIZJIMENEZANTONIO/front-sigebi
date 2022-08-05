@@ -5,6 +5,8 @@ import { NonDeliveryReasonsService } from '../../../../@core/backend/common/serv
 import { NonDeliveryReasonsDetailComponent } from '../non-delivery-reasons-detail/non-delivery-reasons-detail.component';
 import {MatPaginatorIntl, PageEvent} from '@angular/material/paginator';
 import Swal from 'sweetalert2';
+import { NonDeliveryReasonsModel } from '../../../../@core/interfaces/auction/NonDeliveryReasons.model';
+import { FormControl, FormGroup } from '@angular/forms';
 
 
 @Component({
@@ -17,7 +19,22 @@ export class NonDeliveryReasonsListComponent extends BasePage {
     private windowService: NbWindowService, private paginator: MatPaginatorIntl) {
     super(toastrService);
     this.paginator.itemsPerPageLabel = "Registros por página";
+    this.searchForm = new FormGroup({
+      text: new FormControl()
+    });
+    this.searchForm.controls['text'].valueChanges.subscribe((value:string)=>{
+      if(value.length > 0){
+        this.service.search(value).subscribe((rows:NonDeliveryReasonsModel[])=>{
+          this.length = rows.length;
+          this.reasons = rows;
+        })
+      }else{
+        this.readReasons()
+      }
+    })
   }
+
+  searchForm:FormGroup;
 
   length = 100;
   pageSize = 10;
@@ -110,12 +127,12 @@ export class NonDeliveryReasonsListComponent extends BasePage {
     noDataMessage: "No se encontrarón registros"
   };
   ngOnInit(): void {
-    this.readReasons(0,10);
+    this.readReasons();
   }
 
-  readReasons = ((pageIndex:number, pageSize:number) => {
+  readReasons = (() => {
     this.reasons = null;
-    this.service.list(pageIndex, pageSize).subscribe((reasons:any) =>  {
+    this.service.list(this.pageEvent.pageIndex, this.pageEvent.pageSize).subscribe((reasons:any) =>  {
       this.reasons = reasons.data;
       this.length = reasons.count;
     }, 
@@ -126,7 +143,7 @@ export class NonDeliveryReasonsListComponent extends BasePage {
 
   changesPage (event){
     this.pageEvent = event;
-    this.readReasons(event.pageIndex, event.pageSize)
+    this.readReasons()
 
   }
 
@@ -143,7 +160,7 @@ export class NonDeliveryReasonsListComponent extends BasePage {
     }).then((result) => {
       if (result.isConfirmed) {
         this.service.delete(event.data.id).subscribe(data =>{
-          this.readReasons(this.pageEvent.pageIndex, this.pageEvent.pageSize);
+          this.readReasons();
         },err =>{
           console.log(err);
         })
@@ -160,14 +177,14 @@ export class NonDeliveryReasonsListComponent extends BasePage {
       fullScreen: false,
     };
     const modalRef = this.windowService.open(NonDeliveryReasonsDetailComponent, { title: `Editar motivo no entrega`, context: { reason: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
-      this.readReasons(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
+      this.readReasons();
     });
   
   }
 
   openWindowReason() {
     const modalRef = this.windowService.open(NonDeliveryReasonsDetailComponent, { title: `Nuevo motivo no entrega` }).onClose.subscribe(() => {
-      this.readReasons(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
+      this.readReasons();
     });
     
   }

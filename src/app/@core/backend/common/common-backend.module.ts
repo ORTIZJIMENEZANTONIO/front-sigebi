@@ -66,9 +66,22 @@ import { NotaryService } from './services/notary.service';
 import { PaymentsConceptService } from './services/payments-concept.service';
 import { ProficientService } from './services/proficient.service';
 import { SubdelegationService } from './services/subdelegation.service';
+import { DepartamentService } from './services/departament.service';
+import { GoodTypeService } from './services/good-type.service';
+import { GoodSubtypeService } from './services/good-subtype.service';
+import { GoodSsubtypeService } from './services/good-ssubtype.service';
+import { GoodSssubtypeService } from './services/good-sssubtype.service';
+import { GoodSituacionService } from './services/good-situacion.service';
+import { InstitutionClassificationService } from './services/institution-classification.service';
+import { IssuingInstitutionService } from './services/issuing-institution.service';
+import { MinpubService } from './services/minpub.service';
+import { PersonService } from './services/person.service';
+import { RevisionReasonService } from './services/revision-reason.service';
+import { SatSaeClassificationService } from './services/satsae-classification.service';
 import { StorehouseService } from './services/storehouse.service';
 import { SafeService } from './services/safe.service';
-
+import { QuestionService } from './services/question.service';
+import { OriginService } from './services/origin.service';
 
 
 const API = [
@@ -140,7 +153,23 @@ const SERVICES = [
   HalfImageService,
   MediumPhotographyService,
   StorehouseService,
-  SafeService
+  SafeService,
+  SafeService,
+  QuestionService,
+  OriginService,
+  DepartamentService,
+  GoodTypeService,
+  GoodSubtypeService,
+  GoodSsubtypeService,
+  GoodSssubtypeService,
+  GoodSituacionService,
+  InstitutionClassificationService,
+  IssuingInstitutionService,
+  MinpubService,
+  PersonService,
+  RevisionReasonService,
+  SatSaeClassificationService,
+  StorehouseService
 ];
 
 @NgModule({

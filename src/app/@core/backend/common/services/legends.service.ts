@@ -18,6 +18,9 @@ export class LegendsService {
         const data = this.api.list(pageNumber, pageSize, this.url);
         return data;
     }
+    search(text:string){
+        return this.api.search(text,this.url);
+    }
     register(legendData: LegendsModel): Observable<LegendsModel>{
         return this.api.register(legendData, this.url);
     }

@@ -5,6 +5,8 @@ import { StatusProcessService } from '../../../../@core/backend/common/services/
 import { StatusProcessDetailComponent } from '../status-process-detail/status-process-detail.component';
 import {MatPaginatorIntl, PageEvent} from '@angular/material/paginator';
 import Swal from 'sweetalert2';
+import { StatusProcessModel } from '../../../../@core/interfaces/auction/statusProcess.model';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'ngx-status-process-list',
@@ -17,8 +19,22 @@ export class StatusProcessListComponent extends BasePage {
     private windowService: NbWindowService, private paginator: MatPaginatorIntl) {
     super(toastrService);
     this.paginator.itemsPerPageLabel = "Registros por página";
+    this.searchForm = new FormGroup({
+      text: new FormControl()
+    });
+    this.searchForm.controls['text'].valueChanges.subscribe((value:string)=>{
+      if(value.length > 0){
+        this.service.search(value).subscribe((rows:StatusProcessModel[])=>{
+          this.length = rows.length;
+          this.statusProcess = rows;
+        })
+      }else{
+        this.readStatusProcess()
+      }
+    })
   }
 
+  searchForm:FormGroup;
   length = 100;
   pageSize = 10;
   pageSizeOptions: number[] = [5, 10, 25, 100];
@@ -42,7 +58,7 @@ export class StatusProcessListComponent extends BasePage {
       columnTitle: 'Acciones',
       add: true,
       edit: true,
-      delete: true,
+      delete: false,
     },
     pager : {
       display : false,
@@ -83,12 +99,12 @@ export class StatusProcessListComponent extends BasePage {
   };
 
   ngOnInit(): void {
-    this.readStatusProcess(0,10);
+    this.readStatusProcess();
   }
 
-  readStatusProcess = ((pageIndex:number, pageSize:number) => {
+  readStatusProcess = (() => {
     this.statusProcess = null;
-    this.service.list(pageIndex, pageSize).subscribe((statusProcess:any) =>  {
+    this.service.list(this.pageEvent.pageIndex, this.pageEvent.pageSize).subscribe((statusProcess:any) =>  {
       this.statusProcess = statusProcess.data;
       this.length = statusProcess.count;
     }, 
@@ -99,7 +115,7 @@ export class StatusProcessListComponent extends BasePage {
 
   changesPage (event){
     this.pageEvent = event;
-    this.readStatusProcess(event.pageIndex, event.pageSize)
+    this.readStatusProcess()
   }
 
   onDeleteConfirm(event): void {
@@ -115,7 +131,7 @@ export class StatusProcessListComponent extends BasePage {
     }).then((result) => {
       if (result.isConfirmed) {
         this.service.delete(event.data.status).subscribe(data =>{
-          this.readStatusProcess(this.pageEvent.pageIndex, this.pageEvent.pageSize);
+          this.readStatusProcess();
         },err =>{
           console.log(err);
         })
@@ -132,14 +148,14 @@ export class StatusProcessListComponent extends BasePage {
       fullScreen: false,
     };
     const modalRef = this.windowService.open(StatusProcessDetailComponent, { title: `Editar estatus proceso`, context: { statusProcess: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
-      this.readStatusProcess(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
+      this.readStatusProcess();
     });
   
   }
 
   openWindowStatusProcess() {
     const modalRef = this.windowService.open(StatusProcessDetailComponent, { title: `Nuevo estatus proceso` }).onClose.subscribe(() => {
-      this.readStatusProcess(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
+      this.readStatusProcess();
     });
     
   }

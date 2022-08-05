@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { NbToastrService, NbWindowControlButtonsConfig, NbWindowService} from '@nebular/theme';
 import { BasePage } from '../../../../@core/shared/base-page';
+import { LegendsModel } from '../../../../@core/interfaces/auction/legends.model';
 import { LegendsService } from '../../../../@core/backend/common/services/legends.service';
 import { OfficialLegendsDetailComponent } from '../official-legends-detail/official-legends-detail.component';
 import {MatPaginatorIntl, PageEvent} from '@angular/material/paginator';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'ngx-official-legends-list',
@@ -16,7 +19,21 @@ export class OfficialLegendsListComponent extends BasePage {
     private windowService: NbWindowService, private paginator: MatPaginatorIntl) {
     super(toastrService);
     this.paginator.itemsPerPageLabel = "Registros por página";
+    this.searchForm = new FormGroup({
+      text: new FormControl()
+    });
+    this.searchForm.controls['text'].valueChanges.subscribe((value:string)=>{
+      if(value.length > 0){
+        this.service.search(value).subscribe((rows:LegendsModel[])=>{
+          this.length = rows.length;
+          this.legends = rows;
+        })
+      }else{
+        this.readLegends()
+      }
+    })
   }
+  searchForm:FormGroup;
 
   length = 100;
   pageSize = 10;
@@ -26,7 +43,7 @@ export class OfficialLegendsListComponent extends BasePage {
   pageEvent: PageEvent = {
     pageIndex:0,
     pageSize:10,
-    length:100
+    length:0
   };
 
   setPageSizeOptions(setPageSizeOptionsInput: string) {
@@ -102,12 +119,12 @@ export class OfficialLegendsListComponent extends BasePage {
   };
 
   ngOnInit(): void {
-    this.readLegends(0,10);
+    this.readLegends();
   }
 
-  readLegends = ((pageIndex:number, pageSize:number) => {
+  readLegends = (() => {
     this.legends = null;
-    this.service.list(pageIndex, pageSize).subscribe((legends:any) =>  {
+    this.service.list(this.pageEvent.pageIndex, this.pageEvent.pageSize).subscribe((legends:any) =>  {
       this.legends = legends.data;
       this.length = legends.count;
     }, 
@@ -118,19 +135,29 @@ export class OfficialLegendsListComponent extends BasePage {
 
   changesPage (event){
     this.pageEvent = event;
-    this.readLegends(event.pageIndex, event.pageSize)
+    this.readLegends()
   }
-
   onDeleteConfirm(event): void {
-    if (window.confirm('Are you sure you want to delete?')) {
-      this.service.delete(event.data.id).subscribe(data =>{
-        this.readLegends(this.pageEvent.pageIndex, this.pageEvent.pageSize);
-      },err =>{
-        console.log(err);
-      })
-    } else {
-      event.confirm.reject();
-    }
+    Swal.fire({
+      title: 'Esta seguro de eliminar el registro?',
+      text: "Esta acción no es revertible!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText:'Cancelar',
+      confirmButtonText: 'Si'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.service.delete(event.data.id).subscribe(data =>{
+          this.readLegends();
+        },err =>{
+          console.log(err);
+        })
+       
+      }
+    })
+    
   }
 
   editRow(event) {
@@ -140,14 +167,14 @@ export class OfficialLegendsListComponent extends BasePage {
       fullScreen: false,
     };
     const modalRef = this.windowService.open(OfficialLegendsDetailComponent, { title: `Editar leyenda`, context: { legend: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
-      this.readLegends(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
+      this.readLegends();
     });
   
   }
 
   openWindowLegend() {
     const modalRef = this.windowService.open(OfficialLegendsDetailComponent, { title: `Nueva leyenda` }).onClose.subscribe(() => {
-      this.readLegends(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
+      this.readLegends();
     });
     
   }
