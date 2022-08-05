@@ -29,7 +29,7 @@ export class CatalogApi {
     this.apiController = url;
     return this.api.post(this.apiController, paragraph);
   }
-  update(id: number, paragraph:any, url:string){
+  update(id: number | string, paragraph:any, url:string){
     this.apiController = url;
     return this.api.put(this.apiController+'/'+id, paragraph);
   }

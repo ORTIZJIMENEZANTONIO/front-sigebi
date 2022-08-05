@@ -266,6 +266,14 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: '/pages/admin/battery',
       },
       {
+        title:'Bodega',
+        link:'/pages/admin/storehouse'
+      },
+      {
+        title:'Bovedas',
+        link:'/pages/admin/safe'
+      },
+      {
         title: 'Categorias',
         link: '/pages/admin/catalogs/categories',
       },
@@ -409,9 +417,6 @@ export const MENU_ITEMS: NbMenuItem[] = [
         title: 'Emisoras',
         link: '/pages/admin/station',
       },
-      
-
-
       {
         title: 'Ciudades',
         link: '/pages/admin/city',
@@ -460,7 +465,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
       {
         title:'Medio fotografia',
         link:'/pages/admin/medium-photography'
-      }
+      },
 
       
     ],
