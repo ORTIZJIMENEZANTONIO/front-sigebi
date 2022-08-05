@@ -220,6 +220,10 @@ const routes: Routes = [
       {
         path: 'medium-photography', loadChildren: () => import('./medium-photography/medium-photography.module')
           .then(m => m.MediumPhotographyModule)
+      },
+      {
+        path: 'storehouse', loadChildren: () => import('./storehouse/storehouse.module')
+          .then(m => m.StorehouseModule)
       }
 
 
