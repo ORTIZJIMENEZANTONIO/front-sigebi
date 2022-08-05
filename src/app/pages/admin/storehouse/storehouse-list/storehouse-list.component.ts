@@ -151,5 +151,4 @@ export class StorehouseListComponent extends BasePage {
     
   }
 
-
 }
