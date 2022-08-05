@@ -270,6 +270,15 @@ const routes: Routes = [
         path: 'satsae-classification', loadChildren: () => import('./satsae-classification/satsae-classification.module')
           .then(m => m.SatsaeClassificationModule)
       },
+      {
+        path: 'storehouse', loadChildren: () => import('./storehouse/storehouse.module')
+          .then(m => m.StorehouseModule)
+      },
+      {
+        path: 'safe', loadChildren: () => import('./safe/safe.module')
+          .then(m => m.SafeModule)
+      }
+
 
       //{ path: 'home', component: CategoriesComponent },//ok
     ]

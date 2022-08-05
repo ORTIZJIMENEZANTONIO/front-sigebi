@@ -78,6 +78,7 @@ import { MinpubService } from './services/minpub.service';
 import { PersonService } from './services/person.service';
 import { RevisionReasonService } from './services/revision-reason.service';
 import { SatSaeClassificationService } from './services/satsae-classification.service';
+import { StorehouseService } from './services/storehouse.service';
 
 
 
@@ -160,7 +161,8 @@ const SERVICES = [
   MinpubService,
   PersonService,
   RevisionReasonService,
-  SatSaeClassificationService
+  SatSaeClassificationService,
+  StorehouseService
 ];
 
 @NgModule({
