@@ -156,7 +156,7 @@ const SERVICES = [
   StorehouseService,
   SafeService,
   QuestionService,
-  OriginService
+  OriginService,
   DepartamentService,
   GoodTypeService,
   GoodSubtypeService,
