@@ -224,6 +224,10 @@ const routes: Routes = [
       {
         path: 'storehouse', loadChildren: () => import('./storehouse/storehouse.module')
           .then(m => m.StorehouseModule)
+      },
+      {
+        path: 'safe', loadChildren: () => import('./safe/safe.module')
+          .then(m => m.SafeModule)
       }
 
 

@@ -270,6 +270,10 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link:'/pages/admin/storehouse'
       },
       {
+        title:'Bovedas',
+        link:'/pages/admin/safe'
+      },
+      {
         title: 'Categorias',
         link: '/pages/admin/catalogs/categories',
       },
