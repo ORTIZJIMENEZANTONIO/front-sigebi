@@ -226,6 +226,55 @@ const routes: Routes = [
           .then(m => m.MediumPhotographyModule)
       },
       {
+        path: 'departament', loadChildren: () => import('./departament/departament.module')
+          .then(m => m.DepartamentModule)
+      },
+      {
+        path: 'good-type', loadChildren: () => import('./good-type/good-type.module')
+          .then(m => m.GoodTypeModule)
+      },
+      {
+        path: 'good-subtype', loadChildren: () => import('./good-subtype/good-subtype.module')
+          .then(m => m.GoodSubtypeModule)
+      },
+      {
+        path: 'good-ssubtype', loadChildren: () => import('./good-ssubtype/good-ssubtype.module')
+          .then(m => m.GoodSsubtypeModule)
+      },
+      {
+        path: 'good-sssubtype', loadChildren: () => import('./good-sssubtype/good-sssubtype.module')
+          .then(m => m.GoodSssubtypeModule)
+      },
+      {
+        path: 'good-situacion', loadChildren: () => import('./good-situacion/good-situacion.module')
+          .then(m => m.GoodSituacionModule)
+      },
+      {
+        path: 'institution-classification', loadChildren: () => import('./institution-classification/institution-classification.module')
+          .then(m => m.InstitutionClassificationModule)
+      },
+      {
+        
+        path: 'issuing-institution', loadChildren: () => import('./issuing-institution/issuing-institution.module')
+          .then(m => m.IssuingInstitutionModule)
+      },
+      {
+        path: 'minpub', loadChildren: () => import('./minpub/minpub.module')
+          .then(m => m.MinpubModule)
+      },
+      {
+        path: 'person', loadChildren: () => import('./person/person.module')
+          .then(m => m.PersonModule)
+      },
+      {
+        path: 'revision-reason', loadChildren: () => import('./revision-reason/revision-reason.module')
+          .then(m => m.RevisionReasonModule)
+      },
+      {
+        path: 'satsae-classification', loadChildren: () => import('./satsae-classification/satsae-classification.module')
+          .then(m => m.SatsaeClassificationModule)
+      },
+      {
         path: 'storehouse', loadChildren: () => import('./storehouse/storehouse.module')
           .then(m => m.StorehouseModule)
       },
