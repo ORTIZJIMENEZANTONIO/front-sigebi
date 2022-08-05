@@ -1,27 +1,46 @@
+import Swal from 'sweetalert2';
 import { Component } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { NbToastrService, NbWindowControlButtonsConfig, NbWindowService } from '@nebular/theme';
 import { BasePage } from '../../../../@core/shared/base-page';
 
-import { SafeService } from '../../../../@core/backend/common/services/safe.service';
-import { SafeDetailComponent } from '../safe-detail/safe-detail.component';
+import { QuestionService } from '../../../../@core/backend/common/services/question.service';
+import { QuestionDetailComponent } from '../question-detail/question-detail.component';
+import { QuestionInterface } from '../../../../@core/interfaces/auction/question.model';
 
 @Component({
-  selector: 'ngx-safe-list',
-  templateUrl: './safe-list.component.html',
-  styleUrls: ['./safe-list.component.scss']
+  selector: 'ngx-question-list',
+  templateUrl: './question-list.component.html',
+  styleUrls: ['./question-list.component.scss']
 })
-export class SafeListComponent extends BasePage {
+export class QuestionListComponent extends BasePage {
 
   constructor(
-    private service: SafeService, 
+    private service: QuestionService, 
     public  toastrService: NbToastrService,
     private windowService: NbWindowService, 
     private paginator: MatPaginatorIntl
   ) {
     super(toastrService);
     this.paginator.itemsPerPageLabel = "Registros por página";
+    this.searchForm = new FormGroup({
+      text: new FormControl()
+    });
+    this.searchForm.controls['text'].valueChanges.subscribe((value:string)=>{
+      if(value.length > 0){
+        this.service.search(value).subscribe((rows:QuestionInterface[])=>{
+          this.length = rows.length;
+          this.rows = rows;
+        })
+      }else{
+        this.readData()
+      }
+    })
   }
+
+  rows: any;
+  searchForm:FormGroup;
 
   length = 100;
   pageSize = 10;
@@ -33,8 +52,6 @@ export class SafeListComponent extends BasePage {
     pageSize:10,
     length:100
   };
-
-  safes: any;
 
   settings = {
     actions: {
@@ -63,48 +80,32 @@ export class SafeListComponent extends BasePage {
       confirmDelete: true,
     },
     columns: {
-      idSafe: {
+      id: {
         title: 'Registro',
         type: 'string',
       },
-      manager: {
-        title: 'Encargado',
+      text: {
+        title: 'Texto',
         type: 'string'
       },
-      description: {
-        title: 'Descripción',
+      type: {
+        title: 'Tipo',
         type: 'string'
       },
-      ubication: {
-        title: 'Ubicación',
+      maximumScore: {
+        title: 'Puntuación máxima',
         type: 'string',
       },
       registerNumber: {
         title: 'No. de registro',
         type: 'number',
-      },
-      municipalityCode: {
-        title: 'Municipio',
-        type: 'string',
-      },
-      localityCode: {
-        title: 'Localidad',
-        type: 'string',
-      },
-      stateCode: {
-        title: 'Entidad',
-        type: 'string',
-      },
-      cityCode: {
-        title: 'Ciudad',
-        type: 'string',
-      },
+      }
     },
     noDataMessage: "No se encontrarón registros"
   };
 
   ngOnInit(): void {
-    this.readData(0,10);
+    this.readData();
   }
   
   setPageSizeOptions(setPageSizeOptionsInput: string) {
@@ -112,11 +113,11 @@ export class SafeListComponent extends BasePage {
       this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
   }
 
-  readData = ((pageIndex:number, pageSize:number) => {
-    this.safes = null;
-    this.service.list(pageIndex, pageSize).subscribe((safes:any) => {
-      this.safes = safes.data;
-      this.length = safes.count;
+  readData = ( () => {
+    this.rows = null;
+    this.service.list(this.pageEvent.pageIndex, this.pageEvent.pageSize).subscribe((data:any) => {
+      this.rows = data.data;
+      this.length = data.count;
     }, error => this.onLoadFailed('danger','Error conexión',error.message) );
   });
 
@@ -125,19 +126,29 @@ export class SafeListComponent extends BasePage {
 
     }
     this.pageEvent = event;
-    this.readData(event.pageIndex, event.pageSize)
+    this.readData();
   }
 
   onDeleteConfirm(event): void {
-    if (window.confirm('Are you sure you want to delete?')) {
-      this.service.delete(event.data.id).subscribe( () => {
-        this.readData(this.pageEvent.pageIndex, this.pageEvent.pageSize);
-      },err =>{
-        console.error(err);
-      })
-    } else {
-      event.confirm.reject();
-    }
+    Swal.fire({
+      title: 'Esta seguro de eliminar el registro?',
+      text: "Esta acción no es revertible!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText:'Cancelar',
+      confirmButtonText: 'Si'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.service.delete(event.data.id).subscribe(() =>{
+          this.readData();
+        },err =>{
+          console.error(err);
+        })
+       
+      }
+    })
   }
 
   editRow(event) {
@@ -146,15 +157,19 @@ export class SafeListComponent extends BasePage {
       maximize: false,
       fullScreen: false,
     };
-    const modalRef = this.windowService.open(SafeDetailComponent, { title: `Editar bóveda`, context: { safes: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
-      this.readData(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
-    });
-  
+    
+    this.windowService.open(QuestionDetailComponent, { 
+      title: `Editar pregunta`, 
+      context: { questions: event.data }, 
+      buttons: buttonsConfig  }).onClose.subscribe(() => {
+        this.readData();
+      }
+    );
   }
 
   openWindow() {
-    const modalRef = this.windowService.open(SafeDetailComponent, { title: `Nueva bóveda` }).onClose.subscribe(() => {
-      this.readData(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
+    this.windowService.open(QuestionDetailComponent, { title: `Nueva pregunta` }).onClose.subscribe(() => {
+      this.readData();
     });
     
   }

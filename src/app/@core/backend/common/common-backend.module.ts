@@ -79,6 +79,9 @@ import { PersonService } from './services/person.service';
 import { RevisionReasonService } from './services/revision-reason.service';
 import { SatSaeClassificationService } from './services/satsae-classification.service';
 import { StorehouseService } from './services/storehouse.service';
+import { SafeService } from './services/safe.service';
+import { QuestionService } from './services/question.service';
+import { OriginService } from './services/origin.service';
 
 
 
@@ -150,6 +153,10 @@ const SERVICES = [
   CourtService,
   HalfImageService,
   MediumPhotographyService,
+  StorehouseService,
+  SafeService,
+  QuestionService,
+  OriginService,
   DepartamentService,
   GoodTypeService,
   GoodSubtypeService,

@@ -281,8 +281,15 @@ const routes: Routes = [
       {
         path: 'safe', loadChildren: () => import('./safe/safe.module')
           .then(m => m.SafeModule)
+      },
+      {
+        path: 'question', loadChildren: () => import('./question/question.module')
+          .then(m => m.QuestionModule)
+      },
+      {
+        path: 'origin', loadChildren: () => import('./origin/origin.module')
+          .then(m => m.OriginModule)
       }
-
 
       //{ path: 'home', component: CategoriesComponent },//ok
     ]

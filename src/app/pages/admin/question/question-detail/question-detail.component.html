@@ -1,0 +1,36 @@
+<nb-card>
+  <nb-card-body>
+    <form [formGroup]="form">
+
+      <div class="form-group row">
+        <input type="text" formControlName="text" placeholder="Texto de la pregunta" nbInput fullWidth matInput 
+          [status]="form.controls['text']?.errors?.required && form.controls['text'].touched ? 'danger' : ''">
+          <label class="text-danger" *ngIf="validateDelegation['text'].hasError('required')  && form.controls['text'].touched "><small>Ingrese localidad</small></label>
+      </div>
+
+      <div class="form-group row">
+        <input type="text" formControlName="type" placeholder="Tipo" nbInput fullWidth matInput 
+          [status]="form.controls['type']?.errors?.required && form.controls['type'].touched ? 'danger' : ''">
+          <label class="text-danger" *ngIf="validateDelegation['type'].hasError('required')  && form.controls['type'].touched "><small>Ingrese ubicación!</small></label>
+      </div>
+
+      <div class="form-group row">
+        <input type="text" formControlName="maximumScore" placeholder="Puntaje máximo" nbInput fullWidth matInput 
+          [status]="form.controls['maximumScore']?.errors?.required && form.controls['maximumScore'].touched ? 'danger' : ''">
+          <label class="text-danger" *ngIf="validateDelegation['maximumScore'].hasError('required')  && form.controls['maximumScore'].touched "><small>Ingrese municipio</small></label>
+      </div>
+
+      <div class="form-group row">
+        <input type="text" formControlName="registerNumber" placeholder="No. de registro" nbInput fullWidth matInput 
+          [status]="form.controls['registerNumber']?.errors?.required && form.controls['registerNumber'].touched ? 'danger' : ''">
+          <label class="text-danger" *ngIf="validateDelegation['registerNumber'].hasError('required')  && form.controls['registerNumber'].touched "><small>Ingrese municipio</small></label>
+      </div>
+     
+      <div class="form-group row">
+        <div class="offset-sm-3 col-sm-9">
+          <button type="submit" nbButton status="primary" [disabled]="!form.valid" (click)="register()">{{actionBtn}}</button>
+        </div>
+      </div>
+    </form>
+  </nb-card-body>
+</nb-card>

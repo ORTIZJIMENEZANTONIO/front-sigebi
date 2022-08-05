@@ -1,27 +1,46 @@
+import Swal from 'sweetalert2';
 import { Component } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { NbToastrService, NbWindowControlButtonsConfig, NbWindowService } from '@nebular/theme';
 import { BasePage } from '../../../../@core/shared/base-page';
 
-import { StorehouseService } from '../../../../@core/backend/common/services/storehouse.service';
-import { StorehouseDetailComponent } from '../storehouse-detail/storehouse-detail.component';
+import { OriginDetailComponent } from '../origin-detail/origin-detail.component';
+import { OriginInterface } from '../../../../@core/interfaces/auction/origin.model';
+import { OriginService } from '../../../../@core/backend/common/services/origin.service';
 
 @Component({
-  selector: 'ngx-storehouse-list',
-  templateUrl: './storehouse-list.component.html',
-  styleUrls: ['./storehouse-list.component.scss']
+  selector: 'ngx-origin-list',
+  templateUrl: './origin-list.component.html',
+  styleUrls: ['./origin-list.component.scss']
 })
-export class StorehouseListComponent extends BasePage {
+export class OriginListComponent extends BasePage {
 
   constructor(
-    private service: StorehouseService, 
+    private service: OriginService, 
     public  toastrService: NbToastrService,
     private windowService: NbWindowService, 
     private paginator: MatPaginatorIntl
   ) {
     super(toastrService);
     this.paginator.itemsPerPageLabel = "Registros por página";
+    this.searchForm = new FormGroup({
+      text: new FormControl()
+    });
+    this.searchForm.controls['text'].valueChanges.subscribe((value:string)=>{
+      if(value.length > 0){
+        this.service.search(value).subscribe((rows:OriginInterface[])=>{
+          this.length = rows.length;
+          this.rows = rows;
+        })
+      }else{
+        this.readData()
+      }
+    })
   }
+
+  rows: any;
+  searchForm:FormGroup;
 
   length = 100;
   pageSize = 10;
@@ -33,8 +52,6 @@ export class StorehouseListComponent extends BasePage {
     pageSize:10,
     length:100
   };
-
-  storehouses: any;
 
   settings = {
     actions: {
@@ -63,31 +80,35 @@ export class StorehouseListComponent extends BasePage {
       confirmDelete: true,
     },
     columns: {
-      idStorehouse: {
+      id: {
         title: 'Registro',
         type: 'string',
       },
-      manager: {
-        title: 'Encargado',
+      idTransferer: {
+        title: 'Transferente',
+        type: 'string'
+      },
+      keyTransferer: {
+        title: 'Clave transferente',
         type: 'string'
       },
       description: {
         title: 'Descripción',
-        type: 'string'
-      },
-      municipality: {
-        title: 'Municipio',
         type: 'string',
       },
-      locality: {
-        title: 'Localidad',
+      type: {
+        title: 'Tipo',
         type: 'string',
       },
-      ubication: {
-        title: 'Ubicación',
+      address: {
+        title: 'Dirección',
         type: 'string',
       },
-      idEntity: {
+      city: {
+        title: 'Ciudad',
+        type: 'string',
+      },
+      keyEntityFederative: {
         title: 'Entidad',
         type: 'string',
       }
@@ -96,7 +117,7 @@ export class StorehouseListComponent extends BasePage {
   };
 
   ngOnInit(): void {
-    this.readData(0,10);
+    this.readData();
   }
   
   setPageSizeOptions(setPageSizeOptionsInput: string) {
@@ -104,11 +125,11 @@ export class StorehouseListComponent extends BasePage {
       this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
   }
 
-  readData = ((pageIndex:number, pageSize:number) => {
-    this.storehouses = null;
-    this.service.list(pageIndex, pageSize).subscribe((storehouses:any) => {
-      this.storehouses = storehouses.data;
-      this.length = storehouses.count;
+  readData = ( () => {
+    this.rows = null;
+    this.service.list(this.pageEvent.pageIndex, this.pageEvent.pageSize).subscribe((data:any) => {
+      this.rows = data.data;
+      this.length = data.count;
     }, error => this.onLoadFailed('danger','Error conexión',error.message) );
   });
 
@@ -117,19 +138,29 @@ export class StorehouseListComponent extends BasePage {
 
     }
     this.pageEvent = event;
-    this.readData(event.pageIndex, event.pageSize)
+    this.readData();
   }
 
   onDeleteConfirm(event): void {
-    if (window.confirm('Are you sure you want to delete?')) {
-      this.service.delete(event.data.id).subscribe( () => {
-        this.readData(this.pageEvent.pageIndex, this.pageEvent.pageSize);
-      },err =>{
-        console.error(err);
-      })
-    } else {
-      event.confirm.reject();
-    }
+    Swal.fire({
+      title: 'Esta seguro de eliminar el registro?',
+      text: "Esta acción no es revertible!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText:'Cancelar',
+      confirmButtonText: 'Si'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.service.delete(event.data.id).subscribe(() =>{
+          this.readData();
+        },err =>{
+          console.error(err);
+        })
+       
+      }
+    })
   }
 
   editRow(event) {
@@ -138,16 +169,22 @@ export class StorehouseListComponent extends BasePage {
       maximize: false,
       fullScreen: false,
     };
-    const modalRef = this.windowService.open(StorehouseDetailComponent, { title: `Editar bodega`, context: { storehouses: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
-      this.readData(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
-    });
-  
+    
+    this.windowService.open(OriginDetailComponent, { 
+      title: `Editar pregunta`, 
+      context: { questions: event.data }, 
+      buttons: buttonsConfig  }).onClose.subscribe(() => {
+        this.readData();
+      }
+    );
   }
 
   openWindow() {
-    const modalRef = this.windowService.open(StorehouseDetailComponent, { title: `Nueva bodega` }).onClose.subscribe(() => {
-      this.readData(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
-    });
+    this.windowService.open(OriginDetailComponent, 
+      { title: `Nueva pregunta` }).onClose.subscribe(() => {
+        this.readData();
+      }
+    );
     
   }
 
