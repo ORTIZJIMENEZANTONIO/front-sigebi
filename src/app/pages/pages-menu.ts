@@ -456,8 +456,61 @@ export const MENU_ITEMS: NbMenuItem[] = [
       {
         title:'Medio fotografia',
         link:'/pages/admin/medium-photography'
+      },
+      {
+        title:'Departamentos',
+        link:'/pages/admin/departament'
+      },
+      {
+        title:'Tipo Bien',
+        link:'/pages/admin/good-type'
+      },
+      {
+        title:'Subtipo bien',
+        link:'/pages/admin/good-subtype'
+      },
+      {
+        title:'Ssubtipo bien',
+        link:'/pages/admin/good-ssubtype'
+      },
+      {
+        title:'Sssubtipo bien',
+        link:'/pages/admin/good-sssubtype'
+      },
+      {
+        title:'Situacion Bien',
+        link:'/pages/admin/good-situacion'
+      },
+      {
+        title:'Clasificacion Institucion',
+        link:'/pages/admin/institution-classification'
+      },
+      {
+        title:'Instituciones Emisoras',
+        link:'/pages/admin/issuing-institution'
+      },
+      {
+        title:'MinPub',
+        link:'/pages/admin/minpub'
+      },
+      {
+        title:'Personas',
+        link:'/pages/admin/person'
+      },
+      {
+        title:'Motivo Revision',
+        link:'/pages/admin/revision-reason'
+      },
+      {
+        title:'Clasificacion SatSae',
+        link:'/pages/admin/satsae-classification'
       }
-
+      
+      
+      
+      
+      
+      
       
     ],
   },
