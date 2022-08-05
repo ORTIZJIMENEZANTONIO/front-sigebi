@@ -5,6 +5,8 @@ import { GenericService } from '../../../../@core/backend/common/services/generi
 import { GenericDatailComponent } from '../generic-datail/generic-datail.component';
 import {MatPaginatorIntl, PageEvent} from '@angular/material/paginator';
 import Swal from 'sweetalert2';
+import { GenericModel } from '../../../../@core/interfaces/auction/generic.model';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'ngx-generic-list',
@@ -17,7 +19,22 @@ export class GenericListComponent extends BasePage {
     private windowService: NbWindowService, private paginator: MatPaginatorIntl) {
     super(toastrService);
     this.paginator.itemsPerPageLabel = "Registros por página";
+    this.searchForm = new FormGroup({
+      text: new FormControl()
+    });
+    this.searchForm.controls['text'].valueChanges.subscribe((value:string)=>{
+      if(value.length > 0){
+        this.service.search(value).subscribe((rows:GenericModel[])=>{
+          this.length = rows.length;
+          this.generics = rows;
+        })
+      }else{
+        this.readGerenic()
+      }
+    })
   }
+
+  searchForm:FormGroup;
 
   length = 100;
   pageSize = 10;
@@ -64,12 +81,6 @@ export class GenericListComponent extends BasePage {
       confirmDelete: true,
     },
     columns: {
-      id: {
-        title: 'Registro',
-        type: 'number',
-        //editable: false,
-        // width: '25px'
-      },
       name: {
         title: 'Nombre',
         type: 'string',
@@ -110,12 +121,12 @@ export class GenericListComponent extends BasePage {
   };
 
   ngOnInit(): void {
-    this.readGerenic(0,10);
+    this.readGerenic();
   }
 
-  readGerenic = ((pageIndex:number, pageSize:number) => {
+  readGerenic = (() => {
     this.generics = null;
-    this.service.list(pageIndex, pageSize).subscribe((generics:any) =>  {
+    this.service.list(this.pageEvent.pageIndex, this.pageEvent.pageSize).subscribe((generics:any) =>  {
       this.generics = generics.data;
       this.length = generics.count;
     }, 
@@ -126,7 +137,7 @@ export class GenericListComponent extends BasePage {
 
   changesPage (event){
     this.pageEvent = event;
-    this.readGerenic(event.pageIndex, event.pageSize)
+    this.readGerenic()
   }
 
   onDeleteConfirm(event): void {
@@ -142,7 +153,7 @@ export class GenericListComponent extends BasePage {
     }).then((result) => {
       if (result.isConfirmed) {
         this.service.delete(event.data.name).subscribe(data =>{
-          this.readGerenic(this.pageEvent.pageIndex, this.pageEvent.pageSize);
+          this.readGerenic();
         },err =>{
           console.log(err);
         })
@@ -159,14 +170,14 @@ export class GenericListComponent extends BasePage {
       fullScreen: false,
     };
     const modalRef = this.windowService.open(GenericDatailComponent, { title: `Editar generico`, context: { generic: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
-      this.readGerenic(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
+      this.readGerenic();
     });
   
   }
 
   openWindowGeneric() {
     const modalRef = this.windowService.open(GenericDatailComponent, { title: `Nueva generico` }).onClose.subscribe(() => {
-      this.readGerenic(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
+      this.readGerenic();
     });
     
   }

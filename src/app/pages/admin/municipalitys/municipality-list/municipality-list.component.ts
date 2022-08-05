@@ -5,6 +5,8 @@ import { MunicipalityService } from '../../../../@core/backend/common/services/m
 import { MunicipalityDetailComponent } from '../municipality-detail/municipality-detail.component';
 import {MatPaginatorIntl, PageEvent} from '@angular/material/paginator';
 import Swal from 'sweetalert2';
+import { FormControl, FormGroup } from '@angular/forms';
+import { MunicipalityModel } from '../../../../@core/interfaces/auction/municipality.model';
 
 
 @Component({
@@ -18,11 +20,26 @@ export class MunicipalityListComponent extends BasePage {
     private windowService: NbWindowService, private paginator: MatPaginatorIntl) {
     super(toastrService);
     this.paginator.itemsPerPageLabel = "Registros por página";
+    this.searchForm = new FormGroup({
+      text: new FormControl()
+    });
+    this.searchForm.controls['text'].valueChanges.subscribe((value:string)=>{
+      if(value.length > 0){
+        this.service.search(value).subscribe((rows:MunicipalityModel[])=>{
+          this.length = rows.length;
+          this.municipalitys = rows;
+        })
+      }else{
+        this.readMunicipality()
+      }
+    })
   }
+
+  searchForm:FormGroup;
 
   length = 100;
   pageSize = 10;
-  pageSizeOptions: number[] = [5, 10, 25, 100];
+  pageSizeOptions: number[] = [1, 5, 10, 25, 100];
 
   // MatPaginator Output
   pageEvent: PageEvent = {
@@ -98,12 +115,12 @@ export class MunicipalityListComponent extends BasePage {
   };
 
   ngOnInit(): void {
-    this.readMunicipality(0,10);
+    this.readMunicipality();
   }
 
-  readMunicipality = ((pageIndex:number, pageSize:number) => {
+  readMunicipality = (() => {
     this.municipalitys = null;
-    this.service.list(pageIndex, pageSize).subscribe((municipalitys:any) =>  {
+    this.service.list(this.pageEvent.pageIndex, this.pageEvent.pageSize).subscribe((municipalitys:any) =>  {
       this.municipalitys = municipalitys.data;
       this.length = municipalitys.count;
     }, 
@@ -114,7 +131,7 @@ export class MunicipalityListComponent extends BasePage {
 
   changesPage (event){
     this.pageEvent = event;
-    this.readMunicipality(event.pageIndex, event.pageSize)
+    this.readMunicipality()
   }
 
   onDeleteConfirm(event): void {
@@ -130,7 +147,7 @@ export class MunicipalityListComponent extends BasePage {
     }).then((result) => {
       if (result.isConfirmed) {
         this.service.delete(event.data.name).subscribe(data =>{
-          this.readMunicipality(this.pageEvent.pageIndex, this.pageEvent.pageSize);
+          this.readMunicipality();
         },err =>{
           console.log(err);
         })
@@ -147,14 +164,14 @@ export class MunicipalityListComponent extends BasePage {
       fullScreen: false,
     };
     const modalRef = this.windowService.open(MunicipalityDetailComponent, { title: `Editar municipio`, context: { municipality: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
-      this.readMunicipality(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
+      this.readMunicipality();
     });
   
   }
 
   openWindowMunicipality() {
     const modalRef = this.windowService.open(MunicipalityDetailComponent, { title: `Nueva municipio` }).onClose.subscribe(() => {
-      this.readMunicipality(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
+      this.readMunicipality();
     });
     
   }

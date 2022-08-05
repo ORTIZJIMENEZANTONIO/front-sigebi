@@ -34,6 +34,10 @@ const routes: Routes = [
           .then(m => m.NormsModule)
       },
       {
+        path: 'fractions', loadChildren: () => import('./fractions/fractions.module')
+          .then(m => m.FractionsModule)
+      },
+      {
         path: 'generics', loadChildren: () => import('./generics/generics.module')
           .then(m => m.GenericsModule)
       },

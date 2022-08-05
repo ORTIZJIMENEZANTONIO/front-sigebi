@@ -17,6 +17,9 @@ export class MunicipalityService {
     list(pageNumber: number = 1, pageSize: number = 10) {
         return this.api.list(pageNumber, pageSize, this.url);
     }
+    search(text:string){
+        return this.api.search(text,this.url);
+    }
     listAll() {
         return this.api.listAll(this.url);
     }

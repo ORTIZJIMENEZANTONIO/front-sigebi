@@ -27,7 +27,7 @@ export class NonDeliveryReasonsDetailComponent extends BaseApp {
     actionBtn : string = "Guardar";
 
     formReason = this.fb.group({
-      reasonType: [null, Validators.compose([Validators.pattern("[0-9]+$"), Validators.required])],
+      reasonType: [null, Validators.compose([ Validators.pattern("^[a-zA-Z]{1,50}"), Validators.required])],
       eventType: [null, Validators.compose([Validators.pattern(""), Validators.required])],
       reason: [null, Validators.compose([Validators.pattern(""), Validators.required])],
       version: [null, Validators.compose([Validators.pattern("^([0-9]+)+([.][0-9]+)+([.][0-9]+)?$"),Validators.required])],

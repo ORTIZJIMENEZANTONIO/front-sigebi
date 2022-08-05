@@ -5,6 +5,9 @@ import { LocalityService } from '../../../../@core/backend/common/services/local
 import { LocalityDetailComponent } from '../locality-detail/locality-detail.component';
 import {MatPaginatorIntl, PageEvent} from '@angular/material/paginator';
 import Swal from 'sweetalert2';
+import { LocalityModel } from '../../../../@core/interfaces/auction/locality.model';
+import { FormControl, FormGroup } from '@angular/forms';
+
 
 @Component({
   selector: 'ngx-locality-list',
@@ -17,11 +20,25 @@ export class LocalityListComponent extends BasePage {
     private windowService: NbWindowService, private paginator: MatPaginatorIntl) {
     super(toastrService);
     this.paginator.itemsPerPageLabel = "Registros por página";
+    this.searchForm = new FormGroup({
+      text: new FormControl()
+    });
+    this.searchForm.controls['text'].valueChanges.subscribe((value:string)=>{
+      if(value.length > 0){
+        this.service.search(value).subscribe((rows:LocalityModel[])=>{
+          this.length = rows.length;
+          this.localitys = rows;
+        })
+      }else{
+        this.readLocality()
+      }
+    })
   }
 
+  searchForm:FormGroup;
   length = 100;
   pageSize = 10;
-  pageSizeOptions: number[] = [5, 10, 25, 100];
+  pageSizeOptions: number[] = [1, 5, 10, 25, 100];
 
   // MatPaginator Output
   pageEvent: PageEvent = {
@@ -102,12 +119,12 @@ export class LocalityListComponent extends BasePage {
   };
 
   ngOnInit(): void {
-    this.readLocality(0,10);
+    this.readLocality();
   }
 
-  readLocality = ((pageIndex:number, pageSize:number) => {
+  readLocality = (() => {
     this.localitys = null;
-    this.service.list(pageIndex, pageSize).subscribe((localitys:any) =>  {
+    this.service.list(this.pageEvent.pageIndex, this.pageEvent.pageSize).subscribe((localitys:any) =>  {
       this.localitys = localitys.data;
       this.length = localitys.count;
     }, 
@@ -118,7 +135,7 @@ export class LocalityListComponent extends BasePage {
 
   changesPage (event){
     this.pageEvent = event;
-    this.readLocality(event.pageIndex, event.pageSize)
+    this.readLocality()
   }
 
   onDeleteConfirm(event): void {
@@ -134,7 +151,7 @@ export class LocalityListComponent extends BasePage {
     }).then((result) => {
       if (result.isConfirmed) {
         this.service.delete(event.data.name).subscribe(data =>{
-          this.readLocality(this.pageEvent.pageIndex, this.pageEvent.pageSize);
+          this.readLocality();
         },err =>{
           console.log(err);
         })
@@ -151,14 +168,14 @@ export class LocalityListComponent extends BasePage {
       fullScreen: false,
     };
     const modalRef = this.windowService.open(LocalityDetailComponent, { title: `Editar localidad`, context: { locality: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
-      this.readLocality(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
+      this.readLocality();
     });
   
   }
 
   openWindowLocality() {
     const modalRef = this.windowService.open(LocalityDetailComponent, { title: `Nueva localidad` }).onClose.subscribe(() => {
-      this.readLocality(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
+      this.readLocality();
     });
     
   }
