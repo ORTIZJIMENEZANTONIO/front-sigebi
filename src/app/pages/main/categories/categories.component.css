@@ -1,0 +1,15 @@
+
+.card-img-top {
+  max-height: 250px;
+  box-sizing: border-box;
+}
+
+.category_image {
+  display:block;
+}
+
+.img-fluid {
+  max-width: 100%;
+  /*max-width: 400px;*/
+  height: auto;
+}

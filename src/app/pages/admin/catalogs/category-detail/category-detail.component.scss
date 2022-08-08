@@ -1,0 +1,48 @@
+@import '../../../../@theme/styles/themes';
+@import '~@nebular/theme/styles/global/breakpoints';
+@import '~bootstrap/scss/mixins/breakpoints';
+
+@include nb-install-component() {
+
+
+        .card-img-top {
+        max-height: 150px !important;
+        box-sizing: border-box;
+        }
+
+        .category_image {
+        display:block;
+        }
+
+        .img-fluid {
+        max-width: 200px;
+        /*max-width: 400px;*/
+        height: auto;
+        }
+    
+
+
+  
+
+  .camera {
+    background-position: center;
+    background-size: cover;
+    position: relative;
+    max-height: 150px !important;
+    max-width: 200px;
+
+  }
+
+  .camera-name {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    color: white;
+    background: nb-theme(overlay-backdrop-background-color);
+    padding: 0.5rem 1rem;
+  }
+
+}
+
+
+

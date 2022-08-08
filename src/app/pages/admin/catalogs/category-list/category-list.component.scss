@@ -1,0 +1,59 @@
+
+//::ng-deep ng2-smart-table thead > tr > th { background-color: blue; }
+//::ng-deep ng2-smart-table tbody > tr > td { background-color: blue; }
+
+/*
+:host /deep/ ng2-smart-table table > tbody > tr > td .cat-img-top {
+    //box-sizing: border-box;
+    //border: 1px solid grey;
+    max-height: 100px !important;
+    box-sizing: border-box !important;
+}
+
+:host /deep/ ng2-smart-table table > tbody > tr > td .cat_image {
+  display:block !important;
+}
+
+:host /deep/ ng2-smart-table table > tbody > tr > td .cat-img-fluid {
+  max-width: 100% !important;
+  height: auto !important;
+}
+
+:host /deep/ ng2-smart-table td.ng2-smart-actions {
+     width: 50px !important;
+}
+*/
+/*
+:host /deep/ ng2-smart-table td.ng2-smart-actions a {
+     max-width: 50px !important;
+}*/
+  .chart-card {
+    box-shadow: none;
+    margin-bottom: 0;
+    border-width: 0;
+  }
+
+  .cat-card {
+    flex: 1 0 auto;
+  }  
+    .cat-card nb-card-header {
+    display: flex;
+    align-items: center;
+    padding-top: nb-theme(card-header-with-select-padding-top);
+    padding-bottom: nb-theme(card-header-with-select-padding-bottom);
+
+    // prevents double border from chart yAxisSplitLine
+    margin-bottom: -1px;
+  }
+  .title {
+    margin-right: 1rem;
+
+    > .caption {
+      display: block;
+    }
+  }
+
+    .add-select {
+    margin-left: auto;
+  }
+
