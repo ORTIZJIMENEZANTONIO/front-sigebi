@@ -1,0 +1,63 @@
+<nb-card>
+    <nb-card-body>
+        <form [formGroup]="formNotary">
+            <div class="form-group row">
+                <input nbInput fullWidth formControlName="nombre" matInput placeholder="nombre"
+                [status]="formNotary.controls['nombre']?.errors?.required  && formNotary.controls['nombre'].touched ? 'danger' : ''">
+                <label class="text-danger"
+                 *ngIf="validateNotary['nombre'].hasError('pattern') && formNotary.controls['nombre'].touched"><small>Ingrese una nombre válido!</small></label>
+            </div>
+
+            <div class="form-group row">
+                <input type="number" nbInput fullWidth formControlName="no_notaria" matInput placeholder="Nro notaria"
+                [status]="formNotary.controls['no_notaria']?.errors?.required  && formNotary.controls['no_notaria'].touched ? 'danger' : ''">
+                <label class="text-danger" *ngIf="validateNotary['no_notaria'].hasError('required') && formNotary.controls['no_notaria'].touched"><small>Número de notaria requerido!</small></label>
+            </div>
+            <div class="form-group row">
+                <input type="number" nbInput fullWidth formControlName="no_registro" matInput placeholder="Nro registro"
+                [status]="formNotary.controls['no_registro']?.errors?.required  && formNotary.controls['no_registro'].touched ? 'danger' : ''">
+                <label class="text-danger" *ngIf="validateNotary['no_registro'].hasError('required') && formNotary.controls['no_registro'].touched"><small>Número de registro requerido!</small></label>
+            </div>
+
+            <div class="form-group row">
+                <input type="text" nbInput fullWidth formControlName="valido" matInput placeholder="Válido" maxlength="2"
+                [status]="formNotary.controls['valido']?.errors?.required  && formNotary.controls['valido'].touched ? 'danger' : ''">
+
+                <label class="text-danger" *ngIf="validateNotary['valido'].hasError('required') && formNotary.controls['valido'].touched"><small>Campo válido requerido!</small></label>
+            </div>
+       
+            <div class="form-group row">
+                <input type="text" nbInput fullWidth formControlName="ubicacion" matInput placeholder="Ubicación"
+                [status]="formNotary.controls['ubicacion']?.errors?.required  && formNotary.controls['ubicacion'].touched ? 'danger' : ''">
+
+                <label class="text-danger" *ngIf="validateNotary['ubicacion'].hasError('required') && formNotary.controls['ubicacion'].touched"><small>Campo ubicacion requerido!</small></label>
+            </div>
+       
+            <div class="form-group row">
+                <input type="text" nbInput fullWidth formControlName="domicilio" matInput placeholder="Domicilio"
+                [status]="formNotary.controls['domicilio']?.errors?.required  && formNotary.controls['domicilio'].touched ? 'danger' : ''">
+
+                <label class="text-danger" *ngIf="validateNotary['domicilio'].hasError('required') && formNotary.controls['domicilio'].touched"><small>Campo domicilio requerido!</small></label>
+            </div>
+       
+            <div class="form-group row">
+                <input type="text" nbInput fullWidth formControlName="telefono" matInput placeholder="Telefono"
+                [status]="formNotary.controls['telefono']?.errors?.required  && formNotary.controls['telefono'].touched ? 'danger' : ''">
+                <label class="text-danger" *ngIf="validateNotary['telefono'].hasError('pattern') && formNotary.controls['telefono'].touched"><small>Teléfono requerido!</small></label>
+            </div>
+
+            <div class="form-group row">
+                <input type="text" nbInput fullWidth formControlName="correo" matInput placeholder="Correo"
+                [status]="formNotary.controls['correo']?.errors?.required  && formNotary.controls['correo'].touched ? 'danger' : ''">
+                <label class="text-danger" *ngIf="validateNotary['correo'].hasError('email') && formNotary.controls['correo'].touched"><small>Ingrese un correo electrónico válido!</small></label>
+            </div>
+            
+       
+            <div class="form-group row">
+                <div class="offset-sm-3 col-sm-9">
+                    <button type="submit" nbButton status="primary" [disabled]="!formNotary.valid" (click)="register()">{{actionBtn}}</button>
+                </div>
+            </div>
+        </form>
+    </nb-card-body>
+</nb-card>

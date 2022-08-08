@@ -1,0 +1,45 @@
+<nb-card>
+  <nb-card-body>
+      <form [formGroup]="formDeductive">
+          <div class="form-group row">
+              <input nbInput fullWidth formControlName="serviceType" matInput placeholder="Tipo de servicio">
+              <label class="text-danger" *ngIf="validateDeductive['serviceType'].hasError('pattern')"><small>Ingrese un nombre válido!</small></label>
+          </div>
+          <div class="form-group row">
+            <input nbInput fullWidth formControlName="weightedDeduction" matInput placeholder="Deducción ponderada">
+            <label class="text-danger" *ngIf="validateDeductive['weightedDeduction'].hasError('pattern')"><small>Ingrese un nombre válido!</small></label>
+          </div>
+          <div class="form-group row">
+            <input nbInput fullWidth formControlName="startingRankPercentage" matInput placeholder="Rango de porcentaje inicial">
+            <label class="text-danger" *ngIf="validateDeductive['startingRankPercentage'].hasError('pattern')"><small>Ingrese un nombre válido!</small></label>
+          </div>
+          <div class="form-group row">
+            <input nbInput fullWidth formControlName="finalRankPercentage" matInput placeholder="Rango de porcentaje final">
+            <label class="text-danger" *ngIf="validateDeductive['finalRankPercentage'].hasError('pattern')"><small>Ingrese un nombre válido!</small></label>
+          </div>
+          <div class="form-group row">
+            <input nbInput fullWidth formControlName="contractNumber" matInput placeholder="No. de contrato">
+            <label class="text-danger" *ngIf="validateDeductive['contractNumber'].hasError('pattern')"><small>Ingrese un No. de contrato válido!</small></label>
+          </div>
+          <div class="form-group row">
+              <input nbInput fullWidth formControlName="version" matInput placeholder="version">
+              <label class="text-danger" *ngIf="validateDeductive['version'].hasError('pattern')"><small>Numero de versión no válida!</small></label>
+          </div>
+          <div class="form-group row">
+              <select class="form-control" formControlName="status" title="Seleccione una opción">
+                  <option selected disabled>Seleccionar...</option>
+                  <option value="0" selected>Activo</option>
+                  <option value="1">Inactivo</option>
+              </select>
+          </div>
+          <!-- <div class="form-group row">
+              <input nbInput fullWidth formControlName="status" matInput placeholder="status">
+          </div> -->
+          <div class="form-group row">
+              <div class="offset-sm-3 col-sm-9">
+                  <button type="submit" nbButton status="primary" [disabled]="!formDeductive.valid" (click)="register()">{{actionBtn}}</button>
+              </div>
+          </div>
+      </form>
+  </nb-card-body>
+</nb-card>

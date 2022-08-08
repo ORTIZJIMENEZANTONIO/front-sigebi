@@ -1,0 +1,64 @@
+<nb-card>
+    <nb-card-body>
+        <form [formGroup]="form">
+            <div class="form-group row">
+                <input nbInput fullWidth formControlName="name" matInput placeholder="Nombre">
+                <label class="text-danger" *ngIf="validateOpinion['name'].hasError('pattern')"><small>Nombre no válido!</small></label>
+            </div>
+            <div class="form-group row">
+                <input nbInput fullWidth formControlName="street" matInput placeholder="Calle">
+                <label class="text-danger" *ngIf="validateOpinion['street'].hasError('pattern')"><small>Calle no válido!</small></label>
+            </div>
+            <div class="form-group row">
+                <input nbInput fullWidth formControlName="noExt" matInput placeholder="No Exterior">
+                <label class="text-danger" *ngIf="validateOpinion['noExt'].hasError('pattern')"><small>No exterior no válido!</small></label>
+            </div>
+            <div class="form-group row">
+                <input nbInput fullWidth formControlName="noInt" matInput placeholder="No Interior">
+                <label class="text-danger" *ngIf="validateOpinion['noInt'].hasError('pattern')"><small>No interior no válido!</small></label>
+            </div>
+            <div class="form-group row">
+                <input nbInput fullWidth formControlName="colony" matInput placeholder="Colonia">
+                <label class="text-danger" *ngIf="validateOpinion['colony'].hasError('pattern')"><small>Colonia no válido!</small></label>
+            </div>
+            <div class="form-group row">
+                <input nbInput fullWidth formControlName="municipalDelegate" matInput placeholder="Delegado Municipal">
+                <label class="text-danger" *ngIf="validateOpinion['municipalDelegate'].hasError('pattern')"><small>Delegado no válido!</small></label>
+            </div>
+            <div class="form-group row">
+                <input nbInput fullWidth formControlName="postalCode" matInput placeholder="Codigo postal">
+                <label class="text-danger" *ngIf="validateOpinion['postalCode'].hasError('pattern')"><small>Codigo no válido!</small></label>
+            </div>
+            <div class="form-group row">
+                <input nbInput fullWidth formControlName="rfc" matInput placeholder="RFC">
+                <label class="text-danger" *ngIf="validateOpinion['rfc'].hasError('pattern')"><small>RFC no válido!</small></label>
+            </div>
+            <div class="form-group row">
+                <input nbInput fullWidth formControlName="phone" matInput placeholder="Telefono">
+                <label class="text-danger" *ngIf="validateOpinion['phone'].hasError('pattern')"><small>Telefono no válido!</small></label>
+            </div>
+            <div class="form-group row">
+                <input nbInput fullWidth formControlName="phoneTwo" matInput placeholder="Segundo telefono">
+                <label class="text-danger" *ngIf="validateOpinion['phoneTwo'].hasError('pattern')"><small>Segundo telefono no válido!</small></label>
+            </div>
+            <div class="form-group row">
+                <input nbInput fullWidth formControlName="fax" matInput placeholder="Fax">
+                <label class="text-danger" *ngIf="validateOpinion['fax'].hasError('pattern')"><small>Fax no válido!</small></label>
+            </div>
+            <div class="form-group row">
+                <input nbInput fullWidth formControlName="typeOffice" matInput placeholder="Tipo despacho">
+                <label class="text-danger" *ngIf="validateOpinion['typeOffice'].hasError('pattern')"><small>Tipo despacho no válido!</small></label>
+            </div>
+            <div class="form-group row">
+                <input nbInput fullWidth formControlName="noRegistration" matInput placeholder="Numero de registro">
+                <label class="text-danger" *ngIf="validateOpinion['noRegistration'].hasError('pattern')"><small>Numero no válido!</small></label>
+            </div>
+        
+            <div class="form-group row">
+                <div class="offset-sm-3 col-sm-9">
+                    <button type="submit" nbButton status="primary" [disabled]="!form.valid" (click)="register()">{{actionBtn}}</button>
+                </div>
+            </div>
+        </form>
+    </nb-card-body>
+</nb-card>

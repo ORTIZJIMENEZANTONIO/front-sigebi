@@ -1,0 +1,62 @@
+<nb-card>
+  <nb-card-body>
+    <form [formGroup]="form">
+
+      <div class="form-group row">
+        <input nbInput fullWidth formControlName="manager" matInput placeholder="Encargado"
+          [status]="form.controls['manager']?.errors?.required  && form.controls['manager'].touched ? 'danger' : ''">
+        <label class="text-danger" *ngIf="validateDelegation['manager'].hasError('required') && form.controls['manager'].touched"><small>Campo requerido!</small></label>
+      </div>
+
+      <div class="form-group row">
+        <input nbInput fullWidth formControlName="descripcion" matInput placeholder="Descripcion" 
+          [status]="form.controls['descripcion']?.errors?.required  && form.controls['descripcion'].touched ? 'danger' : ''">
+        <label class="text-danger"
+          *ngIf="validateDelegation['descripcion'].hasError('required') && form.controls['descripcion'].touched"><small>Ingrese una descripcion!</small>
+        </label>
+      </div>
+
+      <div class="form-group row">
+        <input type="text" formControlName="ubication" placeholder="Ubicación" nbInput fullWidth matInput 
+          [status]="form.controls['ubication']?.errors?.required && form.controls['ubication'].touched ? 'danger' : ''">
+          <label class="text-danger" *ngIf="validateDelegation['ubication'].hasError('required')  && form.controls['ubication'].touched "><small>Ingrese municipio</small></label>
+      </div>
+
+      <div class="form-group row">
+        <input type="text" formControlName="registerNumber" placeholder="No. de registro" nbInput fullWidth matInput 
+          [status]="form.controls['registerNumber']?.errors?.required && form.controls['registerNumber'].touched ? 'danger' : ''">
+          <label class="text-danger" *ngIf="validateDelegation['registerNumber'].hasError('required')  && form.controls['registerNumber'].touched "><small>Ingrese municipio</small></label>
+      </div>
+
+      <div class="form-group row">
+        <input type="text" formControlName="municipalityCode" placeholder="Municipio" nbInput fullWidth matInput 
+          [status]="form.controls['municipalityCode']?.errors?.required && form.controls['municipalityCode'].touched ? 'danger' : ''">
+          <label class="text-danger" *ngIf="validateDelegation['municipalityCode'].hasError('required')  && form.controls['municipalityCode'].touched "><small>Ingrese localidad</small></label>
+      </div>
+
+      <div class="form-group row">
+        <input type="text" formControlName="localityCode" placeholder="Localidad" nbInput fullWidth matInput 
+          [status]="form.controls['localityCode']?.errors?.required && form.controls['localityCode'].touched ? 'danger' : ''">
+          <label class="text-danger" *ngIf="validateDelegation['localityCode'].hasError('required')  && form.controls['localityCode'].touched "><small>Ingrese ubicación!</small></label>
+      </div>
+
+      <div class="form-group row">
+        <input type="text" formControlName="stateCode" placeholder="Entidad" nbInput fullWidth matInput 
+          [status]="form.controls['stateCode']?.errors?.required && form.controls['stateCode'].touched ? 'danger' : ''">
+          <label class="text-danger" *ngIf="validateDelegation['stateCode'].hasError('required')  && form.controls['stateCode'].touched "><small>Ingrese entidad!</small></label>
+      </div>
+
+      <div class="form-group row">
+        <input type="text" formControlName="cityCode" placeholder="Ciudad" nbInput fullWidth matInput 
+          [status]="form.controls['cityCode']?.errors?.required && form.controls['cityCode'].touched ? 'danger' : ''">
+          <label class="text-danger" *ngIf="validateDelegation['cityCode'].hasError('required')  && form.controls['cityCode'].touched "><small>Ingrese entidad!</small></label>
+      </div>
+     
+      <div class="form-group row">
+        <div class="offset-sm-3 col-sm-9">
+          <button type="submit" nbButton status="primary" [disabled]="!form.valid" (click)="register()">{{actionBtn}}</button>
+        </div>
+      </div>
+    </form>
+  </nb-card-body>
+</nb-card>
