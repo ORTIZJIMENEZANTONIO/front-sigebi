@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
 import { DataSource } from 'ng2-smart-table/lib/lib/data-source/data-source';
-import { switchMap, map } from 'rxjs/operators';
+
 import { CategoryApi } from '../api/category.api';
 import { FetchedSubCategoriesModel, ImageCategoryData } from '../../../interfaces/auction/FetchedSubCategories';
 import { HttpEvent } from '@angular/common/http';
