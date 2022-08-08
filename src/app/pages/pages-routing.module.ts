@@ -53,11 +53,7 @@ const routes: Routes = [{
       loadChildren: () => import('./charts/charts.module')
         .then(m => m.ChartsModule),
     },
-    {
-      path: 'editors',
-      loadChildren: () => import('./editors/editors.module')
-        .then(m => m.EditorsModule),
-    },
+
     {
       path: 'tables',
       loadChildren: () => import('./tables/tables.module')
