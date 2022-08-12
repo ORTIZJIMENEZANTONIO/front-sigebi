@@ -20,6 +20,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatSelectModule} from '@angular/material/select';
 import {MatCardModule} from '@angular/material/card';
+import { ThemeModule } from '../@theme/theme.module';
+import { NbMenuModule } from '@nebular/theme';
 
 
 @NgModule({
@@ -44,7 +46,10 @@ import {MatCardModule} from '@angular/material/card';
     MatSnackBarModule,
     MatDialogModule,
     MatSelectModule,
-    MatCardModule
+    MatCardModule,
+    ThemeModule,
+    NbMenuModule,
+
   ]
 })
 export class LoginModule { }

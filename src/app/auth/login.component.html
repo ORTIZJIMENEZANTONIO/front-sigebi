@@ -1,23 +1,21 @@
-<div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
-    <mat-card class="box">
-      <mat-card-header>
-        <mat-card-title>AuthNe</mat-card-title>
-      </mat-card-header>
-      <form class="example-form" [formGroup]="formLogins" (ngSubmit) = "login()">
-        <mat-card-content>
-          <mat-form-field class="example-full-width">
-            <input maxlength="30" formControlName="username" matInput placeholder="Usuario">
-          </mat-form-field>
-          <mat-form-field appearance="fill">
-            <mat-label>Contraseña</mat-label>
-            <input maxlength="15" formControlName="password" matInput [type]="hide ? 'password' : 'text'">
-            <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-            </button>
-          </mat-form-field>
-        </mat-card-content>
-        <button class="btn btn-primary  active btn-block" [disabled]="!formLogins.valid">Ingresar</button>
-      </form>
-    </mat-card>
+  <div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
+      <mat-card class="box card ">
+        <mat-card-header>
+          <mat-card-title>SIGEBI</mat-card-title>
+        </mat-card-header>
+        <form class="example-form mt-3 mb-3" [formGroup]="formLogins" (ngSubmit) = "login()">
+          <div class="form-group">
+            <input maxlength="30" formControlName="username" class="form-control" placeholder="Usuario">
+          </div>
+          <div class="input-group mb-3">
+            <input type="password"  maxlength="15"class="form-control" [type]="hide ? 'password' : 'text'" formControlName="password"  placeholder="Contraseña"/>
+            <div class="input-group-append">
+              <button type="button" class="form-control" matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+              <i class="{{ hide ? 'fa fa-eye-slash': 'fa fa-eye'}}"></i>
+              </button>
+          </div>
+          </div>
+          <button class="btn active btn-block" [disabled]="!formLogins.valid">Ingresar</button>
+        </form>
+      </mat-card>
   </div>
-

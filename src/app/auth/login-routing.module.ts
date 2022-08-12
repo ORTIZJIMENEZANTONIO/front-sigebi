@@ -7,14 +7,15 @@ import { LoginComponent } from './login.component';
 
 
 
-const routes: Routes = [{
-  path: '',
-  children: [
-    {path: 'login', component:LoginComponent},
-    {path: '**', redirectTo: 'login'}
-  ]
-
-}];
+const routes: Routes = [
+  {
+    path: 'login', component:LoginComponent
+  },
+  {
+    path: '**', 
+    redirectTo: 'login'
+  }
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

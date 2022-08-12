@@ -12,6 +12,7 @@ export class LoginService {
   readonly url = environment.apiUrl;
   readonly token = environment.api_external_token;
   readonly userInfo = environment.api_external_userInfo;
+  readonly userType = environment.api_external_typeUser;
   
   constructor(private http:HttpClient, /*private jwtHelper: JwtHelperService, */) { }
 
@@ -22,7 +23,6 @@ export class LoginService {
       body: data,
       headers:{
         'Content-Type' : 'application/x-www-form-urlencoded',
-        // 'Access-Control-Allow-Origin': '*'
       }
     })
     .then(res => res.json())
@@ -38,7 +38,6 @@ export class LoginService {
       method: 'GET', 
       headers:{
         'Content-Type' : 'application/x-www-form-urlencoded',
-        // 'Access-Control-Allow-Origin': '*',
         'Authorization': 'Bearer ' + token,
       }
     })
@@ -52,17 +51,29 @@ export class LoginService {
   }
 
   getType(){
-    return this.http.get<any>(`${this.url}/user/userType/`+localStorage.getItem("uid"));
+    return fetch(this.userType+localStorage.getItem("uid"), {
+      method: 'GET', 
+      headers:{
+        'Content-Type' : 'application/json',
+      }
+    })
+    .then(res => res.json())
+    .catch(error => {
+      return error;
+    })
+    .then(response => {
+        return response;
+    });
   }
 
   isAuth(): boolean{
-    // const token = localStorage.getItem('token');
-    // if (!localStorage.getItem("token")){
-    //   localStorage.removeItem("token");
-    //   localStorage.removeItem("uid");
-    //   localStorage.removeItem("type");
-    //   return false;
-    // }
+    const token = localStorage.getItem('token');
+    if (!localStorage.getItem("token")){
+      localStorage.removeItem("token");
+      localStorage.removeItem("uid");
+      localStorage.removeItem("type");
+      return false;
+    }
     // const decode = this.jwtHelper.decodeToken(token?.toString());
     // if(this.jwtHelper.isTokenExpired(token?.toString()) || (decode.exp < (new Date().getTime() + 1) / 1000)){
     //     this.snackBar.open("La sesión expiró, inice de nuevo!", 'X', {
