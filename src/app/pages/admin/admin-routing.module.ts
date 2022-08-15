@@ -289,7 +289,25 @@ const routes: Routes = [
       {
         path: 'origin', loadChildren: () => import('./origin/origin.module')
           .then(m => m.OriginModule)
-      }
+      },
+      {
+        path: 'origin-cisi', loadChildren: () => import('./origin-cisi/origin-cisi.module')
+          .then(m => m.OriginCisiModule)
+             
+      },
+      {
+        path: 'score', loadChildren: () => import('./score/score.module')
+          .then(m => m.ScoreModule) 
+      },
+      {
+        path: 'indicator-report', loadChildren: () => import('./indicator-report/indicator-report.module')
+          .then(m => m.IndicatorReportModule) 
+      },
+      {
+        path: 'r-asunt-dic', loadChildren: () => import('./r-asunt-dic/r-asunt-dic.module')
+          .then(m => m.RAsuntDicModule) 
+      },
+
 
       //{ path: 'home', component: CategoriesComponent },//ok
     ]

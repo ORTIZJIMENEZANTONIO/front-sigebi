@@ -1,7 +1,7 @@
 <nb-card class="cat-card">
   <nb-card-header>
     <span class="title">
-      Lista de procedencias
+      Procedencias
     </span>
     <div class="add-select">
       <button (click)="openWindow()"nbButton status="primary">Nueva</button>
@@ -9,10 +9,14 @@
   </nb-card-header>
 
   <nb-card-body>
-    <div [formGroup]="searchForm">
-      <label class="search-label" for="search">Search:</label>
-      <input nbInput formControlName="text" class="search-input">
-    </div>
+    <div [formGroup]="searchForm" class="form-group row">
+      <div class="col-md-1 mt-2">
+          <label class="control-label">Buscar: </label>
+      </div>
+      <div class="col-md-4">
+        <input type="text" formControlName="text"  class="form-control" autofocus/>
+      </div>
+  </div>
     <ng2-smart-table 
       [settings]="settings" 
       [source]="rows" 
