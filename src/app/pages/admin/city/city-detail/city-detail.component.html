@@ -1,0 +1,64 @@
+<nb-card>
+    <nb-card-body>
+        <form [formGroup]="formCity">
+            <div class="form-group row">
+                <input nbInput fullWidth formControlName="nombre" matInput placeholder="nombre">
+                <label class="text-danger" *ngIf="validateCity['nombre'].hasError('pattern')"><small>Ingrese un nombre válido!</small></label>
+            </div>
+
+            <div class="form-group row">
+                <input nbInput fullWidth formControlName="cve_entfed" matInput placeholder="cve_entfed">
+                <label class="text-danger" *ngIf="validateCity['cve_entfed'].hasError('required')"><small>Campo cve requerido!</small></label>
+            </div>
+
+            <div class="form-group row">
+                <input formControlName="detalle_delegacion" type="text" id="no_delegacion" matInput placeholder="Nro delegacion"  [nbAutocomplete]="auto"  nbInput>
+            
+
+                <nb-autocomplete #auto [activeFirst]="true" (selectedChange)="onSelectionChangeDelegation($event)">
+
+                    <nb-option *ngFor="let option of filteredOptions$ | async" [value]="option">
+
+                        {{ option.descripcion }}
+                    </nb-option>
+                
+                    </nb-autocomplete>
+                <label class="text-danger" *ngIf="validateCity['no_delegacion'].hasError('min')"><small>Seleccione una delegacion!</small></label>
+
+               
+            </div>
+
+            <div class="form-group row">
+                <input formControlName="detalle_subdelegacion" matInput placeholder="Nro subdelegacion"  [nbAutocomplete]="subdelegation"  nbInput>
+            
+
+                <nb-autocomplete #subdelegation [activeFirst]="true" (selectedChange)="onSelectionChangeSubdelegation($event)">
+
+                    <nb-option *ngFor="let option of filteredsubdelegations$ | async" [value]="option">
+                        {{ option.descripcion }}
+                    </nb-option>
+                
+                    </nb-autocomplete>
+                <label class="text-danger" *ngIf="validateCity['no_subdelegacion'].hasError('min')"><small>seleccione una subdelegacion!</small></label>
+
+
+            </div>
+
+            <div class="form-group row">
+                <input nbInput fullWidth formControlName="leyenda_oficio" matInput placeholder="Leyenda oficio">
+                <label class="text-danger" *ngIf="validateCity['leyenda_oficio'].hasError('required')"><small>Ingrese una leyenda oficio!</small></label>
+            </div>
+
+            <div class="form-group row">
+                <input nbInput type="number" fullWidth formControlName="no_registro" matInput placeholder="Número de registro">
+                <label class="text-danger" *ngIf="validateCity['no_registro'].hasError('required')"><small>Ingrese el numero de registro!</small></label>
+            </div>
+       
+            <div class="form-group row">
+                <div class="offset-sm-3 col-sm-9">
+                    <button type="submit" nbButton status="primary" [disabled]="!formCity.valid" (click)="register()">{{actionBtn}}</button>
+                </div>
+            </div>
+        </form>
+    </nb-card-body>
+</nb-card>

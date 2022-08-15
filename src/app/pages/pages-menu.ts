@@ -225,11 +225,325 @@ export const MENU_ITEMS: NbMenuItem[] = [
   {
     title: 'Administración',
     icon: 'grid-outline',
+    // children: [
+    //   {
+    //     title: 'Categorias',
+    //     link: '/pages/admin/catalogs/categories',
+    //   },
+    //   {
+    //     title: 'Leyendas',
+    //     link: '/pages/admin/legends/official',
+    //   },
+
+    // ],
+  },
+  {
+    title: 'Catalogos',
+    icon: 'folder',
     children: [
+      {
+        title: 'Abogados',
+        link: '/pages/admin/lawyer',
+      },
+      {
+        title: 'Aclaraciones',
+        link: '/pages/admin/clarification',
+      },
+      {
+        title: 'Almacenes',
+        link: '/pages/admin/warehouse',
+      },
+      {
+        title: 'Asentamientos',
+        link: '/pages/admin/settlement',
+      },
+      {
+        title: 'Banco',
+        link: '/pages/admin/bank',
+      },
+      {
+        title: 'Bateria',
+        link: '/pages/admin/battery',
+      },
+      {
+        title:'Bodega',
+        link:'/pages/admin/storehouse'
+      },
+      {
+        title:'Bovedas',
+        link:'/pages/admin/safe'
+      },
       {
         title: 'Categorias',
         link: '/pages/admin/catalogs/categories',
       },
+      {
+        title: 'Clasificación SIAB',
+        link: '/pages/admin/siab-clasification',
+      },
+      {
+        title: 'Códigos postales',
+        link: '/pages/admin/zip-code',
+      },
+      {
+        title: 'Día festivo',
+        link: '/pages/admin/holiday',
+      },
+      {
+        title: 'Deductivas',
+        link: '/pages/admin/deductives',
+      },
+      {
+        title: 'Deductivas Verificación',
+        link: '/pages/admin/deductive-verification',
+      },
+      {
+        title: 'Delegaciones de estado',
+        link: '/pages/admin/delegation-state',
+      },
+      {
+        title: 'Delegaciones regionales',
+        link: '/pages/admin/regional-delegation',
+      },
+      {
+        title: 'Dictamen',
+        link: '/pages/admin/dictaments',
+      },
+      {
+        title: 'Emisora',
+        link: '/pages/admin/station',
+      },
+      {
+        title: 'Estado',
+        link: '/pages/admin/state-of-republic',
+      },
+      {
+        title: 'Estatus general',
+        link: '/pages/admin/general-status',
+      },
+      {
+        title: 'Estatus proceso',
+        link: '/pages/admin/status-process',
+      },
+      {
+        title: 'Fracciones',
+        link: '/pages/admin/fractions',
+      },
+      {
+        title: 'Genericos',
+        link: '/pages/admin/generics',
+      },
+      {
+        title: 'Leyendas',
+        link: '/pages/admin/legends/official',
+      },
+      {
+        title: 'Localidades',
+        link: '/pages/admin/localitys',
+      },
+      {
+        title: 'Motivos no entrega',
+        link: '/pages/admin/reasons/non-delivery-reasons',
+      },
+      {
+        title: 'Municipios',
+        link: '/pages/admin/municipalitys',
+      },
+      {
+        title: 'Normas',
+        link: '/pages/admin/norms',
+      },
+      {
+        title: 'Parrafos',
+        link: '/pages/admin/paragraphs',
+      },  
+      {
+        title: 'Preguntas',
+        link: '/pages/admin/question',
+      },   
+      {
+        title: 'Tipo Siniestro',
+        link: '/pages/admin/sinister',
+      },
+      {
+        title: 'Tipo Almacen',
+        link: '/pages/admin/typewarehouses',
+      },
+      {
+        title: 'Tipo Asentamiento',
+        link: '/pages/admin/typesettelement',
+      },
+      {
+        title: 'Tipo Bienes',
+        link: '/pages/admin/typegood',
+      },
+      {
+        title: 'Tipo Docto',
+        link: '/pages/admin/typedocto',
+      },
+      {
+        title: 'Estado Transferencia',
+        link: '/pages/admin/statustransfer',
+      },
+      {
+        title: 'Estatus Buzon',
+        link: '/pages/admin/statusmailbox',
+      },
+      {
+        title: 'Tipo servicios',
+        link: '/pages/admin/typeservices',
+      },
+      {
+        title: 'Tipo relevante',
+        link: '/pages/admin/typerelevant',
+      },
+      {
+        title: 'Transferentes',
+        link: '/pages/admin/transferentes',
+      },
+      {
+        title: 'Tipo orden servicio',
+        link: '/pages/admin/typeorderservices',
+      },
+      {
+        title: 'Despachos',
+        link: '/pages/admin/offices',
+      },
+      {
+        title: 'Donatorios',
+        link: '/pages/admin/grantees',
+      },
+      {
+        title: 'Edos x Coor',
+        link: '/pages/admin/edosxcoor',
+      },
+      {
+        title: 'Emisoras',
+        link: '/pages/admin/station',
+      },
+      {
+        title: 'Ciudades',
+        link: '/pages/admin/city',
+      },
+      {
+        title: 'Delegaciones',
+        link: '/pages/admin/delegation',
+      },
+      {
+        title:'Detalle Delegaciones',
+        link:'/pages/admin/detail-delegation'
+      },
+
+      {
+        title: 'SubDelegaciones',
+        link: '/pages/admin/subdelegation',
+      },
+      {
+        title: 'Concepto Pagos',
+        link: '/pages/admin/payments-concept',
+      },
+      {
+        title:'Notarios',
+        link:'/pages/admin/notary'
+      },
+      {
+        title:'Casilleros',
+        link:'/pages/admin/locker'
+      },
+      {
+        title:'Juzgados',
+        link:'/pages/admin/court'
+      },
+      {
+        title:'Conclusion siniestros',
+        link:'/pages/admin/claim-conclusion'
+      },
+      {
+        title:'Peritos',
+        link:'/pages/admin/proficient'
+      },
+      {
+        title:'Medio imagen',
+        link:'/pages/admin/half-image'
+      },
+      {
+        title:'Medio fotografia',
+        link:'/pages/admin/medium-photography'
+      },
+      {
+        title:'Departamentos',
+        link:'/pages/admin/departament'
+      },
+      {
+        title:'Tipo Bien',
+        link:'/pages/admin/good-type'
+      },
+      {
+        title:'Subtipo bien',
+        link:'/pages/admin/good-subtype'
+      },
+      {
+        title:'Ssubtipo bien',
+        link:'/pages/admin/good-ssubtype'
+      },
+      {
+        title:'Sssubtipo bien',
+        link:'/pages/admin/good-sssubtype'
+      },
+      {
+        title:'Situacion Bien',
+        link:'/pages/admin/good-situacion'
+      },
+      {
+        title:'Clasificacion Institucion',
+        link:'/pages/admin/institution-classification'
+      },
+      {
+        title:'Instituciones Emisoras',
+        link:'/pages/admin/issuing-institution'
+      },
+      {
+        title:'MinPub',
+        link:'/pages/admin/minpub'
+      },
+      {
+        title:'Personas',
+        link:'/pages/admin/person'
+      },
+      {
+        title:'Motivo Revision',
+        link:'/pages/admin/revision-reason'
+      },
+      {
+        title:'Clasificacion SatSae',
+        link:'/pages/admin/satsae-classification'
+      },
+      {
+        title:'Reporte Indicadores',
+        link:'/pages/admin/indicator-report'
+      },
+      {
+        title:'Procedencia',
+        link:'/pages/admin/origin'
+      },
+      {
+        title:'Procedencia Cisi',
+        link:'/pages/admin/origin-cisi'
+      },
+      {
+        title:'Puntuaciones',
+        link:'/pages/admin/score'
+      },
+      {
+        title:'R Asunt Dic',
+        link:'/pages/admin/r-asunt-dic'
+      },
+      
+      
+      
+      
+      
+      
 
     ],
   },

@@ -1,0 +1,21 @@
+<nb-card>
+    <nb-card-body>
+        <form [formGroup]="form">
+            <div class="form-group row">
+                <input nbInput fullWidth formControlName="name" matInput placeholder="Nombre">
+                <label class="text-danger" *ngIf="validateOpinion['name'].hasError('pattern')"><small>Nombre no válido!</small></label>
+            </div>
+            <div class="form-group row">
+                <input nbInput fullWidth formControlName="version" matInput placeholder="version">
+                <label class="text-danger" *ngIf="validateOpinion['version'].hasError('pattern')"><small>Ingrese una version  válido!</small></label>
+            </div>
+         
+
+            <div class="form-group row">
+                <div class="offset-sm-3 col-sm-9">
+                    <button type="submit" nbButton status="primary" [disabled]="!form.valid" (click)="register()">{{actionBtn}}</button>
+                </div>
+            </div>
+        </form>
+    </nb-card-body>
+</nb-card>

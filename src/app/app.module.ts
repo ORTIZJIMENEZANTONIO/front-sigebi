@@ -11,6 +11,8 @@ import { CoreModule } from './@core/core.module';
 import { ThemeModule } from './@theme/theme.module';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import {MatPaginatorModule} from '@angular/material/paginator';
+
 import {
   NbChatModule,
   NbDatepickerModule,
@@ -41,6 +43,8 @@ import { AuthModule } from './@auth/auth.module';
     CoreModule.forRoot(),
     ThemeModule.forRoot(),
     AuthModule,
+    MatPaginatorModule
+    
   ],
   bootstrap: [AppComponent],
 })

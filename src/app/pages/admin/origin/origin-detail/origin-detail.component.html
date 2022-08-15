@@ -1,0 +1,55 @@
+<nb-card>
+    <nb-card-body>
+        <form [formGroup]="form" >
+          <div class="form-group row">
+            <input type="text" formControlName="idTransferer" placeholder="ID" nbInput fullWidth matInput 
+              [status]="form.controls['idTransferer']?.errors?.required && form.controls['idTransferer'].touched ? 'danger' : ''">
+              <label class="text-danger" *ngIf="validate['idTransferer'].hasError('required')  && form.controls['idTransferer'].touched "><small>ID</small></label>
+          </div>
+          <div class="form-group row">
+            <input type="text" formControlName="keyTransferer" placeholder="Detalle" nbInput fullWidth matInput 
+              [status]="form.controls['keyTransferer']?.errors?.required && form.controls['keyTransferer'].touched ? 'danger' : ''">
+              <label class="text-danger" *ngIf="validate['keyTransferer'].hasError('required')  && form.controls['keyTransferer'].touched "><small>ID Transferencia</small></label>
+          </div>
+          <div class="form-group row">
+            <input type="text" formControlName="description" placeholder="Descripcion" nbInput fullWidth matInput 
+              [status]="form.controls['description']?.errors?.required && form.controls['description'].touched ? 'danger' : ''">
+              <label class="text-danger" *ngIf="validate['description'].hasError('required')  && form.controls['description'].touched "><small>Descripcion</small></label>
+          </div>
+          <div class="form-group row">
+            <input type="text" formControlName="type" placeholder="Tipo" nbInput fullWidth matInput 
+              [status]="form.controls['type']?.errors?.required && form.controls['type'].touched ? 'danger' : ''">
+              <label class="text-danger" *ngIf="validate['type'].hasError('required')  && form.controls['type'].touched "><small>Tipo</small></label>
+          </div>
+          <div class="form-group row">
+            <input type="text" formControlName="address" placeholder="Direccion" nbInput fullWidth matInput 
+              [status]="form.controls['address']?.errors?.required && form.controls['address'].touched ? 'danger' : ''">
+              <label class="text-danger" *ngIf="validate['address'].hasError('required')  && form.controls['address'].touched "><small>Direccion</small></label>
+          </div>
+          <div class="form-group row">
+            <input type="text" formControlName="city" placeholder="Ciudad" nbInput fullWidth matInput 
+              [status]="form.controls['city']?.errors?.required && form.controls['city'].touched ? 'danger' : ''">
+              <label class="text-danger" *ngIf="validate['city'].hasError('required')  && form.controls['city'].touched "><small>Ciudad</small></label>
+          </div>
+          <div class="form-group row">
+            <input type="text" formControlName="idCity" placeholder="ID Ciudad" nbInput fullWidth matInput 
+              [status]="form.controls['idCity']?.errors?.required && form.controls['idCity'].touched ? 'danger' : ''">
+              <label class="text-danger" *ngIf="validate['idCity'].hasError('required')  && form.controls['idCity'].touched "><small>ID Ciudad</small></label>
+          </div>
+          <div class="form-group row">
+            <input type="text" formControlName="keyEntityFederative" placeholder="Entidad Federativa" nbInput fullWidth matInput 
+              [status]="form.controls['keyEntityFederative']?.errors?.required && form.controls['keyEntityFederative'].touched ? 'danger' : ''">
+              <label class="text-danger" *ngIf="validate['keyEntityFederative'].hasError('required')  && form.controls['keyEntityFederative'].touched "><small>Entidad Federativa</small></label>
+          </div>
+
+
+
+        <div class="form-group row">
+          <div class="offset-sm-3 col-sm-9">
+            <button type="submit" nbButton status="primary" [disabled]="!form.valid" (click)="register()">{{actionBtn}}</button>
+          </div>
+        </div>
+
+        </form>
+    </nb-card-body>
+</nb-card>

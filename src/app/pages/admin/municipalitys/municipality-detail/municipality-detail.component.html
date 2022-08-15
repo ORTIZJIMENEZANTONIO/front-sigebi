@@ -1,0 +1,27 @@
+<nb-card>
+    <nb-card-body>
+        <form [formGroup]="formMunicipality">
+            <div class="form-group row">
+                <input maxlength="30" nbInput fullWidth formControlName="key" matInput placeholder="Clave">
+                <label class="text-danger" *ngIf="validateMunicipality['key'].hasError('pattern')"><small>Ingrese un nombre válido!</small></label>
+            </div>
+            <div class="form-group row">
+                <input maxlength="30" nbInput fullWidth formControlName="entity" matInput placeholder="Entidad">
+                <label class="text-danger" *ngIf="validateMunicipality['entity'].hasError('pattern')"><small>Ingrese un valor númerico!</small></label>
+            </div>
+            <div class="form-group row">
+                <input maxlength="60" nbInput fullWidth formControlName="municipalityName" matInput placeholder="Nombre">
+                <label class="text-danger" *ngIf="validateMunicipality['municipalityName'].hasError('pattern')"><small>Ingrese un nombre válido!</small></label>
+            </div>
+            <div class="form-group row">
+                <input nbInput fullWidth formControlName="version" matInput placeholder="version">
+                <label class="text-danger" *ngIf="validateMunicipality['version'].hasError('pattern')"><small>Numero de versión no válida!</small></label>
+            </div>
+            <div class="form-group row">
+                <div class="offset-sm-3 col-sm-9">
+                    <button type="submit" nbButton status="primary" [disabled]="!formMunicipality.valid" (click)="register()">{{actionBtn}}</button>
+                </div>
+            </div>
+        </form>
+    </nb-card-body>
+</nb-card>
