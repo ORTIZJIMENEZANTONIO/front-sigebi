@@ -82,12 +82,10 @@ import { StorehouseService } from './services/storehouse.service';
 import { SafeService } from './services/safe.service';
 import { QuestionService } from './services/question.service';
 import { OriginService } from './services/origin.service';
-<<<<<<< HEAD
 import { SaveValuesService } from './services/save-values.service';
 import { IdentifierService } from './services/identifier.service';
 import { IndiciadosService } from './services/indiciados.service';
 import { OpinionService } from './services/opinion.service';
-=======
 import { PenaltyService } from './services/penalty.service';
 import { GoodsSubtypeService } from './services/goods-subtype.service';
 import { LegalSupportService } from './services/legal-support.service';
@@ -96,7 +94,6 @@ import { SatClassificationService } from './services/sat-classification.service'
 import { IndicatorReportService } from './services/IndicatorReport.service';
 import { OriginCisiService } from './services/origin-cisi.service';
 import { ScoreService } from './services/score.service';
->>>>>>> eae7e324843675109b31ae1a0f0b83df5dc29625
 
 
 const API = [
@@ -185,21 +182,18 @@ const SERVICES = [
   RevisionReasonService,
   SatSaeClassificationService,
   StorehouseService,
-<<<<<<< HEAD
   SaveValuesService,
   IdentifierService,
   IndiciadosService,
-  OpinionService
-=======
+  OpinionService,
   PenaltyService,
   GoodsSubtypeService,
   LegalSupportService,
   SatSubclasificationService,
-  SatClassificationService
+  SatClassificationService,
   IndicatorReportService,
   OriginCisiService,
-  ScoreService,
->>>>>>> eae7e324843675109b31ae1a0f0b83df5dc29625
+  ScoreService
 ];
 
 @NgModule({
