@@ -72,6 +72,8 @@ export class LoginService {
       localStorage.clear();
       return false;
     }
+
+    // console.log(token);
     // const decode = this.jwtHelper.decodeToken(token?.toString());
     // if(this.jwtHelper.isTokenExpired(token?.toString()) || (decode.exp < (new Date().getTime() + 1) / 1000)){
     //     this.snackBar.open("La sesión expiró, inice de nuevo!", 'X', {

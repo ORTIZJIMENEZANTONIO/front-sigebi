@@ -118,19 +118,32 @@ body {
 .login-wrapper .mat-form-field-appearance-legacy .mat-form-field-infix {
   padding: 0.8375em 0;
 }
-.error-snackbar {
-    background: #c00;
-    color:white;
-}
-.success-snackbar {
-    background: #198754;
-    color:white;
-}
-.warning-snackbar {
-    background: rgb(105, 101, 94);
-    color:white;
-}
-.update-snackbar {
-    background: #673ab7;
-    color: white;
-}
+// .error-snackbar {
+//     background: #c00 !important;
+//     color:white !important;
+// }
+// .success-snackbar {
+//     background: #198754 !important;
+//     color:white!important;
+// }
+// .warning-snackbar {
+//     background: rgb(105, 101, 94) !important;
+//     color:white!important;
+// }
+// .update-snackbar {
+//     background: #673ab7 !important;
+//     color: white!important;
+// }
+
+// .cdk-overlay-container {
+//   position: fixed !important;
+//   z-index: 10000 !important;
+// }
+
+// ::ng-deep snack-bar-container.custom-class {
+//   background: yellow;
+// }
+
+// ::ng-deep .custom-class .mat-simple-snackbar {
+//   color: green;
+// }

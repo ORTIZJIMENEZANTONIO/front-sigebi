@@ -13,6 +13,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { TokenInterceptorService } from './shared/services/token-interceptor.service';
+// import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 
 import {
   NbChatModule,

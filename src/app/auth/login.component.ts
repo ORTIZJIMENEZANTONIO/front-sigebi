@@ -6,6 +6,7 @@ import { LoginService} from './login.service';
 // import { first, map} from 'rxjs';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { MatDialog, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -37,13 +38,14 @@ export class LoginComponent implements OnInit {
     let infoUser : any = [];
 
     if(!token.access_token){
-      console.log("credenciales incorrectas");
-        // this.snackBar.open('Credenciales incorrectas!', 'X', {
-        //   duration: 3000,
-        //   verticalPosition: 'top', // Allowed values are  'top' | 'bottom'
-        //   horizontalPosition: 'right', // Allowed values are 'start' | 'center' | 'end' | 'left' | 'right',
-        //   panelClass: ['error-snackbar']
-        // });
+      Swal.fire({
+        title: 'Credenciales incorrectas!',
+        icon: 'error',
+        timer: 3000,
+        timerProgressBar: true,
+        showConfirmButton: false,
+        showCloseButton: true,
+      });
     }else{
       infoUser = await this.service.getInfo(token.access_token);
       localStorage.setItem("token",token.access_token);
@@ -53,14 +55,35 @@ export class LoginComponent implements OnInit {
       if(data){
         if(data[0].type==1){
           localStorage.clear();
-          console.log("acceso no permitido");
+          Swal.fire({
+            title: 'Acceso no permitido',
+            icon: 'error',
+            timer: 3000,
+            timerProgressBar: true,
+            showConfirmButton: false,
+            showCloseButton: true,
+          });
         } else if(data[0].type==2 || data[0].type==0){
           localStorage.setItem("type",data[0].type);
-          console.log("inicio correcto");
+          Swal.fire({
+            title: 'Inicio correcto!',
+            icon: 'success',
+            timer: 3000,
+            timerProgressBar: true,
+            showConfirmButton: false,
+            showCloseButton: true,
+          });
           this.router.navigate(['../pages']);
         }
       }else{
-        console.log("error");
+        Swal.fire({
+          title: 'Ha ocurrido un error!',
+          icon: 'error',
+          timer: 3000,
+          timerProgressBar: true,
+          showConfirmButton: false,
+          showCloseButton: true,
+        });
       }
     }
   }
