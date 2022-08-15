@@ -1,0 +1,24 @@
+<nb-card>
+    <nb-card-body>
+        <form [formGroup]="form">
+
+            <div class="form-group row">
+                <input nbInput fullWidth formControlName="nombre_clasificacion" matInput
+                    placeholder="Nombre clasificacion">
+                <label class="text-danger" *ngIf="validateOpinion['nombre_clasificacion'].hasError('pattern')"><small>No
+                        válido!</small></label>
+            </div>
+            <div class="form-group row">
+                <input nbInput fullWidth formControlName="version" matInput placeholder="Version">
+                <label class="text-danger" *ngIf="validateOpinion['version'].hasError('pattern')"><small>No
+                        válido!</small></label>
+            </div>
+            <div class="form-group row">
+                <div class="offset-sm-3 col-sm-9">
+                    <button type="submit" nbButton status="primary" [disabled]="!form.valid"
+                        (click)="register()">{{actionBtn}}</button>
+                </div>
+            </div>
+        </form>
+    </nb-card-body>
+</nb-card>

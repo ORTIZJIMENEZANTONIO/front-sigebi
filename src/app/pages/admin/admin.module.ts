@@ -21,8 +21,6 @@ import { MatSelectModule } from '@angular/material/select';
 @NgModule({
   declarations: [
     ...routedComponents,
-   
-
   ],
   imports: [
     CommonModule,
