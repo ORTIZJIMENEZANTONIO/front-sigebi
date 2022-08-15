@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 // import { JwtHelperService } from '@auth0/angular-jwt';
 // import {MatSnackBar} from '@angular/material/snack-bar';
+import Swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root'
@@ -68,26 +69,24 @@ export class LoginService {
 
   isAuth(): boolean{
     const token = localStorage.getItem('token');
-    if (!localStorage.getItem("token")){
+    if (!token){
       localStorage.clear();
       return false;
     }
-
-    // console.log(token);
-    // const decode = this.jwtHelper.decodeToken(token?.toString());
-    // if(this.jwtHelper.isTokenExpired(token?.toString()) || (decode.exp < (new Date().getTime() + 1) / 1000)){
-    //     this.snackBar.open("La sesión expiró, inice de nuevo!", 'X', {
-    //       duration: 3000,
-    //       verticalPosition: 'top', // Allowed values are  'top' | 'bottom'
-    //       horizontalPosition: 'right', // Allowed values are 'start' | 'center' | 'end' | 'left' | 'right'
-    //       panelClass: ['error-snackbar']
-    //     });
-    //     localStorage.removeItem("token");
-    //     localStorage.removeItem("uid");
-    //     localStorage.removeItem("type");
-    //     return false;
-    //   }
-    return true;
+    if(new Date().getTime()< parseInt(localStorage.getItem('token_expires'))){
+      return true
+    }else{
+      localStorage.clear();
+      Swal.fire({
+        title: 'La sesión expiró, inice de nuevo!',
+        icon: 'error',
+        timer: 3000,
+        timerProgressBar: true,
+        showConfirmButton: false,
+        showCloseButton: true,
+      });
+      return false;
+    }
   }
 
   isLogout(): boolean{
@@ -96,6 +95,5 @@ export class LoginService {
     }
     return false;
   }
-
 
 }

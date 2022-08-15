@@ -50,6 +50,7 @@ export class LoginComponent implements OnInit {
       infoUser = await this.service.getInfo(token.access_token);
       localStorage.setItem("token",token.access_token);
       localStorage.setItem("uid",infoUser.sub);
+      localStorage.setItem("token_expires",`${new Date().getTime()+(token.expires_in*1000)}`)
       localStorage.setItem("name",infoUser.name);
       const data = await this.service.getType();
       if(data){
