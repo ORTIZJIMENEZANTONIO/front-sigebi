@@ -521,6 +521,22 @@ export const MENU_ITEMS: NbMenuItem[] = [
       {
         title:'Clasificacion SatSae',
         link:'/pages/admin/satsae-classification'
+      },
+      {
+        title:'Guarda Valores',
+        link:'/pages/admin/save-values'
+      },
+      {
+        title:'Identificador',
+        link:'/pages/admin/identifier'
+      },
+      {
+        title:'Indiciados',
+        link:'/pages/admin/indiciados'
+      },
+      {
+        title:'Dictamen',
+        link:'/pages/admin/opinion'
       }
       
       

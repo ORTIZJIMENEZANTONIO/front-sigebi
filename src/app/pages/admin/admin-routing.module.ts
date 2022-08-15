@@ -289,6 +289,22 @@ const routes: Routes = [
       {
         path: 'origin', loadChildren: () => import('./origin/origin.module')
           .then(m => m.OriginModule)
+      },
+      {
+        path: 'save-values', loadChildren: () => import('./save-values/save-values.module')
+          .then(m => m.SaveValuesModule)
+      },
+      {
+        path: 'identifier', loadChildren: () => import('./identifier/identifier.module')
+          .then(m => m.IdentifierModule)
+      },
+      {
+        path: 'indiciados', loadChildren: () => import('./indiciados/indiciados.module')
+          .then(m => m.IndiciadosModule)
+      },
+      {
+        path: 'opinion', loadChildren: () => import('./opinion/opinion.module')
+          .then(m => m.OpinionModule)
       }
 
       //{ path: 'home', component: CategoriesComponent },//ok
