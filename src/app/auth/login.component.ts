@@ -28,13 +28,7 @@ export class LoginComponent implements OnInit {
 
   
   ngOnInit(): void {
-    this.checkToken();
-  }
-
-  checkToken(){
-    if(localStorage.getItem("token")){
-      this.router.navigate(['/pages']);
-    }
+    // TODO document why this method 'ngOnInit' is empty
   }
 
   async login(){
@@ -54,11 +48,11 @@ export class LoginComponent implements OnInit {
       infoUser = await this.service.getInfo(token.access_token);
       localStorage.setItem("token",token.access_token);
       localStorage.setItem("uid",infoUser.sub);
+      localStorage.setItem("name",infoUser.name);
       const data = await this.service.getType();
       if(data){
         if(data[0].type==1){
-          localStorage.removeItem("token");
-          localStorage.removeItem("uid");
+          localStorage.clear();
           console.log("acceso no permitido");
         } else if(data[0].type==2 || data[0].type==0){
           localStorage.setItem("type",data[0].type);
@@ -68,27 +62,6 @@ export class LoginComponent implements OnInit {
       }else{
         console.log("error");
       }
-
-      // const data = await this.service.getType().subscribe(data => {
-      //   console.log(data);
-        
-      //   if(data[0].type==1){
-      //       // TODO document why this block is empty
-      //   } else if(data[0].type==2 || data[0].type==0){
-      //     // TODO document why this block is empty
-      //   }
-
-      // },err =>{
-      //   console.log(err.message);
-      //   localStorage.removeItem("token");
-      //   localStorage.removeItem("uid");
-      //   this.snackBar.open('Ha ocurrido un error', 'X', {
-      //       // duration: 3000,
-      //       // verticalPosition: 'top', // Allowed values are  'top' | 'bottom'
-      //       // horizontalPosition: 'right', // Allowed values are 'start' | 'center' | 'end' | 'left' | 'right',
-      //       // panelClass: ['error-snackbar']
-      //   });
-      // });
     }
   }
 }

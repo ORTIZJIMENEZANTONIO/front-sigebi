@@ -69,9 +69,7 @@ export class LoginService {
   isAuth(): boolean{
     const token = localStorage.getItem('token');
     if (!localStorage.getItem("token")){
-      localStorage.removeItem("token");
-      localStorage.removeItem("uid");
-      localStorage.removeItem("type");
+      localStorage.clear();
       return false;
     }
     // const decode = this.jwtHelper.decodeToken(token?.toString());
@@ -88,6 +86,13 @@ export class LoginService {
     //     return false;
     //   }
     return true;
+  }
+
+  isLogout(): boolean{
+    if (localStorage.getItem("token")){
+      return true;
+    }
+    return false;
   }
 
 
