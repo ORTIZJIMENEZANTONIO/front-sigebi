@@ -519,7 +519,6 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link:'/pages/admin/satsae-classification'
       },
       {
-<<<<<<< HEAD
         title:'Guarda Valores',
         link:'/pages/admin/save-values'
       },
@@ -534,7 +533,8 @@ export const MENU_ITEMS: NbMenuItem[] = [
       {
         title:'Dictamen',
         link:'/pages/admin/opinion'
-=======
+      },
+      { 
         title:'Penalizaciones',
         link:'/pages/admin/penalty'
       },
@@ -554,8 +554,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
         title:'Sat Clasificacion',
         link:'/pages/admin/sat-clasification'
       },
->>>>>>> eae7e324843675109b31ae1a0f0b83df5dc29625
-      }
+      { 
         title:'Reporte Indicadores',
         link:'/pages/admin/indicator-report'
       },

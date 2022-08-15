@@ -291,7 +291,6 @@ const routes: Routes = [
           .then(m => m.OriginModule)
       },
       {
-<<<<<<< HEAD
         path: 'save-values', loadChildren: () => import('./save-values/save-values.module')
           .then(m => m.SaveValuesModule)
       },
@@ -306,7 +305,8 @@ const routes: Routes = [
       {
         path: 'opinion', loadChildren: () => import('./opinion/opinion.module')
           .then(m => m.OpinionModule)
-=======
+      },
+      {
         path: 'penalty', loadChildren: () => import('./penalty/penalty.module')
           .then(m => m.PenaltyModule)
       },
@@ -326,8 +326,7 @@ const routes: Routes = [
         path: 'legal-support', loadChildren: () => import('./legal-support/legal-support.module')
           .then(m => m.LegalSupportModule)
       },
->>>>>>> eae7e324843675109b31ae1a0f0b83df5dc29625
-      }
+      {
         path: 'origin-cisi', loadChildren: () => import('./origin-cisi/origin-cisi.module')
           .then(m => m.OriginCisiModule)
              
