@@ -82,9 +82,7 @@ export class CityDetailComponent extends BasePage {
       this.formCity.controls['detalle_delegacion'].setValue(this.city.no_delegacion['descripcion'])
       this.formCity.controls['no_subdelegacion'].setValue(this.city.no_subdelegacion['id'])
       this.formCity.controls['detalle_subdelegacion'].setValue(this.city.no_subdelegacion['descripcion'])
-      
       console.log(this.city);
-      
     }
   }
 
@@ -100,18 +98,11 @@ export class CityDetailComponent extends BasePage {
       this.formCity.controls['no_subdelegacion'].setValue(event.id);
       this.formCity.controls['detalle_subdelegacion'].setValue(event.descripcion);
     }
-    
   }
 
-  
-
-
-  
   register(): void {
     const data = this.formCity.value;
     if (this.actionBtn == "Guardar") {
-
-      
       this.service.register(data).subscribe(data => {
         this.windowRef.close();
       }, err => {
@@ -119,7 +110,6 @@ export class CityDetailComponent extends BasePage {
       })
     } else {
       console.log(data);
-
       this.service.update(this.city.id, data).subscribe(data => {
         this.windowRef.close();
       }, err => {

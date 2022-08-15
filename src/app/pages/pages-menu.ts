@@ -521,14 +521,27 @@ export const MENU_ITEMS: NbMenuItem[] = [
       {
         title:'Clasificacion SatSae',
         link:'/pages/admin/satsae-classification'
+      },
+      {
+        title:'Penalizaciones',
+        link:'/pages/admin/penalty'
+      },
+      {
+        title:'Subtipo Bienes',
+        link:'/pages/admin/goods-subtype'
+      },
+      {
+        title:'Sustentos Legales',
+        link:'/pages/admin/legal-support'
+      },
+      {
+        title:'Sat Subclasificacion',
+        link:'/pages/admin/sat-subclasification'
+      },
+      {
+        title:'Sat Clasificacion',
+        link:'/pages/admin/sat-clasification'
       }
-      
-      
-      
-      
-      
-      
-
     ],
   },
   {

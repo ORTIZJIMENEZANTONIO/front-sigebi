@@ -82,6 +82,11 @@ import { StorehouseService } from './services/storehouse.service';
 import { SafeService } from './services/safe.service';
 import { QuestionService } from './services/question.service';
 import { OriginService } from './services/origin.service';
+import { PenaltyService } from './services/penalty.service';
+import { GoodsSubtypeService } from './services/goods-subtype.service';
+import { LegalSupportService } from './services/legal-support.service';
+import { SatSubclasificationService } from './services/sat-subclasification.service';
+import { SatClassificationService } from './services/sat-classification.service';
 
 
 const API = [
@@ -169,7 +174,12 @@ const SERVICES = [
   PersonService,
   RevisionReasonService,
   SatSaeClassificationService,
-  StorehouseService
+  StorehouseService,
+  PenaltyService,
+  GoodsSubtypeService,
+  LegalSupportService,
+  SatSubclasificationService,
+  SatClassificationService
 ];
 
 @NgModule({
