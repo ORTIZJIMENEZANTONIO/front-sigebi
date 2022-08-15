@@ -362,10 +362,6 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: '/pages/admin/question',
       },   
       {
-        title: 'Procedencia',
-        link: '/pages/admin/origin',
-      },    
-      {
         title: 'Tipo Siniestro',
         link: '/pages/admin/sinister',
       },
@@ -523,6 +519,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link:'/pages/admin/satsae-classification'
       },
       {
+<<<<<<< HEAD
         title:'Guarda Valores',
         link:'/pages/admin/save-values'
       },
@@ -537,14 +534,48 @@ export const MENU_ITEMS: NbMenuItem[] = [
       {
         title:'Dictamen',
         link:'/pages/admin/opinion'
+=======
+        title:'Penalizaciones',
+        link:'/pages/admin/penalty'
+      },
+      {
+        title:'Subtipo Bienes',
+        link:'/pages/admin/goods-subtype'
+      },
+      {
+        title:'Sustentos Legales',
+        link:'/pages/admin/legal-support'
+      },
+      {
+        title:'Sat Subclasificacion',
+        link:'/pages/admin/sat-subclasification'
+      },
+      {
+        title:'Sat Clasificacion',
+        link:'/pages/admin/sat-clasification'
+      },
+>>>>>>> eae7e324843675109b31ae1a0f0b83df5dc29625
       }
-      
-      
-      
-      
-      
-      
-
+        title:'Reporte Indicadores',
+        link:'/pages/admin/indicator-report'
+      },
+      {
+        title:'Procedencia',
+        link:'/pages/admin/origin'
+      },
+      {
+        title:'Procedencia Cisi',
+        link:'/pages/admin/origin-cisi'
+      },
+      {
+        title:'Puntuaciones',
+        link:'/pages/admin/score'
+      },
+      {
+        title:'R Asunt Dic',
+        link:'/pages/admin/r-asunt-dic'
+      },
+   
     ],
   },
   {

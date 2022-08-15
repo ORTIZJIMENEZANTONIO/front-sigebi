@@ -1,0 +1,62 @@
+<nb-card>
+    <nb-card-body>
+        <form [formGroup]="form">
+
+            <div class="form-group row">
+                <input type="text" formControlName="serviceType" placeholder="Tipo Servicio" nbInput fullWidth
+                    matInput
+                    [status]="form.controls['serviceType']?.errors?.required && form.controls['serviceType'].touched ? 'danger' : ''">
+                <label class="text-danger"
+                    *ngIf="validatePenalty['serviceType'].hasError('required')  && form.controls['serviceType'].touched "><small>Ingrese
+                        tipo de servicio!</small></label>
+            </div>
+
+            <div class="form-group row">
+                <input type="text" formControlName="penaltyPercentage" placeholder="Porcentaje penalizacion"
+                    nbInput fullWidth matInput
+                    [status]="form.controls['penaltyPercentage']?.errors?.required && form.controls['penaltyPercentage'].touched ? 'danger' : ''">
+                <label class="text-danger"
+                    *ngIf="validatePenalty['penaltyPercentage'].hasError('required')  && form.controls['penaltyPercentage'].touched "><small>Ingrese
+                        porcentaje</small></label>
+            </div>
+
+            <div class="form-group row">
+                <input type="text" formControlName="equivalentDays" placeholder="Dias equivalentes" nbInput fullWidth
+                    matInput
+                    [status]="form.controls['equivalentDays']?.errors?.required && form.controls['equivalentDays'].touched ? 'danger' : ''">
+                <label class="text-danger"
+                    *ngIf="validatePenalty['equivalentDays'].hasError('required')  && form.controls['equivalentDays'].touched "><small>Ingrese
+                        un dia equivalente</small></label>
+            </div>
+
+            <div class="form-group row">
+                <input type="text" formControlName="contractNumber" placeholder="Numero de contrato" nbInput fullWidth
+                    matInput
+                    [status]="form.controls['contractNumber']?.errors?.required && form.controls['contractNumber'].touched ? 'danger' : ''">
+                <label class="text-danger"
+                    *ngIf="validatePenalty['contractNumber'].hasError('required')  && form.controls['contractNumber'].touched "><small>Ingrese
+                        numero de contrato</small></label>
+            </div>
+
+            <div class="form-group row">
+                <input type="text" formControlName="version" placeholder="Version" nbInput fullWidth matInput
+                    [status]="form.controls['version']?.errors?.required && form.controls['version'].touched ? 'danger' : ''">
+                <label class="text-danger" *ngIf="validatePenalty['version'].hasError('pattern')"><small>Numero de
+                        versión no válida!</small></label>
+            </div>
+
+            <div class="form-group row">
+                <input type="text" formControlName="status" placeholder="status" nbInput fullWidth matInput
+                    [status]="form.controls['status']?.errors?.required && form.controls['status'].touched ? 'danger' : ''">
+                <label class="text-danger" *ngIf="validatePenalty['status'].hasError('pattern')"><small>estatus invalido</small></label>
+            </div>
+
+            <div class="form-group row">
+                <div class="offset-sm-3 col-sm-9">
+                    <button type="submit" nbButton status="primary" [disabled]="!form.valid"
+                        (click)="register()">{{actionBtn}}</button>
+                </div>
+            </div>
+        </form>
+    </nb-card-body>
+</nb-card>

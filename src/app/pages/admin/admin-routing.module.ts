@@ -63,39 +63,39 @@ const routes: Routes = [
       },
       {
         path: 'bank', loadChildren: () => import('./bank/bank.module')
-        .then(m => m.BankModule)
+          .then(m => m.BankModule)
       },
       {
         path: 'battery', loadChildren: () => import('./battery/battery.module')
-        .then(m => m.BatteryModule)
+          .then(m => m.BatteryModule)
       },
       {
         path: 'holiday', loadChildren: () => import('./holiday/holiday.module')
-        .then(m => m.HolidayModule)
+          .then(m => m.HolidayModule)
       },
       {
         path: 'zip-code', loadChildren: () => import('./zip-code/zip-code.module')
-        .then(m => m.ZipCodeModule)
+          .then(m => m.ZipCodeModule)
       },
       {
         path: 'station', loadChildren: () => import('./station/station.module')
-        .then(m => m.StationModule)
+          .then(m => m.StationModule)
       },
       {
         path: 'state-of-republic', loadChildren: () => import('./state-of-republic/state-of-republic.module')
-        .then(m => m.StateOfRepublicModule)
+          .then(m => m.StateOfRepublicModule)
       },
       {
         path: 'lawyer', loadChildren: () => import('./lawyer/lawyer.module')
-        .then(m => m.LawyerModule)
+          .then(m => m.LawyerModule)
       },
       {
         path: 'settlement', loadChildren: () => import('./settlement/settlement.module')
-        .then(m => m.SettlementModule)
+          .then(m => m.SettlementModule)
       },
       {
         path: 'siab-clasification', loadChildren: () => import('./siab-clasification/siab-clasification.module')
-        .then(m => m.SiabClasificationModule)
+          .then(m => m.SiabClasificationModule)
       },
       {
         path: 'frantions', loadChildren: () => import('./fractions/fractions.module')
@@ -149,7 +149,7 @@ const routes: Routes = [
       //   path: 'typeservices', loadChildren: () => import('./type-services/type-services.module')
       //     .then(m => m.TypeServicesModule)
       // },
-        {
+      {
         path: 'typerelevant', loadChildren: () => import('./type-relevant/type-relevant.module')
           .then(m => m.TypeRelevantModule)
       },
@@ -191,15 +191,15 @@ const routes: Routes = [
       },
       {
         path: 'subdelegation', loadChildren: () => import('./subdelegation/subdelegation.module')
-          .then(m => m.SubdelegationModule) 
+          .then(m => m.SubdelegationModule)
       },
       {
         path: 'payments-concept', loadChildren: () => import('./payments-concept/payments-concept.module')
-          .then(m => m.PaymentsConceptModule) 
+          .then(m => m.PaymentsConceptModule)
       },
       {
         path: 'notary', loadChildren: () => import('./notary/notary.module')
-          .then(m => m.NotaryModule) 
+          .then(m => m.NotaryModule)
       },
       {
         path: 'proficient', loadChildren: () => import('./proficient/proficient.module')
@@ -254,7 +254,7 @@ const routes: Routes = [
           .then(m => m.InstitutionClassificationModule)
       },
       {
-        
+
         path: 'issuing-institution', loadChildren: () => import('./issuing-institution/issuing-institution.module')
           .then(m => m.IssuingInstitutionModule)
       },
@@ -291,6 +291,7 @@ const routes: Routes = [
           .then(m => m.OriginModule)
       },
       {
+<<<<<<< HEAD
         path: 'save-values', loadChildren: () => import('./save-values/save-values.module')
           .then(m => m.SaveValuesModule)
       },
@@ -305,8 +306,44 @@ const routes: Routes = [
       {
         path: 'opinion', loadChildren: () => import('./opinion/opinion.module')
           .then(m => m.OpinionModule)
+=======
+        path: 'penalty', loadChildren: () => import('./penalty/penalty.module')
+          .then(m => m.PenaltyModule)
+      },
+      {
+        path: 'goods-subtype', loadChildren: () => import('./goods-subtype/goods-subtype.module')
+          .then(m => m.GoodsSubtypeModule)
+      },
+      {
+        path: 'sat-subclasification', loadChildren: () => import('./sat-subclasification/sat-subclasification.module')
+          .then(m => m.SatSubclasificationModule)
+      },
+      {
+        path: 'sat-clasification', loadChildren: () => import('./sat/sat-classificacion/sat-classificacion.module')
+          .then(m => m.SatClassificacionModule)
+      },
+      {
+        path: 'legal-support', loadChildren: () => import('./legal-support/legal-support.module')
+          .then(m => m.LegalSupportModule)
+      },
+>>>>>>> eae7e324843675109b31ae1a0f0b83df5dc29625
       }
-
+        path: 'origin-cisi', loadChildren: () => import('./origin-cisi/origin-cisi.module')
+          .then(m => m.OriginCisiModule)
+             
+      },
+      {
+        path: 'score', loadChildren: () => import('./score/score.module')
+          .then(m => m.ScoreModule) 
+      },
+      {
+        path: 'indicator-report', loadChildren: () => import('./indicator-report/indicator-report.module')
+          .then(m => m.IndicatorReportModule) 
+      },
+      {
+        path: 'r-asunt-dic', loadChildren: () => import('./r-asunt-dic/r-asunt-dic.module')
+          .then(m => m.RAsuntDicModule) 
+      },
       //{ path: 'home', component: CategoriesComponent },//ok
     ]
   }
