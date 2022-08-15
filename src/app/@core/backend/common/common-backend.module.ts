@@ -82,6 +82,9 @@ import { StorehouseService } from './services/storehouse.service';
 import { SafeService } from './services/safe.service';
 import { QuestionService } from './services/question.service';
 import { OriginService } from './services/origin.service';
+import { IndicatorReportService } from './services/IndicatorReport.service';
+import { OriginCisiService } from './services/origin-cisi.service';
+import { ScoreService } from './services/score.service';
 
 
 const API = [
@@ -169,7 +172,11 @@ const SERVICES = [
   PersonService,
   RevisionReasonService,
   SatSaeClassificationService,
-  StorehouseService
+  StorehouseService,
+  IndicatorReportService,
+  OriginCisiService,
+  ScoreService,
+ 
 ];
 
 @NgModule({

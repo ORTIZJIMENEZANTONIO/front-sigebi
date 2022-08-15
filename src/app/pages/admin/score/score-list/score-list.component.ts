@@ -1,23 +1,24 @@
-import Swal from 'sweetalert2';
-import { Component } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
-import { MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
-import { NbToastrService, NbWindowControlButtonsConfig, NbWindowService } from '@nebular/theme';
+import { Component, OnInit } from '@angular/core';
 import { BasePage } from '../../../../@core/shared/base-page';
+import { ScoreService } from '../../../../@core/backend/common/services/score.service';
+import { ScoreDetailComponent } from '../score-detail/score-detail.component';
+import { ScoreInterface } from '../../../../@core/interfaces/auction/score.model';
+import { FormGroup, FormControl } from '@angular/forms';
+import { MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
+import { NbToastrService, NbWindowService, NbWindowControlButtonsConfig } from '@nebular/theme';
+import Swal from 'sweetalert2';
 
-import { OriginDetailComponent } from '../origin-detail/origin-detail.component';
-import { OriginInterface } from '../../../../@core/interfaces/auction/origin.model';
-import { OriginService } from '../../../../@core/backend/common/services/origin.service';
 
 @Component({
-  selector: 'ngx-origin-list',
-  templateUrl: './origin-list.component.html',
-  styleUrls: ['./origin-list.component.scss']
+  selector: 'ngx-score-list',
+  templateUrl: './score-list.component.html',
+  styleUrls: ['./score-list.component.scss']
 })
-export class OriginListComponent extends BasePage {
+export class ScoreListComponent extends BasePage {
+
 
   constructor(
-    private service: OriginService, 
+    private service: ScoreService, 
     public  toastrService: NbToastrService,
     private windowService: NbWindowService, 
     private paginator: MatPaginatorIntl
@@ -29,7 +30,7 @@ export class OriginListComponent extends BasePage {
     });
     this.searchForm.controls['text'].valueChanges.subscribe((value:string)=>{
       if(value.length > 0){
-        this.service.search(value).subscribe((rows:OriginInterface[])=>{
+        this.service.search(value).subscribe((rows:ScoreInterface[])=>{
           this.length = rows.length;
           this.rows = rows;
         })
@@ -50,7 +51,7 @@ export class OriginListComponent extends BasePage {
   pageEvent: PageEvent = {
     pageIndex:0,
     pageSize:10,
-    length:0
+    length:100
   };
 
   settings = {
@@ -80,37 +81,25 @@ export class OriginListComponent extends BasePage {
       confirmDelete: true,
     },
     columns: {
-      id: {
-        title: 'Registro',
+      code: {
+        title: 'Puntuacion',
         type: 'string',
       },
-      idTransferer: {
-        title: 'Transferente',
+      initialRank: {
+        title: 'Rango Inicial',
         type: 'string'
       },
-      keyTransferer: {
-        title: 'Clave transferente',
+      endRank: {
+        title: 'Rango Final',
         type: 'string'
       },
-      description: {
-        title: 'Descripción',
+      clasification: {
+        title: 'Clasificacion',
         type: 'string',
       },
-      type: {
-        title: 'Tipo',
-        type: 'string',
-      },
-      address: {
-        title: 'Dirección',
-        type: 'string',
-      },
-      city: {
-        title: 'Ciudad',
-        type: 'string',
-      },
-      keyEntityFederative: {
-        title: 'Entidad',
-        type: 'string',
+      registryNumber: {
+        title: 'No. de registro',
+        type: 'number',
       }
     },
     noDataMessage: "No se encontrarón registros"
@@ -170,7 +159,7 @@ export class OriginListComponent extends BasePage {
       fullScreen: false,
     };
     
-    this.windowService.open(OriginDetailComponent, { 
+    this.windowService.open(ScoreDetailComponent, { 
       title: `Editar pregunta`, 
       context: { questions: event.data }, 
       buttons: buttonsConfig  }).onClose.subscribe(() => {
@@ -180,11 +169,9 @@ export class OriginListComponent extends BasePage {
   }
 
   openWindow() {
-    this.windowService.open(OriginDetailComponent, 
-      { title: `Nueva pregunta` }).onClose.subscribe(() => {
-        this.readData();
-      }
-    );
+    this.windowService.open(ScoreDetailComponent, { title: `Nueva pregunta` }).onClose.subscribe(() => {
+      this.readData();
+    });
     
   }
 

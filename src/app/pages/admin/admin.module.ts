@@ -16,9 +16,13 @@ import { MatInputModule } from '@angular/material/input';
 import { ComponentsModule } from '../../@components/components.module';
 import { MatSelectModule } from '@angular/material/select';
 
+
+
 @NgModule({
   declarations: [
-    ...routedComponents
+    ...routedComponents,
+   
+
   ],
   imports: [
     CommonModule,
