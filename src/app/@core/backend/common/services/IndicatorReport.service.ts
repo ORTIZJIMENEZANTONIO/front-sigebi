@@ -2,16 +2,15 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
 import { DataSource } from 'ng2-smart-table/lib/lib/data-source/data-source';
+import { IndicatorReport } from '../../../interfaces/auction/indicator-report'; 
 import { CatalogApi } from '../api/catalog-api'; 
 
-import { OriginInterface } from '../../../interfaces/auction/origin.model';
-
 @Injectable()
-export class OriginService {
+export class IndicatorReportService{
   
   constructor( private api: CatalogApi ) { }
 
-  url = "origin";
+  protected url = "indicator-report";
   
   get gridDataSource(): DataSource {
     return this.api.dataSource;
@@ -22,15 +21,11 @@ export class OriginService {
     return data;
   }
 
-  search(text:string){
-    return this.api.search(text,this.url);
-  }
-
-  register( data: OriginInterface ): Observable<OriginInterface>{
+  register( data: IndicatorReport ): Observable<IndicatorReport>{
     return this.api.register( data, this.url );
   }
 
-  update(id:number, data: OriginInterface): Observable<OriginInterface>{
+  update(id:number, data: IndicatorReport): Observable<IndicatorReport>{
     return this.api.update( id, data, this.url );
   }
 
@@ -38,4 +33,7 @@ export class OriginService {
     return this.api.delete( id, this.url );
   }
 
+  search(text:string){
+    return this.api.search(text,this.url);
+}
 }

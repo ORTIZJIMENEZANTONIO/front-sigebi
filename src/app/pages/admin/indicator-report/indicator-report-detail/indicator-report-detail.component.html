@@ -1,0 +1,41 @@
+<nb-card>
+    <nb-card-body>
+        <form [formGroup]="form" >
+            <div class="form-group row ">
+                 <input maxlength="200" nbInput fullWidth formControlName="tipo_servicio" matInput placeholder="tipo servicio">
+                 <label class="text-danger" *ngIf="validate['tipo_servicio'].hasError('pattern')"><small>Campo inválido!</small></label>
+            </div>
+            <div class="form-group row ">
+                <input  formControlName="rango_porcentaje_inicial" nbInput fullWidth matInput placeholder="rango porcentaje inicial">
+                <label class="text-danger" *ngIf="validate['rango_porcentaje_inicial'].hasError('pattern')"><small>Campo inválido!</small></label>
+           </div>
+           <div class="form-group row ">
+              <input  formControlName="rango_porcentaje_final" nbInput fullWidth matInput placeholder="rango porcentaje final">
+              <label class="text-danger" *ngIf="validate['rango_porcentaje_final'].hasError('pattern')"><small>Campo inválido!</small></label>
+          </div>
+           <div class="form-group row ">
+              <input  formControlName="pena_convencional" nbInput fullWidth matInput placeholder="pena convencional">
+              <label class="text-danger" *ngIf="validate['pena_convencional'].hasError('pattern')"><small>Campo inválido!</small></label>
+          </div>
+          <div class="form-group row ">
+            <input maxlength="50" formControlName="no_contrato" nbInput fullWidth matInput placeholder="no contrato">
+            <label class="text-danger" *ngIf="validate['no_contrato'].hasError('pattern')"><small>Campo inválido!</small></label>
+          </div>
+          <div class="form-group row ">
+            <input  formControlName="estatus" nbInput fullWidth matInput placeholder="estatus">
+            <label class="text-danger" *ngIf="validate['estatus'].hasError('pattern')"><small>Campo inválido!</small></label>
+          </div>
+          <div class="form-group row ">
+            <input  formControlName="version" nbInput fullWidth matInput placeholder="version">
+            <label class="text-danger" *ngIf="validate['version'].hasError('pattern')"><small>Campo inválido!</small></label>
+          </div>
+
+                <div class="form-group row">
+          <div class="offset-sm-3 col-sm-9">
+            <button type="submit" nbButton status="primary" [disabled]="!form.valid" (click)="register()">{{actionBtn}}</button>
+          </div>
+        </div>
+
+        </form>
+    </nb-card-body>
+</nb-card>

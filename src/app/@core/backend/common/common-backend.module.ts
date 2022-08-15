@@ -87,6 +87,9 @@ import { GoodsSubtypeService } from './services/goods-subtype.service';
 import { LegalSupportService } from './services/legal-support.service';
 import { SatSubclasificationService } from './services/sat-subclasification.service';
 import { SatClassificationService } from './services/sat-classification.service';
+import { IndicatorReportService } from './services/IndicatorReport.service';
+import { OriginCisiService } from './services/origin-cisi.service';
+import { ScoreService } from './services/score.service';
 
 
 const API = [
@@ -180,6 +183,9 @@ const SERVICES = [
   LegalSupportService,
   SatSubclasificationService,
   SatClassificationService
+  IndicatorReportService,
+  OriginCisiService,
+  ScoreService,
 ];
 
 @NgModule({

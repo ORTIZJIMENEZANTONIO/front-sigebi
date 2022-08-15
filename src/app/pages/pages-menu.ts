@@ -362,10 +362,6 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: '/pages/admin/question',
       },   
       {
-        title: 'Procedencia',
-        link: '/pages/admin/origin',
-      },    
-      {
         title: 'Tipo Siniestro',
         link: '/pages/admin/sinister',
       },
@@ -541,7 +537,28 @@ export const MENU_ITEMS: NbMenuItem[] = [
       {
         title:'Sat Clasificacion',
         link:'/pages/admin/sat-clasification'
+      },
       }
+        title:'Reporte Indicadores',
+        link:'/pages/admin/indicator-report'
+      },
+      {
+        title:'Procedencia',
+        link:'/pages/admin/origin'
+      },
+      {
+        title:'Procedencia Cisi',
+        link:'/pages/admin/origin-cisi'
+      },
+      {
+        title:'Puntuaciones',
+        link:'/pages/admin/score'
+      },
+      {
+        title:'R Asunt Dic',
+        link:'/pages/admin/r-asunt-dic'
+      },
+   
     ],
   },
   {
