@@ -103,7 +103,6 @@ export class SatSubclasificationListComponent extends BasePage implements OnInit
     this.service.list(this.pageEvent.pageIndex, this.pageEvent.pageSize).subscribe((legends: any) => {
       this.rows = legends.data;
       this.length = legends.count;
-      console.log(legends);
 
     },
       error => this.onLoadFailed('danger', 'Error conexión', error.message)
