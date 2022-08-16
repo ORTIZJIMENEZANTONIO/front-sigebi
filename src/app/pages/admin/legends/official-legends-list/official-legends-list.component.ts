@@ -89,7 +89,6 @@ export class OfficialLegendsListComponent extends BasePage {
       legend: {
         title: 'Leyenda',
         type: 'string',
-        editable: true,
       },
       userCreation: {
         title: 'Creado por',
