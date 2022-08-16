@@ -1,0 +1,119 @@
+<nb-card>
+    <nb-card-header>Solicitudes a turnar</nb-card-header>
+    <nb-card-body class="example-items-rows">
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label for="inputFirstName" class="label">Rango Fecha Solicitud</label>
+                    <input nbInput placeholder="Fecha Solicitud" fullWidth [nbDatepicker]="fechaSolicitud">
+                    <nb-rangepicker #fechaSolicitud></nb-rangepicker>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label for="inputLastName" class="label">Emisora</label>
+                    <nb-select placeholder="Seleccione..." fullWidth>
+                    </nb-select>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label for="inputWebsite" class="label">Acta circunstaciada</label>
+                    <input type="text" nbInput fullWidth id="inputWebsite" placeholder="Acta circunstaciada">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label for="inputEmail" class="label">Rango Fecha de Oficio</label>
+                    <input nbInput placeholder="Fecha de oficio" fullWidth [nbDatepicker]="fechaOficio">
+                    <nb-rangepicker #fechaOficio></nb-rangepicker>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label for="inputWebsite" class="label">Autoridad</label>
+                    <nb-select placeholder="Seleccione..." fullWidth>
+                    </nb-select>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label for="inputWebsite" class="label">Averiguación previa</label>
+                    <input type="text" nbInput fullWidth id="inputWebsite" placeholder="Averiguación previa">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label for="inputWebsite" class="label">Delegación regional</label>
+                    <nb-select placeholder="Seleccione..." fullWidth>
+                    </nb-select>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label for="inputWebsite" class="label">Expediente transferente</label>
+                    <input type="text" nbInput fullWidth id="inputWebsite" placeholder="Expediente transferente">
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label for="inputWebsite" class="label">Causa Penal </label>
+                    <input type="text" nbInput fullWidth id="inputWebsite" placeholder="Causa penal">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label for="inputWebsite" class="label">Estado</label>
+                    <nb-select placeholder="Seleccione..." fullWidth>
+                    </nb-select>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label for="inputWebsite" class="label">Asunto</label>
+                    <nb-select placeholder="Seleccione..." fullWidth>
+                    </nb-select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label for="inputWebsite" class="label">Transferente</label>
+                    <nb-select placeholder="Seleccione..." fullWidth>
+                    </nb-select>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label for="inputWebsite" class="label">Contribuyente y/o Indiciado</label>
+                    <input type="text" nbInput fullWidth id="inputWebsite" placeholder="Contribuyente y/o Indiciado">
+                </div>
+            </div>
+        </div>
+        <button nbButton status="primary" class="mr-1" size="medium">
+            <nb-icon icon="search"></nb-icon>Buscar
+        </button>
+        <button nbButton status="warning" size="medium">
+            <nb-icon icon="trash"></nb-icon>Limpiar
+        </button>
+
+    </nb-card-body>
+</nb-card>
+<nb-card>
+    <nb-card-header>
+        <button nbButton status="info" class="mr-1" size="medium">Turnar solicitudes seleccionadas</button>
+    </nb-card-header>
+    <nb-card-body>
+        <ng2-smart-table [settings]="settings" [source]="rows"  >
+        </ng2-smart-table>
+        <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
+            (page)="changesPage($event)" [pageIndex]="pageEvent.pageIndex"></mat-paginator>
+    </nb-card-body>
+</nb-card>
