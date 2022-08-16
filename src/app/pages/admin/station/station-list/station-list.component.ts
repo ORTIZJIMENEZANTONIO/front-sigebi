@@ -6,7 +6,7 @@ import { BasePage } from '../../../../@core/shared/base-page';
 import { StationService } from '../../../../@core/backend/common/services/station.service';
 import { StationDetailComponent } from '../station-detail/station-detail.component';
 import { FormGroup, FormControl } from '@angular/forms';
-import { StationInterface } from '../../../../@core/interfaces/auction/station.model';
+import { Station } from '../../../../@core/interfaces/auction/station.model';
 
 @Component({
   selector: 'ngx-station-list',
@@ -29,7 +29,7 @@ export class StationListComponent extends BasePage {
     });
     this.searchForm.controls['text'].valueChanges.subscribe((value:string)=>{
       if(value.length > 0){
-        this.service.search(value).subscribe((rows:StationInterface[])=>{
+        this.service.search(value).subscribe((rows:Station[])=>{
           this.length = rows.length;
           this.stations = rows;
         })
