@@ -70,6 +70,8 @@ export class FractionsDetailComponent extends BasePage {
       this.formFraction.patchValue(this.fraction)
       this.formFraction.controls['normId'].setValue(this.fraction.normId['id'])
       this.formFraction.controls['normDetalle'].setValue(this.fraction.normId['norm'])
+    }else{
+      this.formFraction.controls['parentId'].setValue(0)
     }
     
   }

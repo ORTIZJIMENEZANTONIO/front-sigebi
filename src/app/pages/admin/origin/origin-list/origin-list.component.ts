@@ -50,7 +50,11 @@ export class OriginListComponent extends BasePage {
   pageEvent: PageEvent = {
     pageIndex:0,
     pageSize:10,
+<<<<<<< HEAD
     length:0
+=======
+    length:100
+>>>>>>> fb11629daecfee33b94c61bc6ef666f53274d1cf
   };
 
   settings = {

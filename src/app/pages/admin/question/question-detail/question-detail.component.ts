@@ -61,9 +61,7 @@ export class QuestionDetailComponent extends BasePage {
   }
 
   createRegister( data ): void {
-    console.log({...data,id:1});
-    this.service.register({...data,id:1}).subscribe( () => {
-      
+    this.service.register(data).subscribe( () => {
       this.windowRef.close();
     },
     err =>{

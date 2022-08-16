@@ -86,7 +86,6 @@ import { IndicatorReportService } from './services/IndicatorReport.service';
 import { OriginCisiService } from './services/origin-cisi.service';
 import { ScoreService } from './services/score.service';
 
-
 const API = [
   CategoryApi,
   ImageCategoryApi,
@@ -176,7 +175,6 @@ const SERVICES = [
   IndicatorReportService,
   OriginCisiService,
   ScoreService,
- 
 ];
 
 @NgModule({

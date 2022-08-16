@@ -2,7 +2,7 @@ import { NormModel } from "./norm.model";
 
 export interface FractionsModel {
   id?:number;
-  code:number;
+  code:string;
   level:string;
   description:string;
   parentId:number;
