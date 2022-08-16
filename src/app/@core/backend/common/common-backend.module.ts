@@ -198,6 +198,7 @@ const SERVICES = [
   SatClassificationService,
   IndicatorReportService,
   OriginCisiService,
+  ScoreService,
   ScoreService
 ];
 

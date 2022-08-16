@@ -83,5 +83,4 @@ export class OriginDetailComponent extends BasePage {
       })
     }
   }
-
 }
