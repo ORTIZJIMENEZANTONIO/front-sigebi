@@ -289,7 +289,6 @@ const routes: Routes = [
       {
         path: 'origin', loadChildren: () => import('./origin/origin.module')
           .then(m => m.OriginModule)
-<<<<<<< HEAD
       },
       {
         path: 'origin-cisi', loadChildren: () => import('./origin-cisi/origin-cisi.module')
@@ -308,11 +307,6 @@ const routes: Routes = [
         path: 'r-asunt-dic', loadChildren: () => import('./r-asunt-dic/r-asunt-dic.module')
           .then(m => m.RAsuntDicModule) 
       },
-
-=======
-      }
->>>>>>> fb11629daecfee33b94c61bc6ef666f53274d1cf
-
       //{ path: 'home', component: CategoriesComponent },//ok
     ]
   }

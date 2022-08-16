@@ -15,20 +15,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ComponentsModule } from '../../@components/components.module';
 import { MatSelectModule } from '@angular/material/select';
-
-<<<<<<< HEAD
-
-
 @NgModule({
   declarations: [
     ...routedComponents,
-   
-
-=======
-@NgModule({
-  declarations: [
-    ...routedComponents
->>>>>>> fb11629daecfee33b94c61bc6ef666f53274d1cf
   ],
   imports: [
     CommonModule,
