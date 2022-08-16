@@ -10,7 +10,7 @@ export class BatchService {
   
   constructor( private api: CatalogApi ) { }
 
-  protected url = "battery";
+  protected url = "batch";
   
   get gridDataSource(): DataSource {
     return this.api.dataSource;
