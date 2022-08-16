@@ -85,11 +85,11 @@ export class InstitutionClassificationListComponent extends BasePage {
         //editable: false,
         // width: '25px'
       },
-      descripcion: {
+      description: {
         title: 'Descripcion',
         type: 'string',
       },
-      no_registro: {
+      numRegister: {
         title: 'N registro',
         type: 'number',
       },
@@ -104,9 +104,9 @@ export class InstitutionClassificationListComponent extends BasePage {
 
   readInstitutionClassification = (() => {
     this.rows = null;
-    this.service.list(this.pageEvent.pageIndex, this.pageEvent.pageSize).subscribe((legends:any) =>  {
-      this.rows = legends.data;
-      this.length = legends.count;
+    this.service.list(this.pageEvent.pageIndex, this.pageEvent.pageSize).subscribe((institutionClassification:any) =>  {
+      this.rows = institutionClassification.data;
+      this.length = institutionClassification.count;
     }, 
     error => this.onLoadFailed('danger','Error conexión',error.message)
     );
@@ -150,14 +150,14 @@ export class InstitutionClassificationListComponent extends BasePage {
       maximize: false,
       fullScreen: false,
     };
-    this.windowService.open(InstitutionClassificationDetailComponent, { title: `Editar ciudad`, context: { InstitutionClassification: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
+    this.windowService.open(InstitutionClassificationDetailComponent, { title: `Editar institución`, context: { InstitutionClassification: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
       this.readInstitutionClassification();
     });
   
   }
 
   openWindow() {
-    this.windowService.open(InstitutionClassificationDetailComponent, { title: `Nueva ciudad` }).onClose.subscribe(() => {
+    this.windowService.open(InstitutionClassificationDetailComponent, { title: `Nueva institución` }).onClose.subscribe(() => {
       this.readInstitutionClassification();
     });
     

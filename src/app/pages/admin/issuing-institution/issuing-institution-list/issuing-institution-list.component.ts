@@ -57,7 +57,7 @@ export class IssuingInstitutionListComponent extends BasePage{
       columnTitle: 'Acciones',
       add: true,
       edit: true,
-      delete: true,
+      delete: false,
     },
     pager : {
       display : false,
@@ -85,46 +85,60 @@ export class IssuingInstitutionListComponent extends BasePage{
         //editable: false,
         // width: '25px'
       },
-      nombre: {
+      name: {
         title: 'Nombre',
         type: 'string',
       },
-      dsarea: {
-        title: 'DsArea',
+      description: {
+        title: 'Descripción',
         type: 'string',
       },
-      no_delegacion: {
-        title: 'Delegación',
-        type: 'string',
-        valuePrepareFunction:(value) =>{
-          return value.descripcion
-        }
-      },
-      no_subdelegacion: {
-        title: 'Subdelegación',
-        type: 'string',
-        valuePrepareFunction:(value) =>{
-          return value.descripcion
-        }
-      },
-      descripcion: {
-        title: 'Descripcion',
+      manager: {
+        title: 'Responsable',
         type: 'string',
       },
-      no_registro: {
+      street: {
+        title: 'Calle',
+        type: 'string',
+      },
+      numInside: {
+        title: 'N interior',
+        type: 'string',
+      },
+      numExterior: {
+        title: 'N exterior',
+        type: 'string',
+      },
+      cologne: {
+        title: 'Colonia',
+        type: 'string',
+      },
+      zipCode: {
+        title: 'Código postal',
+        type: 'string',
+      },
+      delegMunic: {
+        title: 'Delegación m',
+        type: 'string',
+      },
+      phone: {
+        title: 'Teléfono',
+        type: 'string',
+      },
+      numClasif: {
+        title: 'N clasificación',
+        type: 'number',
+      },
+      numCity: {
+        title: 'N ciudad',
+        type: 'number',
+      },
+      numRegister: {
         title: 'N registro',
         type: 'number',
       },
-      ultimo_oficio: {
-        title: 'Oficio',
-        type: 'number',
-      },
-      nivel: {
-        title: 'Nivel',
-        type: 'number',
-      },
-      etapa_edo: {
-        title: 'Etapa EDO',
+      numTransference: {
+        title: 'N transfible',
         type: 'number',
       },
     },
@@ -183,14 +197,14 @@ export class IssuingInstitutionListComponent extends BasePage{
       maximize: false,
       fullScreen: false,
     };
-    this.windowService.open(IssuingInstitutionDetailComponent, { title: `Editar ciudad`, context: { IssuingInstitution: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
+    this.windowService.open(IssuingInstitutionDetailComponent, { title: `Editar institución`, context: { IssuingInstitution: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
       this.readIssuingInstitution();
     });
   
   }
 
   openWindow() {
-    this.windowService.open(IssuingInstitutionDetailComponent, { title: `Nueva ciudad` }).onClose.subscribe(() => {
+    this.windowService.open(IssuingInstitutionDetailComponent, { title: `Nueva institución` }).onClose.subscribe(() => {
       this.readIssuingInstitution();
     });
     

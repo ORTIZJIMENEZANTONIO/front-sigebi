@@ -33,7 +33,7 @@ export class CatalogApi {
     this.apiController = url;
     return this.api.put(this.apiController+'/'+id, paragraph);
   }
-  delete(id: number, url:string){
+  delete(id: number | string, url:string){
     this.apiController = url;
     return this.api.delete(this.apiController+'/'+id);
   }

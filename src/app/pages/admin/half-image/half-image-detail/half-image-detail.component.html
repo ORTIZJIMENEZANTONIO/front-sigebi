@@ -1,1 +1,21 @@
-<p>half-image-detail works!</p>
+<nb-card>
+    <nb-card-body>
+        <form [formGroup]="formHalfImage">
+            
+            <div class="form-group row">
+                <input type="text" nbInput fullWidth formControlName="route" matInput  placeholder="Ruta"
+                [status]="formHalfImage.controls['route']?.errors?.required  && formHalfImage.controls['route'].touched ? 'danger' : ''">
+
+                <label class="text-danger" *ngIf="validateHalfImage['route'].hasError('required') && formHalfImage.controls['route'].touched"><small>Ingrese una ruta valida!</small></label>
+            </div>
+
+            <div class="form-group row">
+                <input type="text" nbInput  fullWidth formControlName="status" matInput  placeholder="Estado"
+                [status]="formHalfImage.controls['status']?.errors?.required  && formHalfImage.controls['status'].touched ? 'danger' : ''">
+
+                <label class="text-danger" *ngIf="validateHalfImage['status'].hasError('required') && formHalfImage.controls['status'].touched"><small>Ingrese un estado valido!</small></label>
+            </div>
+
+        </form>
+    </nb-card-body>
+</nb-card>

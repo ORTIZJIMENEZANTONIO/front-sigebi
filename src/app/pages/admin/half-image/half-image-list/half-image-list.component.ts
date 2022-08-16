@@ -87,11 +87,11 @@ export class HalfImageListComponent extends BasePage {
         //editable: false,
         // width: '25px'
       },
-      ruta: {
+      route: {
         title: 'Ruta',
         type: 'string',
       },
-      estatus: {
+      status: {
         title: 'Estatus',
         type: 'string',
       },
@@ -106,9 +106,9 @@ export class HalfImageListComponent extends BasePage {
 
   readHalfImage = (() => {
     this.rows = null;
-    this.service.list(this.pageEvent.pageIndex, this.pageEvent.pageSize).subscribe((legends: any) => {
-      this.rows = legends.data;
-      this.length = legends.count;
+    this.service.list(this.pageEvent.pageIndex, this.pageEvent.pageSize).subscribe((halfImage: any) => {
+      this.rows = halfImage.data;
+      this.length = halfImage.count;
     },
       error => this.onLoadFailed('danger', 'Error conexión', error.message)
     );
@@ -152,14 +152,14 @@ export class HalfImageListComponent extends BasePage {
       maximize: false,
       fullScreen: false,
     };
-    this.windowService.open(HalfImageDetailComponent, { title: `Editar juzgado`, context: { notary: event.data }, buttons: buttonsConfig }).onClose.subscribe(() => {
+    this.windowService.open(HalfImageDetailComponent, { title: `Editar medio imagen`, context: { notary: event.data }, buttons: buttonsConfig }).onClose.subscribe(() => {
       this.readHalfImage();
     });
 
   }
 
   openWindow() {
-    this.windowService.open(HalfImageDetailComponent, { title: `Nuevo juzgado` }).onClose.subscribe(() => {
+    this.windowService.open(HalfImageDetailComponent, { title: `Nuevo medio imagen` }).onClose.subscribe(() => {
       this.readHalfImage();
     });
 

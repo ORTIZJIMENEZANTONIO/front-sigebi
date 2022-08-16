@@ -1,7 +1,7 @@
 export interface InstitutionClassification {
     id?: number;
     
-    descripcion : string
+    description : string
 
-    no_registro: number; 
+    numRegister: number; 
 }

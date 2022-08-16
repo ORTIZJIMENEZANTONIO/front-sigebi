@@ -1,1 +1,41 @@
-<p>batch-detail works!</p>
+<nb-card>
+    <nb-card-body>
+        <form [formGroup]="formBatch">
+            
+            <div class="form-group row">
+                <input type="number" nbInput fullWidth formControlName="numStore" matInput placeholder="Número de almacen"
+                [status]="formBatch.controls['numStore']?.errors?.required  && formBatch.controls['numStore'].touched ? 'danger' : ''">
+
+                <label class="text-danger" *ngIf="validateBatch['numStore'].hasError('required') && formBatch.controls['numStore'].touched"><small>Ingrese un número de almacen valido!</small></label>
+            </div>
+
+            <div class="form-group row">
+                <input type="number" nbInput  fullWidth formControlName="numRegister" matInput placeholder="Número de registro"
+                [status]="formBatch.controls['numRegister']?.errors?.required  && formBatch.controls['numRegister'].touched ? 'danger' : ''">
+
+                <label class="text-danger" *ngIf="validateBatch['numRegister'].hasError('required') && formBatch.controls['numRegister'].touched"><small>Ingrese un número de registro valido!</small></label>
+            </div>
+
+            <div class="form-group row">
+                <input type="text" nbInput maxlength="30" fullWidth formControlName="description" matInput placeholder="Descripción"
+                [status]="formBatch.controls['description']?.errors?.required  && formBatch.controls['description'].touched ? 'danger' : ''">
+
+                <label class="text-danger" *ngIf="validateBatch['description'].hasError('required') && formBatch.controls['description'].touched"><small>Ingrese una descripción valida!</small></label>
+            </div>  
+
+            <div class="form-group row">
+                <input type="text" nbInput  fullWidth formControlName="status" maxlength="1" matInput placeholder="Estado"
+                [status]="formBatch.controls['status']?.errors?.required  && formBatch.controls['status'].touched ? 'danger' : ''">
+
+                <label class="text-danger" *ngIf="validateBatch['status'].hasError('required') && formBatch.controls['status'].touched"><small>Ingrese un estado valido!</small></label>
+            </div>
+
+            <div class="form-group row">
+                <div class="offset-sm-3 col-sm-9">
+                    <button type="submit" nbButton status="primary" [disabled]="!formBatch.valid" (click)="register()">{{actionBtn}}</button>
+                </div>
+            </div>
+
+        </form>
+    </nb-card-body>
+</nb-card>

@@ -1,1 +1,63 @@
-<p>good-sssubtype-detail works!</p>
+<nb-card>
+    <nb-card-body>
+        <form [formGroup]="form">
+            
+            <div class="form-group row">
+                <input type="text" nbInput fullWidth maxlength="70" formControlName="description" matInput placeholder="Descripción"
+                [status]="form.controls['description']?.errors?.required  && form.controls['description'].touched ? 'danger' : ''">
+
+                <label class="text-danger" *ngIf="validate['description'].hasError('required') && form.controls['description'].touched"><small>Ingrese una descripción valida!</small></label>
+            </div>
+
+            <div class="form-group row">
+                <input type="number" nbInput fullWidth formControlName="numSsubType" matInput placeholder="ID Ssubtipo"
+                [status]="form.controls['numSsubType']?.errors?.required  && form.controls['numSsubType'].touched ? 'danger' : ''">
+
+                <label class="text-danger" *ngIf="validate['numSsubType'].hasError('required') && form.controls['numSsubType'].touched"><small>Ingrese un ssubtipo valido!</small></label>
+            </div>
+
+            <div class="form-group row">
+                <input type="number" nbInput fullWidth formControlName="numSubType" matInput placeholder="ID Subtipo"
+                [status]="form.controls['numSubType']?.errors?.required  && form.controls['numSubType'].touched ? 'danger' : ''">
+
+                <label class="text-danger" *ngIf="validate['numSubType'].hasError('required') && form.controls['numSubType'].touched"><small>Ingrese un subtipo valido!</small></label>
+            </div>
+
+            <div class="form-group row">
+                <input type="number" nbInput  fullWidth formControlName="numType" matInput placeholder="ID Tipo"
+                [status]="form.controls['numType']?.errors?.required  && form.controls['numType'].touched ? 'danger' : ''">
+
+                <label class="text-danger" *ngIf="validate['numType'].hasError('required') && form.controls['numType'].touched"><small>Ingrese un tipo valido!</small></label>
+            </div>
+
+            <div class="form-group row">
+                <input type="number" nbInput fullWidth formControlName="numRegister" matInput placeholder="ID Registro"
+                [status]="form.controls['numRegister']?.errors?.required  && form.controls['numRegister'].touched ? 'danger' : ''">
+
+                <label class="text-danger" *ngIf="validate['numRegister'].hasError('required') && form.controls['numRegister'].touched"><small>Ingrese un registro valido!</small></label>
+            </div>
+
+            <div class="form-group row">
+                <input type="number" nbInput fullWidth formControlName="numClasifAlterna" matInput placeholder="ID Clasificación alterna"
+                [status]="form.controls['numClasifAlterna']?.errors?.required  && form.controls['numClasifAlterna'].touched ? 'danger' : ''">
+
+                <label class="text-danger" *ngIf="validate['numClasifAlterna'].hasError('required') && form.controls['numClasifAlterna'].touched"><small>Ingrese una clasificación alterna valida!</small></label>
+            </div>
+
+            <div class="form-group row">
+                <input type="number" nbInput fullWidth formControlName="numClasifGoods" matInput placeholder="ID Clasificación bien"
+                [status]="form.controls['numClasifGoods']?.errors?.required  && form.controls['numClasifGoods'].touched ? 'danger' : ''">
+
+                <label class="text-danger" *ngIf="validate['numClasifGoods'].hasError('required') && form.controls['numClasifGoods'].touched"><small>Ingrese una clasificación bien valida!</small></label>
+            </div>
+
+
+       
+            <div class="form-group row">
+                <div class="offset-sm-3 col-sm-9">
+                    <button type="submit" nbButton status="primary" [disabled]="!form.valid" (click)="register()">{{actionBtn}}</button>
+                </div>
+            </div>
+        </form>
+    </nb-card-body>
+</nb-card>

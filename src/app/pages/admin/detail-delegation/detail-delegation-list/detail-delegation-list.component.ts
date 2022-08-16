@@ -86,11 +86,11 @@ export class DetailDelegationListComponent extends BasePage {
         //editable: false,
         // width: '25px'
       },
-      nombre: {
+      name: {
         title: 'Nombre',
         type: 'string',
       },
-      no_delegacion: {
+      numDelegation: {
         title: 'Delegacion',
         type: 'string',
       },
@@ -98,19 +98,19 @@ export class DetailDelegationListComponent extends BasePage {
         title: 'Area',
         type: 'string',
       },
-      ubicacion: {
+      location: {
         title: 'Ubicacion',
         type: 'string',
       },
-      direccion: {
+      address: {
         title: 'direccion',
         type: 'string',
       },
-      tel1: {
+      numP1: {
         title: 'Teléfonos',
         type: 'html',
         valuePrepareFunction:(value,row) =>{
-          return `${row.tel1}<br>${row.tel2}<br>${row.tel3}`
+          return `${row.numP1}<br>${row.numP2}<br>${row.numP3}`
         }
       },
     },

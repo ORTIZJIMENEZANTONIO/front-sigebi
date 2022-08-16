@@ -86,11 +86,11 @@ export class PaymentsConceptListComponent extends BasePage {
         //editable: false,
         // width: '25px'
       },
-      descripcion: {
+      description: {
         title: 'Descripción',
         type: 'string',
       },
-      no_registro: {
+      numRegister: {
         title: 'Nro Registro',
         type: 'number',
       },
@@ -104,9 +104,9 @@ export class PaymentsConceptListComponent extends BasePage {
 
   readPaymentsConcept = (() => {
     this.rows = null;
-    this.service.list(this.pageEvent.pageIndex, this.pageEvent.pageSize).subscribe((legends:any) =>  {
-      this.rows = legends.data;
-      this.length = legends.count;
+    this.service.list(this.pageEvent.pageIndex, this.pageEvent.pageSize).subscribe((payments:any) =>  {
+      this.rows = payments.data;
+      this.length = payments.count;
     }, 
     error => this.onLoadFailed('danger','Error conexión',error.message)
     );
@@ -150,14 +150,14 @@ export class PaymentsConceptListComponent extends BasePage {
       maximize: false,
       fullScreen: false,
     };
-    this.windowService.open(PaymentsConceptDetailComponent, { title: `Editar ciudad`, context: { paymentsConcept: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
+    this.windowService.open(PaymentsConceptDetailComponent, { title: `Editar concepto de pago`, context: { paymentsConcept: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
       this.readPaymentsConcept();
     });
   
   }
 
   openWindowPaymentsConcept() {
-    this.windowService.open(PaymentsConceptDetailComponent, { title: `Nueva ciudad` }).onClose.subscribe(() => {
+    this.windowService.open(PaymentsConceptDetailComponent, { title: `Nuevo concepto de pago` }).onClose.subscribe(() => {
       this.readPaymentsConcept();
     });
     

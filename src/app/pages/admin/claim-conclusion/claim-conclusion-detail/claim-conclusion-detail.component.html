@@ -1,1 +1,27 @@
-<p>claim-conclusion-detail works!</p>
+<nb-card>
+    <nb-card-body>
+        <form [formGroup]="form">
+
+            <div class="form-group row">
+                <input type="text" nbInput  fullWidth formControlName="description" matInput placeholder="Descripción"
+                [status]="form.controls['description']?.errors?.required  && form.controls['description'].touched ? 'danger' : ''">
+
+                <label class="text-danger" *ngIf="validate['description'].hasError('required') && form.controls['description'].touched"><small>Ingrese una descripción valida!</small></label>
+            </div>
+
+            <div class="form-group row">
+                <input type="number" nbInput fullWidth formControlName="flag" matInput placeholder="Bandera"
+                [status]="form.controls['flag']?.errors?.required  && form.controls['flag'].touched ? 'danger' : ''">
+
+                <label class="text-danger" *ngIf="validate['flag'].hasError('required') && form.controls['flag'].touched"><small>Ingrese una bandera valida!</small></label>
+            </div>
+
+       
+            <div class="form-group row">
+                <div class="offset-sm-3 col-sm-9">
+                    <button type="submit" nbButton status="primary" [disabled]="!form.valid" (click)="register()">{{actionBtn}}</button>
+                </div>
+            </div>
+        </form>
+    </nb-card-body>
+</nb-card>
