@@ -128,10 +128,16 @@ export class IssuingInstitutionListComponent extends BasePage{
       numClasif: {
         title: 'N clasificación',
         type: 'number',
+        valuePrepareFunction:(value) =>{
+          return value.id
+        }
       },
       numCity: {
         title: 'N ciudad',
-        type: 'number',
+        type: 'string',
+        valuePrepareFunction:(value) =>{
+          return value.name
+        }
       },
       numRegister: {
         title: 'N registro',
@@ -139,7 +145,10 @@ export class IssuingInstitutionListComponent extends BasePage{
       },
       numTransference: {
         title: 'N transfible',
-        type: 'number',
+        type: 'string',
+        valuePrepareFunction:(value) =>{
+          return value.description
+        }
       },
     },
     noDataMessage: "No se encontrarón registros"
