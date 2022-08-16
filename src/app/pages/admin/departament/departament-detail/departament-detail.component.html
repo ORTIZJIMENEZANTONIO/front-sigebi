@@ -1,1 +1,75 @@
-<p>departament-detail works!</p>
+<nb-card>
+    <nb-card-body>
+        <form [formGroup]="formDepartament">
+            
+            <div class="form-group row">
+                <input type="number" nbInput fullWidth formControlName="numDelegation" matInput placeholder="Número de delegación"
+                [status]="formDepartament.controls['numDelegation']?.errors?.required  && formDepartament.controls['numDelegation'].touched ? 'danger' : ''">
+
+                <label class="text-danger" *ngIf="validateDepartament['numDelegation'].hasError('required') && formDepartament.controls['numDelegation'].touched"><small>Ingrese un número de delegación valido!</small></label>
+            </div>
+
+            <div class="form-group row">
+                <input type="number" nbInput  fullWidth formControlName="numSubDelegation" matInput placeholder="Número sub delegación"
+                [status]="formDepartament.controls['numSubDelegation']?.errors?.required  && formDepartament.controls['numSubDelegation'].touched ? 'danger' : ''">
+
+                <label class="text-danger" *ngIf="validateDepartament['numSubDelegation'].hasError('required') && formDepartament.controls['numSubDelegation'].touched"><small>Ingrese un número de subdelegación valido!</small></label>
+            </div>
+            <div class="form-group row">
+                <input type="text" nbInput maxlength="30"  fullWidth formControlName="dsarea" matInput placeholder="Descripción de área"
+                [status]="formDepartament.controls['dsarea']?.errors?.required  && formDepartament.controls['dsarea'].touched ? 'danger' : ''">
+
+                <label class="text-danger" *ngIf="validateDepartament['dsarea'].hasError('required') && formDepartament.controls['dsarea'].touched"><small>Ingrese una descripción de área valida!</small></label>
+            </div>        
+            <div class="form-group row">
+                <input type="text" nbInput  fullWidth formControlName="description" maxlength="200" matInput placeholder="Descripción"
+                [status]="formDepartament.controls['description']?.errors?.required  && formDepartament.controls['description'].touched ? 'danger' : ''">
+
+                <label class="text-danger" *ngIf="validateDepartament['description'].hasError('required') && formDepartament.controls['description'].touched"><small>Ingrese una descripción valida!</small></label>
+            </div>        
+            <div class="form-group row">
+                <input type="number" nbInput  fullWidth formControlName="lastOffice" matInput placeholder="CVE zona contrato"
+                [status]="formDepartament.controls['lastOffice']?.errors?.required  && formDepartament.controls['lastOffice'].touched ? 'danger' : ''">
+
+                <label class="text-danger" *ngIf="validateDepartament['lastOffice'].hasError('required') && formDepartament.controls['lastOffice'].touched"><small>Ingrese un CVE zona de contrato valido!</small></label>
+            </div>
+            <div class="form-group row">
+            <input type="number" nbInput  fullWidth formControlName="numRegister" matInput placeholder="Número de registro"
+            [status]="formDepartament.controls['numRegister']?.errors?.required  && formDepartament.controls['numRegister'].touched ? 'danger' : ''">
+
+            <label class="text-danger" *ngIf="validateDepartament['numRegister'].hasError('required') && formDepartament.controls['numRegister'].touched"><small>Ingrese un número de registro valido!</small></label>
+        </div>
+        <div class="form-group row">
+        <input type="number" nbInput  fullWidth formControlName="level" matInput placeholder="Nivel"
+                [status]="formDepartament.controls['level']?.errors?.required  && formDepartament.controls['level'].touched ? 'danger' : ''">
+
+                <label class="text-danger" *ngIf="validateDepartament['level'].hasError('required') && formDepartament.controls['level'].touched"><small>Ingrese un nivel valido!</small></label>
+            </div>
+            <div class="form-group row">
+            <input type="number" nbInput  fullWidth formControlName="depend" matInput placeholder="Dependencia"
+            [status]="formDepartament.controls['depend']?.errors?.required  && formDepartament.controls['depend'].touched ? 'danger' : ''">
+
+            <label class="text-danger" *ngIf="validateDepartament['depend'].hasError('required') && formDepartament.controls['depend'].touched"><small>Ingrese una dependencia valida!</small></label>
+        </div>
+        <div class="form-group row">
+        <input type="number" nbInput  fullWidth formControlName="depDelegation" matInput placeholder="Departamento delegación"
+        [status]="formDepartament.controls['depDelegation']?.errors?.required  && formDepartament.controls['depDelegation'].touched ? 'danger' : ''">
+
+        <label class="text-danger" *ngIf="validateDepartament['depDelegation'].hasError('required') && formDepartament.controls['depDelegation'].touched"><small>Ingrese un departamento de delegación valido!</small></label>
+    </div>
+    <div class="form-group row">
+    <input type="number" nbInput  fullWidth formControlName="phaseEdo" matInput placeholder="Fase EDO"
+    [status]="formDepartament.controls['phaseEdo']?.errors?.required  && formDepartament.controls['phaseEdo'].touched ? 'danger' : ''">
+    <label class="text-danger" *ngIf="validateDepartament['phaseEdo'].hasError('required') && formDepartament.controls['phaseEdo'].touched"><small>Ingrese una fase valida!</small></label>
+</div>
+
+
+       
+            <div class="form-group row">
+                <div class="offset-sm-3 col-sm-9">
+                    <button type="submit" nbButton status="primary" [disabled]="!formDepartament.valid" (click)="register()">{{actionBtn}}</button>
+                </div>
+            </div>
+        </form>
+    </nb-card-body>
+</nb-card>

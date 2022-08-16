@@ -66,44 +66,14 @@ export class StationListComponent extends BasePage {
         title: 'Registro',
         type: 'number'
       },
-      idTransferor: {
-        title: 'Transferente',
+      numStation: {
+        title: 'Estación',
         type: 'number'
       },
-      idEntity: {
-        title: 'Entidad',
+      descStation: {
+        title: 'Descripción',
         type: 'string',
-      },
-      stationName: {
-        title: 'Nombre',
-        type: 'string'
-      },
-      creationUser: {
-        title: 'Creado por',
-        type: 'string',
-      },
-      editionUser: {
-        title: 'Modificado por',
-        type: 'string',
-      },
-      version: {
-        title: 'Version',
-        type: 'number',
-      },
-      keyState: {
-        title: 'Estado',
-        type: 'number',
-      },
-      status: {
-        title: 'Estatus',
-        type: 'html',
-        valuePrepareFunction:(value) =>{
-          if(value == 0){
-            return '<strong><span class="badge badge-pill badge-success">Activo</span></strong>';
-          }else{
-            return '<strong><span class="badge badge-pill badge-warning">Inactivo</span></strong>';
-          }
-        }
+
       },
     },
     noDataMessage: "No se encontrarón registros"
@@ -152,14 +122,14 @@ export class StationListComponent extends BasePage {
       maximize: false,
       fullScreen: false,
     };
-    const modalRef = this.windowService.open(StationDetailComponent, { title: `Editar emisora`, context: { station: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
+    const modalRef = this.windowService.open(StationDetailComponent, { title: `Editar estación`, context: { station: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
       this.readData(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
   
   }
 
   openWindow() {
-    const modalRef = this.windowService.open(StationDetailComponent, { title: `Nuevo emisora` }).onClose.subscribe(() => {
+    const modalRef = this.windowService.open(StationDetailComponent, { title: `Nueva estación` }).onClose.subscribe(() => {
       this.readData(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
     

@@ -86,19 +86,19 @@ export class GoodSubtypeListComponent extends BasePage {
         //editable: false,
         // width: '25px'
       },
-      descripcion: {
+      description: {
         title: 'Descripcion',
         type: 'string',
       },
-      no_tipo: {
+      numType: {
         title: 'Tipo bien',
         type: 'string',
         valuePrepareFunction:(value) =>{
-          return value.descripcion
+          return value.description
         }
       },
      
-      no_registro: {
+      numRegister: {
         title: 'N registro',
         type: 'number',
       }
@@ -158,14 +158,14 @@ export class GoodSubtypeListComponent extends BasePage {
       maximize: false,
       fullScreen: false,
     };
-    this.windowService.open(GoodSubtypeDetailComponent, { title: `Editar ciudad`, context: { GoodSubtype: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
+    this.windowService.open(GoodSubtypeDetailComponent, { title: `Editar subtipo`, context: { GoodSubtype: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
       this.readGoodSubtype();
     });
   
   }
 
   openWindow() {
-    this.windowService.open(GoodSubtypeDetailComponent, { title: `Nueva ciudad` }).onClose.subscribe(() => {
+    this.windowService.open(GoodSubtypeDetailComponent, { title: `Nuevo subtipo` }).onClose.subscribe(() => {
       this.readGoodSubtype();
     });
     

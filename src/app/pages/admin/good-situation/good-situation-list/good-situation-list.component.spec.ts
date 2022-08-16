@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GoodSituacionListComponent } from './good-situacion-list.component';
+import { GoodSituationListComponent } from './good-situation-list.component';
 
-describe('GoodSituacionListComponent', () => {
-  let component: GoodSituacionListComponent;
-  let fixture: ComponentFixture<GoodSituacionListComponent>;
+describe('GoodSituationListComponent', () => {
+  let component: GoodSituationListComponent;
+  let fixture: ComponentFixture<GoodSituationListComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ GoodSituacionListComponent ]
+      declarations: [ GoodSituationListComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(GoodSituacionListComponent);
+    fixture = TestBed.createComponent(GoodSituationListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

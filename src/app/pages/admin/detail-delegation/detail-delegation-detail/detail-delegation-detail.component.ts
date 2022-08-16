@@ -37,21 +37,21 @@ export class DetailDelegationDetailComponent extends BasePage {
 
     this.formDetailDelegation = this.fb.group({
       id: [''],
-      nombre: [null, Validators.compose([Validators.pattern("[a-zA-Z]((\.|_|-)?[a-zA-ZáéíóúÁÉÍÓÚ\u0020]+){0,255}"), Validators.required])],
-      ubicacion: ['', Validators.required],
-      direccion: ['', Validators.required],
-      puesto: ['', Validators.required],
+      name: [null, Validators.compose([Validators.pattern("[a-zA-Z]((\.|_|-)?[a-zA-ZáéíóúÁÉÍÓÚ\u0020]+){0,255}"), Validators.required])],
+      location: ['', Validators.required],
+      address: ['', Validators.required],
+      position: ['', Validators.required],
       area: ['', Validators.required],
-      correo: ['', Validators.email],
+      mail: ['', Validators.email],
 
-      tel1: ['', Validators.required],
-      tel2: ['', Validators.required],
-      tel3: ['', Validators.required],
+      numP1: ['', Validators.required],
+      numP2: ['', Validators.required],
+      numP3: ['', Validators.required],
 
-      detalle_delegacion:[null,Validators.required],
-      no_delegacion: [null, [Validators.min(1)]],
+      detailDelegation:[null,Validators.required],
+      numDelegation: [null, [Validators.min(1)]],
     });
-    this.formDetailDelegation.controls['detalle_delegacion'].valueChanges.subscribe((value: string) => {
+    this.formDetailDelegation.controls['detailDelegation'].valueChanges.subscribe((value: string) => {
       if (value) {
         this.delegationService.search(value).subscribe(data => {
           this.filteredOptions$.next(data);
@@ -78,15 +78,11 @@ export class DetailDelegationDetailComponent extends BasePage {
 
   onSelectionChangeDelegation(event){
     if(event.id){
-      this.formDetailDelegation.controls['no_delegacion'].setValue(event.id);
-      this.formDetailDelegation.controls['detalle_delegacion'].setValue(event.descripcion);
+      this.formDetailDelegation.controls['numDelegation'].setValue(event.id);
+      this.formDetailDelegation.controls['detailDelegation'].setValue(event.descripion);
     }
         
   }
-
-  
-
-
   
   register(): void {
     const data = this.formDetailDelegation.value;

@@ -86,7 +86,7 @@ export class DepartamentListComponent extends BasePage {
         //editable: false,
         // width: '25px'
       },
-      nombre: {
+      name: {
         title: 'Nombre',
         type: 'string',
       },
@@ -94,37 +94,37 @@ export class DepartamentListComponent extends BasePage {
         title: 'DsArea',
         type: 'string',
       },
-      no_delegacion: {
+      numDelegation: {
         title: 'Delegación',
         type: 'string',
         valuePrepareFunction:(value) =>{
           return value.descripcion
         }
       },
-      no_subdelegacion: {
+      numSubDelegation: {
         title: 'Subdelegación',
         type: 'string',
         valuePrepareFunction:(value) =>{
           return value.descripcion
         }
       },
-      descripcion: {
+      description: {
         title: 'Descripcion',
         type: 'string',
       },
-      no_registro: {
+      numRegister: {
         title: 'N registro',
         type: 'number',
       },
-      ultimo_oficio: {
+      lastOffice: {
         title: 'Oficio',
         type: 'number',
       },
-      nivel: {
+      level: {
         title: 'Nivel',
         type: 'number',
       },
-      etapa_edo: {
+      phaseEdo: {
         title: 'Etapa EDO',
         type: 'number',
       },
@@ -138,9 +138,9 @@ export class DepartamentListComponent extends BasePage {
 
   readDepartament = (() => {
     this.rows = null;
-    this.service.list(this.pageEvent.pageIndex, this.pageEvent.pageSize).subscribe((legends:any) =>  {
-      this.rows = legends.data;
-      this.length = legends.count;
+    this.service.list(this.pageEvent.pageIndex, this.pageEvent.pageSize).subscribe((departament:any) =>  {
+      this.rows = departament.data;
+      this.length = departament.count;
     }, 
     error => this.onLoadFailed('danger','Error conexión',error.message)
     );
@@ -184,14 +184,14 @@ export class DepartamentListComponent extends BasePage {
       maximize: false,
       fullScreen: false,
     };
-    this.windowService.open(DepartamentDetailComponent, { title: `Editar ciudad`, context: { Departament: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
+    this.windowService.open(DepartamentDetailComponent, { title: `Editar departamento`, context: { Departament: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
       this.readDepartament();
     });
   
   }
 
   openWindow() {
-    this.windowService.open(DepartamentDetailComponent, { title: `Nueva ciudad` }).onClose.subscribe(() => {
+    this.windowService.open(DepartamentDetailComponent, { title: `Nuevo departamento` }).onClose.subscribe(() => {
       this.readDepartament();
     });
     

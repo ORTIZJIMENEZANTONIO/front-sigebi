@@ -519,6 +519,18 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link:'/pages/admin/satsae-classification'
       },
       {
+        title:'Regulatory',
+        link:'/pages/admin/regulatory'
+      },
+      {
+        title:'Lotes',
+        link:'/pages/admin/batch'
+      },
+      {
+        title:'Código estado',
+        link:'/pages/admin/status-code'
+      },
+      {
         title:'Guarda Valores',
         link:'/pages/admin/save-values'
       },
@@ -574,7 +586,6 @@ export const MENU_ITEMS: NbMenuItem[] = [
         title:'R Asunt Dic',
         link:'/pages/admin/r-asunt-dic'
       },
-   
     ],
   },
   {

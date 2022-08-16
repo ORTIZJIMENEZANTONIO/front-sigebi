@@ -1,1 +1,74 @@
-<p>good-type-detail works!</p>
+<nb-card>
+    <nb-card-body>
+        <form [formGroup]="form">
+
+            <div class="form-group row">
+                <input type="text" nbInput maxlength="70" fullWidth formControlName="description" matInput placeholder="Descripción"
+                [status]="form.controls['description']?.errors?.required  && form.controls['description'].touched ? 'danger' : ''">
+
+                <label class="text-danger" *ngIf="validate['description'].hasError('required') && form.controls['description'].touched"><small>Ingrese una descripción valida!</small></label>
+            </div>
+
+            <div class="form-group row">
+                <input type="number" nbInput fullWidth formControlName="maxInsTime" matInput placeholder="Tiempo máximo aseguramiento"
+                [status]="form.controls['maxInsTime']?.errors?.required  && form.controls['maxInsTime'].touched ? 'danger' : ''">
+
+                <label class="text-danger" *ngIf="validate['maxInsTime'].hasError('required') && form.controls['maxInsTime'].touched"><small>Ingrese tiempo máximo de aseguramiento valido!</small></label>
+            </div>
+
+            <div class="form-group row">
+                <input type="number" nbInput fullWidth formControlName="maxFracTime" matInput placeholder="Tiempo máximo fracción"
+                [status]="form.controls['maxFracTime']?.errors?.required  && form.controls['maxFracTime'].touched ? 'danger' : ''">
+
+                <label class="text-danger" *ngIf="validate['maxFracTime'].hasError('required') && form.controls['maxFracTime'].touched"><small>Ingrese un tiempo máximo de fracción valido!</small></label>
+            </div>
+
+            <div class="form-group row">
+                <input type="number" nbInput  fullWidth formControlName="maxExteTime" matInput placeholder="Tiempo máximo prorroga"
+                [status]="form.controls['maxExteTime']?.errors?.required  && form.controls['maxExteTime'].touched ? 'danger' : ''">
+
+                <label class="text-danger" *ngIf="validate['maxExteTime'].hasError('required') && form.controls['maxExteTime'].touched"><small>Ingrese un tiempo máximo de prorroga valido!</small></label>
+            </div>
+
+            <div class="form-group row">
+                <input type="number" nbInput fullWidth formControlName="maxStateTime" matInput placeholder="Tiempo máximo declaración"
+                [status]="form.controls['maxStateTime']?.errors?.required  && form.controls['maxStateTime'].touched ? 'danger' : ''">
+
+                <label class="text-danger" *ngIf="validate['maxStateTime'].hasError('required') && form.controls['maxStateTime'].touched"><small>Ingrese un tiempo máximo de declaración valido!</small></label>
+            </div>
+
+            <div class="form-group row">
+                <input type="number" nbInput fullWidth formControlName="maxLimitTime1" matInput placeholder="Tiempo máximo de plazo 1"
+                [status]="form.controls['maxLimitTime1']?.errors?.required  && form.controls['maxLimitTime1'].touched ? 'danger' : ''">
+
+                <label class="text-danger" *ngIf="validate['maxLimitTime1'].hasError('required') && form.controls['maxLimitTime1'].touched"><small>Ingrese un tiempo máximo de plazo valido!</small></label>
+            </div>
+            <div class="form-group row">
+                <input type="number" nbInput fullWidth formControlName="maxLimitTime2" matInput placeholder="Tiempo máximo de plazo 2"
+                [status]="form.controls['maxLimitTime2']?.errors?.required  && form.controls['maxLimitTime2'].touched ? 'danger' : ''">
+
+                <label class="text-danger" *ngIf="validate['maxLimitTime2'].hasError('required') && form.controls['maxLimitTime2'].touched"><small>Ingrese un tiempo máximo de plazo valido!</small></label>
+            </div>
+
+            <div class="form-group row">
+                <input type="number" nbInput fullWidth formControlName="maxLimitTime3" matInput placeholder="Tiempo máximo de plazo 3"
+                [status]="form.controls['maxLimitTime3']?.errors?.required  && form.controls['maxLimitTime3'].touched ? 'danger' : ''">
+
+                <label class="text-danger" *ngIf="validate['maxLimitTime3'].hasError('required') && form.controls['maxLimitTime3'].touched"><small>Ingrese un tiempo máximo de plazo valido!</small></label>
+            </div>
+
+            <div class="form-group row">
+                <input type="number" nbInput fullWidth formControlName="numRegister" matInput placeholder="ID Registro"
+                [status]="form.controls['numRegister']?.errors?.required  && form.controls['numRegister'].touched ? 'danger' : ''">
+
+                <label class="text-danger" *ngIf="validate['numRegister'].hasError('required') && form.controls['numRegister'].touched"><small>Ingrese una ID de registro valida!</small></label>
+            </div>
+       
+            <div class="form-group row">
+                <div class="offset-sm-3 col-sm-9">
+                    <button type="submit" nbButton status="primary" [disabled]="!form.valid" (click)="register()">{{actionBtn}}</button>
+                </div>
+            </div>
+        </form>
+    </nb-card-body>
+</nb-card>

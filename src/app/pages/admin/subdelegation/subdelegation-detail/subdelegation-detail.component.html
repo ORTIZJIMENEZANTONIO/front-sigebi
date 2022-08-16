@@ -2,37 +2,37 @@
     <nb-card-body>
         <form [formGroup]="formSubdelegation">
             <div class="form-group row">
-                <input nbInput fullWidth formControlName="descripcion" matInput placeholder="descripcion">
-                <label class="text-danger" *ngIf="validateSubdelegation['descripcion'].hasError('pattern')"><small>Ingrese una descripcion!</small></label>
+                <input nbInput fullWidth type="text" formControlName="description" matInput placeholder="Descripción">
+                <label class="text-danger" *ngIf="validateSubdelegation['description'].hasError('pattern')"><small>Ingrese una description!</small></label>
             </div>
 
             <div class="form-group row">
-                <input nbInput fullWidth formControlName="etapa_edo" matInput placeholder="etapa_edo">
-                <label class="text-danger" *ngIf="validateSubdelegation['etapa_edo'].hasError('required')"><small>Campo etapa EDO requerido!</small></label>
+                <input nbInput fullWidth type="number" formControlName="phaseEdo" matInput placeholder="Etapa EDO">
+                <label class="text-danger" *ngIf="validateSubdelegation['phaseEdo'].hasError('required')"><small>Campo etapa EDO requerido!</small></label>
             </div>
 
             <div class="form-group row">
-                <input nbInput fullWidth formControlName="no_consecutivo_diario" type="number" matInput placeholder="N consecutivo diario">
-                <label class="text-danger" *ngIf="validateSubdelegation['no_consecutivo_diario'].hasError('required')"><small>Ingrese un numero consecutivo diario!</small></label>
+                <input nbInput fullWidth type="number" formControlName="numDailyCon" type="number" matInput placeholder="N consecutivo diario">
+                <label class="text-danger" *ngIf="validateSubdelegation['numDailyCon'].hasError('required')"><small>Ingrese un numero consecutivo diario!</small></label>
             </div>
             <div class="form-group row">
-                <input formControlName="detalle_delegacion" matInput placeholder="Nro delegacion"  [nbAutocomplete]="auto"  nbInput>
+                <input formControlName="detailDelegation" matInput placeholder="Nro delegacion"  [nbAutocomplete]="auto"  nbInput>
             
 
                 <nb-autocomplete #auto [activeFirst]="true" (selectedChange)="onSelectionChangeDelegation($event)">
 
                     <nb-option *ngFor="let option of filteredOptions$ | async" [value]="option">
-                        {{ option.descripcion }}
+                        {{ option.description }}
                     </nb-option>
                 
                     </nb-autocomplete>
-                <label class="text-danger" *ngIf="validateSubdelegation['no_delegacion'].hasError('min')"><small>Seleccione una delegacion!</small></label>
+                <label class="text-danger" *ngIf="validateSubdelegation['numDelegation'].hasError('min')"><small>Seleccione una delegacion!</small></label>
                
             </div>
 
             <div class="form-group row">
-                <input nbInput fullWidth formControlName="no_registro" matInput placeholder="Número de registro">
-                <label class="text-danger" *ngIf="validateSubdelegation['no_registro'].hasError('min')"><small>Ingrese el numero de registro!</small></label>
+                <input type="number" nbInput fullWidth formControlName="numRegister" matInput placeholder="Número de registro">
+                <label class="text-danger" *ngIf="validateSubdelegation['numRegister'].hasError('min')"><small>Ingrese el numero de registro!</small></label>
             </div>
        
             <div class="form-group row">

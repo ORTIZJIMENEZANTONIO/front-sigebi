@@ -40,23 +40,23 @@ export class CityDetailComponent extends BasePage {
 
     this.formCity = this.fb.group({
       id: [''],
-      nombre: [null, Validators.compose([Validators.pattern("[a-zA-Z]((\.|_|-)?[a-zA-ZáéíóúÁÉÍÓÚ\u0020]+){0,255}"), Validators.required])],
-      cve_entfed: ['', Validators.required],
-      detalle_delegacion:[null,Validators.required],
-      no_delegacion: [null, [Validators.min(1)]],
-      detalle_subdelegacion:[null,Validators.required],
-      no_subdelegacion: [null, [Validators.min(1)]],
-      leyenda_oficio: [null, [Validators.required]],
-      no_registro: [null, [Validators.required]],
+      name: [null, Validators.compose([Validators.pattern("[a-zA-Z]((\.|_|-)?[a-zA-ZáéíóúÁÉÍÓÚ\u0020]+){0,255}"), Validators.required])],
+      cityCode: ['', Validators.required],
+      detailDelegation:[null,Validators.required],
+      numDelegation: [null, [Validators.min(1)]],
+      detailSubDelegation:[null,Validators.required],
+      numSubDelegation: [null, [Validators.min(1)]],
+      legendOffice: [null, [Validators.required]],
+      numRegister: [null, [Validators.required]],
     });
-    this.formCity.controls['detalle_delegacion'].valueChanges.subscribe((value: string) => {
+    this.formCity.controls['detailDelegation'].valueChanges.subscribe((value: string) => {
       if (value) {
         this.delegationService.search(value).subscribe(data => {
           this.filteredOptions$.next(data);
         })
       }
     })
-    this.formCity.controls['detalle_subdelegacion'].valueChanges.subscribe((value: string) => {
+    this.formCity.controls['detailSubDelegation'].valueChanges.subscribe((value: string) => {
       if (value) {
         this.subDelegationService.search(value).subscribe(data => {
           this.filteredsubdelegations$.next(data);
@@ -77,26 +77,25 @@ export class CityDetailComponent extends BasePage {
 
     if (this.city) {
       this.actionBtn = "Actualizar";
-      this.formCity.patchValue(this.city)
-      this.formCity.controls['no_delegacion'].setValue(this.city.no_delegacion['id'])
-      this.formCity.controls['detalle_delegacion'].setValue(this.city.no_delegacion['descripcion'])
-      this.formCity.controls['no_subdelegacion'].setValue(this.city.no_subdelegacion['id'])
-      this.formCity.controls['detalle_subdelegacion'].setValue(this.city.no_subdelegacion['descripcion'])
-      console.log(this.city);
+      this.formCity.patchValue(this.city);
+      this.formCity.controls['numDelegation'].setValue(this.city.numDelegation['id'])
+      this.formCity.controls['detailDelegation'].setValue(this.city.numDelegation['description'])
+      this.formCity.controls['numSubDelegation'].setValue(this.city.numSubDelegation['id'])
+      this.formCity.controls['detailSubDelegation'].setValue(this.city.numSubDelegation['description'])
     }
   }
 
   onSelectionChangeDelegation(event){
     if(event.id){
-      this.formCity.controls['no_delegacion'].setValue(event.id);
-      this.formCity.controls['detalle_delegacion'].setValue(event.descripcion);
+      this.formCity.controls['numDelegation'].setValue(event.id);
+      this.formCity.controls['detailDelegation'].setValue(event.description);
     }
         
   }
   onSelectionChangeSubdelegation(event){
     if(event.id){
-      this.formCity.controls['no_subdelegacion'].setValue(event.id);
-      this.formCity.controls['detalle_subdelegacion'].setValue(event.descripcion);
+      this.formCity.controls['numSubDelegation'].setValue(event.id);
+      this.formCity.controls['detailSubDelegation'].setValue(event.description);
     }
   }
 

@@ -86,11 +86,11 @@ export class ClaimConclusionListComponent extends BasePage {
         //editable: false,
         // width: '25px'
       },
-      descripcion: {
+      description: {
         title: 'Descripcion',
         type: 'string',
       },
-      bandera: {
+      flag: {
         title: 'Bandera',
         type: 'string',
       },
