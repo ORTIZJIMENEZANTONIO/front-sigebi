@@ -86,27 +86,27 @@ export class SubdelegationListComponent extends BasePage {
         //editable: false,
         width: '25px'
       },
-      descripcion: {
+      description: {
         title: 'Desc',
         type: 'string',
       },
-      no_delegacion: {
+      numDelegation: {
         title: 'No Registro',
         type: 'number',
       },
-      no_consecutivo_diario: {
+      numDailyCono: {
         title: 'Nro C. diario',
         type: 'number',
       },
-      fec_consecutivo_diario: {
+      dateDailyCon: {
         title: 'Fecha',
         type: 'date',
       },
-      etapa_edo: {
+      phaseEdo: {
         title: 'Etapa EDO',
         type: 'number',
       },
-      no_registro:{
+      numRegister:{
         title:'Registro',
         type:'number'
       }
@@ -166,14 +166,14 @@ export class SubdelegationListComponent extends BasePage {
       maximize: false,
       fullScreen: false,
     };
-    this.windowService.open(SubdelegationDetailComponent, { title: `Editar delegacion`, context: { delegation: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
+    this.windowService.open(SubdelegationDetailComponent, { title: `Editar subdelegacion`, context: { delegation: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
       this.readSubdelegation();
     });
   
   }
 
   openWindowSubdelegation() {
-    this.windowService.open(SubdelegationDetailComponent, { title: `Nueva delegacion` }).onClose.subscribe(() => {
+    this.windowService.open(SubdelegationDetailComponent, { title: `Nueva subdelegacion` }).onClose.subscribe(() => {
       this.readSubdelegation();
     });
     

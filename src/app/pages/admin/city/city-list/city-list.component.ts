@@ -87,36 +87,32 @@ export class CityListComponent extends BasePage {
         //editable: false,
         // width: '25px'
       },
-      nombre: {
+      name: {
         title: 'Nombre',
         type: 'string',
       },
-      cve_entfed: {
+      cityCode: {
         title: 'CVE',
         type: 'string',
       },
-      no_delegacion: {
+      numDelegation: {
         title: 'Delegación',
         type: 'string',
         valuePrepareFunction:(value) =>{
-          return value.descripcion
+          return value.description
         }
       },
-      no_subdelegacion: {
+      numSubDelegation: {
         title: 'Subdelegación',
         type: 'string',
         valuePrepareFunction:(value) =>{
-          return value.descripcion
+          return value.description
         }
       },
-      leyenda_oficio: {
+      legendOffice: {
         title: 'Leyenda',
         type: 'string',
-      },
-      no_registro: {
-        title: 'no_registro',
-        type: 'number',
-      },
+      }   
     },
     noDataMessage: "No se encontrarón registros"
   };
@@ -127,9 +123,9 @@ export class CityListComponent extends BasePage {
 
   readCity = (() => {
     this.rows = null;
-    this.service.list(this.pageEvent.pageIndex, this.pageEvent.pageSize).subscribe((legends:any) =>  {
-      this.rows = legends.data;
-      this.length = legends.count;
+    this.service.list(this.pageEvent.pageIndex, this.pageEvent.pageSize).subscribe((city:any) =>  {
+      this.rows = city.data;
+      this.length = city.count;
     }, 
     error => this.onLoadFailed('danger','Error conexión',error.message)
     );

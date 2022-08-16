@@ -101,10 +101,6 @@ export class FractionsListComponent extends BasePage {
         type: 'string',
         editable: true,
       },
-      parentId: {
-        title: 'Padre',
-        type: 'string',
-      },
       normId: {
         title: 'Norma',
         type: 'string',

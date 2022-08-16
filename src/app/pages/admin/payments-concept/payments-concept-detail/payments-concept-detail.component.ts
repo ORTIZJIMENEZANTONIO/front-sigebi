@@ -35,8 +35,8 @@ export class PaymentsConceptDetailComponent extends BasePage {
 
     this.formPaymentsConcept = this.fb.group({
       id: [''],
-      descripcion: [null,  Validators.required],
-      no_registro: [null, [Validators.min(1)]],
+      description: [null,  Validators.required],
+      numRegister: [null, [Validators.min(1)]],
     });
   
   }
@@ -56,12 +56,6 @@ export class PaymentsConceptDetailComponent extends BasePage {
 
     }
   }
-
-
-
-  
-
-
   
   register(): void {
     const data = this.formPaymentsConcept.value;

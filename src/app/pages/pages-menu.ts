@@ -360,11 +360,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
       {
         title: 'Preguntas',
         link: '/pages/admin/question',
-      },   
-      {
-        title: 'Procedencia',
-        link: '/pages/admin/origin',
-      },    
+      },       
       {
         title: 'Tipo Siniestro',
         link: '/pages/admin/sinister',
@@ -521,13 +517,75 @@ export const MENU_ITEMS: NbMenuItem[] = [
       {
         title:'Clasificacion SatSae',
         link:'/pages/admin/satsae-classification'
-      }
-      
-      
-      
-      
-      
-      
+      },
+      {
+        title:'Regulatory',
+        link:'/pages/admin/regulatory'
+      },
+      {
+        title:'Lotes',
+        link:'/pages/admin/batch'
+      },
+      {
+        title:'Código estado',
+        link:'/pages/admin/status-code'
+      },
+      {
+        title:'Guarda Valores',
+        link:'/pages/admin/save-values'
+      },
+      {
+        title:'Identificador',
+        link:'/pages/admin/identifier'
+      },
+      {
+        title:'Indiciados',
+        link:'/pages/admin/indiciados'
+      },
+      {
+        title:'Dictamen',
+        link:'/pages/admin/opinion'
+      },
+      { 
+        title:'Penalizaciones',
+        link:'/pages/admin/penalty'
+      },
+      {
+        title:'Subtipo Bienes',
+        link:'/pages/admin/goods-subtype'
+      },
+      {
+        title:'Sustentos Legales',
+        link:'/pages/admin/legal-support'
+      },
+      {
+        title:'Sat Subclasificacion',
+        link:'/pages/admin/sat-subclasification'
+      },
+      {
+        title:'Sat Clasificacion',
+        link:'/pages/admin/sat-clasification'
+      },
+      { 
+        title:'Reporte Indicadores',
+        link:'/pages/admin/indicator-report'
+      },
+      {
+        title:'Procedencia',
+        link:'/pages/admin/origin'
+      },
+      {
+        title:'Procedencia Cisi',
+        link:'/pages/admin/origin-cisi'
+      },
+      {
+        title:'Puntuaciones',
+        link:'/pages/admin/score'
+      },
+      {
+        title:'R Asunt Dic',
+        link:'/pages/admin/r-asunt-dic'
+      },    
 
     ],
   },
@@ -563,27 +621,27 @@ export const MENU_ITEMS: NbMenuItem[] = [
 
     ],
   },
-  {
-    title: 'Auth',
-    icon: 'lock-outline',
-    children: [
-      {
-        title: 'Login',
-        link: '/auth/login',
-      },
-      {
-        title: 'Register',
-        link: '/auth/register',
-      },
-      {
-        title: 'Request Password',
-        link: '/auth/request-password',
-      },
-      {
-        title: 'Reset Password',
-        link: '/auth/reset-password',
-      },
-    ],
-  },
+  // {
+  //   title: 'Auth',
+  //   icon: 'lock-outline',
+  //   children: [
+  //     {
+  //       title: 'Login',
+  //       link: '/auth/login',
+  //     },
+  //     {
+  //       title: 'Register',
+  //       link: '/auth/register',
+  //     },
+  //     {
+  //       title: 'Request Password',
+  //       link: '/auth/request-password',
+  //     },
+  //     {
+  //       title: 'Reset Password',
+  //       link: '/auth/reset-password',
+  //     },
+  //   ],
+  // },
 
 ];

@@ -87,56 +87,54 @@
           //editable: false,
           // width: '25px'
         },
-        descripcion: {
+        description: {
           title: 'Descripcion',
           type: 'string',
         },
-        responsable: {
+        manager: {
           title: 'Responsable',
           type: 'string',
         },
-
-
-        calle: {
+        street: {
           title: 'Calle',
           type: 'string'
         },
 
-        no_exterior: {
+        numExterior: {
           title: 'Nro exterior',
           type: 'string'
         },
-        no_interior: {
+        numInterior: {
           title: 'Nro interior',
           type: 'string'
         },
 
-        colonia: {
+        cologne: {
           title: 'Colonia',
           type: 'string'
         },
 
-        deleg_munic: {
+        delegationMun: {
           title: 'Delegacion municipal',
           type: 'string'
         },
-        codigo_postal: {
+        zipCode: {
           title: 'Codigo Postal',
           type: 'string'
         },
 
-        telefono: {
+        numPhone: {
           title: 'Teléfono',
           type: 'string'
         },
-        cve_circuito: {
+        circuitCVE: {
           title: 'CVE circuito',
           type: 'string'
         },
 
-        no_registro: {
+        numRegister: {
           title: 'Nro registro',
-          type: 'string'
+          type: 'number'
         }
 
       },
@@ -149,9 +147,9 @@
 
     readCourt = (() => {
       this.rows = null;
-      this.service.list(this.pageEvent.pageIndex, this.pageEvent.pageSize).subscribe((legends: any) => {
-        this.rows = legends.data;
-        this.length = legends.count;
+      this.service.list(this.pageEvent.pageIndex, this.pageEvent.pageSize).subscribe((court: any) => {
+        this.rows = court.data;
+        this.length = court.count;
       },
         error => this.onLoadFailed('danger', 'Error conexión', error.message)
       );

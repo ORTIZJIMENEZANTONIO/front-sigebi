@@ -3,15 +3,15 @@ import { Subdelegation } from "./subdelegation.model";
 
 export interface City{
     id?: number;
-    nombre : string
+    name : string
 
-    cve_entfed:string;
+    cityCode:string;
 
-    no_delegacion : Delegation|number;
+    numDelegation : Delegation|number;
 
-    no_subdelegacion: Subdelegation|number;
+    numSubDelegation: Subdelegation|number;
 
-    leyenda_oficio : string
+    legendOffice : string
 
-    no_registro: number; 
+    numRegister: number; 
 }

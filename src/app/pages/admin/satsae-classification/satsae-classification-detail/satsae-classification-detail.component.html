@@ -1,1 +1,95 @@
-<p>satsae-classification-detail works!</p>
+<nb-card>
+    <nb-card-body>
+        <form [formGroup]="form">
+
+            <div class="form-group row">
+                <input type="text" nbInput maxlength="900" fullWidth formControlName="certificateDesc" matInput placeholder="Descripción"
+                [status]="form.controls['certificateDesc']?.errors?.required  && form.controls['certificateDesc'].touched ? 'danger' : ''">
+
+                <label class="text-danger" *ngIf="validate['certificateDesc'].hasError('required') && form.controls['certificateDesc'].touched"><small>Ingrese una descripción valida!</small></label>
+            </div>
+
+            <div class="form-group row">
+                <input type="number" nbInput fullWidth formControlName="noClasifGoods" matInput placeholder="Número certificado bienes"
+                [status]="form.controls['noClasifGoods']?.errors?.required  && form.controls['noClasifGoods'].touched ? 'danger' : ''">
+
+                <label class="text-danger" *ngIf="validate['noClasifGoods'].hasError('required') && form.controls['noClasifGoods'].touched"><small>Ingrese un número de clasif bienes valido!</small></label>
+            </div>
+
+            <div class="form-group row">
+                <input type="text" nbInput fullWidth maxlength="30" formControlName="type" matInput placeholder="Tipo"
+                [status]="form.controls['type']?.errors?.required  && form.controls['type'].touched ? 'danger' : ''">
+
+                <label class="text-danger" *ngIf="validate['type'].hasError('required') && form.controls['type'].touched"><small>Ingrese un tipo valido!</small></label>
+            </div>
+
+            <div class="form-group row">
+                <input type="text" nbInput fullWidth maxlength="100" formControlName="typeDesc" matInput placeholder="Tipo de descripción"
+                [status]="form.controls['typeDesc']?.errors?.required  && form.controls['typeDesc'].touched ? 'danger' : ''">
+
+                <label class="text-danger" *ngIf="validate['typeDesc'].hasError('required') && form.controls['typeDesc'].touched"><small>Ingrese un tipo de descripción valido!</small></label>
+            </div>
+
+            <div class="form-group row">
+                <input type="text" nbInput maxlength="30" fullWidth formControlName="chapter" matInput placeholder="Capítulo"
+                [status]="form.controls['chapter']?.errors?.required  && form.controls['chapter'].touched ? 'danger' : ''">
+
+                <label class="text-danger" *ngIf="validate['chapter'].hasError('required') && form.controls['chapter'].touched"><small>Ingrese un capítulo valido!</small></label>
+            </div>
+
+            <div class="form-group row">
+                <input type="text" nbInput maxlength="2" fullWidth formControlName="eon" matInput placeholder="eon"
+                [status]="form.controls['eon']?.errors?.required  && form.controls['eon'].touched ? 'danger' : ''">
+
+                <label class="text-danger" *ngIf="validate['eon'].hasError('required') && form.controls['eon'].touched"><small>Ingrese un eon valido!</small></label>
+            </div>
+            <div class="form-group row">
+                <input type="text" nbInput maxlength="300" fullWidth formControlName="chapterDesc" matInput placeholder="Descripción del capítulo"
+                [status]="form.controls['chapterDesc']?.errors?.required  && form.controls['chapterDesc'].touched ? 'danger' : ''">
+
+                <label class="text-danger" *ngIf="validate['chapterDesc'].hasError('required') && form.controls['chapterDesc'].touched"><small>Ingrese un tiempo máximo de plazo valido!</small></label>
+            </div>
+
+            <div class="form-group row">
+                <input type="text" nbInput fullWidth maxlength="30" formControlName="perishable" matInput placeholder="Pedecedero"
+                [status]="form.controls['perishable']?.errors?.required  && form.controls['perishable'].touched ? 'danger' : ''">
+
+                <label class="text-danger" *ngIf="validate['perishable'].hasError('required') && form.controls['perishable'].touched"><small>Ingrese un pedecedero valido!</small></label>
+            </div>
+
+            <div class="form-group row">
+                <input type="text" nbInput fullWidth maxlength="10" formControlName="unitMeasurement1" matInput placeholder="Unidad de medida 1"
+                [status]="form.controls['unitMeasurement1']?.errors?.required  && form.controls['unitMeasurement1'].touched ? 'danger' : ''">
+
+                <label class="text-danger" *ngIf="validate['unitMeasurement1'].hasError('required') && form.controls['unitMeasurement1'].touched"><small>Ingrese una unidad de medida valida!</small></label>
+            </div>
+
+            <div class="form-group row">
+                <input type="text" nbInput fullWidth maxlength="10" formControlName="unitMeasurement2" matInput placeholder="Unidad de medida 1"
+                [status]="form.controls['unitMeasurement2']?.errors?.required  && form.controls['unitMeasurement2'].touched ? 'danger' : ''">
+
+                <label class="text-danger" *ngIf="validate['unitMeasurement2'].hasError('required') && form.controls['unitMeasurement2'].touched"><small>Ingrese una unidad de medida valida!</small></label>
+            </div>
+
+            <div class="form-group row">
+                <input type="text" nbInput fullWidth maxlength="10" formControlName="unitMeasurement3" matInput placeholder="Unidad de medida 1"
+                [status]="form.controls['unitMeasurement3']?.errors?.required  && form.controls['unitMeasurement3'].touched ? 'danger' : ''">
+
+                <label class="text-danger" *ngIf="validate['unitMeasurement3'].hasError('required') && form.controls['unitMeasurement3'].touched"><small>Ingrese una unidad de medida valida!</small></label>
+            </div>
+
+            <div class="form-group row">
+                <input type="text" nbInput fullWidth maxlength="100" formControlName="transferable" matInput placeholder="Unidad de medida 1"
+                [status]="form.controls['transferable']?.errors?.required  && form.controls['transferable'].touched ? 'danger' : ''">
+
+                <label class="text-danger" *ngIf="validate['transferable'].hasError('required') && form.controls['transferable'].touched"><small>Ingrese un transferible valido!</small></label>
+            </div>
+       
+            <div class="form-group row">
+                <div class="offset-sm-3 col-sm-9">
+                    <button type="submit" nbButton status="primary" [disabled]="!form.valid" (click)="register()">{{actionBtn}}</button>
+                </div>
+            </div>
+        </form>
+    </nb-card-body>
+</nb-card>

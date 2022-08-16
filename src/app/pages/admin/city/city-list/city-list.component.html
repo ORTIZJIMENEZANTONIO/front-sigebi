@@ -13,7 +13,7 @@
 
     <nb-card-body>
         <div [formGroup]="searchForm">
-            <label class="search-label" for="search">Search:</label>
+            <label class="search-label" for="search">Búsqueda:</label>
             <input nbInput formControlName="text" class="search-input">
         </div>
         <ng2-smart-table [settings]="settings" [source]="rows" (delete)="onDeleteConfirm($event)"

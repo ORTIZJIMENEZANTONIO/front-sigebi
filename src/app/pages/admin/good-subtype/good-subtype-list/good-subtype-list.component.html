@@ -2,7 +2,7 @@
     <nb-card-header>
 
         <span class="title">
-            Lista  Subtipo bien
+            Lista Subtipo bien
         </span>
 
         <div class="add-select">
@@ -14,8 +14,8 @@
     <nb-card-body>
         <div [formGroup]="searchForm">
             <label class="search-label" for="search">Buscar: </label>
-            <input nbInput formControlName="text" class="search-input" placeholder="Buscar subtipo bien">
-        </div>
+            <input nbInput formControlName="text" class="search-input"
+        ></div>
         <ng2-smart-table [settings]="settings" [source]="rows" (delete)="onDeleteConfirm($event)"
             (edit)="editRow($event)">
         </ng2-smart-table>

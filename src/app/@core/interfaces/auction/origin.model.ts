@@ -1,5 +1,4 @@
 export interface OriginInterface {
-
   id: number | null;
   idTransferer: number;
   keyTransferer: string;

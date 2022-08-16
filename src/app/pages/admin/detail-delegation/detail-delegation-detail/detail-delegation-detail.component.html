@@ -2,63 +2,63 @@
     <nb-card-body>
         <form [formGroup]="formDetailDelegation">
             <div class="form-group row">
-                <input nbInput fullWidth formControlName="nombre" matInput placeholder="nombre">
-                <label class="text-danger" *ngIf="validateDetailDelegation['nombre'].hasError('pattern')"><small>Ingrese un nombre válido!</small></label>
+                <input nbInput fullWidth formControlName="name" matInput placeholder="Nombre">
+                <label class="text-danger" *ngIf="validateDetailDelegation['name'].hasError('pattern')"><small>Ingrese un nombre válido!</small></label>
             </div>
 
 
             <div class="form-group row">
-                <input formControlName="detalle_delegacion" matInput placeholder="Nro delegacion"  [nbAutocomplete]="auto"  nbInput>
+                <input formControlName="detailDelegation" matInput placeholder="Nro delegacion"  [nbAutocomplete]="auto"  nbInput>
             
 
                 <nb-autocomplete #auto [activeFirst]="true" (selectedChange)="onSelectionChangeDelegation($event)">
 
                     <nb-option *ngFor="let option of filteredOptions$ | async" [value]="option">
 
-                        {{ option.descripcion }}
+                        {{ option.description }}
                     </nb-option>
                 
                     </nb-autocomplete>
-                <label class="text-danger" *ngIf="validateDetailDelegation['no_delegacion'].hasError('min')"><small>Seleccione una delegacion!</small></label>
+                <label class="text-danger" *ngIf="validateDetailDelegation['numDelegation'].hasError('min')"><small>Seleccione una delegacion!</small></label>
 
                
             </div>
 
             
             <div class="form-group row">
-                <input nbInput fullWidth formControlName="ubicacion" matInput placeholder="ubicacion">
-                <label class="text-danger" *ngIf="validateDetailDelegation['ubicacion'].hasError('required')"><small>Campo ubicación requerido!</small></label>
+                <input nbInput fullWidth formControlName="location" matInput placeholder="ubicacion">
+                <label class="text-danger" *ngIf="validateDetailDelegation['location'].hasError('required')"><small>Campo ubicación requerido!</small></label>
             </div>
 
             <div class="form-group row">
-                <input nbInput fullWidth formControlName="direccion" matInput placeholder="direccion">
-                <label class="text-danger" *ngIf="validateDetailDelegation['direccion'].hasError('required')"><small>Campo dirección requerido!</small></label>
+                <input nbInput fullWidth formControlName="address" matInput placeholder="direccion">
+                <label class="text-danger" *ngIf="validateDetailDelegation['address'].hasError('required')"><small>Campo dirección requerido!</small></label>
             </div>
             <div class="form-group row">
-                <input nbInput fullWidth formControlName="puesto" matInput placeholder="puesto">
-                <label class="text-danger" *ngIf="validateDetailDelegation['puesto'].hasError('required')"><small>Campo puesto requerido!</small></label>
+                <input nbInput fullWidth formControlName="position" matInput placeholder="puesto">
+                <label class="text-danger" *ngIf="validateDetailDelegation['position'].hasError('required')"><small>Campo puesto requerido!</small></label>
             </div>
             <div class="form-group row">
                 <input nbInput fullWidth formControlName="area" matInput placeholder="area">
                 <label class="text-danger" *ngIf="validateDetailDelegation['area'].hasError('required')"><small>Campo area requerido!</small></label>
             </div>
             <div class="form-group row">
-                <input type="email" nbInput fullWidth formControlName="correo" matInput placeholder="correo">
-                <label class="text-danger" *ngIf="validateDetailDelegation['correo'].hasError('email')"><small>Campo correo requerido!</small></label>
+                <input type="email" nbInput fullWidth formControlName="mail" matInput placeholder="correo">
+                <label class="text-danger" *ngIf="validateDetailDelegation['mail'].hasError('email')"><small>Campo correo requerido!</small></label>
             </div>
 
 
             <div class="form-group row">
-                <input type="number" nbInput fullWidth formControlName="tel1" matInput placeholder="Telefono 1">
-                <label class="text-danger" *ngIf="validateDetailDelegation['tel1'].hasError('required')"><small>Ingrese un teléfono de contacto!</small></label>
+                <input type="number" nbInput fullWidth formControlName="numP1" matInput placeholder="Telefono 1">
+                <label class="text-danger" *ngIf="validateDetailDelegation['numP1'].hasError('required')"><small>Ingrese un teléfono de contacto!</small></label>
             </div>
             <div class="form-group row">
-                <input type="number" nbInput fullWidth formControlName="tel2" matInput placeholder="Telefono 2">
-                <label class="text-danger" *ngIf="validateDetailDelegation['tel2'].hasError('required')"><small>Ingrese un teléfono de contacto!</small></label>
+                <input type="number" nbInput fullWidth formControlName="numP2" matInput placeholder="Telefono 2">
+                <label class="text-danger" *ngIf="validateDetailDelegation['numP2'].hasError('required')"><small>Ingrese un teléfono de contacto!</small></label>
             </div>
             <div class="form-group row">
-                <input type="number" nbInput fullWidth formControlName="tel3" matInput placeholder="Telefono 3">
-                <label class="text-danger" *ngIf="validateDetailDelegation['tel3'].hasError('required')"><small>Ingrese un teléfono de contacto!</small></label>
+                <input type="number" nbInput fullWidth formControlName="numP3" matInput placeholder="Telefono 3">
+                <label class="text-danger" *ngIf="validateDetailDelegation['numP3'].hasError('required')"><small>Ingrese un teléfono de contacto!</small></label>
             </div>
 
             <div class="form-group row">

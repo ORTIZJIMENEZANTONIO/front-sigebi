@@ -36,15 +36,15 @@ export class SubdelegationDetailComponent extends BasePage {
 
     this.formSubdelegation = this.fb.group({
       id: [''],
-      descripcion: [null, Validators.required],
-      etapa_edo: ['', Validators.required],
-      detalle_delegacion:[''],
-      no_delegacion: [null, [Validators.required]],
-      no_consecutivo_diario: [null, [Validators.required]],
-      no_registro: [null, [Validators.min(1)]],
-      fec_consecutivo_diario:[new Date()]
+      description: [null, Validators.required],
+      phaseEdo: ['', Validators.required],
+      detailDelegation:[''],
+      numDelegation: [null, [Validators.min(1)]],
+      numDailyCon: [null, [Validators.required]],
+      numRegister: [null, [Validators.min(1)]],
+      dateDailyCon:[new Date()]
     });
-    this.formSubdelegation.controls['detalle_delegacion'].valueChanges.subscribe((value: string) => {
+    this.formSubdelegation.controls['detailDelegation'].valueChanges.subscribe((value: string) => {
       if (value) {
         this.delegationService.search(value).subscribe(data => {
           this.filteredOptions$.next(data);
@@ -53,8 +53,6 @@ export class SubdelegationDetailComponent extends BasePage {
     })
   }
   actionBtn: string = "Guardar";
-
-
 
 
   get validateSubdelegation() {
@@ -72,8 +70,8 @@ export class SubdelegationDetailComponent extends BasePage {
 
   onSelectionChangeDelegation(event){
     if(event.id){
-      this.formSubdelegation.controls['no_delegacion'].setValue(event.id);
-      this.formSubdelegation.controls['detalle_delegacion'].setValue(event.descripcion);
+      this.formSubdelegation.controls['numDelegation'].setValue(event.id);
+      this.formSubdelegation.controls['detailDelegation'].setValue(event.descripcion);
     }
   }
 

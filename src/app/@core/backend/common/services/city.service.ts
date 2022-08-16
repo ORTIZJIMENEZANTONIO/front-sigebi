@@ -33,4 +33,5 @@ export class CityService {
     delete(id:number){
         return this.api.delete(id, this.url);
     }
+ 
 }
