@@ -86,49 +86,49 @@ export class SatsaeClassificationListComponent extends BasePage{
         //editable: false,
         // width: '25px'
       },
-      partida_desc: {
+      certificateDesc: {
         title: 'Partida Desc',
         type: 'string',
       },
-      no_clasif_bien: {
+      noClasifGoods: {
         title: 'Clasificacion Bien',
         type: 'string',
       },
-      tipo: {
+      type: {
         title: 'Tipo',
         type: 'string'
       },
-      tipo_desc: {
+      typeDesc: {
         title: 'Descripcion tipo',
         type: 'string',
       },
-      capitulo: {
+      chapter: {
         title: 'Capitulo',
         type: 'string',
       },
-      capitulo_desc: {
+      chapterDesc: {
         title: 'Descripcion capitulo',
         type: 'string',
       },
-      perecedero: {
+      perishable: {
         title: 'perecedero',
         type: 'number',
       },
-      unidad_medida1: {
+      unitMeasurement1: {
         title: 'unidad_medida1',
         type: 'string',
       }
       ,
-      unidad_medida2: {
+      unitMeasurement2: {
         title: 'unidad_medida2',
         type: 'string',
       }
       ,
-      unidad_medida3: {
+      unitMeasurement3: {
         title: 'unidad_medida3',
         type: 'string',
       },
-      transferible: {
+      transferable: {
         title: 'transferible',
         type: 'string',
       }
@@ -189,14 +189,14 @@ export class SatsaeClassificationListComponent extends BasePage{
       maximize: false,
       fullScreen: false,
     };
-    this.windowService.open(SatsaeClassificationDetailComponent, { title: `Editar ciudad`, context: { SatSaeClassification: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
+    this.windowService.open(SatsaeClassificationDetailComponent, { title: `Editar clasificación sae`, context: { SatSaeClassification: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
       this.readSatSaeClassification();
     });
   
   }
 
   openWindow() {
-    this.windowService.open(SatsaeClassificationDetailComponent, { title: `Nueva ciudad` }).onClose.subscribe(() => {
+    this.windowService.open(SatsaeClassificationDetailComponent, { title: `Nueva clasificación sae` }).onClose.subscribe(() => {
       this.readSatSaeClassification();
     });
     

@@ -86,39 +86,39 @@ export class GoodTypeListComponent extends BasePage {
         //editable: false,
         // width: '25px'
       },
-      descripcion: {
+      description: {
         title: 'Descripcion',
         type: 'string',
       },
-      tiempo_max_aseguramiento: {
+      maxInsTime: {
         title: 'tiempo_max_aseguramiento',
         type: 'string',
       },
-      tiempo_max_fraccion: {
+      maxFracTime: {
         title: 'tiempo_max_fraccion',
         type: 'number'
       },
-      tiempo_max_prorroga: {
+      maxExteTime: {
         title: 'tiempo_max_prorroga',
         type: 'number'
       },
-      tiempo_max_declaracion: {
+      maxStateTime: {
         title: 'tiempo_max_declaracion',
         type: 'number',
       },
-      tiempo_max_plazo1: {
+      maxLimitTime1: {
         title: 'tiempo_max_plazo1',
         type: 'number',
       },
-      tiempo_max_plazo2: {
+      maxLimitTime2: {
         title: 'tiempo_max_plazo2',
         type: 'number',
       },
-      tiempo_max_plazo3: {
+      maxLimitTime3: {
         title: 'tiempo_max_plazo3',
         type: 'number',
       },
-      no_registro: {
+      numRegister: {
         title: 'no_registro ',
         type: 'number',
       },
@@ -178,14 +178,14 @@ export class GoodTypeListComponent extends BasePage {
       maximize: false,
       fullScreen: false,
     };
-    this.windowService.open(GoodTypeDetailComponent, { title: `Editar ciudad`, context: { GoodType: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
+    this.windowService.open(GoodTypeDetailComponent, { title: `Editar tipo bien`, context: { GoodType: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
       this.readGoodType();
     });
   
   }
 
   openWindow() {
-    this.windowService.open(GoodTypeDetailComponent, { title: `Nueva ciudad` }).onClose.subscribe(() => {
+    this.windowService.open(GoodTypeDetailComponent, { title: `Nuevo tipo bien` }).onClose.subscribe(() => {
       this.readGoodType();
     });
     

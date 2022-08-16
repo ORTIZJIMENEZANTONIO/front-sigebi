@@ -246,15 +246,14 @@ const routes: Routes = [
           .then(m => m.GoodSssubtypeModule)
       },
       {
-        path: 'good-situacion', loadChildren: () => import('./good-situacion/good-situacion.module')
-          .then(m => m.GoodSituacionModule)
+        path: 'good-situation', loadChildren: () => import('./good-situation/good-situation.module')
+          .then(m => m.GoodSituationModule)
       },
       {
         path: 'institution-classification', loadChildren: () => import('./institution-classification/institution-classification.module')
           .then(m => m.InstitutionClassificationModule)
       },
       {
-        
         path: 'issuing-institution', loadChildren: () => import('./issuing-institution/issuing-institution.module')
           .then(m => m.IssuingInstitutionModule)
       },
@@ -289,7 +288,22 @@ const routes: Routes = [
       {
         path: 'origin', loadChildren: () => import('./origin/origin.module')
           .then(m => m.OriginModule)
+      },
+      {
+        path: 'regulatory', loadChildren: () => import('./regulatory/regulatory.module')
+          .then(m => m.RegulatoryModule)
+      },
+      {
+        path: 'batch',
+        loadChildren: () => import('./batch/batch.module')
+          .then(m => m.BatchModule),
+      },
+      {
+        path: 'status-code',
+        loadChildren: () => import('./status-code/status-code.module')
+          .then(m => m.StatusCodeModule),
       }
+
 
       //{ path: 'home', component: CategoriesComponent },//ok
     ]

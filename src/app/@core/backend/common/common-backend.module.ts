@@ -71,7 +71,7 @@ import { GoodTypeService } from './services/good-type.service';
 import { GoodSubtypeService } from './services/good-subtype.service';
 import { GoodSsubtypeService } from './services/good-ssubtype.service';
 import { GoodSssubtypeService } from './services/good-sssubtype.service';
-import { GoodSituacionService } from './services/good-situacion.service';
+import { GoodSituationService } from './services/good-situation.service';
 import { InstitutionClassificationService } from './services/institution-classification.service';
 import { IssuingInstitutionService } from './services/issuing-institution.service';
 import { MinpubService } from './services/minpub.service';
@@ -82,7 +82,9 @@ import { StorehouseService } from './services/storehouse.service';
 import { SafeService } from './services/safe.service';
 import { QuestionService } from './services/question.service';
 import { OriginService } from './services/origin.service';
-
+import { RegulatoryService } from './services/regulatory.service';
+import { BatchService } from './services/batch.service';
+import { StatusCodeService } from './services/status-code.service';
 
 const API = [
   CategoryApi,
@@ -162,14 +164,17 @@ const SERVICES = [
   GoodSubtypeService,
   GoodSsubtypeService,
   GoodSssubtypeService,
-  GoodSituacionService,
+  GoodSituationService,
   InstitutionClassificationService,
   IssuingInstitutionService,
   MinpubService,
   PersonService,
   RevisionReasonService,
   SatSaeClassificationService,
-  StorehouseService
+  StorehouseService,
+  RegulatoryService,
+  StatusCodeService,
+  BatchService
 ];
 
 @NgModule({

@@ -78,7 +78,8 @@ const routes: Routes = [{
       path: 'programming',
       loadChildren: () => import('./programming/programming.module')
         .then(m => m.ProgrammingModule),
-    },    
+    },
+    
     {
       path: '',
       redirectTo: 'dashboard',

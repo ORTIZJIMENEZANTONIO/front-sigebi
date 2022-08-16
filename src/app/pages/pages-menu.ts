@@ -521,13 +521,20 @@ export const MENU_ITEMS: NbMenuItem[] = [
       {
         title:'Clasificacion SatSae',
         link:'/pages/admin/satsae-classification'
+      },
+      
+     {
+        title:'Regulatory',
+        link:'/pages/admin/regulatory'
+      },
+      {
+        title:'Lotes',
+        link:'/pages/admin/batch'
+      },
+      {
+        title:'Código estado',
+        link:'/pages/admin/status-code'
       }
-      
-      
-      
-      
-      
-      
 
     ],
   },

@@ -1,36 +1,36 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { BasePage } from '../../../../@core/shared/base-page';
+import { FormControl, FormGroup } from '@angular/forms';
 import { MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { NbToastrService, NbWindowService, NbWindowControlButtonsConfig } from '@nebular/theme';
 import Swal from 'sweetalert2';
-import { CourtService } from '../../../../@core/backend/common/services/court.service';
-import { Court } from '../../../../@core/interfaces/auction/court.model';
-import { BasePage } from '../../../../@core/shared/base-page';
-import { CourtDetailComponent } from '../../court/court-detail/court-detail.component';
+import { LockerService } from '../../../../@core/backend/common/services/locker.service';
+import { Locker } from '../../../../@core/interfaces/auction/locker.model';
+import { LockerDetailComponent } from '../locker-detail/locker-detail.component';
+
 
 @Component({
   selector: 'ngx-locker-list',
   templateUrl: './locker-list.component.html',
   styleUrls: ['./locker-list.component.scss']
 })
+
 export class LockerListComponent extends BasePage {
-
-
-  constructor(private service: CourtService, public toastrService: NbToastrService,
+  constructor(private service: LockerService, public toastrService: NbToastrService,
     private windowService: NbWindowService, private paginator: MatPaginatorIntl) {
     super(toastrService);
     this.paginator.itemsPerPageLabel = "Registros por página";
     this.searchForm = new FormGroup({
       text: new FormControl()
     });
-    this.searchForm.controls['text'].valueChanges.subscribe((value: string) => {
-      if (value.length > 0) {
-        this.service.search(value).subscribe((rows: Court[]) => {
+    this.searchForm.controls['text'].valueChanges.subscribe((value:string)=>{
+      if(value.length > 0){
+        this.service.search(value).subscribe((rows:Locker[])=>{
           this.length = rows.length;
           this.rows = rows;
         })
-      } else {
-        this.readCourt()
+      }else{
+        this.readLocker()
       }
     })
   }
@@ -38,13 +38,15 @@ export class LockerListComponent extends BasePage {
   length = 100;
   pageSize = 10;
   pageSizeOptions: number[] = [5, 10, 25, 100];
-  searchForm: FormGroup
+
+  searchForm:FormGroup;
+ 
 
   // MatPaginator Output
   pageEvent: PageEvent = {
-    pageIndex: 0,
-    pageSize: 10,
-    length: 0
+    pageIndex:0,
+    pageSize:10,
+    length:0
   };
 
   setPageSizeOptions(setPageSizeOptionsInput: string) {
@@ -61,9 +63,9 @@ export class LockerListComponent extends BasePage {
       edit: true,
       delete: true,
     },
-    pager: {
-      display: false,
-    },
+    pager : {
+      display : false,
+    },      
     hideSubHeader: true,//oculta subheaader de filtro
     mode: 'external', // ventana externa
     add: {
@@ -80,60 +82,55 @@ export class LockerListComponent extends BasePage {
       deleteButtonContent: '<i class="nb-trash"></i>',
       confirmDelete: true,
     },
+ 
     columns: {
       id: {
-        title: 'Registro',
+        title: 'Id',
+        type: 'number',
+        //editable: false,
+        width: '25px'
+      },
+      numBattery: {
+        title: 'ID Batería',
         type: 'number',
       },
-      no_bateria: {
-        title: 'Nro Bateria',
+      numShelf: {
+        title: 'ID Casillero',
+        type: 'number',
+      },
+      description: {
+        title: 'Descripción',
         type: 'string',
       },
-      no_estante: {
-        title: 'Nro estante',
+      status: {
+        title: 'Estado',
         type: 'string',
-      },
-      no_casillero: {
-        title: 'Nro casillero',
-        type: 'number'
-      },
-      descripcion: {
-        title: 'Descripcion',
-        type:'string'
-      },
-      estatus:{
-        title: 'Estatus',
-        type:'string'
-      },
-      no_registro:{
-        title: 'Nro registro',
-        type:'string'
       }
     },
-    noDataMessage: "No se encontrarón registros"
+    noDataMessage: "No se encontraron registros"
   };
 
   ngOnInit(): void {
-    this.readCourt();
+    this.readLocker();
   }
 
-  readCourt = (() => {
+  readLocker = (() => {
     this.rows = null;
-    this.service.list(this.pageEvent.pageIndex, this.pageEvent.pageSize).subscribe((legends: any) => {
-      this.rows = legends.data;
-      this.length = legends.count;
-    },
-      error => this.onLoadFailed('danger', 'Error conexión', error.message)
+    this.service.list(this.pageEvent.pageIndex, this.pageEvent.pageSize).subscribe((locker:any) =>  {
+      this.rows = locker.data;
+      this.length = locker.count;
+    }, 
+    error => this.onLoadFailed('danger','Error conexión',error.message)
     );
 
   });
 
-  changesPage(event) {
-    if (event.pageSize != this.pageSize) {
+  changesPage (event){
+    if(event.pageSize!=this.pageSize){
 
     }
     this.pageEvent = event;
-    this.readCourt()
+    this.readLocker()
   }
 
   onDeleteConfirm(event): void {
@@ -144,19 +141,19 @@ export class LockerListComponent extends BasePage {
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      cancelButtonText: 'Cancelar',
+      cancelButtonText:'Cancelar',
       confirmButtonText: 'Si'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.service.delete(event.data.id).subscribe(data => {
-          this.readCourt();
-        }, err => {
+        this.service.delete(event.data.id).subscribe(data =>{
+          this.readLocker();
+        },err =>{
           console.log(err);
         })
-
+       
       }
     })
-
+    
   }
 
   editRow(event) {
@@ -165,16 +162,18 @@ export class LockerListComponent extends BasePage {
       maximize: false,
       fullScreen: false,
     };
-    this.windowService.open(CourtDetailComponent, { title: `Editar juzgado`, context: { notary: event.data }, buttons: buttonsConfig }).onClose.subscribe(() => {
-      this.readCourt();
+    this.windowService.open(LockerDetailComponent, { title: `Editar casillero`, context: { locker: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
+      this.readLocker();
     });
-
+  
   }
 
   openWindow() {
-    this.windowService.open(CourtDetailComponent, { title: `Nuevo juzgado` }).onClose.subscribe(() => {
-      this.readCourt();
+    this.windowService.open(LockerDetailComponent, { title: `Nuevo casillero` }).onClose.subscribe(() => {
+      this.readLocker();
     });
-
+    
   }
+
+
 }

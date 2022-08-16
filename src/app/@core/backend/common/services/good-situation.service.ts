@@ -3,10 +3,10 @@ import { Observable, of } from 'rxjs';
 
 import { DataSource } from 'ng2-smart-table/lib/lib/data-source/data-source';
 import { CatalogApi } from '../api/catalog-api';
-import { GoodSituacion } from '../../../interfaces/auction/good-situacion.model';
+import { GoodSituation } from '../../../interfaces/auction/good-situation.model';
 
 @Injectable()
-export class GoodSituacionService {
+export class GoodSituationService {
     constructor(private api: CatalogApi) { }
     url = 'good-situacion'
     get gridDataSource(): DataSource {
@@ -22,11 +22,11 @@ export class GoodSituacionService {
         return this.api.search(text,this.url);
     }
 
-    register(legendData: GoodSituacion): Observable<GoodSituacion>{
+    register(legendData: GoodSituation): Observable<GoodSituation>{
         return this.api.register(legendData, this.url);
     }
 
-    update(id:number, legendData: GoodSituacion): Observable<GoodSituacion>{
+    update(id:number, legendData: GoodSituation): Observable<GoodSituation>{
         return this.api.update(id, legendData,this.url);
     }
 

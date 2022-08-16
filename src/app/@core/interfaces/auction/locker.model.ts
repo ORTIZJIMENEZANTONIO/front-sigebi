@@ -2,16 +2,16 @@ export interface Locker{
           
     id?: string;
 
-    no_bateria:number;
+    numBattery: number;
 
-    no_estante : number;
+    numShelf: number;
 
-    no_casillero: number;
+    numLocker: number;
 
-    estatus : string
+    status : string
 
-    descripcion : string
+    description : string
 
-    no_registro: number; 
+    numRegister: number; 
 
 }

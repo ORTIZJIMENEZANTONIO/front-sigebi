@@ -1,1 +1,31 @@
-<p>batch-list works!</p>
+<nb-card class="cat-card">
+    <nb-card-header>
+
+        <span class="title">
+            Lista lotes
+        </span>
+
+        <div class="add-select">
+            <button (click)="openWindow()"nbButton status="primary">Nueva</button>
+        </div>
+
+    </nb-card-header>
+
+    <nb-card-body>
+        <div [formGroup]="searchForm">
+            <label class="search-label" for="search">Buscar:</label>
+            <input nbInput formControlName="text" class="search-input">
+        </div>
+        <ng2-smart-table [settings]="settings" [source]="rows" (delete)="onDeleteConfirm($event)"
+            (edit)="editRow($event)">
+        </ng2-smart-table>
+        <mat-paginator [length]="length"
+               [pageSize]="pageSize"
+               [pageSizeOptions]="pageSizeOptions"
+               (page)="changesPage($event)"
+               [pageIndex] ="pageEvent.pageIndex"
+               >
+        </mat-paginator>
+
+    </nb-card-body>
+</nb-card>

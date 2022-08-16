@@ -3,19 +3,19 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { NbToastrService, NbWindowService, NbWindowControlButtonsConfig } from '@nebular/theme';
 import Swal from 'sweetalert2';
-import { GoodSituacionService } from '../../../../@core/backend/common/services/good-situacion.service';
-import { GoodSituacion } from '../../../../@core/interfaces/auction/good-situacion.model';
+import { GoodSituationService } from '../../../../@core/backend/common/services/good-situation.service';
+import { GoodSituation } from '../../../../@core/interfaces/auction/good-situation.model';
 import { BasePage } from '../../../../@core/shared/base-page';
-import { GoodSituacionDetailComponent } from '../good-situacion-detail/good-situacion-detail.component';
+import { GoodSituationDetailComponent } from '../good-situation-detail/good-situation-detail.component';
 
 @Component({
-  selector: 'ngx-good-situacion-list',
-  templateUrl: './good-situacion-list.component.html',
-  styleUrls: ['./good-situacion-list.component.scss']
+  selector: 'ngx-good-situation-list',
+  templateUrl: './good-situation-list.component.html',
+  styleUrls: ['./good-situation-list.component.scss']
 })
-export class GoodSituacionListComponent extends BasePage {
+export class GoodSituationListComponent extends BasePage {
 
-  constructor(private service: GoodSituacionService, public toastrService: NbToastrService,
+  constructor(private service: GoodSituationService, public toastrService: NbToastrService,
     private windowService: NbWindowService, private paginator: MatPaginatorIntl) {
     super(toastrService);
     this.paginator.itemsPerPageLabel = "Registros por página";
@@ -24,12 +24,12 @@ export class GoodSituacionListComponent extends BasePage {
     });
     this.searchForm.controls['text'].valueChanges.subscribe((value:string)=>{
       if(value.length > 0){
-        this.service.search(value).subscribe((rows:GoodSituacion[])=>{
+        this.service.search(value).subscribe((rows:GoodSituation[])=>{
           this.length = rows.length;
           this.rows = rows;
         })
       }else{
-        this.readGoodSituacion()
+        this.readGoodSituation()
       }
     })
   }
@@ -86,12 +86,12 @@ export class GoodSituacionListComponent extends BasePage {
         //editable: false,
         // width: '25px'
       },
-      desc_situacion: {
+      descSituation: {
         title: 'Descripcion',
         type: 'string',
       },
-      estatus: {
-        title: 'estatus',
+      status: {
+        title: 'Estado',
         type: 'string',
       },
     
@@ -100,10 +100,10 @@ export class GoodSituacionListComponent extends BasePage {
   };
 
   ngOnInit(): void {
-    this.readGoodSituacion();
+    this.readGoodSituation();
   }
 
-  readGoodSituacion = (() => {
+  readGoodSituation = (() => {
     this.rows = null;
     this.service.list(this.pageEvent.pageIndex, this.pageEvent.pageSize).subscribe((legends:any) =>  {
       this.rows = legends.data;
@@ -119,7 +119,7 @@ export class GoodSituacionListComponent extends BasePage {
 
     }
     this.pageEvent = event;
-    this.readGoodSituacion()
+    this.readGoodSituation()
   }
 
   onDeleteConfirm(event): void {
@@ -135,7 +135,7 @@ export class GoodSituacionListComponent extends BasePage {
     }).then((result) => {
       if (result.isConfirmed) {
         this.service.delete(event.data.id).subscribe(data =>{
-          this.readGoodSituacion();
+          this.readGoodSituation();
         },err =>{
           console.log(err);
         })
@@ -151,15 +151,15 @@ export class GoodSituacionListComponent extends BasePage {
       maximize: false,
       fullScreen: false,
     };
-    this.windowService.open(GoodSituacionDetailComponent, { title: `Editar ciudad`, context: { GoodSituacion: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
-      this.readGoodSituacion();
+    this.windowService.open(GoodSituationDetailComponent, { title: `Editar situación bien`, context: { GoodSituation: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
+      this.readGoodSituation();
     });
   
   }
 
   openWindow() {
-    this.windowService.open(GoodSituacionDetailComponent, { title: `Nueva ciudad` }).onClose.subscribe(() => {
-      this.readGoodSituacion();
+    this.windowService.open(GoodSituationDetailComponent, { title: `Nueva situación bien` }).onClose.subscribe(() => {
+      this.readGoodSituation();
     });
     
   }
