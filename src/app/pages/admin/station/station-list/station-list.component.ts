@@ -5,6 +5,8 @@ import { BasePage } from '../../../../@core/shared/base-page';
 
 import { StationService } from '../../../../@core/backend/common/services/station.service';
 import { StationDetailComponent } from '../station-detail/station-detail.component';
+import { FormGroup, FormControl } from '@angular/forms';
+import { StationInterface } from '../../../../@core/interfaces/auction/station.model';
 
 @Component({
   selector: 'ngx-station-list',
@@ -21,11 +23,27 @@ export class StationListComponent extends BasePage {
   ) {
     super(toastrService);
     this.paginator.itemsPerPageLabel = "Registros por página";
+
+    this.searchForm = new FormGroup({
+      text: new FormControl()
+    });
+    this.searchForm.controls['text'].valueChanges.subscribe((value:string)=>{
+      if(value.length > 0){
+        this.service.search(value).subscribe((rows:StationInterface[])=>{
+          this.length = rows.length;
+          this.stations = rows;
+        })
+      }else{
+        this.readData(0,10);
+      }
+    })
   }
 
   length = 100;
   pageSize = 10;
   pageSizeOptions: number[] = [5, 10, 25, 100];
+
+  searchForm:FormGroup;
 
   // MatPaginator Output
   pageEvent: PageEvent = {
