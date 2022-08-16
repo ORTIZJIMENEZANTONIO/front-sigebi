@@ -85,40 +85,40 @@ export class GoodSssubtypeListComponent extends BasePage {
         //editable: false,
         // width: '25px'
       },
-      descripcion: {
+      description: {
         title: 'Descripcion',
         type: 'string',
       },
-      no_tipo: {
+      numType: {
         title: 'Tipo bien',
         type: 'string',
         valuePrepareFunction:(value) =>{
           return value.descripcion
         }
       },
-      no_subtipo: {
+      numSubType: {
         title: 'Subtipo bien',
         type: 'string',
         valuePrepareFunction:(value) =>{
           return value.descripcion
         }
       },
-      no_ssubtipo: {
+      numSsubType: {
         title: 'Ssubtipo bien',
         type: 'string',
         valuePrepareFunction:(value) =>{
           return value.descripcion
         }
       },
-      no_clasif_bien: {
+      numClasifGoods: {
         title: 'N Clasif Bien',
         type: 'number',
       },
-      no_clasificacion_alterna:{
+      numClasifAlterna: {
         title: 'N Clasif alterna',
         type: 'number',
       },
-      no_registro: {
+      numRegister: {
         title: 'N registro',
         type: 'number',
       }
@@ -178,14 +178,14 @@ export class GoodSssubtypeListComponent extends BasePage {
       maximize: false,
       fullScreen: false,
     };
-    this.windowService.open(GoodSssubtypeDetailComponent, { title: `Editar ciudad`, context: { GoodSssubtype: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
+    this.windowService.open(GoodSssubtypeDetailComponent, { title: `Editar sssubtipo bien`, context: { GoodSssubtype: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
       this.readGoodSssubtype();
     });
   
   }
 
   openWindow() {
-    this.windowService.open(GoodSssubtypeDetailComponent, { title: `Nueva ciudad` }).onClose.subscribe(() => {
+    this.windowService.open(GoodSssubtypeDetailComponent, { title: `Nueva sssubtipo bien` }).onClose.subscribe(() => {
       this.readGoodSssubtype();
     });
     

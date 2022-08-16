@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
 import { MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { NbToastrService, NbWindowControlButtonsConfig, NbWindowService } from '@nebular/theme';
 import { MailboxService } from '../../../../@core/backend/common/services/mailbox.service';
+import { MailboxInterface } from '../../../../@core/interfaces/auction/mailbox.model';
 import { BasePage } from '../../../../@core/shared/base-page';
 import { MailboxStatusDetailComponent } from '../mailbox-status-detail/mailbox-status-detail.component';
 
@@ -16,11 +18,28 @@ export class MailboxStatusListComponent extends BasePage {
     private windowService: NbWindowService, private paginator: MatPaginatorIntl) {
     super(toastrService);
     this.paginator.itemsPerPageLabel = "Registros por página";
+
+    this.searchForm = new FormGroup({
+      text: new FormControl()
+    });
+    this.searchForm.controls['text'].valueChanges.subscribe((value:string)=>{
+      if(value.length > 0){
+        this.service.search(value).subscribe((rows:MailboxInterface[])=>{
+          this.length = rows.length;
+          this.list = rows;
+        })
+      }else{
+        this.read(0,10);
+      }
+    })
+
   }
 
   length = 100;
   pageSize = 10;
   pageSizeOptions: number[] = [5, 10, 25, 100];
+
+  searchForm:FormGroup;
 
   // MatPaginator Output
   pageEvent: PageEvent = {

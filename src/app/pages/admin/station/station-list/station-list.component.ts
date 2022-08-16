@@ -5,6 +5,8 @@ import { BasePage } from '../../../../@core/shared/base-page';
 
 import { StationService } from '../../../../@core/backend/common/services/station.service';
 import { StationDetailComponent } from '../station-detail/station-detail.component';
+import { FormGroup, FormControl } from '@angular/forms';
+import { Station } from '../../../../@core/interfaces/auction/station.model';
 
 @Component({
   selector: 'ngx-station-list',
@@ -21,11 +23,27 @@ export class StationListComponent extends BasePage {
   ) {
     super(toastrService);
     this.paginator.itemsPerPageLabel = "Registros por página";
+
+    this.searchForm = new FormGroup({
+      text: new FormControl()
+    });
+    this.searchForm.controls['text'].valueChanges.subscribe((value:string)=>{
+      if(value.length > 0){
+        this.service.search(value).subscribe((rows:Station[])=>{
+          this.length = rows.length;
+          this.stations = rows;
+        })
+      }else{
+        this.readData(0,10);
+      }
+    })
   }
 
   length = 100;
   pageSize = 10;
   pageSizeOptions: number[] = [5, 10, 25, 100];
+
+  searchForm:FormGroup;
 
   // MatPaginator Output
   pageEvent: PageEvent = {
@@ -66,44 +84,14 @@ export class StationListComponent extends BasePage {
         title: 'Registro',
         type: 'number'
       },
-      idTransferor: {
-        title: 'Transferente',
+      numStation: {
+        title: 'Estación',
         type: 'number'
       },
-      idEntity: {
-        title: 'Entidad',
+      descStation: {
+        title: 'Descripción',
         type: 'string',
-      },
-      stationName: {
-        title: 'Nombre',
-        type: 'string'
-      },
-      creationUser: {
-        title: 'Creado por',
-        type: 'string',
-      },
-      editionUser: {
-        title: 'Modificado por',
-        type: 'string',
-      },
-      version: {
-        title: 'Version',
-        type: 'number',
-      },
-      keyState: {
-        title: 'Estado',
-        type: 'number',
-      },
-      status: {
-        title: 'Estatus',
-        type: 'html',
-        valuePrepareFunction:(value) =>{
-          if(value == 0){
-            return '<strong><span class="badge badge-pill badge-success">Activo</span></strong>';
-          }else{
-            return '<strong><span class="badge badge-pill badge-warning">Inactivo</span></strong>';
-          }
-        }
+
       },
     },
     noDataMessage: "No se encontrarón registros"
@@ -152,14 +140,14 @@ export class StationListComponent extends BasePage {
       maximize: false,
       fullScreen: false,
     };
-    const modalRef = this.windowService.open(StationDetailComponent, { title: `Editar emisora`, context: { station: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
+    const modalRef = this.windowService.open(StationDetailComponent, { title: `Editar estación`, context: { station: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
       this.readData(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
   
   }
 
   openWindow() {
-    const modalRef = this.windowService.open(StationDetailComponent, { title: `Nuevo emisora` }).onClose.subscribe(() => {
+    const modalRef = this.windowService.open(StationDetailComponent, { title: `Nueva estación` }).onClose.subscribe(() => {
       this.readData(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
     

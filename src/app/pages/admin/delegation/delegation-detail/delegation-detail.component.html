@@ -2,42 +2,42 @@
     <nb-card-body>
         <form [formGroup]="formDelegation">
             <div class="form-group row">
-                <input nbInput fullWidth formControlName="descripcion" matInput placeholder="descripcion"
-                [status]="formDelegation.controls['descripcion']?.errors?.required  && formDelegation.controls['descripcion'].touched ? 'danger' : ''">
+                <input nbInput fullWidth formControlName="description" matInput placeholder="Descripción"
+                [status]="formDelegation.controls['description']?.errors?.required  && formDelegation.controls['description'].touched ? 'danger' : ''">
                 <label class="text-danger"
-                 *ngIf="validateDelegation['descripcion'].hasError('required') && formDelegation.controls['descripcion'].touched"><small>Ingrese una descripcion!</small></label>
+                 *ngIf="validateDelegation['description'].hasError('required') && formDelegation.controls['description'].touched"><small>Ingrese una description!</small></label>
             </div>
 
             <div class="form-group row">
-                <input type="number" nbInput fullWidth formControlName="cve_zona_vigilancia" matInput placeholder="CVE Zona de vigilancia"
-                [status]="formDelegation.controls['cve_zona_vigilancia']?.errors?.required  && formDelegation.controls['cve_zona_vigilancia'].touched ? 'danger' : ''">
-                <label class="text-danger" *ngIf="validateDelegation['cve_zona_vigilancia'].hasError('required') && formDelegation.controls['cve_zona_vigilancia'].touched"><small>Campo cve de zona de vigilancia requerido!</small></label>
+                <input type="number" nbInput fullWidth formControlName="zoneVigilanceCVE" matInput placeholder="CVE Zona de vigilancia"
+                [status]="formDelegation.controls['zoneVigilanceCVE']?.errors?.required  && formDelegation.controls['zoneVigilanceCVE'].touched ? 'danger' : ''">
+                <label class="text-danger" *ngIf="validateDelegation['zoneVigilanceCVE'].hasError('required') && formDelegation.controls['zoneVigilanceCVE'].touched"><small>Campo cve de zona de vigilancia requerido!</small></label>
             </div>
 
             <div class="form-group row">
-                <input type="number" nbInput fullWidth formControlName="etapa_edo" matInput placeholder="Etapa Edo"
-                [status]="formDelegation.controls['etapa_edo']?.errors?.required  && formDelegation.controls['etapa_edo'].touched ? 'danger' : ''">
-                <label class="text-danger" *ngIf="validateDelegation['etapa_edo'].hasError('required')  && formDelegation.controls['etapa_edo'].touched "><small>Ingrese la etapa edo!</small></label>
+                <input type="number" nbInput fullWidth formControlName="phaseEdo" matInput placeholder="Etapa Edo"
+                [status]="formDelegation.controls['phaseEdo']?.errors?.required  && formDelegation.controls['phaseEdo'].touched ? 'danger' : ''">
+                <label class="text-danger" *ngIf="validateDelegation['phaseEdo'].hasError('required')  && formDelegation.controls['phaseEdo'].touched "><small>Ingrese la etapa edo!</small></label>
             </div>
 
             <div class="form-group row">
-                <input type="number" nbInput fullWidth formControlName="dif_hora" matInput placeholder="Diferencia de horas"
-                [status]="formDelegation.controls['dif_hora']?.errors?.required  && formDelegation.controls['dif_hora'].touched ? 'danger' : ''">
-                <label class="text-danger" *ngIf="validateDelegation['dif_hora'].hasError('required')  && formDelegation.controls['dif_hora'].touched "><small>Ingrese la diferencia de horas!</small></label>
+                <input type="number" nbInput fullWidth formControlName="diffHours" matInput placeholder="Diferencia de horas"
+                [status]="formDelegation.controls['diffHours']?.errors?.required  && formDelegation.controls['diffHours'].touched ? 'danger' : ''">
+                <label class="text-danger" *ngIf="validateDelegation['diffHours'].hasError('required')  && formDelegation.controls['diffHours'].touched "><small>Ingrese la diferencia de horas!</small></label>
             </div>
 
             <div class="form-group row">
-                <input type="number" nbInput fullWidth formControlName="cve_zona_contrato" matInput placeholder="CVE zona de contrato"
-                [status]="formDelegation.controls['cve_zona_contrato']?.errors?.required  && formDelegation.controls['cve_zona_contrato'].touched ? 'danger' : ''">
+                <input type="number" nbInput fullWidth formControlName="zoneContractCVE" matInput placeholder="CVE zona de contrato"
+                [status]="formDelegation.controls['zoneContractCVE']?.errors?.required  && formDelegation.controls['zoneContractCVE'].touched ? 'danger' : ''">
 
-                <label class="text-danger" *ngIf="validateDelegation['cve_zona_contrato'].hasError('required') && formDelegation.controls['cve_zona_contrato'].touched"><small>Ingrese cve de zona de contrato!</small></label>
+                <label class="text-danger" *ngIf="validateDelegation['zoneContractCVE'].hasError('required') && formDelegation.controls['zoneContractCVE'].touched"><small>Ingrese cve de zona de contrato!</small></label>
             </div>
 
             <div class="form-group row">
-                <input type="number" nbInput fullWidth formControlName="no_registro" matInput placeholder="Número de registro"
-                [status]="formDelegation.controls['no_registro']?.errors?.required  && formDelegation.controls['no_registro'].touched ? 'danger' : ''">
+                <input type="number" nbInput fullWidth formControlName="numRegister" matInput placeholder="Número de registro"
+                [status]="formDelegation.controls['numRegister']?.errors?.required  && formDelegation.controls['numRegister'].touched ? 'danger' : ''">
 
-                <label class="text-danger" *ngIf="validateDelegation['no_registro'].hasError('required') && formDelegation.controls['no_registro'].touched"><small>Ingrese el numero de registro!</small></label>
+                <label class="text-danger" *ngIf="validateDelegation['numRegister'].hasError('required') && formDelegation.controls['numRegister'].touched"><small>Ingrese el numero de registro!</small></label>
             </div>
        
             <div class="form-group row">

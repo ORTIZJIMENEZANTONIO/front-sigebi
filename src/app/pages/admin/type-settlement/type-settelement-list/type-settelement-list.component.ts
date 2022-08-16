@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
 import { MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { NbToastrService, NbWindowControlButtonsConfig, NbWindowService } from '@nebular/theme';
 import { TypeSettelementService } from '../../../../@core/backend/common/services/typeSettelement.service';
+import { SettlementInterface } from '../../../../@core/interfaces/auction/settlement.model';
 import { BasePage } from '../../../../@core/shared/base-page';
 import { TypeSettelementDetailComponent } from '../type-settelement-detail/type-settelement-detail.component';
 
@@ -16,11 +18,26 @@ export class TypeSettelementListComponent extends BasePage {
     private windowService: NbWindowService, private paginator: MatPaginatorIntl) {
     super(toastrService);
     this.paginator.itemsPerPageLabel = "Registros por página";
+    this.searchForm = new FormGroup({
+      text: new FormControl()
+    });
+    this.searchForm.controls['text'].valueChanges.subscribe((value:string)=>{
+      if(value.length > 0){
+        this.service.search(value).subscribe((rows:SettlementInterface[])=>{
+          this.length = rows.length;
+          this.list = rows;
+        })
+      }else{
+        this.read(0,10);
+      }
+    })
   }
 
   length = 100;
   pageSize = 10;
   pageSizeOptions: number[] = [5, 10, 25, 100];
+
+  searchForm:FormGroup;
 
   // MatPaginator Output
   pageEvent: PageEvent = {

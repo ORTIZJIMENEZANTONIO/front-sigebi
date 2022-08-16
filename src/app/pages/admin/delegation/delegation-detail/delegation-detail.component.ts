@@ -28,17 +28,17 @@ export class DelegationDetailComponent extends BasePage {
 
     formDelegation = this.fb.group({
       id:[''],
-      descripcion: ['', Validators.required],
+      description: ['', Validators.required],
 
-      cve_zona_contrato:['',Validators.required],
+      zoneContractCVE:['',Validators.required],
 
-      dif_hora : ['',[Validators.required]],
+      diffHours : ['',[Validators.required]],
   
-      etapa_edo: ['',[Validators.required]],
+      phaseEdo: ['',[Validators.required]],
   
-      cve_zona_vigilancia : ['',[Validators.required]],
+      zoneVigilanceCVE : ['',[Validators.required]],
   
-      no_registro: ['',Validators.required],
+      numRegister: ['',Validators.required],
 
     });
   
