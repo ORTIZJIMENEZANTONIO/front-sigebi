@@ -6,3 +6,44 @@
     }
   }
 }
+
+.nb-theme-default nb-menu .menu-item {
+  border-bottom: 1px solid #0C231E !important;
+  color: white !important;
+}
+.nb-theme-default nb-menu .menu-item .menu-icon {
+  color: white;
+}
+
+.menu-item{
+  color: white !important;
+}
+
+// menu .menu-item .menu-item:first-child {
+//   border-top: 1px solid #0C231E !important;
+// }
+// menu .menu-item .menu-item:first-child {
+//   border-top: 1px solid #0C231E !important;
+// }
+
+.menu-item a {
+  color: white !important;
+}
+
+.nb-theme-default [_nghost-ibe-c300] .header-container[_ngcontent-ibe-c300] .sidebar-toggle[_ngcontent-ibe-c300] {
+  color: white !important;
+}
+
+.nb-theme-default nb-layout-header nav a {
+  color: white !important;
+}
+.nb-theme-default nb-user .user-name {
+  color:white !important;
+}
+
+.nb-theme-default nb-context-menu nb-menu{
+  background-color:  #0C231E !important;
+}
+.nb-theme-default nb-menu .menu-item .menu-item:first-child{
+  border-top: 1px solid #0C231E !important;
+}
