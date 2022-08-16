@@ -1,15 +1,15 @@
 export interface Delegation{
     id?: number;
     
-    descripcion : string
+    description : string
     
-    no_registro:number;
+    numRegister:number;
 
-    cve_zona_contrato:number;
+    zoneContractCVE:number;
 
-    dif_hora : number;
+    diffHours : number;
 
-    etapa_edo : number;
+    phaseEdo : number;
 
-    cve_zona_vigilancia : number;
+    zoneVigilanceCVE : number;
 }

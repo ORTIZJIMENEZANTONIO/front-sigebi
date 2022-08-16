@@ -2,56 +2,56 @@
     <nb-card-body>
         <form [formGroup]="formCity">
             <div class="form-group row">
-                <input nbInput fullWidth formControlName="nombre" matInput placeholder="nombre">
-                <label class="text-danger" *ngIf="validateCity['nombre'].hasError('pattern')"><small>Ingrese un nombre válido!</small></label>
+                <input nbInput fullWidth formControlName="name" matInput placeholder="nombre">
+                <label class="text-danger" *ngIf="validateCity['name'].hasError('pattern')"><small>Ingrese un nombre válido!</small></label>
             </div>
 
             <div class="form-group row">
-                <input nbInput fullWidth formControlName="cve_entfed" matInput placeholder="cve_entfed">
-                <label class="text-danger" *ngIf="validateCity['cve_entfed'].hasError('required')"><small>Campo cve requerido!</small></label>
+                <input nbInput fullWidth formControlName="cityCode" matInput placeholder="cve_entfed">
+                <label class="text-danger" *ngIf="validateCity['cityCode'].hasError('required')"><small>Campo cve requerido!</small></label>
             </div>
 
             <div class="form-group row">
-                <input formControlName="detalle_delegacion" type="text" id="no_delegacion" matInput placeholder="Nro delegacion"  [nbAutocomplete]="auto"  nbInput>
+                <input formControlName="detailDelegation" type="text" id="noDelegation" matInput placeholder="Nro delegacion"  [nbAutocomplete]="auto"  nbInput>
             
 
                 <nb-autocomplete #auto [activeFirst]="true" (selectedChange)="onSelectionChangeDelegation($event)">
 
                     <nb-option *ngFor="let option of filteredOptions$ | async" [value]="option">
 
-                        {{ option.descripcion }}
+                        {{ option.description }}
                     </nb-option>
                 
                     </nb-autocomplete>
-                <label class="text-danger" *ngIf="validateCity['no_delegacion'].hasError('min')"><small>Seleccione una delegacion!</small></label>
+                <label class="text-danger" *ngIf="validateCity['numDelegation'].hasError('min')"><small>Seleccione una delegacion!</small></label>
 
                
             </div>
 
             <div class="form-group row">
-                <input formControlName="detalle_subdelegacion" matInput placeholder="Nro subdelegacion"  [nbAutocomplete]="subdelegation"  nbInput>
+                <input formControlName="detailSubDelegation" matInput placeholder="Nro subdelegacion"  [nbAutocomplete]="subDelegation"  nbInput>
             
 
-                <nb-autocomplete #subdelegation [activeFirst]="true" (selectedChange)="onSelectionChangeSubdelegation($event)">
+                <nb-autocomplete #subDelegation [activeFirst]="true" (selectedChange)="onSelectionChangeSubdelegation($event)">
 
                     <nb-option *ngFor="let option of filteredsubdelegations$ | async" [value]="option">
-                        {{ option.descripcion }}
+                        {{ option.description }}
                     </nb-option>
                 
                     </nb-autocomplete>
-                <label class="text-danger" *ngIf="validateCity['no_subdelegacion'].hasError('min')"><small>seleccione una subdelegacion!</small></label>
+                <label class="text-danger" *ngIf="validateCity['numSubDelegation'].hasError('min')"><small>seleccione una subdelegacion!</small></label>
 
 
             </div>
 
             <div class="form-group row">
-                <input nbInput fullWidth formControlName="leyenda_oficio" matInput placeholder="Leyenda oficio">
-                <label class="text-danger" *ngIf="validateCity['leyenda_oficio'].hasError('required')"><small>Ingrese una leyenda oficio!</small></label>
+                <input nbInput fullWidth formControlName="legendOffice" matInput placeholder="Leyenda oficio">
+                <label class="text-danger" *ngIf="validateCity['legendOffice'].hasError('required')"><small>Ingrese una leyenda oficio!</small></label>
             </div>
 
             <div class="form-group row">
-                <input nbInput type="number" fullWidth formControlName="no_registro" matInput placeholder="Número de registro">
-                <label class="text-danger" *ngIf="validateCity['no_registro'].hasError('required')"><small>Ingrese el numero de registro!</small></label>
+                <input nbInput type="number" fullWidth formControlName="numRegister" matInput placeholder="Número de registro">
+                <label class="text-danger" *ngIf="validateCity['numRegister'].hasError('required')"><small>Ingrese el numero de registro!</small></label>
             </div>
        
             <div class="form-group row">

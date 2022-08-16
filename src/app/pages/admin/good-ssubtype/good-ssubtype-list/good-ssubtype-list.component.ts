@@ -85,18 +85,18 @@ export class GoodSsubtypeListComponent extends BasePage {
         //editable: false,
         // width: '25px'
       },
-      descripcion: {
+      description: {
         title: 'Descripcion',
         type: 'string',
       },
-      no_tipo: {
+      numType: {
         title: 'Tipo bien',
         type: 'string',
         valuePrepareFunction:(value) =>{
           return value.descripcion
         }
       },
-      no_subtipo: {
+      numSubType: {
         title: 'Subtipo bien',
         type: 'string',
         valuePrepareFunction:(value) =>{
@@ -104,7 +104,7 @@ export class GoodSsubtypeListComponent extends BasePage {
         }
       },
      
-      no_registro: {
+      numRegister: {
         title: 'N registro',
         type: 'number',
       }
@@ -164,14 +164,14 @@ export class GoodSsubtypeListComponent extends BasePage {
       maximize: false,
       fullScreen: false,
     };
-    this.windowService.open(GoodSsubtypeDetailComponent, { title: `Editar ciudad`, context: { GoodSsubtype: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
+    this.windowService.open(GoodSsubtypeDetailComponent, { title: `Editar subtipo bien`, context: { GoodSsubtype: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
       this.readGoodSsubtype();
     });
   
   }
 
   openWindow() {
-    this.windowService.open(GoodSsubtypeDetailComponent, { title: `Nueva ciudad` }).onClose.subscribe(() => {
+    this.windowService.open(GoodSsubtypeDetailComponent, { title: `Nuevo subtipo bien` }).onClose.subscribe(() => {
       this.readGoodSsubtype();
     });
     

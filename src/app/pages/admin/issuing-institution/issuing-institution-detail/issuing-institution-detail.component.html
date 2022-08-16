@@ -1,1 +1,111 @@
-<p>issuing-institution-detail works!</p>
+<nb-card>
+    <nb-card-body>
+        <form [formGroup]="form">
+            
+            <div class="form-group row">
+                <input type="text" nbInput fullWidth maxlength="100" formControlName="name" matInput placeholder="Nombre"
+                [status]="form.controls['name']?.errors?.required  && form.controls['name'].touched ? 'danger' : ''">
+
+                <label class="text-danger" *ngIf="validate['name'].hasError('required') && form.controls['name'].touched"><small>Ingrese un nombre valido!</small></label>
+            </div>
+
+            <div class="form-group row">
+                <input type="text" nbInput maxlength="100" fullWidth formControlName="description" matInput placeholder="Descripción"
+                [status]="form.controls['description']?.errors?.required  && form.controls['description'].touched ? 'danger' : ''">
+
+                <label class="text-danger" *ngIf="validate['description'].hasError('required') && form.controls['description'].touched"><small>Ingrese una descripción valida!</small></label>
+            </div>
+
+            <div class="form-group row">
+                <input type="text" nbInput maxlength="100" fullWidth formControlName="manager" matInput placeholder="Responsable"
+                [status]="form.controls['manager']?.errors?.required  && form.controls['manager'].touched ? 'danger' : ''">
+
+                <label class="text-danger" *ngIf="validate['manager'].hasError('required') && form.controls['manager'].touched"><small>Ingrese un responsable valido!</small></label>
+            </div>
+
+            <div class="form-group row">
+                <input type="text" nbInput fullWidth maxlength="60" formControlName="street" matInput placeholder="Calle"
+                [status]="form.controls['street']?.errors?.required  && form.controls['street'].touched ? 'danger' : ''">
+
+                <label class="text-danger" *ngIf="validate['street'].hasError('required') && form.controls['street'].touched"><small>Ingrese una calle valida!</small></label>
+            </div>
+
+            <div class="form-group row">
+                <input type="text" nbInput fullWidth maxlength="10" formControlName="numInside" matInput placeholder="N interior"
+                [status]="form.controls['numInside']?.errors?.required  && form.controls['numInside'].touched ? 'danger' : ''">
+
+                <label class="text-danger" *ngIf="validate['numInside'].hasError('required') && form.controls['numInside'].touched"><small>Ingrese un interior valido!</small></label>
+            </div>
+
+            <div class="form-group row">
+                <input type="text" nbInput fullWidth maxlength="10" formControlName="numExterior" matInput placeholder="N exterior"
+                [status]="form.controls['numExterior']?.errors?.required  && form.controls['numExterior'].touched ? 'danger' : ''">
+
+                <label class="text-danger" *ngIf="validate['numExterior'].hasError('required') && form.controls['numExterior'].touched"><small>Ingrese un exterior valido!</small></label>
+            </div>
+
+            <div class="form-group row">
+                <input type="text" nbInput fullWidth maxlength="60" formControlName="cologne" matInput placeholder="Colonia"
+                [status]="form.controls['cologne']?.errors?.required  && form.controls['cologne'].touched ? 'danger' : ''">
+
+                <label class="text-danger" *ngIf="validate['cologne'].hasError('required') && form.controls['cologne'].touched"><small>Ingrese una colonia valida!</small></label>
+            </div>
+
+            <div class="form-group row">
+                <input type="text" nbInput fullWidth maxlength="60" formControlName="zipCode" matInput placeholder="Código postal"
+                [status]="form.controls['zipCode']?.errors?.required  && form.controls['zipCode'].touched ? 'danger' : ''">
+
+                <label class="text-danger" *ngIf="validate['zipCode'].hasError('required') && form.controls['zipCode'].touched"><small>Ingrese un código postal valido!</small></label>
+            </div>
+
+            <div class="form-group row">
+                <input type="text" nbInput fullWidth maxlength="60" formControlName="delegMunic" matInput placeholder="Delegación municipio"
+                [status]="form.controls['delegMunic']?.errors?.required  && form.controls['delegMunic'].touched ? 'danger' : ''">
+
+                <label class="text-danger" *ngIf="validate['delegMunic'].hasError('required') && form.controls['delegMunic'].touched"><small>Ingrese una delegación municipal valida!</small></label>
+            </div>
+
+            <div class="form-group row">
+                <input type="text" nbInput fullWidth maxlength="60" formControlName="phone" matInput placeholder="Teléfono"
+                [status]="form.controls['phone']?.errors?.required  && form.controls['phone'].touched ? 'danger' : ''">
+
+                <label class="text-danger" *ngIf="validate['phone'].hasError('required') && form.controls['phone'].touched"><small>Ingrese un teléfono valido!</small></label>
+            </div>
+
+            <div class="form-group row">
+                <input type="text" nbInput fullWidth maxlength="60" formControlName="numClasif" matInput placeholder="Número clasificación"
+                [status]="form.controls['numClasif']?.errors?.required  && form.controls['numClasif'].touched ? 'danger' : ''">
+
+                <label class="text-danger" *ngIf="validate['numClasif'].hasError('required') && form.controls['numClasif'].touched"><small>Ingrese un número clasificación valido!</small></label>
+            </div>
+
+            <div class="form-group row">
+                <input type="text" nbInput fullWidth maxlength="60" formControlName="numCity" matInput placeholder="Número ciudad"
+                [status]="form.controls['numCity']?.errors?.required  && form.controls['numCity'].touched ? 'danger' : ''">
+
+                <label class="text-danger" *ngIf="validate['numCity'].hasError('required') && form.controls['numCity'].touched"><small>Ingrese una ciudad valida!</small></label>
+            </div>
+
+            <div class="form-group row">
+                <input type="text" nbInput fullWidth maxlength="60" formControlName="numRegister" matInput placeholder="Registro"
+                [status]="form.controls['numRegister']?.errors?.required  && form.controls['numRegister'].touched ? 'danger' : ''">
+
+                <label class="text-danger" *ngIf="validate['numRegister'].hasError('required') && form.controls['numRegister'].touched"><small>Ingrese un registro valido!</small></label>
+            </div>
+
+            <div class="form-group row">
+                <input type="text" nbInput fullWidth maxlength="60" formControlName="numTransference" matInput placeholder="Transferible"
+                [status]="form.controls['numTransference']?.errors?.required  && form.controls['numTransference'].touched ? 'danger' : ''">
+
+                <label class="text-danger" *ngIf="validate['numTransference'].hasError('required') && form.controls['numTransference'].touched"><small>Ingrese un transferible valido!</small></label>
+            </div>
+        
+       
+            <div class="form-group row">
+                <div class="offset-sm-3 col-sm-9">
+                    <button type="submit" nbButton status="primary" [disabled]="!form.valid" (click)="register()">{{actionBtn}}</button>
+                </div>
+            </div>
+        </form>
+    </nb-card-body>
+</nb-card>

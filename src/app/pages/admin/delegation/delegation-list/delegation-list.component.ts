@@ -88,27 +88,27 @@ export class DelegationListComponent extends BasePage {
         //editable: false,
         width: '25px'
       },
-      descripcion: {
+      description: {
         title: 'Desc',
         type: 'string',
       },
-      no_registro: {
+      numRegister: {
         title: 'No Registro',
         type: 'number',
       },
-      cve_zona_contrato: {
+      zoneContractCVE: {
         title: 'Z. Contrato',
         type: 'number',
       },
-      dif_hora: {
+      diffHours: {
         title: 'Dif Hora',
         type: 'number',
       },
-      etapa_edo: {
+      phaseEdo: {
         title: 'Etapa EDO',
         type: 'number',
       },
-      cve_zona_vigilancia:{
+      zoneVigilanceCVE:{
         title:'Zona Vigilancia',
         type:'number'
       }
@@ -122,9 +122,9 @@ export class DelegationListComponent extends BasePage {
 
   readDelegation = (() => {
     this.rows = null;
-    this.service.list(this.pageEvent.pageIndex, this.pageEvent.pageSize).subscribe((legends:any) =>  {
-      this.rows = legends.data;
-      this.length = legends.count;
+    this.service.list(this.pageEvent.pageIndex, this.pageEvent.pageSize).subscribe((delegation:any) =>  {
+      this.rows = delegation.data;
+      this.length = delegation.count;
     }, 
     error => this.onLoadFailed('danger','Error conexión',error.message)
     );

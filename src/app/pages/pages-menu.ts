@@ -360,7 +360,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
       {
         title: 'Preguntas',
         link: '/pages/admin/question',
-      },   
+      },       
       {
         title: 'Tipo Siniestro',
         link: '/pages/admin/sinister',
@@ -519,6 +519,18 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link:'/pages/admin/satsae-classification'
       },
       {
+        title:'Regulatory',
+        link:'/pages/admin/regulatory'
+      },
+      {
+        title:'Lotes',
+        link:'/pages/admin/batch'
+      },
+      {
+        title:'Código estado',
+        link:'/pages/admin/status-code'
+      },
+      {
         title:'Guarda Valores',
         link:'/pages/admin/save-values'
       },
@@ -573,8 +585,8 @@ export const MENU_ITEMS: NbMenuItem[] = [
       {
         title:'R Asunt Dic',
         link:'/pages/admin/r-asunt-dic'
-      },
-   
+      },    
+
     ],
   },
   {
@@ -599,27 +611,27 @@ export const MENU_ITEMS: NbMenuItem[] = [
 
     ],
   },
-  {
-    title: 'Auth',
-    icon: 'lock-outline',
-    children: [
-      {
-        title: 'Login',
-        link: '/auth/login',
-      },
-      {
-        title: 'Register',
-        link: '/auth/register',
-      },
-      {
-        title: 'Request Password',
-        link: '/auth/request-password',
-      },
-      {
-        title: 'Reset Password',
-        link: '/auth/reset-password',
-      },
-    ],
-  },
+  // {
+  //   title: 'Auth',
+  //   icon: 'lock-outline',
+  //   children: [
+  //     {
+  //       title: 'Login',
+  //       link: '/auth/login',
+  //     },
+  //     {
+  //       title: 'Register',
+  //       link: '/auth/register',
+  //     },
+  //     {
+  //       title: 'Request Password',
+  //       link: '/auth/request-password',
+  //     },
+  //     {
+  //       title: 'Reset Password',
+  //       link: '/auth/reset-password',
+  //     },
+  //   ],
+  // },
 
 ];

@@ -71,7 +71,7 @@ import { GoodTypeService } from './services/good-type.service';
 import { GoodSubtypeService } from './services/good-subtype.service';
 import { GoodSsubtypeService } from './services/good-ssubtype.service';
 import { GoodSssubtypeService } from './services/good-sssubtype.service';
-import { GoodSituacionService } from './services/good-situacion.service';
+import { GoodSituationService } from './services/good-situation.service';
 import { InstitutionClassificationService } from './services/institution-classification.service';
 import { IssuingInstitutionService } from './services/issuing-institution.service';
 import { MinpubService } from './services/minpub.service';
@@ -82,6 +82,9 @@ import { StorehouseService } from './services/storehouse.service';
 import { SafeService } from './services/safe.service';
 import { QuestionService } from './services/question.service';
 import { OriginService } from './services/origin.service';
+import { RegulatoryService } from './services/regulatory.service';
+import { BatchService } from './services/batch.service';
+import { StatusCodeService } from './services/status-code.service';
 import { SaveValuesService } from './services/save-values.service';
 import { IdentifierService } from './services/identifier.service';
 import { IndiciadosService } from './services/indiciados.service';
@@ -94,7 +97,6 @@ import { SatClassificationService } from './services/sat-classification.service'
 import { IndicatorReportService } from './services/IndicatorReport.service';
 import { OriginCisiService } from './services/origin-cisi.service';
 import { ScoreService } from './services/score.service';
-
 
 const API = [
   CategoryApi,
@@ -174,7 +176,7 @@ const SERVICES = [
   GoodSubtypeService,
   GoodSsubtypeService,
   GoodSssubtypeService,
-  GoodSituacionService,
+  GoodSituationService,
   InstitutionClassificationService,
   IssuingInstitutionService,
   MinpubService,
@@ -182,6 +184,9 @@ const SERVICES = [
   RevisionReasonService,
   SatSaeClassificationService,
   StorehouseService,
+  RegulatoryService,
+  StatusCodeService,
+  BatchService,
   SaveValuesService,
   IdentifierService,
   IndiciadosService,
@@ -193,6 +198,7 @@ const SERVICES = [
   SatClassificationService,
   IndicatorReportService,
   OriginCisiService,
+  ScoreService,
   ScoreService
 ];
 
