@@ -162,7 +162,7 @@ export class PenaltyListComponent extends BasePage implements OnInit {
       maximize: false,
       fullScreen: false,
     };
-    this.windowService.open(PenaltyDetailComponent, { title: `Editar penalizacion`, context: { Person: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
+    this.windowService.open(PenaltyDetailComponent, { title: `Editar penalizacion`, context: { penalty: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
       this.readPenalty();
     });
   

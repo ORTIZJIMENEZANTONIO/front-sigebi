@@ -6,6 +6,7 @@ import { NbWindowRef, NB_WINDOW_CONTEXT, NbWindowService } from '@nebular/theme'
 import { BehaviorSubject } from 'rxjs';
 import { SatClassificationService } from '../../../../@core/backend/common/services/sat-classification.service';
 import { SatSubclasificationService } from '../../../../@core/backend/common/services/sat-subclasification.service';
+import { SatSubclasification } from '../../../../@core/interfaces/auction/sat-subclasification.model';
 import { BaseApp } from '../../../../@core/shared/base-app';
 
 @Component({
@@ -15,7 +16,7 @@ import { BaseApp } from '../../../../@core/shared/base-app';
 })
 export class SatSubclasificationDetailComponent extends BaseApp implements OnInit {
   Form: FormGroup;
-  data: any = {};
+  data: SatSubclasification;
   filteredOptions$: BehaviorSubject<any[]> = new BehaviorSubject([]);
   constructor(private fb: FormBuilder, protected cd: ChangeDetectorRef, protected router: Router,
     private service: SatSubclasificationService, private subService: SatClassificationService,
@@ -45,7 +46,7 @@ export class SatSubclasificationDetailComponent extends BaseApp implements OnIni
     return this.form.controls;
   }
   ngOnInit(): void {
-    if (this.data.id != null) {
+    if (this.data) {
       this.actionBtn = "Actualizar";
       this.form.patchValue(this.data);
     }

@@ -87,9 +87,9 @@ import { GoodsSubtypeService } from './services/goods-subtype.service';
 import { LegalSupportService } from './services/legal-support.service';
 import { SatSubclasificationService } from './services/sat-subclasification.service';
 import { SatClassificationService } from './services/sat-classification.service';
-import { IndicatorReportService } from './services/IndicatorReport.service';
 import { OriginCisiService } from './services/origin-cisi.service';
 import { ScoreService } from './services/score.service';
+import { IndicatorReportService } from './services/IndicatorReport.service';
 
 
 const API = [
@@ -182,7 +182,7 @@ const SERVICES = [
   GoodsSubtypeService,
   LegalSupportService,
   SatSubclasificationService,
-  SatClassificationService
+  SatClassificationService,
   IndicatorReportService,
   OriginCisiService,
   ScoreService,

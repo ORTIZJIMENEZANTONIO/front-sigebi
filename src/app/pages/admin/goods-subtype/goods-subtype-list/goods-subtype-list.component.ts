@@ -156,7 +156,7 @@ export class GoodsSubtypeListComponent extends BasePage implements OnInit {
       maximize: false,
       fullScreen: false,
     };
-    this.windowService.open(GoodsSubtypeDetailComponent, { title: `Editar subtipo bien`, context: { GoodSubtype: event.data }, buttons: buttonsConfig }).onClose.subscribe(() => {
+    this.windowService.open(GoodsSubtypeDetailComponent, { title: `Editar subtipo bien`, context: { data: event.data }, buttons: buttonsConfig }).onClose.subscribe(() => {
       this.readGoodSubtype();
     });
 

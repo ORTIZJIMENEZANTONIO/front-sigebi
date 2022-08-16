@@ -147,7 +147,7 @@ export class SatSubclasificationListComponent extends BasePage implements OnInit
       maximize: false,
       fullScreen: false,
     };
-    this.windowService.open(SatSubclasificationDetailComponent, { title: `Editar sat subclasificacion`, context: { GoodSubtype: event.data }, buttons: buttonsConfig }).onClose.subscribe(() => {
+    this.windowService.open(SatSubclasificationDetailComponent, { title: `Editar sat subclasificacion`, context: { data: event.data }, buttons: buttonsConfig }).onClose.subscribe(() => {
       this.readSatSubclasification();
     });
 

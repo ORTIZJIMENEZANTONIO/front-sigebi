@@ -538,7 +538,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
         title:'Sat Clasificacion',
         link:'/pages/admin/sat-clasification'
       },
-      }
+      {
         title:'Reporte Indicadores',
         link:'/pages/admin/indicator-report'
       },

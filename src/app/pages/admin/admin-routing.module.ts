@@ -310,7 +310,7 @@ const routes: Routes = [
         path: 'legal-support', loadChildren: () => import('./legal-support/legal-support.module')
           .then(m => m.LegalSupportModule)
       },
-      }
+      {
         path: 'origin-cisi', loadChildren: () => import('./origin-cisi/origin-cisi.module')
           .then(m => m.OriginCisiModule)
              

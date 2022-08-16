@@ -147,7 +147,7 @@ export class LegalSupportListComponent extends BasePage implements OnInit {
       maximize: false,
       fullScreen: false,
     };
-    this.windowService.open(LegalSupportDetailComponent, { title: `Editar sustento legal`, context: { GoodSubtype: event.data }, buttons: buttonsConfig }).onClose.subscribe(() => {
+    this.windowService.open(LegalSupportDetailComponent, { title: `Editar sustento legal`, context: { data: event.data }, buttons: buttonsConfig }).onClose.subscribe(() => {
       this.readLegalSupport();
     });
 

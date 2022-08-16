@@ -54,15 +54,14 @@ export class PenaltyDetailComponent extends BasePage implements OnInit {
   }
 
   register(): void {
-    const data = this.form.value;
+    const data = this.form.getRawValue();
 
     this.actionBtn == "Guardar" ? this.createRegister(data) : this.updateRegister(data);
   }
 
   createRegister(data): void {
-    data.usuario_creacion = "Rafael";
-    data.fecha_creacion = new Date();
-
+    data.userCreation = "Rafael";
+    data.creationDate = new Date();
     this.service.register(data).subscribe(() => {
       this.windowRef.close();
     },
@@ -72,9 +71,9 @@ export class PenaltyDetailComponent extends BasePage implements OnInit {
   }
 
   updateRegister(data): void {
-    data.usuario_modificacion = "Rafael";
-    data.fecha_modificacion = new Date();
-    this.service.update(this.penalty.id, data).subscribe(() => {
+    data.userModification = "Rafael";
+    data.modificationDate = new Date();
+    this.service.update(data.id, data).subscribe(() => {
       this.windowRef.close();
     },
       err => {
