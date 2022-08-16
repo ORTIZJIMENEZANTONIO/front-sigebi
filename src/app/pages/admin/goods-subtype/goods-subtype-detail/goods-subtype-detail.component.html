@@ -1,0 +1,40 @@
+<nb-card>
+    <nb-card-body>
+        <form [formGroup]="form">
+
+            <div class="form-group row">
+                <input nbInput fullWidth formControlName="nameGoodSubtype" matInput
+                    placeholder="Nombre Sub tipo bienes">
+                <label class="text-danger" *ngIf="validateGoodsSubtype['nameGoodSubtype'].hasError('pattern')"><small>No
+                        válido!</small></label>
+            </div>
+
+            <div class="form-group row">
+                <input nbInput fullWidth formControlName="numberPhotographs" matInput
+                    placeholder="Numero de fotografias">
+                <label class="text-danger" *ngIf="validateGoodsSubtype['numberPhotographs'].hasError('pattern')"><small>No
+                        válido!</small></label>
+            </div>
+
+            <div class="form-group row">
+                <input nbInput fullWidth formControlName="descFotographs" matInput
+                    placeholder="Descripcion fotografias">
+                <label class="text-danger" *ngIf="validateGoodsSubtype['descFotographs'].hasError('pattern')"><small>No
+                        válido!</small></label>
+            </div>
+
+            <div class="form-group row">
+                <input nbInput fullWidth formControlName="version" matInput placeholder="Version">
+                <label class="text-danger" *ngIf="validateGoodsSubtype['version'].hasError('pattern')"><small>No
+                        válido!</small></label>
+            </div>
+
+            <div class="form-group row">
+                <div class="offset-sm-3 col-sm-9">
+                    <button type="submit" nbButton status="primary" [disabled]="!form.valid"
+                        (click)="register()">{{actionBtn}}</button>
+                </div>
+            </div>
+        </form>
+    </nb-card-body>
+</nb-card>

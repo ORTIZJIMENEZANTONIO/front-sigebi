@@ -77,14 +77,11 @@ export class CityDetailComponent extends BasePage {
 
     if (this.city) {
       this.actionBtn = "Actualizar";
-      this.formCity.patchValue(this.city)
+      this.formCity.patchValue(this.city);
       this.formCity.controls['numDelegation'].setValue(this.city.numDelegation['id'])
       this.formCity.controls['detailDelegation'].setValue(this.city.numDelegation['description'])
       this.formCity.controls['numSubDelegation'].setValue(this.city.numSubDelegation['id'])
       this.formCity.controls['detailSubDelegation'].setValue(this.city.numSubDelegation['description'])
-      
-      console.log(this.city);
-      
     }
   }
 
@@ -100,18 +97,11 @@ export class CityDetailComponent extends BasePage {
       this.formCity.controls['numSubDelegation'].setValue(event.id);
       this.formCity.controls['detailSubDelegation'].setValue(event.description);
     }
-    
   }
 
-  
-
-
-  
   register(): void {
     const data = this.formCity.value;
     if (this.actionBtn == "Guardar") {
-
-      
       this.service.register(data).subscribe(data => {
         this.windowRef.close();
       }, err => {
@@ -119,7 +109,6 @@ export class CityDetailComponent extends BasePage {
       })
     } else {
       console.log(data);
-
       this.service.update(this.city.id, data).subscribe(data => {
         this.windowRef.close();
       }, err => {
