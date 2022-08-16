@@ -1,0 +1,36 @@
+.chart-card {
+    box-shadow: none;
+    margin-bottom: 0;
+    border-width: 0;
+  }
+  
+  .cat-card {
+    flex: 1 0 auto;
+  }  
+    .cat-card nb-card-header {
+    display: flex;
+    align-items: center;
+    padding-top: nb-theme(card-header-with-select-padding-top);
+    padding-bottom: nb-theme(card-header-with-select-padding-bottom);
+  
+    // prevents double border from chart yAxisSplitLine
+    margin-bottom: -1px;
+  }
+  .title {
+    margin-right: 1rem;
+  
+    > .caption {
+      display: block;
+    }
+  }
+  
+    .add-select {
+    margin-left: auto;
+  }
+  
+  .mat-select-panel{
+    background: red !important;
+  }
+  .listbox{
+    background: red !important;
+  }

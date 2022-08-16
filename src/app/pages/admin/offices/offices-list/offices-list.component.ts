@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
 import { MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { NbToastrService, NbWindowControlButtonsConfig, NbWindowService } from '@nebular/theme';
 import { OfficesService } from '../../../../@core/backend/common/services/offices.service';
+import { OfficesModel } from '../../../../@core/interfaces/auction/offices.model';
 import { BaseApp } from '../../../../@core/shared/base-app';
 import { BasePage } from '../../../../@core/shared/base-page';
 
@@ -18,11 +20,26 @@ export class OfficesListComponent extends BasePage {
     private windowService: NbWindowService, private paginator: MatPaginatorIntl) {
     super(toastrService);
     this.paginator.itemsPerPageLabel = "Registros por página";
+    this.searchForm = new FormGroup({
+      text: new FormControl()
+    });    
+    this.searchForm.controls['text'].valueChanges.subscribe((value:string)=>{
+      if(value.length > 0){
+        this.service.search(value).subscribe((rows:OfficesModel[])=>{
+          this.length = rows.length;
+          this.list = rows;
+        })
+      }else{
+        this.read(0,10);
+      }
+    })
   }
 
   length = 100;
   pageSize = 10;
   pageSizeOptions: number[] = [5, 10, 25, 100];
+
+  searchForm:FormGroup;
 
   // MatPaginator Output
   pageEvent: PageEvent = {
