@@ -15,7 +15,8 @@
               </button>
           </div>
           </div>
-          <button class="btn active btn-block" [disabled]="!formLogins.valid">Ingresar</button>
+          <button class="btn active btn-block" [disabled]="!formLogins.valid" [disabled]="loading">Ingresar</button>
+          <!-- <button (click)="onClick(1)" [loading]="loading[1]" cLoadingButton variant="ghost">Submit</button> -->
         </form>
       </mat-card>
   </div>

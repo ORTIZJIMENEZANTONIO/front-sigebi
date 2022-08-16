@@ -16,6 +16,7 @@ import Swal from 'sweetalert2';
 
 export class LoginComponent implements OnInit {
   hide = true;
+  loading = false;
   constructor(private router: Router, private snackBar: MatSnackBar, private formBuilder:FormBuilder, private service:LoginService) { }
   
   formLogins = this.formBuilder.group({
@@ -33,6 +34,7 @@ export class LoginComponent implements OnInit {
   }
 
   async login(){
+    this.loading = true;
     const datos = this.formLogins.value;
     const token = await this.service.getToken(datos.username, datos.password);
     let infoUser : any = [];
@@ -46,6 +48,7 @@ export class LoginComponent implements OnInit {
         showConfirmButton: false,
         showCloseButton: true,
       });
+      this.loading = false;
     }else{
       infoUser = await this.service.getInfo(token.access_token);
       localStorage.setItem("token",token.access_token);
@@ -64,6 +67,7 @@ export class LoginComponent implements OnInit {
             showConfirmButton: false,
             showCloseButton: true,
           });
+          this.loading = false;
         } else if(data[0].type==2 || data[0].type==0){
           localStorage.setItem("type",data[0].type);
           Swal.fire({
@@ -75,6 +79,7 @@ export class LoginComponent implements OnInit {
             showCloseButton: true,
           });
           this.router.navigate(['../pages']);
+          this.loading = false;
         }
       }else{
         Swal.fire({
@@ -85,6 +90,7 @@ export class LoginComponent implements OnInit {
           showConfirmButton: false,
           showCloseButton: true,
         });
+        this.loading = true;
       }
     }
   }
