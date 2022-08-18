@@ -18,9 +18,9 @@ export class ScoreListComponent extends BasePage {
 
 
   constructor(
-    private service: ScoreService, 
-    public  toastrService: NbToastrService,
-    private windowService: NbWindowService, 
+    private service: ScoreService,
+    public toastrService: NbToastrService,
+    private windowService: NbWindowService,
     private paginator: MatPaginatorIntl
   ) {
     super(toastrService);
@@ -28,20 +28,20 @@ export class ScoreListComponent extends BasePage {
     this.searchForm = new FormGroup({
       text: new FormControl()
     });
-    this.searchForm.controls['text'].valueChanges.subscribe((value:string)=>{
-      if(value.length > 0){
-        this.service.search(value).subscribe((rows:ScoreInterface[])=>{
+    this.searchForm.controls['text'].valueChanges.subscribe((value: string) => {
+      if (value.length > 0) {
+        this.service.search(value).subscribe((rows: ScoreInterface[]) => {
           this.length = rows.length;
           this.rows = rows;
         })
-      }else{
+      } else {
         this.readData()
       }
     })
   }
 
   rows: any;
-  searchForm:FormGroup;
+  searchForm: FormGroup;
 
   length = 100;
   pageSize = 10;
@@ -49,9 +49,9 @@ export class ScoreListComponent extends BasePage {
 
   // MatPaginator Output
   pageEvent: PageEvent = {
-    pageIndex:0,
-    pageSize:10,
-    length:100
+    pageIndex: 0,
+    pageSize: 10,
+    length: 100
   };
 
   settings = {
@@ -61,9 +61,9 @@ export class ScoreListComponent extends BasePage {
       edit: true,
       delete: false,
     },
-    pager : {
-      display : false,
-    },      
+    pager: {
+      display: false,
+    },
     hideSubHeader: true,//oculta subheaader de filtro
     mode: 'external', // ventana externa
     add: {
@@ -108,22 +108,22 @@ export class ScoreListComponent extends BasePage {
   ngOnInit(): void {
     this.readData();
   }
-  
+
   setPageSizeOptions(setPageSizeOptionsInput: string) {
     if (setPageSizeOptionsInput)
       this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
   }
 
-  readData = ( () => {
+  readData = (() => {
     this.rows = null;
-    this.service.list(this.pageEvent.pageIndex, this.pageEvent.pageSize).subscribe((data:any) => {
+    this.service.list(this.pageEvent.pageIndex, this.pageEvent.pageSize).subscribe((data: any) => {
       this.rows = data.data;
       this.length = data.count;
-    }, error => this.onLoadFailed('danger','Error conexión',error.message) );
+    }, error => this.onLoadFailed('danger', 'Error conexión', error.message));
   });
 
-  changesPage (event){
-    if(event.pageSize!=this.pageSize){
+  changesPage(event) {
+    if (event.pageSize != this.pageSize) {
 
     }
     this.pageEvent = event;
@@ -138,16 +138,16 @@ export class ScoreListComponent extends BasePage {
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      cancelButtonText:'Cancelar',
+      cancelButtonText: 'Cancelar',
       confirmButtonText: 'Si'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.service.delete(event.data.id).subscribe(() =>{
+        this.service.delete(event.data.id).subscribe(() => {
           this.readData();
-        },err =>{
+        }, err => {
           console.error(err);
         })
-       
+
       }
     })
   }
@@ -158,13 +158,14 @@ export class ScoreListComponent extends BasePage {
       maximize: false,
       fullScreen: false,
     };
-    
-    this.windowService.open(ScoreDetailComponent, { 
-      title: `Editar pregunta`, 
-      context: { questions: event.data }, 
-      buttons: buttonsConfig  }).onClose.subscribe(() => {
-        this.readData();
-      }
+
+    this.windowService.open(ScoreDetailComponent, {
+      title: `Editar pregunta`,
+      context: { questions: event.data },
+      buttons: buttonsConfig
+    }).onClose.subscribe(() => {
+      this.readData();
+    }
     );
   }
 
@@ -172,7 +173,7 @@ export class ScoreListComponent extends BasePage {
     this.windowService.open(ScoreDetailComponent, { title: `Nueva pregunta` }).onClose.subscribe(() => {
       this.readData();
     });
-    
+
   }
 
 }

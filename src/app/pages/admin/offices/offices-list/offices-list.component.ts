@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { NbToastrService, NbWindowControlButtonsConfig, NbWindowService } from '@nebular/theme';
 import { OfficesService } from '../../../../@core/backend/common/services/offices.service';
+import { OfficesModel } from '../../../../@core/interfaces/auction/offices.model';
 import { BaseApp } from '../../../../@core/shared/base-app';
 import { BasePage } from '../../../../@core/shared/base-page';
 
@@ -13,11 +15,24 @@ import { OfficesDeailComponent } from '../offices-deail/offices-deail.component'
   styleUrls: ['./offices-list.component.scss']
 })
 export class OfficesListComponent extends BasePage {
-
+  searchForm: FormGroup;
   constructor(private service: OfficesService, public toastrService: NbToastrService,
     private windowService: NbWindowService, private paginator: MatPaginatorIntl) {
     super(toastrService);
     this.paginator.itemsPerPageLabel = "Registros por página";
+    this.searchForm = new FormGroup({
+      text: new FormControl()
+    });
+    this.searchForm.controls['text'].valueChanges.subscribe((value: string) => {
+      // if (value.length > 0) {
+      //   this.service.search(value).subscribe((rows: OfficesModel[]) => {
+      //     this.length = rows.length;
+      //     this.rows = rows;
+      //   })
+      // } else {
+      //   this.readData()
+      // }
+    })
   }
 
   length = 100;
@@ -26,9 +41,9 @@ export class OfficesListComponent extends BasePage {
 
   // MatPaginator Output
   pageEvent: PageEvent = {
-    pageIndex:0,
-    pageSize:10,
-    length:100
+    pageIndex: 0,
+    pageSize: 10,
+    length: 100
   };
 
   setPageSizeOptions(setPageSizeOptionsInput: string) {
@@ -44,9 +59,9 @@ export class OfficesListComponent extends BasePage {
       edit: true,
       delete: true,
     },
-    pager : {
-      display : false,
-    },      
+    pager: {
+      display: false,
+    },
     hideSubHeader: true,//oculta subheaader de filtro
     mode: 'external', // ventana externa
     add: {
@@ -120,28 +135,28 @@ export class OfficesListComponent extends BasePage {
         title: 'Numero registro',
         type: 'number',
       }
-    
+
     },
     noDataMessage: "No se encontrarón registros"
   };
 
   ngOnInit(): void {
-    this.read(0,10); 
+    this.read(0, 10);
   }
 
-  read = ((pageIndex:number, pageSize:number) => {
+  read = ((pageIndex: number, pageSize: number) => {
     this.list = null;
-    this.service.list(pageIndex, pageSize).subscribe((dt:any) =>  {
+    this.service.list(pageIndex, pageSize).subscribe((dt: any) => {
       this.list = dt.data;
       this.length = dt.count;
-    }, 
-    error => this.onLoadFailed('danger','Error conexión',error.message)
+    },
+      error => this.onLoadFailed('danger', 'Error conexión', error.message)
     );
 
   });
 
-  changesPage (event){
-    if(event.pageSize!=this.pageSize){
+  changesPage(event) {
+    if (event.pageSize != this.pageSize) {
 
     }
     this.pageEvent = event;
@@ -150,15 +165,15 @@ export class OfficesListComponent extends BasePage {
 
   onDeleteConfirm(event): void {
     if (window.confirm('Are you sure you want to delete?')) {
-      this.service.delete(event.data.id).subscribe(data =>{
+      this.service.delete(event.data.id).subscribe(data => {
         console.log(data);
-        if(data.statusCode == 200){
-          this.onLoadFailed('success','Eliminado',data.message);
-        }else{
-          this.onLoadFailed('danger','Error',data.message);
+        if (data.statusCode == 200) {
+          this.onLoadFailed('success', 'Eliminado', data.message);
+        } else {
+          this.onLoadFailed('danger', 'Error', data.message);
         }
         this.read(this.pageEvent.pageIndex, this.pageEvent.pageSize);
-      },err =>{
+      }, err => {
       })
     } else {
       event.confirm.reject();
@@ -171,17 +186,17 @@ export class OfficesListComponent extends BasePage {
       maximize: false,
       fullScreen: false,
     };
-    const modalRef = this.windowService.open(OfficesDeailComponent, { title: `Editar`, context: { data: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
+    const modalRef = this.windowService.open(OfficesDeailComponent, { title: `Editar`, context: { data: event.data }, buttons: buttonsConfig }).onClose.subscribe(() => {
       this.read(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
-  
+
   }
 
   openWindow() {
     const modalRef = this.windowService.open(OfficesDeailComponent, { title: `Nuevo` }).onClose.subscribe(() => {
       this.read(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
-    
+
   }
 
 }
