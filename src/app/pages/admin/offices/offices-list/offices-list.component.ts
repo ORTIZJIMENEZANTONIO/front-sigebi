@@ -2,10 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { NbToastrService, NbWindowControlButtonsConfig, NbWindowService } from '@nebular/theme';
+import { SweetAlertResult } from 'sweetalert2';
 import { OfficesService } from '../../../../@core/backend/common/services/offices.service';
 import { OfficesModel } from '../../../../@core/interfaces/auction/offices.model';
+import { SweetAlertConstants, SweetalertModel } from '../../../../@core/interfaces/auction/sweetalert-model';
 import { BaseApp } from '../../../../@core/shared/base-app';
 import { BasePage } from '../../../../@core/shared/base-page';
+import { SweetalertService } from '../../../../shared/sweetalert.service';
 
 import { OfficesDeailComponent } from '../offices-deail/offices-deail.component';
 
@@ -17,7 +20,8 @@ import { OfficesDeailComponent } from '../offices-deail/offices-deail.component'
 export class OfficesListComponent extends BasePage {
   searchForm: FormGroup;
   constructor(private service: OfficesService, public toastrService: NbToastrService,
-    private windowService: NbWindowService, private paginator: MatPaginatorIntl) {
+    private windowService: NbWindowService, private paginator: MatPaginatorIntl,
+    private sweetalertService: SweetalertService) {
     super(toastrService);
     this.paginator.itemsPerPageLabel = "Registros por página";
     this.searchForm = new FormGroup({
@@ -136,11 +140,20 @@ export class OfficesListComponent extends BasePage {
 
   read = ((pageIndex: number, pageSize: number) => {
     this.list = null;
-    this.service.list(pageIndex, pageSize).subscribe((dt: any) => {
-      this.list = dt.data;
-      this.length = dt.count;
-    },
-      error => this.onLoadFailed('danger', 'Error conexión', error.message)
+    this.service.list(pageIndex, pageSize).subscribe(
+      (dt: any) => {
+        this.list = dt.data;
+        this.length = dt.count;
+      },
+      err => {
+        let error = '';
+        if (err.status === 0) {
+          error = SweetAlertConstants.noConexion;
+        } else {
+          error = err.message;
+        }
+        this.sweetAlertMessage(SweetAlertConstants.SWEET_ALERT_TITLE_OPS, error);
+      }
     );
 
   });
@@ -154,20 +167,40 @@ export class OfficesListComponent extends BasePage {
   }
 
   onDeleteConfirm(event): void {
-    if (window.confirm('Are you sure you want to delete?')) {
-      this.service.delete(event.data.id).subscribe(data => {
-        console.log(data);
-        if (data.statusCode == 200) {
-          this.onLoadFailed('success', 'Eliminado', data.message);
-        } else {
-          this.onLoadFailed('danger', 'Error', data.message);
+    this.sweetalertQuestion('Eliminar', 'Desea eliminar este registro?').then(
+      question => {
+        // console.log(question);
+        if (question.isConfirmed) {
+          this.service.delete(event.data.id).subscribe(
+            data => {
+              // console.log(data);
+              // if (data.statusCode == 200) {
+              //   this.onLoadFailed('success', 'Eliminado', data.message);
+              // } else {
+              //   this.onLoadFailed('danger', 'Error', data.message);
+              // }
+              this.sweetAlertSuccessMessage('Eliminado correctamente');
+              this.read(this.pageEvent.pageIndex, this.pageEvent.pageSize);
+            }, err => {
+              let error = '';
+              if (err.status === 0) {
+                error = SweetAlertConstants.noConexion;
+              } else {
+                error = err.message;
+              }
+              this.sweetAlertMessage(SweetAlertConstants.SWEET_ALERT_TITLE_OPS, error);
+            });
         }
-        this.read(this.pageEvent.pageIndex, this.pageEvent.pageSize);
-      }, err => {
-      })
-    } else {
-      event.confirm.reject();
-    }
+      }
+    ).catch(
+      e => {
+        console.error(e);
+      }
+    ).finally(
+      () => {
+        console.log('finaliza');
+      }
+    );
   }
 
   editRow(event) {
@@ -188,5 +221,30 @@ export class OfficesListComponent extends BasePage {
     });
 
   }
-
+  private sweetAlertMessage(title: string, message: string) {
+    let sweetalert = new SweetalertModel();
+    sweetalert.title = title;
+    sweetalert.text = message;
+    sweetalert.icon = SweetAlertConstants.SWEET_ALERT_WARNING;
+    sweetalert.showConfirmButton = true;
+    sweetalert.showCancelButton = false;
+    this.sweetalertService.showAlertBasic(sweetalert);
+  }
+  private sweetalertQuestion(title: string, message: string): Promise<SweetAlertResult> {
+    let sweetalert = new SweetalertModel();
+    sweetalert.title = title;
+    sweetalert.text = message;
+    sweetalert.icon = SweetAlertConstants.SWEET_ALERT_WARNING;
+    sweetalert.showConfirmButton = true;
+    sweetalert.showCancelButton = true;
+    return this.sweetalertService.showAlertConfirm(sweetalert);
+  }
+  private sweetAlertSuccessMessage(title: string) {
+    let sweetalert = new SweetalertModel();
+    sweetalert.title = title;
+    sweetalert.showConfirmButton = false;
+    sweetalert.showCancelButton = false;
+    sweetalert.timer = SweetAlertConstants.SWEET_ALERT_TIMER_1500;
+    this.sweetalertService.showAlertBasic(sweetalert);
+  }
 }
