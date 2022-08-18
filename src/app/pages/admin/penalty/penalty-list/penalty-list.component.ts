@@ -24,7 +24,6 @@ export class PenaltyListComponent extends BasePage implements OnInit {
     this.searchForm.controls['text'].valueChanges.subscribe((value:string)=>{
       if(value.length > 0){
         this.service.search(value).subscribe((rows:Penalty[])=>{
-          console.log(rows);
           this.length = rows.length;
           this.rows = rows;
         })
@@ -119,7 +118,6 @@ export class PenaltyListComponent extends BasePage implements OnInit {
     this.service.list(this.pageEvent.pageIndex, this.pageEvent.pageSize).subscribe((legends:any) =>  {
       this.rows = legends.data;
       this.length = legends.count;
-      console.log(legends);
       
     }, 
     error => this.onLoadFailed('danger','Error conexión',error.message)
@@ -164,7 +162,7 @@ export class PenaltyListComponent extends BasePage implements OnInit {
       maximize: false,
       fullScreen: false,
     };
-    this.windowService.open(PenaltyDetailComponent, { title: `Editar penalizacion`, context: { Person: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
+    this.windowService.open(PenaltyDetailComponent, { title: `Editar penalizacion`, context: { penalty: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
       this.readPenalty();
     });
   

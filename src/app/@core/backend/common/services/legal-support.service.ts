@@ -26,7 +26,7 @@ export class LegalSupportService {
         return this.api.register(legendData, this.url);
     }
 
-    update(id: number, legendData: LegalSupport): Observable<LegalSupport> {
+    update(id: string, legendData: LegalSupport): Observable<LegalSupport> {
         return this.api.update(id, legendData, this.url);
     }
 
