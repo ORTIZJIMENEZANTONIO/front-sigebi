@@ -1,10 +1,11 @@
 import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { NbWindowRef, NB_WINDOW_CONTEXT, NbWindowService } from '@nebular/theme';
 import { ClaimConclusionService } from '../../../../@core/backend/common/services/claim-conclusion.service';
 import { ClaimConclusion } from '../../../../@core/interfaces/auction/claim-conclusion.model';
+import { SweetAlertConstants } from '../../../../@core/interfaces/auction/sweetalert-model';
 import { BasePage } from '../../../../@core/shared/base-page';
 
 @Component({
@@ -12,56 +13,80 @@ import { BasePage } from '../../../../@core/shared/base-page';
   templateUrl: './claim-conclusion-detail.component.html',
   styleUrls: ['./claim-conclusion-detail.component.scss']
 })
-export class ClaimConclusionDetailComponent extends BasePage {
+export class ClaimConclusionDetailComponent extends BasePage implements OnInit {
+  public form: FormGroup;
+  private data: ClaimConclusion;
+  public actionBtn: string = "Guardar";
 
-  
-  claimConclusion: ClaimConclusion;
-
-  constructor(private fb: FormBuilder, protected cd: ChangeDetectorRef, protected router: Router, private service: ClaimConclusionService,
-    public windowRef: NbWindowRef, @Inject(NB_WINDOW_CONTEXT) context, private dom: DomSanitizer,  private windowService: NbWindowService) { 
-      super();
-      if (null != context.claimConclusion){
-        this.claimConclusion = context.claimConclusion;
-      }
+  constructor(
+    private fb: FormBuilder,
+    protected cd: ChangeDetectorRef,
+    protected router: Router,
+    private service: ClaimConclusionService,
+    public windowRef: NbWindowRef,
+    @Inject(NB_WINDOW_CONTEXT) context) {
+    super();
+    if (null != context.claimConclusion) {
+      this.data = context.claimConclusion;
     }
-    actionBtn : string = "Guardar";
+  }
 
-    form = this.fb.group({
-    id:[''],
+  ngOnInit(): void {
+    this.prepareForm();
+  }
+  private prepareForm() {
+    this.form = this.fb.group({
+      id: [''],
 
-    description: ['', Validators.required],
-    
-    flag: ['', Validators.required]
+      description: ['', Validators.required],
+
+      flag: ['', Validators.required]
 
     });
-  
-  get validate(){
-    return this.form.controls;
-  }
-    
-  ngOnInit(): void {
-    
-    if(this.claimConclusion){
+    if (this.data) {
       this.actionBtn = "Actualizar";
-      this.form.patchValue(this.claimConclusion)
-     
+      this.form.patchValue(this.data)
+
     }
   }
 
-  register(): void {
-    const data = this.form.value;
-    if( this.actionBtn == "Guardar"){
-      this.service.register(data).subscribe(data =>{
+  public get description() { return this.form.get('description'); }
+  public get flag() { return this.form.get('flag'); }
+
+  public register(): void {
+    const data = this.form.getRawValue();
+    this.actionBtn == "Guardar" ? this.createRegister(data) : this.updateRegister(data);
+  }
+  private createRegister(data): void {
+    this.service.register(data).subscribe(
+      () => {
+        this.onLoadFailed('success', 'Despacho', 'Registrado Correctamente');
+      }, err => {
+        let error = '';
+        if (err.status === 0) {
+          error = SweetAlertConstants.noConexion;
+        } else {
+          error = err.message;
+        }
+        this.onLoadFailed('danger', 'Error', error);
+      }, () => {
         this.windowRef.close();
-      },err =>{
-        console.log(err);
-      })
-    }else{
-      this.service.update(this.claimConclusion.id,data).subscribe(data =>{
+      });
+  }
+  private updateRegister(data): void {
+    this.service.update(this.data.id, data).subscribe(
+      () => {
+        this.onLoadFailed('success', 'Despacho', 'Actualizado Correctamente');
+      }, err => {
+        let error = '';
+        if (err.status === 0) {
+          error = SweetAlertConstants.noConexion;
+        } else {
+          error = err.message;
+        }
+        this.onLoadFailed('danger', 'Error', error);
+      }, () => {
         this.windowRef.close();
-      },err =>{
-        console.log(err);
-      })
-    }
+      });
   }
 }

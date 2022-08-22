@@ -4,70 +4,89 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { NbWindowRef, NbWindowService, NB_WINDOW_CONTEXT } from '@nebular/theme';
 import { DictamenService } from '../../../../@core/backend/common/services/dictamen.service';
-import { BaseApp } from '../../../../@core/shared/base-app';
+import { Dictamen } from '../../../../@core/interfaces/auction/dictamen.model';
+import { SweetAlertConstants } from '../../../../@core/interfaces/auction/sweetalert-model';
+import { BasePage } from '../../../../@core/shared/base-page';
 
 @Component({
   selector: 'ngx-dictament-detail',
   templateUrl: './dictament-detail.component.html',
   styleUrls: ['./dictament-detail.component.scss']
 })
-export class DictamentDetailComponent  extends BaseApp {
-
- 
-  opinionForm: FormGroup;
-  opinion: any = {};
-
-  constructor(private fb: FormBuilder, protected cd: ChangeDetectorRef, protected router: Router, private service: DictamenService,
-    public windowRef: NbWindowRef, @Inject(NB_WINDOW_CONTEXT) context, private dom: DomSanitizer,  private windowService: NbWindowService) { 
-      super();
-      if (null != context.opinion){
-        this.opinion = context.opinion;
-      }
+export class DictamentDetailComponent extends BasePage {
+  public formDictament: FormGroup;
+  private data: Dictamen;
+  public actionBtn: string = "Guardar";
+  constructor(
+    private fb: FormBuilder,
+    protected cd: ChangeDetectorRef,
+    protected router: Router,
+    private service: DictamenService,
+    public windowRef: NbWindowRef,
+    @Inject(NB_WINDOW_CONTEXT) context) {
+    super();
+    if (null != context.data) {
+      this.data = context.data;
     }
-    actionBtn : string = "Guardar";
+  }
 
-    formOpinion = this.fb.group({
-      id:[null],
+  ngOnInit(): void {
+    this.prepareForm();
+  }
+  private prepareForm() {
+    this.formDictament = this.fb.group({
+      id: [null],
       description: [null, Validators.compose([Validators.pattern(""), Validators.required])],
-      noRegistration: [null, Validators.compose([Validators.pattern("[0-9]"),Validators.required])],
+      noRegistration: [null, Validators.compose([Validators.pattern("[0-9]"), Validators.required])],
       dict_ofi: [null, Validators.compose([Validators.pattern("[a-zA-Z]((\.|_|-)?[a-zA-ZáéíóúÁÉÍÓÚ\u0020]+){0,255}"), Validators.required])],
       areaProcess: [null, Validators.compose([Validators.pattern("[a-zA-Z]((\.|_|-)?[a-zA-ZáéíóúÁÉÍÓÚ\u0020]+){0,255}"), Validators.required])],
-      
     });
-  
-    get validateOpinion(){
-      return this.formOpinion.controls;
-    }
-    ngOnInit(): void {
-    console.log(this.opinion);
-      if(this.opinion.id != null){
-        this.actionBtn = "Actualizar";
-        // this.formOpinion.controls['description'].setValue(this.opinion.description);
-        // this.formOpinion.controls['noRegistration'].setValue(this.opinion.noRegistration);
-        // this.formOpinion.controls['dict_ofi'].setValue(this.opinion.dict_ofi);
-        // this.formOpinion.controls['areaProcess'].setValue(this.opinion.areaProcess);
-        this.formOpinion.patchValue(this.opinion);
-      }
-      
-    }
-  
+    if (this.data) {
+      this.actionBtn = "Actualizar";
+      this.formDictament.patchValue(this.data)
 
+    }
+  }
 
-  register(): void {
-    if( this.actionBtn == "Guardar"){
-      this.service.register(this.formOpinion.value).subscribe(data =>{
-        console.log(data)
-        
+  public get description() { return this.formDictament.get('description'); }
+  public get noRegistration() { return this.formDictament.get('noRegistration'); }
+  public get dict_ofi() { return this.formDictament.get('dict_ofi'); }
+  public get areaProcess() { return this.formDictament.get('areaProcess'); }
+
+  public register(): void {
+    const data = this.formDictament.getRawValue();
+    this.actionBtn == "Guardar" ? this.createRegister(data) : this.updateRegister(data);
+  }
+  private createRegister(data): void {
+    this.service.register(data).subscribe(
+      () => {
+        this.onLoadFailed('success', 'Despacho', 'Registrado Correctamente');
+      }, err => {
+        let error = '';
+        if (err.status === 0) {
+          error = SweetAlertConstants.noConexion;
+        } else {
+          error = err.message;
+        }
+        this.onLoadFailed('danger', 'Error', error);
+      }, () => {
         this.windowRef.close();
-      },err =>{
-        console.log(err);
-      })
-    }else{
-      this.service.update(this.opinion.id,this.formOpinion.value).subscribe(data =>{
-       this.windowRef.close();
-      },err =>{
-        console.log(err);
-      })
-    }
+      });
+  }
+  private updateRegister(data): void {
+    this.service.update(this.data.id, data).subscribe(
+      () => {
+        this.onLoadFailed('success', 'Despacho', 'Actualizado Correctamente');
+      }, err => {
+        let error = '';
+        if (err.status === 0) {
+          error = SweetAlertConstants.noConexion;
+        } else {
+          error = err.message;
+        }
+        this.onLoadFailed('danger', 'Error', error);
+      }, () => {
+        this.windowRef.close();
+      });
   }
 }

@@ -8,6 +8,7 @@ import { DelegationService } from '../../../../@core/backend/common/services/del
 import { DetailDelegationService } from '../../../../@core/backend/common/services/detail-delegation.service';
 import { SubdelegationService } from '../../../../@core/backend/common/services/subdelegation.service';
 import { DetailDelegation } from '../../../../@core/interfaces/auction/detail-delegation.model';
+import { SweetAlertConstants } from '../../../../@core/interfaces/auction/sweetalert-model';
 import { BasePage } from '../../../../@core/shared/base-page';
 
 @Component({
@@ -16,25 +17,28 @@ import { BasePage } from '../../../../@core/shared/base-page';
   styleUrls: ['./detail-delegation-detail.component.scss']
 })
 export class DetailDelegationDetailComponent extends BasePage {
-
-  detailDelegation: DetailDelegation;
-  formDetailDelegation: FormGroup;
-
-  filteredOptions$: BehaviorSubject<any[]> = new BehaviorSubject([]);
-  filteredsubdelegations$: BehaviorSubject<any[]> = new BehaviorSubject([]);
-  
-  constructor(private fb: FormBuilder, protected cd: ChangeDetectorRef, protected router: Router, private service: DetailDelegationService,
-    public windowRef: NbWindowRef, @Inject(NB_WINDOW_CONTEXT) context, private dom: DomSanitizer, private windowService: NbWindowService,
-    private delegationService: DelegationService,
-
-  ) {
+  public formDetailDelegation: FormGroup;
+  private data: DetailDelegation;
+  public actionBtn: string = "Guardar";
+  public filteredOptions$: BehaviorSubject<any[]> = new BehaviorSubject([]);
+  public filteredsubdelegations$: BehaviorSubject<any[]> = new BehaviorSubject([]);
+  constructor(
+    private fb: FormBuilder,
+    protected cd: ChangeDetectorRef,
+    protected router: Router,
+    private service: DetailDelegationService,
+    public windowRef: NbWindowRef,
+    @Inject(NB_WINDOW_CONTEXT) context) {
     super();
-    if (null != context.detailDelegation) {
-      
-      this.detailDelegation = context.detailDelegation;
+    if (null != context.data) {
+      this.data = context.data;
     }
+  }
 
-
+  ngOnInit(): void {
+    this.prepareForm();
+  }
+  private prepareForm() {
     this.formDetailDelegation = this.fb.group({
       id: [''],
       name: [null, Validators.compose([Validators.pattern("[a-zA-Z]((\.|_|-)?[a-zA-ZáéíóúÁÉÍÓÚ\u0020]+){0,255}"), Validators.required])],
@@ -48,56 +52,68 @@ export class DetailDelegationDetailComponent extends BasePage {
       numP2: ['', Validators.required],
       numP3: ['', Validators.required],
 
-      detailDelegation:[null,Validators.required],
+      detailDelegation: [null, Validators.required],
       numDelegation: [null, [Validators.min(1)]],
     });
-    this.formDetailDelegation.controls['detailDelegation'].valueChanges.subscribe((value: string) => {
-      if (value) {
-        this.delegationService.search(value).subscribe(data => {
-          this.filteredOptions$.next(data);
-        })
-      }
-    })
-  }
-  actionBtn: string = "Guardar";
-
-
-
-  get validateDetailDelegation() {
-    return this.formDetailDelegation.controls;
-  }
-
-  ngOnInit(): void {
-
-    if (this.detailDelegation) {
+    if (this.data) {
       this.actionBtn = "Actualizar";
-      this.formDetailDelegation.patchValue(this.detailDelegation)
+      this.formDetailDelegation.patchValue(this.data)
 
     }
   }
 
-  onSelectionChangeDelegation(event){
-    if(event.id){
-      this.formDetailDelegation.controls['numDelegation'].setValue(event.id);
-      this.formDetailDelegation.controls['detailDelegation'].setValue(event.descripion);
+  public get name() { return this.formDetailDelegation.get('name'); }
+  public get location() { return this.formDetailDelegation.get('location'); }
+  public get address() { return this.formDetailDelegation.get('address'); }
+  public get positionF() { return this.formDetailDelegation.get('position'); }
+  public get area() { return this.formDetailDelegation.get('area'); }
+  public get mail() { return this.formDetailDelegation.get('mail'); }
+  public get numP1() { return this.formDetailDelegation.get('numP1'); }
+  public get numP2() { return this.formDetailDelegation.get('numP2'); }
+  public get numP3() { return this.formDetailDelegation.get('numP3'); }
+  public get detailDelegation() { return this.formDetailDelegation.get('detailDelegation'); }
+  public get numDelegation() { return this.formDetailDelegation.get('numDelegation'); }
+
+  public onSelectionChangeDelegation(event) {
+    if (event.id) {
+      this.numDelegation.patchValue(event.id);
+      this.detailDelegation.patchValue(event.descripion);
     }
-        
   }
-  
-  register(): void {
-    const data = this.formDetailDelegation.value;
-    if (this.actionBtn == "Guardar") {
-      this.service.register(data).subscribe(data => {
-        this.windowRef.close();
+  public register(): void {
+    const data = this.formDetailDelegation.getRawValue();
+    this.actionBtn == "Guardar" ? this.createRegister(data) : this.updateRegister(data);
+  }
+  private createRegister(data): void {
+    this.service.register(data).subscribe(
+      () => {
+        this.onLoadFailed('success', 'Despacho', 'Registrado Correctamente');
       }, err => {
-        console.log(err);
-      })
-    } else {
-      this.service.update(this.detailDelegation.id, data).subscribe(data => {
+        let error = '';
+        if (err.status === 0) {
+          error = SweetAlertConstants.noConexion;
+        } else {
+          error = err.message;
+        }
+        this.onLoadFailed('danger', 'Error', error);
+      }, () => {
         this.windowRef.close();
+      });
+  }
+  private updateRegister(data): void {
+    this.service.update(this.data.id, data).subscribe(
+      () => {
+        this.onLoadFailed('success', 'Despacho', 'Actualizado Correctamente');
       }, err => {
-        console.log(err);
-      })
-    }
+        let error = '';
+        if (err.status === 0) {
+          error = SweetAlertConstants.noConexion;
+        } else {
+          error = err.message;
+        }
+        this.onLoadFailed('danger', 'Error', error);
+      }, () => {
+        this.windowRef.close();
+      });
   }
 }

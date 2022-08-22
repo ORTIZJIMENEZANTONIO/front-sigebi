@@ -2,29 +2,47 @@
     <nb-card-body>
         <form [formGroup]="form">
             <div class="form-group row">
-                <input nbInput fullWidth formControlName="description" matInput placeholder="Descripcion">
-                <label class="text-danger" *ngIf="validateOpinion['description'].hasError('pattern')"><small>No válido!</small></label>
+                <input nbInput fullWidth formControlName="description" placeholder="Descripcion"
+                    [status]="(description?.errors?.required || description?.hasError('minlength') || description?.hasError('maxlength') || description?.hasError('pattern')) && description.touched ? 'danger' : ''">
+                <ngx-validation-message label="Descripcion" [showMinLength]="description?.hasError('minlength')"
+                    [showMaxLength]="description?.hasError('maxlength')"
+                    [showRequired]="description?.errors?.required && description.touched"
+                    [showPattern]="description?.hasError('pattern') && description.touched" minLength=1 maxLength=255>
+                </ngx-validation-message>
             </div>
             <div class="form-group row">
-                <input nbInput fullWidth formControlName="noState" matInput placeholder="No estado">
-                <label class="text-danger" *ngIf="validateOpinion['noState'].hasError('pattern')"><small>No válido!</small></label>
+                <input nbInput fullWidth formControlName="noState" placeholder="No estado"
+                    [status]="(noState?.errors?.required || noState?.hasError('minlength') || noState?.hasError('maxlength') || noState?.hasError('pattern')) && noState.touched ? 'danger' : ''">
+                <ngx-validation-message label="No estado" [showMinLength]="noState?.hasError('minlength')"
+                    [showMaxLength]="noState?.hasError('maxlength')"
+                    [showRequired]="noState?.errors?.required && noState.touched"
+                    [showPattern]="noState?.hasError('pattern') && noState.touched" minLength=1 maxLength=255>
+                </ngx-validation-message>
             </div>
             <div class="form-group row">
-                <input nbInput fullWidth formControlName="state" matInput placeholder="Estado">
-                <label class="text-danger" *ngIf="validateOpinion['state'].hasError('pattern')"><small>No válido!</small></label>
+                <input nbInput fullWidth formControlName="state" placeholder="Estado"
+                    [status]="(state?.errors?.required || state?.hasError('minlength') || state?.hasError('maxlength') || state?.hasError('pattern')) && state.touched ? 'danger' : ''">
+                <ngx-validation-message label="Estado" [showMinLength]="state?.hasError('minlength')"
+                    [showMaxLength]="state?.hasError('maxlength')"
+                    [showRequired]="state?.errors?.required && state.touched"
+                    [showPattern]="state?.hasError('pattern') && state.touched" minLength=1 maxLength=255>
+                </ngx-validation-message>
             </div>
             <div class="form-group row">
-                <input nbInput fullWidth formControlName="stage" matInput placeholder="Etapa">
-                <label class="text-danger" *ngIf="validateOpinion['stage'].hasError('pattern')"><small>No válido!</small></label>
+                <input nbInput fullWidth formControlName="stage" placeholder="Etapa"
+                    [status]="(stage?.errors?.required || stage?.hasError('minlength') || stage?.hasError('maxlength') || stage?.hasError('pattern')) && stage.touched ? 'danger' : ''">
+                <ngx-validation-message label="Etapa" [showMinLength]="stage?.hasError('minlength')"
+                    [showMaxLength]="stage?.hasError('maxlength')"
+                    [showRequired]="stage?.errors?.required && stage.touched"
+                    [showPattern]="stage?.hasError('pattern') && stage.touched" minLength=1 maxLength=255>
+                </ngx-validation-message>
             </div>
-           
-        
-            <div class="form-group row">
-                <div class="offset-sm-3 col-sm-9">
-                    <button type="submit" nbButton status="primary" [disabled]="!form.valid" (click)="register()">{{actionBtn}}</button>
+            <div class="form-group">
+                <div class="d-flex justify-content-center">
+                    <button type="submit" nbButton status="primary" [disabled]="!form.valid"
+                        (click)="register()">{{actionBtn}}</button>
                 </div>
             </div>
         </form>
     </nb-card-body>
 </nb-card>
-
