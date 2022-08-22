@@ -1,6 +1,6 @@
 export interface Doccompesationsat {
     id?: number;
-    idJobSat?: number;
+    idcat?: number;
     typeDocSat?: string;
     addressee?:string;
     subjectCode:number;

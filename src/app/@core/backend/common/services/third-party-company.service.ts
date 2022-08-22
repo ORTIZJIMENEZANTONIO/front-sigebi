@@ -7,7 +7,7 @@ import { Doccompesationsat } from '../../../interfaces/auction/doccompesationsat
 import { ThirdPartyCompany } from '../../../interfaces/auction/third-party-company.model';
 
 @Injectable()
-export class DoccompensationsatService {
+export class ThirdPartyCompanyService {
     constructor(private api: CatalogApi) { }
 
     get gridDataSource(): DataSource {

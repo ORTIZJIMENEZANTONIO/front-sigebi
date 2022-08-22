@@ -14,7 +14,7 @@ export class DoccompensationsatxmlService {
         return this.api.dataSource;
     }
 
-    url = "opinion";
+    url = "doc-resarcimientos-sat-xml";
     
     list(pageNumber: number = 1, pageSize: number = 10) {
         const data = this.api.list(pageNumber, pageSize,this.url);
@@ -30,5 +30,8 @@ export class DoccompensationsatxmlService {
 
     delete(id:number){
         return this.api.delete(id, this.url);
+    }
+    search(text:string){
+        return this.api.search(text,this.url);
     }
 }

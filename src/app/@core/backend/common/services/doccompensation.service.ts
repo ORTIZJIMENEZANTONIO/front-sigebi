@@ -12,7 +12,7 @@ export class DoccompensationService {
         return this.api.dataSource;
     }
 
-    url = "opinion";
+    url = "doc-resarcimientos";
     
     list(pageNumber: number = 1, pageSize: number = 10) {
         const data = this.api.list(pageNumber, pageSize,this.url);
@@ -28,5 +28,8 @@ export class DoccompensationService {
 
     delete(id:number){
         return this.api.delete(id, this.url);
+    }
+    search(text:string){
+        return this.api.search(text,this.url);
     }
 }

@@ -586,6 +586,42 @@ export const MENU_ITEMS: NbMenuItem[] = [
         title: 'R Asunt Dic',
         link: '/pages/admin/r-asunt-dic'
       },
+      {
+        title: 'Empresa terceros',
+        link: '/pages/admin/third-company'
+      },
+      {
+        title: 'Entfed',
+        link: '/pages/admin/entfed'
+      },
+      {
+        title: 'Estado repuves',
+        link: '/pages/admin/repuve'
+      },
+      {
+        title: 'Gestión',
+        link: '/pages/admin/management'
+      },
+      {
+        title: 'Etiqutas bien',
+        link: '/pages/admin/label-okey'
+      },
+      {
+        title: 'Etapas',
+        link: '/pages/admin/stages'
+      },
+      {
+        title: 'Documentos resarcimiento',
+        link: '/pages/admin/doc-resarcimiento'
+      },
+      {
+        title: 'Documentos resarcimiento sat',
+        link: '/pages/admin/doc-resarcimiento-sat'
+      },
+      {
+        title: 'Documentos resarcimiento sat xml',
+        link: '/pages/admin/doc-resarcimiento-sat-xml'
+      },
 
     ],
   },

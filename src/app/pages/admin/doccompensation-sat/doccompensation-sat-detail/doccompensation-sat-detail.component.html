@@ -1,1 +1,41 @@
-<p>doccompensation-sat-detail works!</p>
+<nb-card>
+    <nb-card-body>
+        <form [formGroup]="form">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <input nbInput fullWidth formControlName="idcat" placeholder="Id cat">
+                        <label class="text-danger" *ngIf="validateOpinion['idcat'].hasError('pattern')"><small>Id cat no válido!</small></label>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <input nbInput fullWidth formControlName="typeDocSat" placeholder="Tipo documento">
+                        <label class="text-danger" *ngIf="validateOpinion['typeDocSat'].hasError('pattern')"><small>Tipo documento no
+                                válido!</small></label>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <input nbInput fullWidth formControlName="addressee" placeholder="Destinatario">
+                        <label class="text-danger" *ngIf="validateOpinion['addressee'].hasError('pattern')"><small>Destinatario no
+                                válido!</small></label>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <input nbInput fullWidth formControlName="subjectCode" placeholder="Asunto código">
+                        <label class="text-danger" *ngIf="validateOpinion['subjectCode'].hasError('pattern')"><small>Asunto no
+                                válido!</small></label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="d-flex justify-content-center">
+                    <button type="submit" nbButton status="primary" [disabled]="!form.valid"
+                        (click)="register()">{{actionBtn}}</button>
+                </div>
+            </div>
+        </form>
+    </nb-card-body>
+</nb-card>

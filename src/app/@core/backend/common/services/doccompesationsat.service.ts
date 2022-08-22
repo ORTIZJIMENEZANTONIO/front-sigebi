@@ -1,10 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-
 import { DataSource } from 'ng2-smart-table/lib/lib/data-source/data-source';
 import { CatalogApi } from '../api/catalog-api';
-import { Dictamen } from '../../../interfaces/auction/dictamen.model';
-import { Doccompensationsatxml } from '../../../interfaces/auction/doccompensationsatxml.model';
 import { Doccompesationsat } from '../../../interfaces/auction/doccompesationsat.model';
 
 @Injectable()
@@ -15,7 +12,7 @@ export class DoccompensationsatService {
         return this.api.dataSource;
     }
 
-    url = "opinion";
+    url = "doc-resarcimientos-sat";
     
     list(pageNumber: number = 1, pageSize: number = 10) {
         const data = this.api.list(pageNumber, pageSize,this.url);
@@ -31,5 +28,8 @@ export class DoccompensationsatService {
 
     delete(id:number){
         return this.api.delete(id, this.url);
+    }
+       search(text:string){
+        return this.api.search(text,this.url);
     }
 }

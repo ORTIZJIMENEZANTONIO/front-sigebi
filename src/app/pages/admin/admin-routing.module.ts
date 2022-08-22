@@ -342,19 +342,59 @@ const routes: Routes = [
       {
         path: 'origin-cisi', loadChildren: () => import('./origin-cisi/origin-cisi.module')
           .then(m => m.OriginCisiModule)
-             
+
       },
       {
         path: 'score', loadChildren: () => import('./score/score.module')
-          .then(m => m.ScoreModule) 
+          .then(m => m.ScoreModule)
       },
       {
         path: 'indicator-report', loadChildren: () => import('./indicator-report/indicator-report.module')
-          .then(m => m.IndicatorReportModule) 
+          .then(m => m.IndicatorReportModule)
       },
       {
         path: 'r-asunt-dic', loadChildren: () => import('./r-asunt-dic/r-asunt-dic.module')
-          .then(m => m.RAsuntDicModule) 
+          .then(m => m.RAsuntDicModule)
+      },
+      {
+        path: 'third-company', loadChildren: () => import('./third-party-company/third-party-company.module')
+          .then(m => m.ThirdPartyCompanyModule)
+      },
+      {
+        path: 'entfed', loadChildren: () => import('./entfed/entfed.module')
+          .then(m => m.EntfedModule)
+      },
+      {
+        path: 'repuve', loadChildren: () => import('./est-repuve/est-repuve.module')
+          .then(m => m.EstRepuveModule)
+      },
+      {
+        path: 'management', loadChildren: () => import('./management/management.module')
+          .then(m => m.ManagementModule)
+      },
+      {
+        path: 'label-okey', loadChildren: () => import('./label-okey/label-okey.module')
+          .then(m => m.LabelOkeyModule)
+      },
+      {
+        path: 'stages', loadChildren: () => import('./stages/stages.module')
+          .then(m => m.StagesModule)
+      },
+      {
+        path: 'grantess', loadChildren: () => import('./grantees/grantees.module')
+          .then(m => m.GranteesModule)
+      },
+      {
+        path: 'doc-resarcimiento', loadChildren: () => import('./doccompensation/doccompensation.module')
+          .then(m => m.DoccompensationModule)
+      },
+      {
+        path: 'doc-resarcimiento-sat', loadChildren: () => import('./doccompensation-sat/doccompensation-sat.module')
+          .then(m => m.DoccompensationSatModule)
+      },
+      {
+        path: 'doc-resarcimiento-sat-xml', loadChildren: () => import('./doccompensation-sat-xml/doccompensation-sat-xml.module')
+          .then(m => m.DoccompensationSatXmlModule)
       },
       //{ path: 'home', component: CategoriesComponent },//ok
     ]
