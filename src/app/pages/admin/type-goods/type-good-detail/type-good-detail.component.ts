@@ -68,6 +68,7 @@ export class TypeGoodDetailComponent extends BaseApp {
     }else{
       this.service.update(this.data.id,params).subscribe(data =>{
         console.log(data);
+        console.log(this.data.id)
        this.windowRef.close();
       },err =>{
         console.log(err);
