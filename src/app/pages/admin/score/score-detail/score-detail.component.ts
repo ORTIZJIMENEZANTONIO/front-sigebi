@@ -44,7 +44,7 @@ export class ScoreDetailComponent extends BasePage {
    
    
    actionBtn : string = "Guardar";
-    get validateDelegation(){
+    get validateScore(){
       return this.form.controls;
     }
     ngOnInit(): void {

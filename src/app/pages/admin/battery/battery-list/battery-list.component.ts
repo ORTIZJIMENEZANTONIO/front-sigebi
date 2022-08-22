@@ -2,13 +2,12 @@ import { Component } from '@angular/core';
 import { MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { NbToastrService, NbWindowControlButtonsConfig, NbWindowService } from '@nebular/theme';
 import { BasePage } from '../../../../@core/shared/base-page';
-
+import { FormControl, FormGroup } from '@angular/forms';
+import { BatteryInterface } from '../../../../@core/interfaces/auction/battery.model';
 import { BatteryService } from '../../../../@core/backend/common/services/battery.service';
 import { BatteryDetailComponent } from '../battery-detail/battery-detail.component';
-import { SweetAlertConstants } from '../../../../@core/interfaces/auction/sweetalert-model';
-import { FormControl, FormGroup } from '@angular/forms';
 import { SweetalertService } from '../../../../shared/sweetalert.service';
-import { BatteryInterface } from '../../../../@core/interfaces/auction/battery.model';
+import { SweetAlertConstants } from '../../../../@core/interfaces/auction/sweetalert-model';
 
 @Component({
   selector: 'ngx-battery-list',
@@ -29,6 +28,7 @@ export class BatteryListComponent extends BasePage {
     length: 100
   };
   public settings = {
+
     actions: {
       columnTitle: 'Acciones',
       add: true,
@@ -78,7 +78,6 @@ export class BatteryListComponent extends BasePage {
     },
     noDataMessage: "No se encontrarón registros"
   };
-
   constructor(
     private service: BatteryService,
     public toastrService: NbToastrService,

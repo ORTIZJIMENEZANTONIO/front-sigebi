@@ -1,41 +1,41 @@
 <nb-card>
-    <nb-card-body>
-      <form [formGroup]="form">
-  
-        <div class="form-group row">
-          <input type="text" formControlName="code" placeholder="Puntuacion" nbInput fullWidth matInput 
-            [status]="form.controls['code']?.errors?.required && form.controls['code'].touched ? 'danger' : ''">
-            <label class="text-danger" *ngIf="validateDelegation['code'].hasError('required')  && form.controls['code'].touched "><small>Puntuacion</small></label>
+  <nb-card-body>
+    <form [formGroup]="form">
+
+      <div class="form-group row">
+        <input type="text" formControlName="code" placeholder="Puntuacion" nbInput fullWidth matInput 
+          [status]="form.controls['code']?.errors?.required && form.controls['code'].touched ? 'danger' : ''">
+          <label class="text-danger" *ngIf="validateScore['code'].hasError('required')  && form.controls['code'].touched "><small>Puntuacion</small></label>
+      </div>
+
+      <div class="form-group row">
+        <input type="text" formControlName="initialRank" placeholder="Rango Inicial" nbInput fullWidth matInput 
+          [status]="form.controls['initialRank']?.errors?.required && form.controls['initialRank'].touched ? 'danger' : ''">
+          <label class="text-danger" *ngIf="validateScore['initialRank'].hasError('required')  && form.controls['initialRank'].touched "><small>Rango Inicial</small></label>
+      </div>
+
+      <div class="form-group row">
+        <input type="text" formControlName="endRank" placeholder="Rango Final" nbInput fullWidth matInput 
+          [status]="form.controls['endRank']?.errors?.required && form.controls['endRank'].touched ? 'danger' : ''">
+          <label class="text-danger" *ngIf="validateScore['endRank'].hasError('required')  && form.controls['endRank'].touched "><small>Rango Final</small></label>
+      </div>
+
+      <div class="form-group row">
+        <input type="text" formControlName="clasification" placeholder="Clasificacion" nbInput fullWidth matInput 
+          [status]="form.controls['clasification']?.errors?.required && form.controls['clasification'].touched ? 'danger' : ''">
+          <label class="text-danger" *ngIf="validateScore['clasification'].hasError('required')  && form.controls['clasification'].touched "><small>Clasificacion</small></label>
+      </div>
+      <div class="form-group row">
+          <input type="text" formControlName="registryNumber" placeholder="No Registro" nbInput fullWidth matInput 
+            [status]="form.controls['registryNumber']?.errors?.required && form.controls['registryNumber'].touched ? 'danger' : ''">
+            <label class="text-danger" *ngIf="validateScore['registryNumber'].hasError('required')  && form.controls['registryNumber'].touched "><small>Numero de Registro</small></label>
         </div>
-  
-        <div class="form-group row">
-          <input type="text" formControlName="initialRank" placeholder="Rango Inicial" nbInput fullWidth matInput 
-            [status]="form.controls['initialRank']?.errors?.required && form.controls['initialRank'].touched ? 'danger' : ''">
-            <label class="text-danger" *ngIf="validateDelegation['initialRank'].hasError('required')  && form.controls['initialRank'].touched "><small>Rango Inicial</small></label>
+     
+      <div class="form-group row">
+        <div class="offset-sm-3 col-sm-9">
+          <button type="submit" nbButton status="primary" [disabled]="!form.valid" (click)="register()">{{actionBtn}}</button>
         </div>
-  
-        <div class="form-group row">
-          <input type="text" formControlName="endRank" placeholder="Rango Final" nbInput fullWidth matInput 
-            [status]="form.controls['endRank']?.errors?.required && form.controls['endRank'].touched ? 'danger' : ''">
-            <label class="text-danger" *ngIf="validateDelegation['endRank'].hasError('required')  && form.controls['endRank'].touched "><small>Rango Final</small></label>
-        </div>
-  
-        <div class="form-group row">
-          <input type="text" formControlName="clasification" placeholder="Clasificacion" nbInput fullWidth matInput 
-            [status]="form.controls['clasification']?.errors?.required && form.controls['clasification'].touched ? 'danger' : ''">
-            <label class="text-danger" *ngIf="validateDelegation['clasification'].hasError('required')  && form.controls['clasification'].touched "><small>Clasificacion</small></label>
-        </div>
-        <div class="form-group row">
-            <input type="text" formControlName="registryNumber" placeholder="No Registro" nbInput fullWidth matInput 
-              [status]="form.controls['registryNumber']?.errors?.required && form.controls['registryNumber'].touched ? 'danger' : ''">
-              <label class="text-danger" *ngIf="validateDelegation['registryNumber'].hasError('required')  && form.controls['registryNumber'].touched "><small>Numero de Registro</small></label>
-          </div>
-       
-        <div class="form-group row">
-          <div class="offset-sm-3 col-sm-9">
-            <button type="submit" nbButton status="primary" [disabled]="!form.valid" (click)="register()">{{actionBtn}}</button>
-          </div>
-        </div>
-      </form>
-    </nb-card-body>
-  </nb-card>
+      </div>
+    </form>
+  </nb-card-body>
+</nb-card>

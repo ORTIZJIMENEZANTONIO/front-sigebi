@@ -2,7 +2,9 @@ import { Component } from '@angular/core';
 import { MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { NbToastrService, NbWindowControlButtonsConfig, NbWindowService } from '@nebular/theme';
 import { BasePage } from '../../../../@core/shared/base-page';
-
+import { FormControl, FormGroup } from '@angular/forms';
+import Swal from 'sweetalert2';
+import { StorehouseInterface } from '../../../../@core/interfaces/auction/storehouse.model';
 import { StorehouseService } from '../../../../@core/backend/common/services/storehouse.service';
 import { StorehouseDetailComponent } from '../storehouse-detail/storehouse-detail.component';
 
@@ -21,12 +23,26 @@ export class StorehouseListComponent extends BasePage {
   ) {
     super(toastrService);
     this.paginator.itemsPerPageLabel = "Registros por página";
+    this.searchForm = new FormGroup({
+      text: new FormControl()
+    });
+    this.searchForm.controls['text'].valueChanges.subscribe((value:string)=>{
+      if(value.length > 0){
+        this.service.search(value).subscribe((rows:StorehouseInterface[])=>{
+          this.length = rows.length;
+          this.storehouses = rows;
+        })
+      }else{
+        this.readStorehouse()
+      }
+    })
   }
 
   length = 100;
   pageSize = 10;
   pageSizeOptions: number[] = [5, 10, 25, 100];
-
+  searchForm:FormGroup
+  
   // MatPaginator Output
   pageEvent: PageEvent = {
     pageIndex:0,
@@ -96,20 +112,18 @@ export class StorehouseListComponent extends BasePage {
   };
 
   ngOnInit(): void {
-    this.readData(0,10);
-  }
-  
-  setPageSizeOptions(setPageSizeOptionsInput: string) {
-    if (setPageSizeOptionsInput)
-      this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
+    this.readStorehouse();
   }
 
-  readData = ((pageIndex:number, pageSize:number) => {
+  readStorehouse = (() => {
     this.storehouses = null;
-    this.service.list(pageIndex, pageSize).subscribe((storehouses:any) => {
-      this.storehouses = storehouses.data;
-      this.length = storehouses.count;
-    }, error => this.onLoadFailed('danger','Error conexión',error.message) );
+    this.service.list(this.pageEvent.pageIndex, this.pageEvent.pageSize).subscribe((legends:any) =>  {
+      this.storehouses = legends.data;
+      this.length = legends.count;
+    }, 
+    error => this.onLoadFailed('danger','Error conexión',error.message)
+    );
+
   });
 
   changesPage (event){
@@ -117,19 +131,30 @@ export class StorehouseListComponent extends BasePage {
 
     }
     this.pageEvent = event;
-    this.readData(event.pageIndex, event.pageSize)
+    this.readStorehouse()
   }
 
   onDeleteConfirm(event): void {
-    if (window.confirm('Are you sure you want to delete?')) {
-      this.service.delete(event.data.id).subscribe( () => {
-        this.readData(this.pageEvent.pageIndex, this.pageEvent.pageSize);
-      },err =>{
-        console.error(err);
-      })
-    } else {
-      event.confirm.reject();
-    }
+    Swal.fire({
+      title: 'Esta seguro de eliminar el registro?',
+      text: "Esta acción no es revertible!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText:'Cancelar',
+      confirmButtonText: 'Si'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.service.delete(event.data.id).subscribe(data =>{
+          this.readStorehouse();
+        },err =>{
+          console.log(err);
+        })
+       
+      }
+    })
+    
   }
 
   editRow(event) {
@@ -138,15 +163,15 @@ export class StorehouseListComponent extends BasePage {
       maximize: false,
       fullScreen: false,
     };
-    const modalRef = this.windowService.open(StorehouseDetailComponent, { title: `Editar bodega`, context: { storehouses: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
-      this.readData(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
+    this.windowService.open(StorehouseDetailComponent, { title: `Editar bodega`, context: { city: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
+      this.readStorehouse();
     });
   
   }
 
   openWindow() {
-    const modalRef = this.windowService.open(StorehouseDetailComponent, { title: `Nueva bodega` }).onClose.subscribe(() => {
-      this.readData(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
+    this.windowService.open(StorehouseDetailComponent, { title: `Nueva bodega` }).onClose.subscribe(() => {
+      this.readStorehouse();
     });
     
   }
