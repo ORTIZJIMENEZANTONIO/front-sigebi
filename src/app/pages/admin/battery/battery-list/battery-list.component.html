@@ -1,7 +1,7 @@
 <nb-card class="cat-card">
   <nb-card-header>
     <span class="title">
-      Lista de deductivas
+      Lista de baterías
     </span>
     <div class="add-select">
       <button (click)="openWindow()"nbButton status="primary">Nueva</button>
@@ -9,9 +9,13 @@
   </nb-card-header>
 
   <nb-card-body>
+    <div [formGroup]="searchForm">
+      <label class="search-label" for="search">Buscar:</label>
+      <input nbInput formControlName="text" class="search-input">
+  </div>
     <ng2-smart-table 
       [settings]="settings" 
-      [source]="batteries" 
+      [source]="rows" 
       (delete)="onDeleteConfirm($event)"
       (edit)="editRow($event)">
     </ng2-smart-table>

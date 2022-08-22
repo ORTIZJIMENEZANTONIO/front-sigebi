@@ -2,9 +2,11 @@ import { Component } from '@angular/core';
 import { MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { NbToastrService, NbWindowControlButtonsConfig, NbWindowService } from '@nebular/theme';
 import { BasePage } from '../../../../@core/shared/base-page';
-
+import { FormControl, FormGroup } from '@angular/forms';
+import { BatteryInterface } from '../../../../@core/interfaces/auction/battery.model';
 import { BatteryService } from '../../../../@core/backend/common/services/battery.service';
 import { BatteryDetailComponent } from '../battery-detail/battery-detail.component';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'ngx-battery-list',
@@ -12,20 +14,33 @@ import { BatteryDetailComponent } from '../battery-detail/battery-detail.compone
   styleUrls: ['./battery-list.component.scss']
 })
 export class BatteryListComponent extends BasePage {
+  rows: any;
 
-  constructor(
-    private service: BatteryService, 
-    public  toastrService: NbToastrService,
-    private windowService: NbWindowService, 
-    private paginator: MatPaginatorIntl
-  ) {
+  constructor(private service: BatteryService, public toastrService: NbToastrService,
+    private windowService: NbWindowService, private paginator: MatPaginatorIntl)
+   {
     super(toastrService);
     this.paginator.itemsPerPageLabel = "Registros por página";
+    this.searchForm = new FormGroup({
+      text: new FormControl()
+    });
+    this.searchForm.controls['text'].valueChanges.subscribe((value:string)=>{
+      if(value.length > 0){
+        this.service.search(value).subscribe((rows:BatteryInterface[])=>{
+          this.length = rows.length;
+          this.rows = rows;
+        })
+      }else{
+        this.readBattery()
+      }
+    })
+
   }
 
   length = 100;
   pageSize = 10;
   pageSizeOptions: number[] = [5, 10, 25, 100];
+  searchForm:FormGroup
 
   // MatPaginator Output
   pageEvent: PageEvent = {
@@ -38,7 +53,7 @@ export class BatteryListComponent extends BasePage {
     if (setPageSizeOptionsInput)
       this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
   }
-  batteries: any;
+
   settings = {
     actions: {
       columnTitle: 'Acciones',
@@ -91,13 +106,13 @@ export class BatteryListComponent extends BasePage {
   };
 
   ngOnInit(): void {
-    this.readData(0,10);
+    this.readBattery();
   }
 
-  readData = ((pageIndex:number, pageSize:number) => {
-    this.batteries = null;
-    this.service.list(pageIndex, pageSize).subscribe((batteries:any) =>  {
-      this.batteries = batteries.data;
+  readBattery = (() => {
+ 
+    this.service.list(this.pageEvent.pageIndex, this.pageEvent.pageSize).subscribe((batteries:any) =>  {
+      this.rows = batteries.data;
       this.length = batteries.count;
     }, 
     error => this.onLoadFailed('danger','Error conexión',error.message)
@@ -110,19 +125,30 @@ export class BatteryListComponent extends BasePage {
 
     }
     this.pageEvent = event;
-    this.readData(event.pageIndex, event.pageSize)
+    this.readBattery()
   }
 
   onDeleteConfirm(event): void {
-    if (window.confirm('Are you sure you want to delete?')) {
-      this.service.delete(event.data.id).subscribe( () => {
-        this.readData(this.pageEvent.pageIndex, this.pageEvent.pageSize);
-      },err =>{
-        console.log(err);
-      })
-    } else {
-      event.confirm.reject();
-    }
+    Swal.fire({
+      title: 'Esta seguro de eliminar el registro?',
+      text: "Esta acción no es revertible!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText:'Cancelar',
+      confirmButtonText: 'Si'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.service.delete(event.data.id).subscribe(data =>{
+          this.readBattery();
+        },err =>{
+          console.log(err);
+        })
+       
+      }
+    })
+    
   }
 
   editRow(event) {
@@ -131,15 +157,15 @@ export class BatteryListComponent extends BasePage {
       maximize: false,
       fullScreen: false,
     };
-    const modalRef = this.windowService.open(BatteryDetailComponent, { title: `Editar batteria`, context: { battery: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
-      this.readData(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
+    this.windowService.open(BatteryDetailComponent, { title: `Editar batería`, context: { battery: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
+      this.readBattery();
     });
   
   }
 
   openWindow() {
-    const modalRef = this.windowService.open(BatteryDetailComponent, { title: `Nueva bateria` }).onClose.subscribe(() => {
-      this.readData(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
+    this.windowService.open(BatteryDetailComponent, { title: `Nueva batería` }).onClose.subscribe(() => {
+      this.readBattery();
     });
     
   }
