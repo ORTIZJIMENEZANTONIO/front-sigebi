@@ -30,7 +30,8 @@ import { LocalityListComponent } from './locality-list/locality-list.component';
     NbButtonModule,
     NbInputModule,
     NbWindowModule.forChild(),
-    MatPaginatorModule
+    MatPaginatorModule,
+    NbSelectModule
   ]
 })
 export class LocalityModule { }
