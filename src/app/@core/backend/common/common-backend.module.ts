@@ -107,6 +107,7 @@ import { ManagementService } from './services/management.service';
 import { LabelOkeyService } from './services/label-okey.service';
 import { StageService } from './services/stage.service';
 import { SiseProcessService } from './services/sise-process.service';
+import { ServicesModule } from '../../../pages/admin/services/services.module';
 
 const API = [
   CategoryApi,
@@ -219,8 +220,8 @@ const SERVICES = [
   ManagementService,
   LabelOkeyService,
   StageService,
-  SiseProcessService
-
+  SiseProcessService,
+  ServicesModule
 ];
 
 @NgModule({
