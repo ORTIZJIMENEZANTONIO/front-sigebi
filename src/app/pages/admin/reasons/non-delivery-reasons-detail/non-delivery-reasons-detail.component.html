@@ -2,20 +2,41 @@
     <nb-card-body>
         <form [formGroup]="formReason">
             <div class="form-group row">
-                <input nbInput fullWidth maxlength="50" formControlName="reasonType" matInput placeholder="Tipo de motivo">
-                <label class="text-danger" *ngIf="validateReason['reasonType'].hasError('pattern')"><small>Tipo motivo no válido!</small></label>
+                <input nbInput fullWidth maxlength="50" formControlName="reasonType" placeholder="Tipo de motivo"
+                    [status]="(reasonType?.errors?.required || reasonType?.hasError('minlength') || reasonType?.hasError('maxlength') || reasonType?.hasError('pattern')) && reasonType.touched ? 'danger' : ''">
+                <ngx-validation-message label="Tipo de motivo" [showMinLength]="reasonType?.hasError('minlength')"
+                    [showMaxLength]="reasonType?.hasError('maxlength')"
+                    [showRequired]="reasonType?.errors?.required && reasonType.touched"
+                    [showPattern]="reasonType?.hasError('pattern') && reasonType.touched" minLength=1 maxLength=255>
+                </ngx-validation-message>
             </div>
             <div class="form-group row">
-                <input nbInput fullWidth formControlName="eventType" matInput placeholder="Tipo de evento">
-                <label class="text-danger" *ngIf="validateReason['eventType'].hasError('pattern')"><small>Tipo de evento no válido!</small></label>
+                <input nbInput fullWidth formControlName="eventType" placeholder="Tipo de evento"
+                    [status]="(eventType?.errors?.required || eventType?.hasError('minlength') || eventType?.hasError('maxlength') || eventType?.hasError('pattern')) && eventType.touched ? 'danger' : ''">
+                <ngx-validation-message label="Tipo de evento" [showMinLength]="eventType?.hasError('minlength')"
+                    [showMaxLength]="eventType?.hasError('maxlength')"
+                    [showRequired]="eventType?.errors?.required && eventType.touched"
+                    [showPattern]="eventType?.hasError('pattern') && eventType.touched" minLength=1 maxLength=255>
+                </ngx-validation-message>
             </div>
             <div class="form-group row">
-                <input nbInput fullWidth formControlName="reason" matInput placeholder="Motivo">
-                <label class="text-danger" *ngIf="validateReason['reason'].hasError('pattern')"><small>Motivo válido!</small></label>
+                <textarea nbInput fullWidth formControlName="reason" placeholder="Motivo"
+                    [status]="(reason?.errors?.required || reason?.hasError('minlength') || reason?.hasError('maxlength') || reason?.hasError('pattern')) && reason.touched ? 'danger' : ''">
+                    </textarea>
+                <ngx-validation-message label="Motivo" [showMinLength]="reason?.hasError('minlength')"
+                    [showMaxLength]="reason?.hasError('maxlength')"
+                    [showRequired]="reason?.errors?.required && reason.touched"
+                    [showPattern]="reason?.hasError('pattern') && reason.touched" minLength=1 maxLength=255>
+                </ngx-validation-message>
             </div>
             <div class="form-group row">
-                <input nbInput fullWidth formControlName="version" matInput placeholder="version">
-                <label class="text-danger" *ngIf="validateReason['version'].hasError('pattern')"><small>Numero de versión no válida!</small></label>
+                <input nbInput fullWidth formControlName="version" placeholder="version"
+                    [status]="(version?.errors?.required || version?.hasError('minlength') || version?.hasError('maxlength') || version?.hasError('pattern')) && version.touched ? 'danger' : ''">
+                <ngx-validation-message label="Version" [showMinLength]="version?.hasError('minlength')"
+                    [showMaxLength]="version?.hasError('maxlength')"
+                    [showRequired]="version?.errors?.required && version.touched"
+                    [showPattern]="version?.hasError('pattern') && version.touched" minLength=1 maxLength=255>
+                </ngx-validation-message>
             </div>
             <div class="form-group row">
                 <select class="form-control" formControlName="status" title="Seleccione una opción">
@@ -23,10 +44,16 @@
                     <option value="0" selected>Activo</option>
                     <option value="1">Inactivo</option>
                 </select>
+                <ngx-validation-message label="Estatus" [showMinLength]="estatus?.hasError('minlength')"
+                    [showMaxLength]="estatus?.hasError('maxlength')"
+                    [showRequired]="estatus?.errors?.required && estatus.touched"
+                    [showPattern]="estatus?.hasError('pattern') && estatus.touched" minLength=1 maxLength=255>
+                </ngx-validation-message>
             </div>
-            <div class="form-group row">
-                <div class="offset-sm-3 col-sm-9">
-                    <button type="submit" nbButton status="primary" [disabled]="!formReason.valid" (click)="register()">{{actionBtn}}</button>
+            <div class="form-group">
+                <div class="d-flex justify-content-center">
+                    <button type="submit" nbButton status="primary" [disabled]="!formReason.valid"
+                        (click)="register()">{{actionBtn}}</button>
                 </div>
             </div>
         </form>

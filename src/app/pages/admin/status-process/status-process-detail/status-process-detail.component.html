@@ -2,21 +2,37 @@
     <nb-card-body>
         <form [formGroup]="formStatusProcess">
             <div class="form-group row">
-                <input nbInput fullWidth formControlName="status" matInput placeholder="Estatus">
-                <label class="text-danger" *ngIf="validateStatusProcess['status'].hasError('pattern')"><small>Nombre de estatus inválido!</small></label>
+                <input nbInput fullWidth formControlName="status" placeholder="Estatus"
+                    [status]="(estatus?.errors?.required || estatus?.hasError('minlength') || estatus?.hasError('maxlength') || estatus?.hasError('pattern')) && estatus.touched ? 'danger' : ''">
+                <ngx-validation-message label="Estatus" [showMinLength]="estatus?.hasError('minlength')"
+                    [showMaxLength]="estatus?.hasError('maxlength')"
+                    [showRequired]="estatus?.errors?.required && estatus.touched"
+                    [showPattern]="estatus?.hasError('pattern') && estatus.touched" minLength=1 maxLength=255>
+                </ngx-validation-message>
             </div>
             <div class="form-group row">
-                <input nbInput fullWidth formControlName="process" matInput placeholder="Proceso">
-                <label class="text-danger" *ngIf="validateStatusProcess['process'].hasError('pattern')"><small>Nombre de proceso inválido!</small></label>
+                <input nbInput fullWidth formControlName="process" placeholder="Proceso"
+                    [status]="(process?.errors?.required || process?.hasError('minlength') || process?.hasError('maxlength') || process?.hasError('pattern')) && process.touched ? 'danger' : ''">
+                <ngx-validation-message label="Proceso" [showMinLength]="process?.hasError('minlength')"
+                    [showMaxLength]="process?.hasError('maxlength')"
+                    [showRequired]="process?.errors?.required && process.touched"
+                    [showPattern]="process?.hasError('pattern') && process.touched" minLength=1 maxLength=255>
+                </ngx-validation-message>
             </div>
             <div class="form-group row">
-                <input nbInput fullWidth formControlName="description" matInput placeholder="Descripción">
-                <label class="text-danger" *ngIf="validateStatusProcess['description'].hasError('pattern')"><small>Descripción inválida!</small></label>
+                <input nbInput fullWidth formControlName="description" placeholder="Descripción"
+                    [status]="(description?.errors?.required || description?.hasError('minlength') || description?.hasError('maxlength') || description?.hasError('pattern')) && description.touched ? 'danger' : ''">
+                <ngx-validation-message label="Descripción" [showMinLength]="description?.hasError('minlength')"
+                    [showMaxLength]="description?.hasError('maxlength')"
+                    [showRequired]="description?.errors?.required && description.touched"
+                    [showPattern]="description?.hasError('pattern') && description.touched" minLength=1 maxLength=255>
+                </ngx-validation-message>
             </div>
 
-            <div class="form-group row">
-                <div class="offset-sm-3 col-sm-9">
-                    <button type="submit" nbButton status="primary" [disabled]="!formStatusProcess.valid" (click)="register()">{{actionBtn}}</button>
+            <div class="form-group">
+                <div class="d-flex justify-content-center">
+                    <button type="submit" nbButton status="primary" [disabled]="!formStatusProcess.valid"
+                        (click)="register()">{{actionBtn}}</button>
                 </div>
             </div>
         </form>
