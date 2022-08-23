@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { NbWindowRef, NB_WINDOW_CONTEXT, NbWindowService } from '@nebular/theme';
+import { NbWindowRef, NB_WINDOW_CONTEXT, NbWindowService, NbToastrService } from '@nebular/theme';
 import { ClaimConclusionService } from '../../../../@core/backend/common/services/claim-conclusion.service';
 import { ClaimConclusion } from '../../../../@core/interfaces/auction/claim-conclusion.model';
 import { SweetAlertConstants } from '../../../../@core/interfaces/auction/sweetalert-model';
@@ -24,8 +24,9 @@ export class ClaimConclusionDetailComponent extends BasePage implements OnInit {
     protected router: Router,
     private service: ClaimConclusionService,
     public windowRef: NbWindowRef,
+    public toastrService: NbToastrService,
     @Inject(NB_WINDOW_CONTEXT) context) {
-    super();
+    super(toastrService);
     if (null != context.claimConclusion) {
       this.data = context.claimConclusion;
     }

@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { NbWindowRef, NB_WINDOW_CONTEXT, NbWindowService } from '@nebular/theme';
+import { NbWindowRef, NB_WINDOW_CONTEXT, NbWindowService, NbToastrService } from '@nebular/theme';
 import { SatClassificationService } from '../../../../../@core/backend/common/services/sat-classification.service';
 import { SweetAlertConstants } from '../../../../../@core/interfaces/auction/sweetalert-model';
 import { BaseApp } from '../../../../../@core/shared/base-app';
@@ -24,9 +24,10 @@ export class SatClassificationDetailComponent extends BasePage implements OnInit
     protected router: Router,
     private service: SatClassificationService,
     public windowRef: NbWindowRef,
+    public toastrService: NbToastrService,
     @Inject(NB_WINDOW_CONTEXT) context
   ) {
-    super();
+    super(toastrService);
     if (null != context.questions)
       this.data = context.questions;
   }
