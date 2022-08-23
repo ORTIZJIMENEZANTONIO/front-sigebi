@@ -1,0 +1,28 @@
+<nb-card>
+    <nb-card-body>
+        <form [formGroup]="form">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <input nbInput fullWidth formControlName="idOficioSat" placeholder="Id oficio">
+                        <label class="text-danger" *ngIf="validateOpinion['idOficioSat'].hasError('pattern')"><small>Id oficio no
+                                válido!</small></label>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <input nbInput fullWidth formControlName="typeDocSatXml" placeholder="Tipo documento">
+                        <label class="text-danger" *ngIf="validateOpinion['typeDocSatXml'].hasError('pattern')"><small>Tipo documento no
+                                válido!</small></label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="d-flex justify-content-center">
+                    <button type="submit" nbButton status="primary" [disabled]="!form.valid"
+                        (click)="register()">{{actionBtn}}</button>
+                </div>
+            </div>
+        </form>
+    </nb-card-body>
+</nb-card>

@@ -1,27 +1,50 @@
 <nb-card>
     <nb-card-body>
-        <form [formGroup]="formOpinion">
+        <form [formGroup]="formDictament">
             <div class="form-group row">
-                <input nbInput fullWidth formControlName="description" matInput placeholder="Descripcion">
-                <label class="text-danger" *ngIf="validateOpinion['description'].hasError('pattern')"><small>Ingrese una descripcion válida!</small></label>
+                <input nbInput fullWidth formControlName="description" placeholder="Descripcion"
+                    [status]="(description?.errors?.required || description?.hasError('minlength') || description?.hasError('maxlength') || description?.hasError('pattern')) && description.touched ? 'danger' : ''">
+                <ngx-validation-message label="Descripcion" [showMinLength]="description?.hasError('minlength')"
+                    [showMaxLength]="description?.hasError('maxlength')"
+                    [showRequired]="description?.errors?.required && description.touched"
+                    [showPattern]="description?.hasError('pattern') && description.touched" minLength=1 maxLength=255>
+                </ngx-validation-message>
             </div>
             <div class="form-group row">
-                <input nbInput fullWidth formControlName="noRegistration" matInput placeholder="Numero de registro">
-                <label class="text-danger" *ngIf="validateOpinion['noRegistration'].hasError('pattern')"><small>Ingrese un numero de registro válido!</small></label>
+                <input nbInput fullWidth formControlName="noRegistration" placeholder="Numero de registro"
+                    [status]="(noRegistration?.errors?.required || noRegistration?.hasError('minlength') || noRegistration?.hasError('maxlength') || noRegistration?.hasError('pattern')) && noRegistration.touched ? 'danger' : ''">
+                <ngx-validation-message label="Numero de registro"
+                    [showMinLength]="noRegistration?.hasError('minlength')"
+                    [showMaxLength]="noRegistration?.hasError('maxlength')"
+                    [showRequired]="noRegistration?.errors?.required && noRegistration.touched"
+                    [showPattern]="noRegistration?.hasError('pattern') && noRegistration.touched" minLength=1
+                    maxLength=255>
+                </ngx-validation-message>
             </div>
             <div class="form-group row">
-                <input nbInput fullWidth formControlName="dict_ofi" matInput placeholder="Dictamen oficial">
-                <label class="text-danger" *ngIf="validateOpinion['dict_ofi'].hasError('pattern')"><small>Dictamen oficial no válido!</small></label>
+                <input nbInput fullWidth formControlName="dict_ofi" placeholder="Dictamen oficial"
+                    [status]="(dict_ofi?.errors?.required || dict_ofi?.hasError('minlength') || dict_ofi?.hasError('maxlength') || dict_ofi?.hasError('pattern')) && dict_ofi.touched ? 'danger' : ''">
+                <ngx-validation-message label="Dictamen oficial" [showMinLength]="dict_ofi?.hasError('minlength')"
+                    [showMaxLength]="dict_ofi?.hasError('maxlength')"
+                    [showRequired]="dict_ofi?.errors?.required && dict_ofi.touched"
+                    [showPattern]="dict_ofi?.hasError('pattern') && dict_ofi.touched" minLength=1 maxLength=255>
+                </ngx-validation-message>
             </div>
 
             <div class="form-group row">
-                <input nbInput fullWidth formControlName="areaProcess" matInput placeholder="Area de proceso">
-                <label class="text-danger" *ngIf="validateOpinion['areaProcess'].hasError('pattern')"><small>Area de proceso no válido!</small></label>
+                <input nbInput fullWidth formControlName="areaProcess" placeholder="Area de proceso"
+                    [status]="(areaProcess?.errors?.required || areaProcess?.hasError('minlength') || areaProcess?.hasError('maxlength') || areaProcess?.hasError('pattern')) && areaProcess.touched ? 'danger' : ''">
+                <ngx-validation-message label="Area de proceso" [showMinLength]="areaProcess?.hasError('minlength')"
+                    [showMaxLength]="areaProcess?.hasError('maxlength')"
+                    [showRequired]="areaProcess?.errors?.required && areaProcess.touched"
+                    [showPattern]="areaProcess?.hasError('pattern') && areaProcess.touched" minLength=1 maxLength=255>
+                </ngx-validation-message>
             </div>
 
-            <div class="form-group row">
-                <div class="offset-sm-3 col-sm-9">
-                    <button type="submit" nbButton status="primary" [disabled]="!formOpinion.valid" (click)="register()">{{actionBtn}}</button>
+            <div class="form-group">
+                <div class="d-flex justify-content-center">
+                    <button type="submit" nbButton status="primary" [disabled]="!formDictament.valid"
+                        (click)="register()">{{actionBtn}}</button>
                 </div>
             </div>
         </form>

@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DelegationListComponent } from './delegation-list/delegation-list.component';
+import { StagesListComponent } from './stages-list/stages-list.component';
 
 const routes: Routes = [
   {
-    path:'',component:DelegationListComponent
+    path: '',component: StagesListComponent,
   }
 ];
 
@@ -12,4 +12,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class DelegationRoutingModule { }
+export class StagesRoutingModule { }

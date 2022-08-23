@@ -103,7 +103,6 @@ export class SatSubclasificationListComponent extends BasePage implements OnInit
     this.service.list(this.pageEvent.pageIndex, this.pageEvent.pageSize).subscribe((legends: any) => {
       this.rows = legends.data;
       this.length = legends.count;
-      console.log(legends);
 
     },
       error => this.onLoadFailed('danger', 'Error conexión', error.message)
@@ -148,7 +147,7 @@ export class SatSubclasificationListComponent extends BasePage implements OnInit
       maximize: false,
       fullScreen: false,
     };
-    this.windowService.open(SatSubclasificationDetailComponent, { title: `Editar sat subclasificacion`, context: { GoodSubtype: event.data }, buttons: buttonsConfig }).onClose.subscribe(() => {
+    this.windowService.open(SatSubclasificationDetailComponent, { title: `Editar sat subclasificacion`, context: { data: event.data }, buttons: buttonsConfig }).onClose.subscribe(() => {
       this.readSatSubclasification();
     });
 

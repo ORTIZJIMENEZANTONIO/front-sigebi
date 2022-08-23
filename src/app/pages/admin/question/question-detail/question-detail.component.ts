@@ -44,7 +44,7 @@ export class QuestionDetailComponent extends BasePage {
       
     });
   
-  get validateDelegation(){
+  get validateQuestion(){
     return this.form.controls;
   }
     
@@ -61,7 +61,9 @@ export class QuestionDetailComponent extends BasePage {
   }
 
   createRegister( data ): void {
-    this.service.register(data).subscribe( () => {
+    console.log({...data,id:1});
+    this.service.register({...data,id:1}).subscribe( () => {
+      
       this.windowRef.close();
     },
     err =>{

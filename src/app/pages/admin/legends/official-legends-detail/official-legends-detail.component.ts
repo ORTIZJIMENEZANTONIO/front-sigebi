@@ -6,6 +6,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { BaseApp } from '../../../../@core/shared/base-app';
 import { STRING_PATTERN } from '../../../../@components/constants';
 import { LegendsService } from '../../../../@core/backend/common/services/legends.service';
+import { LegendsModel } from '../../../../@core/interfaces/auction/legends.model';
 
 @Component({
   selector: 'ngx-official-legends-detail',
@@ -15,7 +16,7 @@ import { LegendsService } from '../../../../@core/backend/common/services/legend
 export class OfficialLegendsDetailComponent extends BaseApp {
 
   legendForm: FormGroup;
-  legend: any = {};
+  legend: LegendsModel;
 
   constructor(private fb: FormBuilder, protected cd: ChangeDetectorRef, protected router: Router, private service: LegendsService,
     public windowRef: NbWindowRef, @Inject(NB_WINDOW_CONTEXT) context, private dom: DomSanitizer,  private windowService: NbWindowService) { 
@@ -27,9 +28,9 @@ export class OfficialLegendsDetailComponent extends BaseApp {
     actionBtn : string = "Guardar";
 
     formLegend = this.fb.group({
-      legend: [null, Validators.compose([Validators.pattern("[a-zA-Z]((\.|_|-)?[a-zA-ZáéíóúÁÉÍÓÚ\u0020]+){0,255}"), Validators.required])],
-      version: [null, Validators.compose([Validators.pattern("^([0-9]+)+([.][0-9]+)+([.][0-9]+)?$"),Validators.required])],
-      status: [null, Validators.compose([Validators.required])],
+      legend: ['', Validators.compose([Validators.required])],
+      version: ['', Validators.compose([Validators.pattern("^([0-9]+)+([.][0-9]+)+([.][0-9]+)?$"),Validators.required])],
+      status: [0, Validators.compose([Validators.required])],
     });
   
     get validateLegend(){
@@ -38,11 +39,10 @@ export class OfficialLegendsDetailComponent extends BaseApp {
     
   ngOnInit(): void {
     
-    if(this.legend.legend){
+
+    if(this.legend){
       this.actionBtn = "Actualizar";
-      this.formLegend.controls['legend'].setValue(this.legend.legend);
-      this.formLegend.controls['version'].setValue(this.legend.version);
-      this.formLegend.controls['status'].setValue(this.legend.status!="NaN"?this.legend.status:'');
+      this.formLegend.patchValue(this.legend);
     }else{
       this.formLegend.controls['status'].setValue(0);
     }

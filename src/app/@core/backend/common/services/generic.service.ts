@@ -25,7 +25,7 @@ export class GenericService {
         return this.api.register(legendData, this.url);
     }
 
-    update(id:number, legendData: GenericModel): Observable<GenericModel>{
+    update(id:string, legendData: GenericModel): Observable<GenericModel>{
         return this.api.update(id, legendData, this.url);
     }
 
