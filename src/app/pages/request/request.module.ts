@@ -8,14 +8,17 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSelectModule } from '@angular/material/select';
-import { NbCardModule, NbSelectModule, NbButtonModule, NbInputModule, NbAutocompleteModule, NbRadioModule, NbDatepickerModule, NbIconModule } from '@nebular/theme';
+import { NbCardModule, NbSelectModule, NbButtonModule, NbInputModule, NbAutocompleteModule, NbRadioModule, NbDatepickerModule, NbIconModule, NbCheckboxModule, NbTabsetModule, NbActionsModule, NbButtonGroupModule } from '@nebular/theme';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { ComponentsModule } from '../../@components/components.module';
 import { ThemeModule } from '../../@theme/theme.module';
-
+import { TurnRequestComponent } from './turn-request/turn-request.component';
+import { CreateRequestComponent } from './create-request/create-request.component';
 @NgModule({
   declarations: [
-    RequestToTurnComponent
+    RequestToTurnComponent,
+    TurnRequestComponent,
+    CreateRequestComponent
   ],
   imports: [
     CommonModule,
@@ -39,7 +42,11 @@ import { ThemeModule } from '../../@theme/theme.module';
     NbAutocompleteModule,
     NbRadioModule,
     NbDatepickerModule.forRoot(),
-    NbIconModule
+    NbIconModule,
+    NbCheckboxModule,
+    NbTabsetModule,
+    NbActionsModule,
+    NbButtonGroupModule
   ],
   exports: [
    

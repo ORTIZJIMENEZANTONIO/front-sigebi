@@ -12,6 +12,8 @@
             <div class="col-sm-4">
                 <div class="form-group">
                     <label for="inputLastName" class="label">Emisora</label>
+
+                    
                     <nb-select placeholder="Seleccione..." fullWidth>
                     </nb-select>
                 </div>
@@ -97,18 +99,18 @@
                 </div>
             </div>
         </div>
-        <button nbButton status="primary" class="mr-1" size="medium">
+        <button nbButton status="primary" class="mr-1" size="small">
             <nb-icon icon="search"></nb-icon>Buscar
         </button>
-        <button nbButton status="warning" size="medium">
+        <button nbButton status="warning" class="mr-1" size="small">
             <nb-icon icon="trash"></nb-icon>Limpiar
         </button>
-
+       
     </nb-card-body>
 </nb-card>
 <nb-card>
     <nb-card-header>
-        <button nbButton status="info" class="mr-1" size="medium">Turnar solicitudes seleccionadas</button>
+        <button (click)="turnRequests()" nbButton status="info" class="mr-1" size="small">Turnar solicitudes seleccionadas</button>
     </nb-card-header>
     <nb-card-body>
         <ng2-smart-table [settings]="settings" [source]="rows"  >

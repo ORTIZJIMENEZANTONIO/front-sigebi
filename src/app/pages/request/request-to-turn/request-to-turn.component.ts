@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
+import { Router } from '@angular/router';
+import { NbWindowControlButtonsConfig, NbWindowService } from '@nebular/theme';
+import { TurnRequestComponent } from '../turn-request/turn-request.component';
 
 @Component({
   selector: 'ngx-request-to-turn',
@@ -8,9 +11,13 @@ import { MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 })
 export class RequestToTurnComponent implements OnInit {
 
-  constructor(
-    private paginator: MatPaginatorIntl
 
+  
+
+  constructor(
+    private paginator: MatPaginatorIntl,
+    private windowService: NbWindowService,
+    private router: Router
   ) { 
     this.paginator.itemsPerPageLabel = "Registros por página";
 
@@ -113,17 +120,59 @@ export class RequestToTurnComponent implements OnInit {
       asunto:{
         title:"Asunto",
         type:'string'
+      },
+      tipo:{
+        title:"Tipo Transferencia",
+        type:'string'
+      },
+      estado:{
+        title:"Estado solicitud",
+        type:'string'
+      },
+      contribuyente:{
+        title:"Contribuyente indiciado",
+        type:'string'
+      },
+      acta:{
+        title:"Acta circunstanciada",
+        type:'string'
+      },
+      averiguacion:{
+        title:"Averiguacion previa",
+        type:'string'
+      },
+      causa:{
+        title:"Causa penal",
+        type:'string'
       }
 
     },
     noDataMessage: "No se encontrarón registros"
   };
 
+
+
   
   changesPage (event){
   }
 
   ngOnInit(): void {
+  }
+
+
+  turnRequests(){
+      const buttonsConfig: NbWindowControlButtonsConfig = {
+        minimize: false,
+        maximize: false,
+        fullScreen: false,
+      };
+      this.windowService.open(TurnRequestComponent, { title: `Turnar solicitudes seleccionadas`, context: { requets: [] }, buttons: buttonsConfig  }).onClose.subscribe(() => {
+        console.log('====================================');
+        console.log("SOLICITUDES RESTANTES");
+        console.log('====================================');
+        ///this.readDelegation();
+      });
+    
   }
 
 }

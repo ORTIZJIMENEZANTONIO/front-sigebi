@@ -596,6 +596,10 @@ export const MENU_ITEMS: NbMenuItem[] = [
       {
         title:'Solicitudes a turnar',
         link:'/pages/request/request-to-turn'
+      },
+      {
+        title:'Crear solicitud',
+        link:'/pages/request/create'
       }
     ]
   },
