@@ -19,10 +19,10 @@ import { LocalityListComponent } from './locality-list/locality-list.component';
     LocalityDetailComponent
   ],
   imports: [
-    FormsModule,
+    CommonModule,
+    LocalityRoutingModule,
     ReactiveFormsModule,
     ComponentsModule,
-    CommonModule,
     ThemeModule,
     NbCardModule,
     Ng2SmartTableModule,
@@ -30,10 +30,7 @@ import { LocalityListComponent } from './locality-list/locality-list.component';
     NbButtonModule,
     NbInputModule,
     NbWindowModule.forChild(),
-    LocalityRoutingModule,
-    MatPaginatorModule,
-    MatInputModule,
-    MatFormFieldModule
+    MatPaginatorModule
   ]
 })
 export class LocalityModule { }

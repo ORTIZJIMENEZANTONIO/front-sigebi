@@ -37,10 +37,10 @@ import { StatusCodeListComponent } from './status-code-list/status-code-list.com
     StatusCodeListComponent
   ],
   imports: [
-    FormsModule,
+    CommonModule,
+    StatusCodeRoutingModule,
     ReactiveFormsModule,
     ComponentsModule,
-    CommonModule,
     ThemeModule,
     NbCardModule,
     Ng2SmartTableModule,
@@ -48,10 +48,7 @@ import { StatusCodeListComponent } from './status-code-list/status-code-list.com
     NbButtonModule,
     NbInputModule,
     NbWindowModule.forChild(),
-    StatusCodeRoutingModule,
-    MatPaginatorModule,
-    MatInputModule,
-    MatFormFieldModule
+    MatPaginatorModule
   ]
 })
 export class StatusCodeModule { }

@@ -492,7 +492,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
       },
       {
         title: 'Situacion Bien',
-        link: '/pages/admin/good-situacion'
+        link: '/pages/admin/good-situation'
       },
       {
         title: 'Clasificacion Institucion',
