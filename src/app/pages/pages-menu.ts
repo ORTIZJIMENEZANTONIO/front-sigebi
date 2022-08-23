@@ -591,6 +591,10 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: '/pages/admin/r-asunt-dic'
       },
       {
+        title: 'Servicios',
+        link: '/pages/admin/service-cat'
+      },
+      {
         title: 'Empresa terceros',
         link: '/pages/admin/third-company'
       },

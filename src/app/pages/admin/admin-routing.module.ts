@@ -400,6 +400,10 @@ const routes: Routes = [
         path: 'siseProcess', loadChildren: () => import('./sise-process/sise-process.module')
           .then(m => m.SiseProcessModule)
       },
+      {
+        path: 'service-cat', loadChildren: () => import('./services/services.module')
+          .then(m => m.ServicesModule)
+      },
       //{ path: 'home', component: CategoriesComponent },//ok
     ]
   }
