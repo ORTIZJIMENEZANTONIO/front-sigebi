@@ -1,10 +1,10 @@
 import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
-import { DomSanitizer } from '@angular/platform-browser';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { NbWindowRef, NB_WINDOW_CONTEXT, NbWindowService } from '@nebular/theme';
+import { NbWindowRef, NB_WINDOW_CONTEXT } from '@nebular/theme';
 import { BatchService } from '../../../../@core/backend/common/services/batch.service';
 import { Batch } from '../../../../@core/interfaces/auction/batch.model';
+import { SweetAlertConstants } from '../../../../@core/interfaces/auction/sweetalert-model';
 import { BasePage } from '../../../../@core/shared/base-page';
 
 @Component({
@@ -12,60 +12,87 @@ import { BasePage } from '../../../../@core/shared/base-page';
   templateUrl: './batch-detail.component.html',
   styleUrls: ['./batch-detail.component.scss']
 })
-export class BatchDetailComponent extends BasePage {
+export class BatchDetailComponent extends BasePage implements OnInit {
 
-  
-  data: Batch;
+  public formBatch: FormGroup;
+  private data: Batch;
+  public actionBtn: string = "Guardar";
 
-  constructor(private fb: FormBuilder, protected cd: ChangeDetectorRef, protected router: Router, private service: BatchService,
-    public windowRef: NbWindowRef, @Inject(NB_WINDOW_CONTEXT) context, private dom: DomSanitizer,  private windowService: NbWindowService) { 
-      super();
-      if (null != context.data){
-        this.data = context.data;
-      }
+  constructor(
+    private fb: FormBuilder,
+    protected cd: ChangeDetectorRef,
+    protected router: Router,
+    private service: BatchService,
+    public windowRef: NbWindowRef,
+    @Inject(NB_WINDOW_CONTEXT) context) {
+    super();
+    if (null != context.data) {
+      this.data = context.data;
     }
-    actionBtn : string = "Guardar";
+  }
 
-    formBatch = this.fb.group({
-    id:[''],
+  ngOnInit(): void {
+    this.prepareForm();
+  }
+  private prepareForm() {
+    this.formBatch = this.fb.group({
+      id: [''],
 
-    numStore: ['', Validators.required],
+      numStore: ['', Validators.required],
 
-    numRegister: ['', Validators.required],
-    
-    description: ['', Validators.required],
+      numRegister: ['', Validators.required],
 
-    status: ['', Validators.required],
+      description: ['', Validators.required],
+
+      status: ['', Validators.required],
 
     });
-  
-  get validateBatch(){
-    return this.formBatch.controls;
-  }
-    
-  ngOnInit(): void {
-    
-    if(this.data){
+    if (this.data) {
       this.actionBtn = "Actualizar";
       this.formBatch.patchValue(this.data)
-     
+
     }
   }
 
-  register(): void {
-    const data = this.formBatch.value;
-    if( this.actionBtn == "Guardar"){
-      this.service.register(data).subscribe(data =>{
+  public get numStore() { return this.formBatch.get('numStore'); }
+  public get numRegister() { return this.formBatch.get('numRegister'); }
+  public get description() { return this.formBatch.get('description'); }
+  public get estatus() { return this.formBatch.get('status'); }
+
+  public register(): void {
+    const data = this.formBatch.getRawValue();
+    this.actionBtn == "Guardar" ? this.createRegister(data) : this.updateRegister(data);
+  }
+  private createRegister(data): void {
+    this.service.register(data).subscribe(
+      () => {
+        this.onLoadFailed('success', 'Despacho', 'Registrado Correctamente');
+      }, err => {
+        let error = '';
+        if (err.status === 0) {
+          error = SweetAlertConstants.noConexion;
+        } else {
+          error = err.message;
+        }
+        this.onLoadFailed('danger', 'Error', error);
+      }, () => {
         this.windowRef.close();
-      },err =>{
-        console.log(err);
-      })
-    }else{
-      this.service.update(this.data.id,data).subscribe(data =>{
+      });
+  }
+  private updateRegister(data): void {
+    this.service.update(this.data.id, data).subscribe(
+      () => {
+        this.onLoadFailed('success', 'Despacho', 'Actualizado Correctamente');
+      }, err => {
+        let error = '';
+        if (err.status === 0) {
+          error = SweetAlertConstants.noConexion;
+        } else {
+          error = err.message;
+        }
+        this.onLoadFailed('danger', 'Error', error);
+      }, () => {
         this.windowRef.close();
-      },err =>{
-        console.log(err);
-      })
-    }
+      });
   }
 }

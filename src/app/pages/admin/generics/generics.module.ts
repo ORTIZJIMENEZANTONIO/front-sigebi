@@ -31,9 +31,7 @@ import { GenericListComponent } from './generic-list/generic-list.component';
     NbInputModule,
     NbWindowModule.forChild(),
     GenericsRoutingModule,
-    MatPaginatorModule,
-    MatInputModule,
-    MatFormFieldModule
+    MatPaginatorModule
   ]
 })
 export class GenericsModule { }

@@ -8,8 +8,6 @@ import { ComponentsModule } from '../../../@components/components.module';
 import { FractionsRoutingModule } from './fractions-routing.module';
 import { FractionsDetailComponent } from './fractions-detail/fractions-detail.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
 import { FractionsListComponent } from './fractions-list/fractions-list.component';
 
 
@@ -32,8 +30,6 @@ import { FractionsListComponent } from './fractions-list/fractions-list.componen
     NbWindowModule.forChild(),
     FractionsRoutingModule,
     MatPaginatorModule,
-    MatInputModule,
-    MatFormFieldModule,
     NbAutocompleteModule
   ]
 })

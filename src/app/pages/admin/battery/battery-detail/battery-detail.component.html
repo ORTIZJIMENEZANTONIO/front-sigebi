@@ -1,1 +1,40 @@
-<p>battery-detail works!</p>
+<nb-card>
+    <nb-card-body>
+        <form [formGroup]="form">
+
+            <div class="form-group row">
+                <input type="text" nbInput maxlength="5" fullWidth formControlName="storeCode" matInput placeholder="Número de almacen ej. 1"
+                [status]="form.controls['storeCode']?.errors?.required  && form.controls['storeCode'].touched ? 'danger' : ''">
+
+                <label class="text-danger" *ngIf="validate['storeCode'].hasError('required') && form.controls['storeCode'].touched"><small>Ingrese un almacen valido!</small></label>
+            </div>
+
+           <div class="form-group row">
+                <input type="number" nbInput fullWidth formControlName="registerNumber" matInput placeholder="ID Registro"
+                [status]="form.controls['registerNumber']?.errors?.required  && form.controls['registerNumber'].touched ? 'danger' : ''">
+
+                <label class="text-danger" *ngIf="validate['registerNumber'].hasError('required') && form.controls['registerNumber'].touched"><small>Ingrese un registro valido!</small></label>
+            </div>
+
+            <div class="form-group row">
+                <input type="text" nbInput maxlength="1" fullWidth formControlName="status" matInput placeholder="Estado"
+                [status]="form.controls['status']?.errors?.required  && form.controls['status'].touched ? 'danger' : ''">
+
+                <label class="text-danger" *ngIf="validate['status'].hasError('required') && form.controls['status'].touched"><small>Ingrese un estado valido!</small></label>
+            </div>
+
+            <div class="form-group row">
+                <input type="text" nbInput fullWidth maxlength="30" formControlName="description" matInput placeholder="Descripción"
+                [status]="form.controls['description']?.errors?.required  && form.controls['description'].touched ? 'danger' : ''">
+
+                <label class="text-danger" *ngIf="validate['description'].hasError('required') && form.controls['description'].touched"><small>Ingrese una descripción valida!</small></label>
+            </div>
+       
+            <div class="form-group row">
+                <div class="offset-sm-3 col-sm-9">
+                    <button type="submit" nbButton status="primary" [disabled]="!form.valid" (click)="register()">{{actionBtn}}</button>
+                </div>
+            </div>
+        </form>
+    </nb-card-body>
+</nb-card>

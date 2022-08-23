@@ -39,7 +39,7 @@ export class OriginCisiDetailComponent extends BasePage {
 
 
   
-    get validateDelegation(){
+    get validate(){
       return this.form.controls;
     }
     ngOnInit(): void {

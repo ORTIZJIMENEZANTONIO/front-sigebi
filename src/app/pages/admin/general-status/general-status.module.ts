@@ -32,9 +32,7 @@ import { GeneralStatusListComponent } from './general-status-list/general-status
     NbButtonModule,
     NbInputModule,
     NbWindowModule.forChild(),
-    MatPaginatorModule,
-    MatInputModule,
-    MatFormFieldModule
+    MatPaginatorModule
   ]
 })
 export class GeneralStatusModule { }

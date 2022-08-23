@@ -1,62 +1,109 @@
 <nb-card>
     <nb-card-body>
         <form [formGroup]="formCity">
-            <div class="form-group row">
-                <input nbInput fullWidth formControlName="name" matInput placeholder="nombre">
-                <label class="text-danger" *ngIf="validateCity['name'].hasError('pattern')"><small>Ingrese un nombre válido!</small></label>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input nbInput fullWidth formControlName="name" placeholder="Nombre"
+                            [status]="(name?.errors?.required || name?.hasError('minlength') || name?.hasError('maxlength') || name?.hasError('pattern')) && name.touched ? 'danger' : ''">
+                        <ngx-validation-message label="Nombre" [showMinLength]="name?.hasError('minlength')"
+                            [showMaxLength]="name?.hasError('maxlength')"
+                            [showRequired]="name?.errors?.required && name.touched"
+                            [showPattern]="name?.hasError('pattern') && name.touched" minLength=1 maxLength=255>
+                        </ngx-validation-message>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input nbInput fullWidth formControlName="cityCode" placeholder="CVE Entfed"
+                            [status]="(cityCode?.errors?.required || cityCode?.hasError('minlength') || cityCode?.hasError('maxlength') || cityCode?.hasError('pattern')) && cityCode.touched ? 'danger' : ''">
+                        <ngx-validation-message label="CVE Entfed" [showMinLength]="cityCode?.hasError('minlength')"
+                            [showMaxLength]="cityCode?.hasError('maxlength')"
+                            [showRequired]="cityCode?.errors?.required && cityCode.touched"
+                            [showPattern]="cityCode?.hasError('pattern') && cityCode.touched" minLength=1 maxLength=255>
+                        </ngx-validation-message>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input formControlName="detailDelegation" type="text" id="noDelegation"
+                            placeholder="Nro delegacion" [nbAutocomplete]="auto" nbInput fullWidth
+                            [status]="(detailDelegation?.errors?.required || detailDelegation?.hasError('minlength') || detailDelegation?.hasError('maxlength') || detailDelegation?.hasError('pattern')) && detailDelegation.touched ? 'danger' : ''">
+
+                        <nb-autocomplete #auto [activeFirst]="true"
+                            (selectedChange)="onSelectionChangeDelegation($event)">
+
+                            <nb-option *ngFor="let option of filteredOptions$ | async" [value]="option">
+
+                                {{ option.description }}
+                            </nb-option>
+
+                        </nb-autocomplete>
+                        <ngx-validation-message label="Nro delegacion"
+                            [showMinLength]="detailDelegation?.hasError('minlength')"
+                            [showMaxLength]="detailDelegation?.hasError('maxlength')"
+                            [showRequired]="detailDelegation?.errors?.required && detailDelegation.touched"
+                            [showPattern]="detailDelegation?.hasError('pattern') && detailDelegation.touched"
+                            minLength=1 maxLength=255>
+                        </ngx-validation-message>
+
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input formControlName="detailSubDelegation" placeholder="Nro subdelegacion"
+                            [nbAutocomplete]="subDelegation" nbInput fullWidth
+                            [status]="(detailSubDelegation?.errors?.required || detailSubDelegation?.hasError('minlength') || detailSubDelegation?.hasError('maxlength') || detailSubDelegation?.hasError('pattern')) && detailSubDelegation.touched ? 'danger' : ''">
+                        <nb-autocomplete #subDelegation [activeFirst]="true"
+                            (selectedChange)="onSelectionChangeSubdelegation($event)">
+
+                            <nb-option *ngFor="let option of filteredsubdelegations$ | async" [value]="option">
+                                {{ option.description }}
+                            </nb-option>
+
+                        </nb-autocomplete>
+                        <ngx-validation-message label="Nro subdelegacion"
+                            [showMinLength]="detailSubDelegation?.hasError('minlength')"
+                            [showMaxLength]="detailSubDelegation?.hasError('maxlength')"
+                            [showRequired]="detailSubDelegation?.errors?.required && detailSubDelegation.touched"
+                            [showPattern]="detailSubDelegation?.hasError('pattern') && detailSubDelegation.touched"
+                            minLength=1 maxLength=255>
+                        </ngx-validation-message>
+
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input nbInput fullWidth formControlName="legendOffice" placeholder="Leyenda oficio"
+                            [status]="(legendOffice?.errors?.required || legendOffice?.hasError('minlength') || legendOffice?.hasError('maxlength') || legendOffice?.hasError('pattern')) && legendOffice.touched ? 'danger' : ''">
+                        <ngx-validation-message label="Leyenda oficio"
+                            [showMinLength]="legendOffice?.hasError('minlength')"
+                            [showMaxLength]="legendOffice?.hasError('maxlength')"
+                            [showRequired]="legendOffice?.errors?.required && legendOffice.touched"
+                            [showPattern]="legendOffice?.hasError('pattern') && legendOffice.touched" minLength=1
+                            maxLength=255>
+                        </ngx-validation-message>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input nbInput type="number" fullWidth formControlName="numRegister"
+                            placeholder="Número de registro"
+                            [status]="(numRegister?.errors?.required || numRegister?.hasError('minlength') || numRegister?.hasError('maxlength') || numRegister?.hasError('pattern')) && numRegister.touched ? 'danger' : ''">
+                        <ngx-validation-message label="Número de registro"
+                            [showMinLength]="numRegister?.hasError('minlength')"
+                            [showMaxLength]="numRegister?.hasError('maxlength')"
+                            [showRequired]="numRegister?.errors?.required && numRegister.touched"
+                            [showPattern]="numRegister?.hasError('pattern') && numRegister.touched" minLength=1
+                            maxLength=255>
+                        </ngx-validation-message>
+                    </div>
+                </div>
             </div>
-
-            <div class="form-group row">
-                <input nbInput fullWidth formControlName="cityCode" matInput placeholder="cve_entfed">
-                <label class="text-danger" *ngIf="validateCity['cityCode'].hasError('required')"><small>Campo cve requerido!</small></label>
-            </div>
-
-            <div class="form-group row">
-                <input formControlName="detailDelegation" type="text" id="noDelegation" matInput placeholder="Nro delegacion"  [nbAutocomplete]="auto"  nbInput>
-            
-
-                <nb-autocomplete #auto [activeFirst]="true" (selectedChange)="onSelectionChangeDelegation($event)">
-
-                    <nb-option *ngFor="let option of filteredOptions$ | async" [value]="option">
-
-                        {{ option.description }}
-                    </nb-option>
-                
-                    </nb-autocomplete>
-                <label class="text-danger" *ngIf="validateCity['numDelegation'].hasError('min')"><small>Seleccione una delegacion!</small></label>
-
-               
-            </div>
-
-            <div class="form-group row">
-                <input formControlName="detailSubDelegation" matInput placeholder="Nro subdelegacion"  [nbAutocomplete]="subDelegation"  nbInput>
-            
-
-                <nb-autocomplete #subDelegation [activeFirst]="true" (selectedChange)="onSelectionChangeSubdelegation($event)">
-
-                    <nb-option *ngFor="let option of filteredsubdelegations$ | async" [value]="option">
-                        {{ option.description }}
-                    </nb-option>
-                
-                    </nb-autocomplete>
-                <label class="text-danger" *ngIf="validateCity['numSubDelegation'].hasError('min')"><small>seleccione una subdelegacion!</small></label>
-
-
-            </div>
-
-            <div class="form-group row">
-                <input nbInput fullWidth formControlName="legendOffice" matInput placeholder="Leyenda oficio">
-                <label class="text-danger" *ngIf="validateCity['legendOffice'].hasError('required')"><small>Ingrese una leyenda oficio!</small></label>
-            </div>
-
-            <div class="form-group row">
-                <input nbInput type="number" fullWidth formControlName="numRegister" matInput placeholder="Número de registro">
-                <label class="text-danger" *ngIf="validateCity['numRegister'].hasError('required')"><small>Ingrese el numero de registro!</small></label>
-            </div>
-       
-            <div class="form-group row">
-                <div class="offset-sm-3 col-sm-9">
-                    <button type="submit" nbButton status="primary" [disabled]="!formCity.valid" (click)="register()">{{actionBtn}}</button>
+            <div class="form-group">
+                <div class="d-flex justify-content-center">
+                    <button type="submit" nbButton status="primary" [disabled]="!formCity.valid"
+                        (click)="register()">{{actionBtn}}</button>
                 </div>
             </div>
         </form>

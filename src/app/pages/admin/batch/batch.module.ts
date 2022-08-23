@@ -28,8 +28,6 @@ import { ComponentsModule } from '../../../@components/components.module';
 import { BatchRoutingModule } from './batch-routing.module';
 import { BatchDetailComponent } from './batch-detail/batch-detail.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
 import { BatchListComponent } from './batch-list/batch-list.component';
 @NgModule({
   declarations: [
@@ -50,8 +48,6 @@ import { BatchListComponent } from './batch-list/batch-list.component';
     NbWindowModule.forChild(),
     BatchRoutingModule,
     MatPaginatorModule,
-    MatInputModule,
-    MatFormFieldModule
   ]
 })
 export class BatchModule { }

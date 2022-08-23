@@ -1,45 +1,105 @@
 <nb-card>
   <nb-card-body>
-      <form [formGroup]="formDeductive">
-          <div class="form-group row">
-              <input nbInput fullWidth formControlName="serviceType" matInput placeholder="Tipo de servicio">
-              <label class="text-danger" *ngIf="validateDeductive['serviceType'].hasError('pattern')"><small>Ingrese un nombre válido!</small></label>
+    <form [formGroup]="formDeductive">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <input nbInput fullWidth formControlName="serviceType" placeholder="Tipo de servicio"
+              [status]="(serviceType?.errors?.required || serviceType?.hasError('minlength') || serviceType?.hasError('maxlength') || serviceType?.hasError('pattern')) && serviceType.touched ? 'danger' : ''">
+            <ngx-validation-message label="Tipo de servicio" [showMinLength]="serviceType?.hasError('minlength')"
+              [showMaxLength]="serviceType?.hasError('maxlength')"
+              [showRequired]="serviceType?.errors?.required && serviceType.touched"
+              [showPattern]="serviceType?.hasError('pattern') && serviceType.touched" minLength=1 maxLength=255>
+            </ngx-validation-message>
           </div>
-          <div class="form-group row">
-            <input nbInput fullWidth formControlName="weightedDeduction" matInput placeholder="Deducción ponderada">
-            <label class="text-danger" *ngIf="validateDeductive['weightedDeduction'].hasError('pattern')"><small>Ingrese un nombre válido!</small></label>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <input nbInput fullWidth formControlName="weightedDeduction" placeholder="Deducción ponderada"
+              [status]="(weightedDeduction?.errors?.required || weightedDeduction?.hasError('minlength') || weightedDeduction?.hasError('maxlength') || weightedDeduction?.hasError('pattern')) && weightedDeduction.touched ? 'danger' : ''">
+            <ngx-validation-message label="Deducción ponderada"
+              [showMinLength]="weightedDeduction?.hasError('minlength')"
+              [showMaxLength]="weightedDeduction?.hasError('maxlength')"
+              [showRequired]="weightedDeduction?.errors?.required && weightedDeduction.touched"
+              [showPattern]="weightedDeduction?.hasError('pattern') && weightedDeduction.touched" minLength=1
+              maxLength=255>
+            </ngx-validation-message>
           </div>
-          <div class="form-group row">
-            <input nbInput fullWidth formControlName="startingRankPercentage" matInput placeholder="Rango de porcentaje inicial">
-            <label class="text-danger" *ngIf="validateDeductive['startingRankPercentage'].hasError('pattern')"><small>Ingrese un nombre válido!</small></label>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <input nbInput fullWidth formControlName="startingRankPercentage" placeholder="Rango de porcentaje inicial"
+              [status]="(startingRankPercentage?.errors?.required || startingRankPercentage?.hasError('minlength') || startingRankPercentage?.hasError('maxlength') || startingRankPercentage?.hasError('pattern')) && startingRankPercentage.touched ? 'danger' : ''">
+            <ngx-validation-message label="Rango de porcentaje inicial"
+              [showMinLength]="startingRankPercentage?.hasError('minlength')"
+              [showMaxLength]="startingRankPercentage?.hasError('maxlength')"
+              [showRequired]="startingRankPercentage?.errors?.required && startingRankPercentage.touched"
+              [showPattern]="startingRankPercentage?.hasError('pattern') && startingRankPercentage.touched" minLength=1
+              maxLength=255>
+            </ngx-validation-message>
           </div>
-          <div class="form-group row">
-            <input nbInput fullWidth formControlName="finalRankPercentage" matInput placeholder="Rango de porcentaje final">
-            <label class="text-danger" *ngIf="validateDeductive['finalRankPercentage'].hasError('pattern')"><small>Ingrese un nombre válido!</small></label>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <input nbInput fullWidth formControlName="finalRankPercentage" placeholder="Rango de porcentaje final"
+              [status]="(finalRankPercentage?.errors?.required || finalRankPercentage?.hasError('minlength') || finalRankPercentage?.hasError('maxlength') || finalRankPercentage?.hasError('pattern')) && finalRankPercentage.touched ? 'danger' : ''">
+            <ngx-validation-message label="Rango de porcentaje final"
+              [showMinLength]="finalRankPercentage?.hasError('minlength')"
+              [showMaxLength]="finalRankPercentage?.hasError('maxlength')"
+              [showRequired]="finalRankPercentage?.errors?.required && finalRankPercentage.touched"
+              [showPattern]="finalRankPercentage?.hasError('pattern') && finalRankPercentage.touched" minLength=1
+              maxLength=255>
+            </ngx-validation-message>
           </div>
-          <div class="form-group row">
-            <input nbInput fullWidth formControlName="contractNumber" matInput placeholder="No. de contrato">
-            <label class="text-danger" *ngIf="validateDeductive['contractNumber'].hasError('pattern')"><small>Ingrese un No. de contrato válido!</small></label>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <input nbInput fullWidth formControlName="contractNumber" placeholder="No. de contrato"
+              [status]="(contractNumber?.errors?.required || contractNumber?.hasError('minlength') || contractNumber?.hasError('maxlength') || contractNumber?.hasError('pattern')) && contractNumber.touched ? 'danger' : ''">
+            <ngx-validation-message label="No. de contrato" [showMinLength]="contractNumber?.hasError('minlength')"
+              [showMaxLength]="contractNumber?.hasError('maxlength')"
+              [showRequired]="contractNumber?.errors?.required && contractNumber.touched"
+              [showPattern]="contractNumber?.hasError('pattern') && contractNumber.touched" minLength=1 maxLength=255>
+            </ngx-validation-message>
           </div>
-          <div class="form-group row">
-              <input nbInput fullWidth formControlName="version" matInput placeholder="version">
-              <label class="text-danger" *ngIf="validateDeductive['version'].hasError('pattern')"><small>Numero de versión no válida!</small></label>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <input nbInput fullWidth formControlName="version" placeholder="version"
+              [status]="(version?.errors?.required || version?.hasError('minlength') || version?.hasError('maxlength') || version?.hasError('pattern')) && version.touched ? 'danger' : ''">
+            <ngx-validation-message label="Version" [showMinLength]="version?.hasError('minlength')"
+              [showMaxLength]="version?.hasError('maxlength')"
+              [showRequired]="version?.errors?.required && version.touched"
+              [showPattern]="version?.hasError('pattern') && version.touched" minLength=1 maxLength=255>
+            </ngx-validation-message>
           </div>
-          <div class="form-group row">
-              <select class="form-control" formControlName="status" title="Seleccione una opción">
-                  <option selected disabled>Seleccionar...</option>
-                  <option value="0" selected>Activo</option>
-                  <option value="1">Inactivo</option>
-              </select>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <select class="form-control" formControlName="status" title="Seleccione una opción">
+              <option selected disabled>Seleccionar...</option>
+              <option value="0" selected>Activo</option>
+              <option value="1">Inactivo</option>
+            </select>
           </div>
-          <!-- <div class="form-group row">
-              <input nbInput fullWidth formControlName="status" matInput placeholder="status">
+        </div>
+      </div>
+
+
+
+
+
+
+
+      <!-- <div class="form-group">
+              <input nbInput fullWidth formControlName="status"  placeholder="status">
           </div> -->
-          <div class="form-group row">
-              <div class="offset-sm-3 col-sm-9">
-                  <button type="submit" nbButton status="primary" [disabled]="!formDeductive.valid" (click)="register()">{{actionBtn}}</button>
-              </div>
-          </div>
-      </form>
+      <div class="form-group">
+        <div class="d-flex justify-content-center">
+          <button type="submit" nbButton status="primary" [disabled]="!formDeductive.valid"
+            (click)="register()">{{actionBtn}}</button>
+        </div>
+      </div>
+    </form>
   </nb-card-body>
 </nb-card>
