@@ -21,19 +21,19 @@ export class IfaiSerieService {
     return data;
   }
 
-  search(text:string){
+  search( text:string ){
     return this.api.search(text,this.url);
   }
   
-  register( data: SiseProcessInterface ): Observable<SiseProcessInterface>{
+  register( data: IfaiSerieInterface ): Observable<IfaiSerieInterface>{
     return this.api.register( data, this.url );
   }
 
-  update(id:number, data: SiseProcessInterface): Observable<SiseProcessInterface>{
+  update( id: number | string, data: IfaiSerieInterface ): Observable<IfaiSerieInterface>{
     return this.api.update( id, data, this.url );
   }
 
-  delete(id:number){
+  delete( id: number | string ){
     return this.api.delete( id, this.url );
   }
 
