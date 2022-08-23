@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { NbToastrService, NbWindowControlButtonsConfig, NbWindowService } from '@nebular/theme';
+import { SweetAlertResult } from 'sweetalert2';
+import { SweetAlertConstants, SweetalertModel } from '../../../../@core/interfaces/auction/sweetalert-model';
+import { BaseApp } from '../../../../@core/shared/base-app';
 import { BasePage } from '../../../../@core/shared/base-page';
-import { FormControl, FormGroup } from '@angular/forms';
 import { SweetalertService } from '../../../../shared/sweetalert.service';
-import { SweetAlertConstants } from '../../../../@core/interfaces/auction/sweetalert-model';
 
 import { IfaiSerieInterface } from '../../../../@core/interfaces/auction/ifai-serie.model';
 import { IfaiSerieService } from '../../../../@core/backend/common/services/ifai-serie.service';
@@ -29,7 +31,6 @@ export class IfaiSerieListComponent extends BasePage {
     length: 100
   };
   public settings = {
-
     actions: {
       columnTitle: 'Acciones',
       add: true,
@@ -56,26 +57,63 @@ export class IfaiSerieListComponent extends BasePage {
       confirmDelete: true,
     },
     columns: {
-      code: {
-        title: 'Id Serie',
-        type: 'number'
-      },
-      typeProcedure: {
-        title: 'Tipo procedimiento',
-        type: 'string',
-      },
-      description: {
-        title: 'Descripción',
-        type: 'string'
-      },
-      status: {
-        title: 'Estatus',
-        type: 'string'
-      },
-      registerNumber: {
-        title: 'No. de registro',
+      id: {
+        title: 'Registro',
         type: 'number',
       },
+      name: {
+        title: 'Nombre',
+        type: 'string',
+      },
+      street: {
+        title: 'Calle',
+        type: 'string',
+      },
+      noExt: {
+        title: 'No. Exterior',
+        type: 'string',
+      },
+      noInt: {
+        title: 'No. Interior',
+        type: 'string',
+      },
+      colony: {
+        title: 'Colonia',
+        type: 'string',
+      },
+      municipalDelegate: {
+        title: 'Delegado Municipal',
+        type: 'string',
+      },
+      postalCode: {
+        title: 'Código Postal',
+        type: 'number',
+      },
+      rfc: {
+        title: 'RFC',
+        type: 'string',
+      },
+      phone: {
+        title: 'Teléfono',
+        type: 'string',
+      },
+      phoneTwo: {
+        title: 'Segundo Teléfono',
+        type: 'string',
+      },
+      fax: {
+        title: 'Segundo Teléfono',
+        type: 'string',
+      },
+      typeOffice: {
+        title: 'Tipo',
+        type: 'string',
+      },
+      noRegistration: {
+        title: 'Numero registro',
+        type: 'number',
+      }
+
     },
     noDataMessage: "No se encontrarón registros"
   };
@@ -96,7 +134,7 @@ export class IfaiSerieListComponent extends BasePage {
         this.service.search(value).subscribe((rows: IfaiSerieInterface[]) => {
           this.length = rows.length;
           this.list = rows;
-        });
+        })
       } else {
         this.read(0, 10);
       }
