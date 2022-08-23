@@ -13,15 +13,13 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { ParagraphsListComponent } from './paragraphs-list/paragraphs-list.component';
 
 
-
-
 @NgModule({
   declarations: [...routedComponents, ParagraphsDetailComponent],
   imports: [
-    FormsModule,
+    CommonModule,
+    ParagraphsRoutingModule,
     ReactiveFormsModule,
     ComponentsModule,
-    CommonModule,
     ThemeModule,
     NbCardModule,
     Ng2SmartTableModule,
@@ -29,10 +27,7 @@ import { ParagraphsListComponent } from './paragraphs-list/paragraphs-list.compo
     NbButtonModule,
     NbInputModule,
     NbWindowModule.forChild(),
-    ParagraphsRoutingModule,
-    MatPaginatorModule,
-    MatInputModule,
-    MatFormFieldModule
+    MatPaginatorModule
   ]
 })
 export class ParagraphsModule { }

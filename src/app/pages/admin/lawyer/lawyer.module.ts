@@ -23,7 +23,6 @@ import { LawyerListComponent } from './lawyer-list/lawyer-list.component';
   imports: [
     CommonModule,
     LawyerRoutingModule,
-    FormsModule,
     ReactiveFormsModule,
     ComponentsModule,
     ThemeModule,
@@ -33,9 +32,7 @@ import { LawyerListComponent } from './lawyer-list/lawyer-list.component';
     NbButtonModule,
     NbInputModule,
     NbWindowModule.forChild(),
-    MatPaginatorModule,
-    MatInputModule,
-    MatFormFieldModule
+    MatPaginatorModule
   ]
 })
 export class LawyerModule { }

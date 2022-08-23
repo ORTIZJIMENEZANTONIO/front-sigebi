@@ -14,10 +14,10 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 @NgModule({
   declarations: [ ...routedComponents, OfficialLegendsDetailComponent,],
   imports: [
-    FormsModule,
+    CommonModule,
+    LegendsRoutingModule,
     ReactiveFormsModule,
     ComponentsModule,
-    CommonModule,
     ThemeModule,
     NbCardModule,
     Ng2SmartTableModule,
@@ -25,10 +25,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     NbButtonModule,
     NbInputModule,
     NbWindowModule.forChild(),
-    LegendsRoutingModule,
-    MatPaginatorModule,
-    MatInputModule,
-    MatFormFieldModule
+    MatPaginatorModule
   ]
 })
 export class LegendsModule { }

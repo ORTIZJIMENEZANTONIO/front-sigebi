@@ -3,15 +3,24 @@
         <form [formGroup]="form">
 
             <div class="form-group row">
-                <input nbInput fullWidth formControlName="nombre_clasificacion" matInput
-                    placeholder="Nombre clasificacion">
-                <label class="text-danger" *ngIf="validateOpinion['nombre_clasificacion'].hasError('pattern')"><small>No
-                        válido!</small></label>
+                <input nbInput fullWidth formControlName="nombre_clasificacion" placeholder="Nombre clasificacion"
+                    [status]="(nombre_clasificacion?.errors?.required || nombre_clasificacion?.hasError('minlength') || nombre_clasificacion?.hasError('maxlength') || nombre_clasificacion?.hasError('pattern')) && nombre_clasificacion.touched ? 'danger' : ''">
+                <ngx-validation-message label="Nombre clasificacion"
+                    [showMinLength]="nombre_clasificacion?.hasError('minlength')"
+                    [showMaxLength]="nombre_clasificacion?.hasError('maxlength')"
+                    [showRequired]="nombre_clasificacion?.errors?.required && nombre_clasificacion.touched"
+                    [showPattern]="nombre_clasificacion?.hasError('pattern') && nombre_clasificacion.touched"
+                    minLength=1 maxLength=255>
+                </ngx-validation-message>
             </div>
             <div class="form-group row">
-                <input nbInput fullWidth formControlName="version" matInput placeholder="Version">
-                <label class="text-danger" *ngIf="validateOpinion['version'].hasError('pattern')"><small>No
-                        válido!</small></label>
+                <input nbInput fullWidth formControlName="version" placeholder="Version"
+                    [status]="(version?.errors?.required || version?.hasError('minlength') || version?.hasError('maxlength') || version?.hasError('pattern')) && version.touched ? 'danger' : ''">
+                <ngx-validation-message label="version" [showMinLength]="version?.hasError('minlength')"
+                    [showMaxLength]="version?.hasError('maxlength')"
+                    [showRequired]="version?.errors?.required && version.touched"
+                    [showPattern]="version?.hasError('pattern') && version.touched" minLength=1 maxLength=255>
+                </ngx-validation-message>
             </div>
             <div class="form-group row">
                 <div class="offset-sm-3 col-sm-9">

@@ -21,7 +21,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
   imports: [
     CommonModule,
     ManagementRoutingModule,
-    FormsModule,
     ReactiveFormsModule,
     ComponentsModule,
     ThemeModule,
@@ -31,9 +30,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     NbButtonModule,
     NbInputModule,
     NbWindowModule.forChild(),
-    MatPaginatorModule,
-    MatInputModule,
-    MatFormFieldModule
+    MatPaginatorModule
   ]
 })
 export class ManagementModule { }
