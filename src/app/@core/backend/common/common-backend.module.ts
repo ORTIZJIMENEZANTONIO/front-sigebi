@@ -106,6 +106,7 @@ import { EstRpuveService } from './services/est-repuve.service';
 import { ManagementService } from './services/management.service';
 import { LabelOkeyService } from './services/label-okey.service';
 import { StageService } from './services/stage.service';
+import { SiseProcessService } from './services/sise-process.service';
 
 const API = [
   CategoryApi,
@@ -217,7 +218,8 @@ const SERVICES = [
   EstRpuveService,
   ManagementService,
   LabelOkeyService,
-  StageService
+  StageService,
+  SiseProcessService
 
 ];
 

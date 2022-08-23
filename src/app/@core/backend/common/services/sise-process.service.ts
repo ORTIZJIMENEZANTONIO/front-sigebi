@@ -2,15 +2,15 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { DataSource } from 'ng2-smart-table/lib/lib/data-source/data-source';
 
-import { CatalogApi } from '../api/catalog-api'; 
-import { WarehouseInterface } from '../../../interfaces/auction/warehouse.model';
+import { CatalogApi } from '../api/catalog-api';
+import { SiseProcessInterface } from '../../../interfaces/auction/sise-process.model';
 
 @Injectable()
-export class WarehouseService {
-  
+export class SiseProcessService {
+
   constructor( private api: CatalogApi ) { }
 
-  protected url = "warehouse";
+  protected url = "sise-process";
   
   get gridDataSource(): DataSource {
     return this.api.dataSource;
@@ -21,15 +21,16 @@ export class WarehouseService {
     return data;
   }
 
-  register( data: WarehouseInterface ): Observable<WarehouseInterface>{
+  register( data: SiseProcessInterface ): Observable<SiseProcessInterface>{
     return this.api.register( data, this.url );
   }
 
-  update(id:number, data: WarehouseInterface): Observable<WarehouseInterface>{
+  update(id:number, data: SiseProcessInterface): Observable<SiseProcessInterface>{
     return this.api.update( id, data, this.url );
   }
 
   delete(id:number){
     return this.api.delete( id, this.url );
   }
+
 }

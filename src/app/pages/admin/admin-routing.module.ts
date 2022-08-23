@@ -396,6 +396,10 @@ const routes: Routes = [
         path: 'doc-resarcimiento-sat-xml', loadChildren: () => import('./doccompensation-sat-xml/doccompensation-sat-xml.module')
           .then(m => m.DoccompensationSatXmlModule)
       },
+      {
+        path: 'siseProcess', loadChildren: () => import('./sise-process/sise-process.module')
+          .then(m => m.SiseProcessModule)
+      },
       //{ path: 'home', component: CategoriesComponent },//ok
     ]
   }

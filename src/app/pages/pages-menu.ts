@@ -362,6 +362,10 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: '/pages/admin/question',
       },
       {
+        title: 'Procesos SISE',
+        link: '/pages/admin/siseProcess',
+      },
+      {
         title: 'Tipo Siniestro',
         link: '/pages/admin/sinister',
       },
