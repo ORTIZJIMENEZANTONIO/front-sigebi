@@ -21,6 +21,10 @@ export class SiseProcessService {
     return data;
   }
 
+  search(text:string){
+    return this.api.search(text,this.url);
+  }
+  
   register( data: SiseProcessInterface ): Observable<SiseProcessInterface>{
     return this.api.register( data, this.url );
   }

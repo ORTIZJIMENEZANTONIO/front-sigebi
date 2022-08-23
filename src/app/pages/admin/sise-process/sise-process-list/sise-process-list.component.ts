@@ -9,49 +9,32 @@ import { SweetAlertConstants, SweetalertModel } from '../../../../@core/interfac
 
 import { SiseProcessDetailComponent } from '../sise-process-detail/sise-process-detail.component';
 import { SiseProcessService } from '../../../../@core/backend/common/services/sise-process.service';
+import { SiseProcessInterface } from '../../../../@core/interfaces/auction/sise-process.model';
 
 @Component({
   selector: 'ngx-sise-process-list',
   templateUrl: './sise-process-list.component.html',
   styleUrls: ['./sise-process-list.component.scss']
 })
-export class SiseProcessListComponent extends BasePage {
+export class SiseProcessListComponent extends BasePage implements OnInit {
 
-  searchForm: FormGroup;
-
-  constructor(private service: SiseProcessService, public toastrService: NbToastrService,
-    private windowService: NbWindowService, private paginator: MatPaginatorIntl,
-    private sweetalertService: SweetalertService) {
-    super(toastrService);
-    this.paginator.itemsPerPageLabel = "Registros por página";
-    this.searchForm = new FormGroup({
-      text: new FormControl()
-    });
-  }
-
-  length = 100;
-  pageSize = 10;
-  pageSizeOptions: number[] = [5, 10, 25, 100];
-
+  public searchForm: FormGroup;
+  public list: any;
+  public length = 100;
+  public pageSize = 10;
+  public pageSizeOptions: number[] = [5, 10, 25, 100];
   // MatPaginator Output
-  pageEvent: PageEvent = {
+  public pageEvent: PageEvent = {
     pageIndex: 0,
     pageSize: 10,
     length: 100
   };
-
-  setPageSizeOptions(setPageSizeOptionsInput: string) {
-    if (setPageSizeOptionsInput) {
-      this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
-    }
-  }
-  list: any;
-  settings = {
+  public settings = {
     actions: {
       columnTitle: 'Acciones',
       add: true,
       edit: true,
-      delete: true,
+      delete: false,
     },
     pager: {
       display: false,
@@ -86,11 +69,35 @@ export class SiseProcessListComponent extends BasePage {
     noDataMessage: "No se encontrarón registros"
   };
 
+  constructor(
+    private service: SiseProcessService,
+    public toastrService: NbToastrService,
+    private windowService: NbWindowService,
+    private paginator: MatPaginatorIntl,
+    public sweetalertService: SweetalertService
+  ) {
+    super(toastrService, sweetalertService);
+    this.paginator.itemsPerPageLabel = "Registros por página";
+    this.searchForm = new FormGroup({
+      text: new FormControl()
+    });
+    this.searchForm.controls['text'].valueChanges.subscribe((value: string) => {
+      if (value.length > 0) {
+        this.service.search(value).subscribe((rows: SiseProcessInterface[]) => {
+          this.length = rows.length;
+          this.list = rows;
+        })
+      } else {
+        this.read(0, 10);
+      }
+    });
+  }
+
   ngOnInit(): void {
     this.read(0, 10);
   }
 
-  read = ((pageIndex: number, pageSize: number) => {
+  private read(pageIndex: number, pageSize: number) {
     this.list = null;
     this.service.list(pageIndex, pageSize).subscribe(
       (dt: any) => {
@@ -104,28 +111,28 @@ export class SiseProcessListComponent extends BasePage {
         } else {
           error = err.message;
         }
-        this.sweetAlertMessage(SweetAlertConstants.SWEET_ALERT_TITLE_OPS, error);
+        this.onLoadFailed('danger', 'Error', error);
+      }, () => {
+
       }
     );
+  };
 
-  });
-
-  changesPage(event) {
+  public changesPage(event) {
     if (event.pageSize != this.pageSize) {
 
     }
     this.pageEvent = event;
-    this.read(event.pageIndex * event.pageSize, event.pageSize)
+    this.read(event.pageIndex, event.pageSize)
   }
 
-  onDeleteConfirm(event): void {
-    this.sweetalertQuestion('Eliminar', 'Desea eliminar este registro?').then(
+  public onDeleteConfirm(event): void {
+    this.sweetalertQuestion('warning', 'Eliminar', 'Desea eliminar este registro?').then(
       question => {
         if (question.isConfirmed) {
           this.service.delete(event.data.id).subscribe(
             data => {
-              this.sweetAlertSuccessMessage('Eliminado correctamente');
-              this.read(this.pageEvent.pageIndex, this.pageEvent.pageSize);
+              this.onLoadFailed('success', 'Eliminado', data.message);
             }, err => {
               let error = '';
               if (err.status === 0) {
@@ -133,7 +140,9 @@ export class SiseProcessListComponent extends BasePage {
               } else {
                 error = err.message;
               }
-              this.sweetAlertMessage(SweetAlertConstants.SWEET_ALERT_TITLE_OPS, error);
+              this.onLoadFailed('danger', 'Error', error);
+            }, () => {
+              this.read(this.pageEvent.pageIndex, this.pageEvent.pageSize);
             });
         }
       }
@@ -141,14 +150,10 @@ export class SiseProcessListComponent extends BasePage {
       e => {
         console.error(e);
       }
-    ).finally(
-      () => {
-        console.log('finaliza');
-      }
     );
   }
 
-  editRow(event) {
+  public editRow(event) {
     const buttonsConfig: NbWindowControlButtonsConfig = {
       minimize: false,
       maximize: false,
@@ -160,39 +165,16 @@ export class SiseProcessListComponent extends BasePage {
 
   }
 
-  openWindow() {
-    const modalRef = this.windowService.open(SiseProcessDetailComponent, { title: `Nuevo` }).onClose.subscribe(() => {
+  public openWindow() {
+    const buttonsConfig: NbWindowControlButtonsConfig = {
+      minimize: false,
+      maximize: false,
+      fullScreen: false,
+    };
+    const modalRef = this.windowService.open(SiseProcessDetailComponent, { title: `Nuevo`, buttons: buttonsConfig }).onClose.subscribe(() => {
       this.read(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
-  }
 
-  private sweetAlertMessage(title: string, message: string) {
-    let sweetalert = new SweetalertModel();
-    sweetalert.title = title;
-    sweetalert.text = message;
-    sweetalert.icon = SweetAlertConstants.SWEET_ALERT_WARNING;
-    sweetalert.showConfirmButton = true;
-    sweetalert.showCancelButton = false;
-    this.sweetalertService.showAlertBasic(sweetalert);
-  }
-
-  private sweetalertQuestion(title: string, message: string): Promise<SweetAlertResult> {
-    let sweetalert = new SweetalertModel();
-    sweetalert.title = title;
-    sweetalert.text = message;
-    sweetalert.icon = SweetAlertConstants.SWEET_ALERT_WARNING;
-    sweetalert.showConfirmButton = true;
-    sweetalert.showCancelButton = true;
-    return this.sweetalertService.showAlertConfirm(sweetalert);
-  }
-  
-  private sweetAlertSuccessMessage(title: string) {
-    let sweetalert = new SweetalertModel();
-    sweetalert.title = title;
-    sweetalert.showConfirmButton = false;
-    sweetalert.showCancelButton = false;
-    sweetalert.timer = SweetAlertConstants.SWEET_ALERT_TIMER_1500;
-    this.sweetalertService.showAlertBasic(sweetalert);
   }
 
 }
