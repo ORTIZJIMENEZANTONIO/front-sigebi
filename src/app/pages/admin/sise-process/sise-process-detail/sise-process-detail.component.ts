@@ -56,7 +56,6 @@ export class SiseProcessDetailComponent  extends BasePage implements OnInit {
   }
 
   private createRegister(data): void {
-    console.log( data )
     this.service.register(data).subscribe(
       data => {
         this.windowRef.close();
