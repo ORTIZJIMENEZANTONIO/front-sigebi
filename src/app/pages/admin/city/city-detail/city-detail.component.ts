@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 
 import { Router } from '@angular/router';
-import { NbWindowRef, NbWindowService, NB_WINDOW_CONTEXT } from '@nebular/theme';
+import { NbToastrService, NbWindowRef, NbWindowService, NB_WINDOW_CONTEXT } from '@nebular/theme';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { CityService } from '../../../../@core/backend/common/services/city.service';
 import { DelegationService } from '../../../../@core/backend/common/services/delegation.service';
@@ -33,9 +33,10 @@ export class CityDetailComponent extends BasePage {
     public windowRef: NbWindowRef,
     private delegationService: DelegationService,
     private subDelegationService: SubdelegationService,
+    public toastrService: NbToastrService,
     @Inject(NB_WINDOW_CONTEXT) context
   ) {
-    super();
+    super(toastrService);
     if (null != context.data) {
       this.data = context.data;
     }

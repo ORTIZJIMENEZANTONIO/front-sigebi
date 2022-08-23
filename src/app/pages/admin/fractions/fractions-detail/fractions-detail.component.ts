@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { NbWindowRef, NB_WINDOW_CONTEXT, NbWindowService } from '@nebular/theme';
+import { NbWindowRef, NB_WINDOW_CONTEXT, NbWindowService, NbToastrService } from '@nebular/theme';
 import { DomSanitizer } from '@angular/platform-browser';
 import { BasePage } from '../../../../@core/shared/base-page';
 import { FractionsModel } from '../../../../@core/interfaces/auction/fractions.model';
@@ -28,6 +28,7 @@ export class FractionsDetailComponent extends BasePage {
     private service: FractionsService,
     public windowRef: NbWindowRef,
     private normService: NormService,
+    public toastrService: NbToastrService,
     @Inject(NB_WINDOW_CONTEXT) context) {
     super();
     if (null != context.data) {

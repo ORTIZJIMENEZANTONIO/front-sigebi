@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { NbWindowRef, NB_WINDOW_CONTEXT, NbWindowService } from '@nebular/theme';
+import { NbWindowRef, NB_WINDOW_CONTEXT, NbWindowService, NbToastrService } from '@nebular/theme';
 import { BehaviorSubject } from 'rxjs';
 import { DelegationService } from '../../../../@core/backend/common/services/delegation.service';
 import { DetailDelegationService } from '../../../../@core/backend/common/services/detail-delegation.service';
@@ -28,8 +28,9 @@ export class DetailDelegationDetailComponent extends BasePage {
     protected router: Router,
     private service: DetailDelegationService,
     public windowRef: NbWindowRef,
+    public toastrService: NbToastrService,
     @Inject(NB_WINDOW_CONTEXT) context) {
-    super();
+    super(toastrService);
     if (null != context.data) {
       this.data = context.data;
     }
