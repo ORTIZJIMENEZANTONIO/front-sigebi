@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { NbWindowRef, NB_WINDOW_CONTEXT, NbWindowService } from '@nebular/theme';
+import { NbWindowRef, NB_WINDOW_CONTEXT, NbWindowService, NbToastrService } from '@nebular/theme';
 import { BatteryService } from '../../../../@core/backend/common/services/battery.service';
 import { BatteryInterface } from '../../../../@core/interfaces/auction/battery.model';
 import { SweetAlertConstants } from '../../../../@core/interfaces/auction/sweetalert-model';
@@ -24,8 +24,9 @@ export class BatteryDetailComponent extends BasePage {
     protected router: Router,
     private service: BatteryService,
     public windowRef: NbWindowRef,
+    public toastrService: NbToastrService,
     @Inject(NB_WINDOW_CONTEXT) context) {
-    super();
+    super(toastrService);
     if (null != context.data) {
       this.data = context.data;
     }
