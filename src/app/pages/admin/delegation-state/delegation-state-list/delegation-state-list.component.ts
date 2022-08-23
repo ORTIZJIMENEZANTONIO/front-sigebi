@@ -5,6 +5,10 @@ import { BasePage } from '../../../../@core/shared/base-page';
 
 import { DelegationStateService } from '../../../../@core/backend/common/services/delegation-state.service';
 import { DelegationStateDetailComponent } from '../delegation-state-detail/delegation-state-detail.component';
+import { SweetAlertConstants } from '../../../../@core/interfaces/auction/sweetalert-model';
+import { SweetalertService } from '../../../../shared/sweetalert.service';
+import { DelegationStateInterface } from '../../../../@core/interfaces/auction/delegation-state.model';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'ngx-delegation-state-list',
@@ -12,30 +16,19 @@ import { DelegationStateDetailComponent } from '../delegation-state-detail/deleg
   styleUrls: ['./delegation-state-list.component.scss']
 })
 export class DelegationStateListComponent extends BasePage {
-
-  constructor(
-    private service: DelegationStateService, 
-    public  toastrService: NbToastrService,
-    private windowService: NbWindowService, 
-    private paginator: MatPaginatorIntl
-  ) {
-    super(toastrService);
-    this.paginator.itemsPerPageLabel = "Registros por página";
-  }
-
-  length = 100;
-  pageSize = 10;
-  pageSizeOptions: number[] = [5, 10, 25, 100];
-
+  
+  public searchForm: FormGroup;
+  public list: any;
+  public length = 100;
+  public pageSize = 10;
+  public pageSizeOptions: number[] = [5, 10, 25, 100];
   // MatPaginator Output
-  pageEvent: PageEvent = {
-    pageIndex:0,
-    pageSize:10,
-    length:100
+  public pageEvent: PageEvent = {
+    pageIndex: 0,
+    pageSize: 10,
+    length: 100
   };
-
-  delegationsStates: any;
-  settings = {
+  public settings = {
     actions: {
       columnTitle: 'Acciones',
       add: true,
@@ -90,64 +83,115 @@ export class DelegationStateListComponent extends BasePage {
     noDataMessage: "No se encontrarón registros"
   };
 
+  constructor(
+    private service: DelegationStateService,
+    public toastrService: NbToastrService,
+    private windowService: NbWindowService,
+    private paginator: MatPaginatorIntl,
+    public sweetalertService: SweetalertService
+  ) {
+    super(toastrService, sweetalertService);
+    this.paginator.itemsPerPageLabel = "Registros por página";
+    this.searchForm = new FormGroup({
+      text: new FormControl()
+    });
+    this.searchForm.controls['text'].valueChanges.subscribe((value: string) => {
+      if (value.length > 0) {
+        // this.service.search(value).subscribe((rows: DelegationStateInterface[]) => {
+        //   this.length = rows.length;
+        //   this.list = rows;
+        // });
+      } else {
+        this.read(0, 10);
+      }
+    });
+  }
+
   ngOnInit(): void {
-    this.readData(0,10);
-  }
-  
-  setPageSizeOptions(setPageSizeOptionsInput: string) {
-    if (setPageSizeOptionsInput)
-      this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
+    this.read(0, 10);
   }
 
-  readData = ((pageIndex:number, pageSize:number) => {
-    this.delegationsStates = null;
-    this.service.list(pageIndex, pageSize).subscribe((delegationsStates:any) =>  {
-      this.delegationsStates = delegationsStates.data;
-      this.length = delegationsStates.count;
-    }, 
-    error => this.onLoadFailed('danger','Error conexión',error.message)
+  private read(pageIndex: number, pageSize: number) {
+    this.list = null;
+    this.service.list(pageIndex, pageSize).subscribe(
+      (dt: any) => {
+        this.list = dt.data;
+        this.length = dt.count;
+      },
+      err => {
+        let error = '';
+        if (err.status === 0) {
+          error = SweetAlertConstants.noConexion;
+        } else {
+          error = err.message;
+        }
+        this.onLoadFailed('danger', 'Error', error);
+      }, () => {
+
+      }
     );
+  };
 
-  });
-
-  changesPage (event){
-    if(event.pageSize!=this.pageSize){
+  public changesPage(event) {
+    if (event.pageSize != this.pageSize) {
 
     }
     this.pageEvent = event;
-    this.readData(event.pageIndex, event.pageSize)
+    this.read(event.pageIndex, event.pageSize)
   }
 
-  onDeleteConfirm(event): void {
-    if (window.confirm('Are you sure you want to delete?')) {
-      this.service.delete(event.data.id).subscribe(data =>{
-        this.readData(this.pageEvent.pageIndex, this.pageEvent.pageSize);
-      },err =>{
-        console.log(err);
-      })
-    } else {
-      event.confirm.reject();
-    }
+  public onDeleteConfirm(event): void {
+    this.sweetalertQuestion('warning', 'Eliminar', 'Desea eliminar este registro?').then(
+      question => {
+        if (question.isConfirmed) {
+          this.service.delete(event.data.id).subscribe(
+            data => {
+              // if (data.statusCode == 200) {
+              this.onLoadFailed('success', 'Eliminado', data.message);
+              // } else {
+              //   this.onLoadFailed('danger', 'Error', data.message);
+              // }
+            }, err => {
+              let error = '';
+              if (err.status === 0) {
+                error = SweetAlertConstants.noConexion;
+              } else {
+                error = err.message;
+              }
+              this.onLoadFailed('danger', 'Error', error);
+            }, () => {
+              this.read(this.pageEvent.pageIndex, this.pageEvent.pageSize);
+            });
+        }
+      }
+    ).catch(
+      e => {
+        console.error(e);
+      }
+    );
   }
 
-  editRow(event) {
+  public editRow(event) {
     const buttonsConfig: NbWindowControlButtonsConfig = {
       minimize: false,
       maximize: false,
       fullScreen: false,
     };
-    const modalRef = this.windowService.open(DelegationStateDetailComponent, { title: `Editar delegación estado`, context: { deductive: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
-      this.readData(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
+    const modalRef = this.windowService.open(DelegationStateDetailComponent, { title: `Editar`, context: { data: event.data }, buttons: buttonsConfig }).onClose.subscribe(() => {
+      this.read(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
-  
+
   }
 
-  openWindow() {
-    const modalRef = this.windowService.open(DelegationStateDetailComponent, { title: `Nuevo delegación estado` }).onClose.subscribe(() => {
-      this.readData(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
+  public openWindow() {
+    const buttonsConfig: NbWindowControlButtonsConfig = {
+      minimize: false,
+      maximize: false,
+      fullScreen: false,
+    };
+    const modalRef = this.windowService.open(DelegationStateDetailComponent, { title: `Nuevo`, buttons: buttonsConfig }).onClose.subscribe(() => {
+      this.read(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
-    
+
   }
-
-
 }

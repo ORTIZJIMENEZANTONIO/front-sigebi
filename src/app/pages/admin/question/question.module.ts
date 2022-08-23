@@ -23,7 +23,6 @@ import { QuestionListComponent } from './question-list/question-list.component';
   imports: [
     CommonModule,
     QuestionRoutingModule,
-    FormsModule,
     ReactiveFormsModule,
     ComponentsModule,
     ThemeModule,
@@ -33,9 +32,7 @@ import { QuestionListComponent } from './question-list/question-list.component';
     NbButtonModule,
     NbInputModule,
     NbWindowModule.forChild(),
-    MatPaginatorModule,
-    MatInputModule,
-    MatFormFieldModule
+    MatPaginatorModule
   ]
 })
 export class QuestionModule { }

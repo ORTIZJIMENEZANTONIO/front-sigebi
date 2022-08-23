@@ -17,10 +17,10 @@ import { StatusProcessListComponent } from './status-process-list/status-process
     StatusProcessListComponent
   ],
   imports: [
-    FormsModule,
+    CommonModule,
+    StatusProcessRoutingModule,
     ReactiveFormsModule,
     ComponentsModule,
-    CommonModule,
     ThemeModule,
     NbCardModule,
     Ng2SmartTableModule,
@@ -28,10 +28,7 @@ import { StatusProcessListComponent } from './status-process-list/status-process
     NbButtonModule,
     NbInputModule,
     NbWindowModule.forChild(),
-    StatusProcessRoutingModule,
-    MatPaginatorModule,
-    MatInputModule,
-    MatFormFieldModule
+    MatPaginatorModule
   ]
 })
 export class StatusProcessModule { }

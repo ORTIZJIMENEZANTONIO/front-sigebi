@@ -4,6 +4,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { NbWindowRef, NB_WINDOW_CONTEXT, NbWindowService } from '@nebular/theme';
 import { GoodsSubtypeService } from '../../../../@core/backend/common/services/goods-subtype.service';
+import { GoodsSubtype } from '../../../../@core/interfaces/auction/goods-subtype.model';
 import { BaseApp } from '../../../../@core/shared/base-app';
 
 @Component({
@@ -14,7 +15,7 @@ import { BaseApp } from '../../../../@core/shared/base-app';
 export class GoodsSubtypeDetailComponent extends BaseApp implements OnInit {
 
   Form: FormGroup;
-  data: any = {};
+  data: GoodsSubtype;
 
   constructor(private fb: FormBuilder, protected cd: ChangeDetectorRef, protected router: Router, private service: GoodsSubtypeService,
     public windowRef: NbWindowRef, @Inject(NB_WINDOW_CONTEXT) context, private dom: DomSanitizer, private windowService: NbWindowService) {
@@ -37,7 +38,7 @@ export class GoodsSubtypeDetailComponent extends BaseApp implements OnInit {
     return this.form.controls;
   }
   ngOnInit(): void {
-    if (this.data.id != null) {
+    if (this.data) {
       this.actionBtn = "Actualizar";
       this.form.patchValue(this.data);
     }

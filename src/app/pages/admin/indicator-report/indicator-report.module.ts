@@ -23,8 +23,6 @@ import { ThemeModule } from '../../../@theme/theme.module';
   imports: [
     CommonModule,
     IndicatorReportRoutingModule,
-    AdminModule,
-    FormsModule,
     ReactiveFormsModule,
     ComponentsModule,
     ThemeModule,
@@ -34,9 +32,7 @@ import { ThemeModule } from '../../../@theme/theme.module';
     NbButtonModule,
     NbInputModule,
     NbWindowModule.forChild(),
-    MatPaginatorModule,
-    MatInputModule,
-    MatFormFieldModule
+    MatPaginatorModule
   ]
 })
 export class IndicatorReportModule { }

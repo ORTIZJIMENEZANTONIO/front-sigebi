@@ -1,0 +1,27 @@
+<nb-card>
+    <nb-card-body>
+        <form [formGroup]="form">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <input nbInput fullWidth formControlName="description" placeholder="Descripción">
+                        <label class="text-danger" *ngIf="validateOpinion['description'].hasError('pattern')"><small>Descripción no
+                                válido!</small></label>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <input nbInput fullWidth formControlName="idTramite" placeholder="Id tramite">
+                        <label class="text-danger" *ngIf="validateOpinion['idTramite'].hasError('pattern')"><small>idTramite no válido!</small></label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="d-flex justify-content-center">
+                    <button type="submit" nbButton status="primary" [disabled]="!form.valid"
+                        (click)="register()">{{actionBtn}}</button>
+                </div>
+            </div>
+        </form>
+    </nb-card-body>
+</nb-card>

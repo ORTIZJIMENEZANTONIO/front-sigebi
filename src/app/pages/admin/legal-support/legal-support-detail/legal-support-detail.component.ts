@@ -4,6 +4,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { NbWindowRef, NB_WINDOW_CONTEXT, NbWindowService } from '@nebular/theme';
 import { LegalSupportService } from '../../../../@core/backend/common/services/legal-support.service';
+import { LegalSupport } from '../../../../@core/interfaces/auction/legal-suport.model';
 import { BaseApp } from '../../../../@core/shared/base-app';
 
 @Component({
@@ -13,7 +14,7 @@ import { BaseApp } from '../../../../@core/shared/base-app';
 })
 export class LegalSupportDetailComponent extends BaseApp implements OnInit {
   Form: FormGroup;
-  data: any = {};
+  data: LegalSupport;
 
   constructor(private fb: FormBuilder, protected cd: ChangeDetectorRef, protected router: Router, private service: LegalSupportService,
     public windowRef: NbWindowRef, @Inject(NB_WINDOW_CONTEXT) context, private dom: DomSanitizer, private windowService: NbWindowService) {
@@ -25,7 +26,7 @@ export class LegalSupportDetailComponent extends BaseApp implements OnInit {
   actionBtn: string = "Guardar";
 
   form = this.fb.group({
-    id: ['', [Validators.required, Validators.minLength(5),Validators.maxLength(5)]],
+    id: ['', [Validators.required, Validators.minLength(1),Validators.maxLength(5)]],
     support: [null, Validators.compose([Validators.pattern("")])]
   });
 
@@ -33,7 +34,7 @@ export class LegalSupportDetailComponent extends BaseApp implements OnInit {
     return this.form.controls;
   }
   ngOnInit(): void {
-    if (this.data.id != null) {
+    if (this.data) {
       this.actionBtn = "Actualizar";
       this.form.patchValue(this.data);
     }

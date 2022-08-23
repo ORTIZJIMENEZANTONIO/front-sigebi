@@ -1,1 +1,57 @@
-<p>battery-detail works!</p>
+<nb-card>
+    <nb-card-body>
+        <form [formGroup]="form">
+
+            <div class="form-group row">
+                <input type="text" nbInput maxlength="5" fullWidth formControlName="storeCode"
+                    placeholder="Número de almacen ej. 1"
+                    [status]="(storeCode?.errors?.required || storeCode?.hasError('minlength') || storeCode?.hasError('maxlength') || storeCode?.hasError('pattern')) && storeCode.touched ? 'danger' : ''">
+                <ngx-validation-message label="Número de almacen ej. 1" [showMinLength]="storeCode?.hasError('minlength')"
+                    [showMaxLength]="storeCode?.hasError('maxlength')"
+                    [showRequired]="storeCode?.errors?.required && storeCode.touched"
+                    [showPattern]="storeCode?.hasError('pattern') && storeCode.touched" minLength=1 maxLength=255>
+                </ngx-validation-message>
+            </div>
+
+            <div class="form-group row">
+                <input type="number" nbInput fullWidth formControlName="registerNumber"
+                    placeholder="ID Registro"
+                    [status]="(registerNumber?.errors?.required || registerNumber?.hasError('minlength') || registerNumber?.hasError('maxlength') || registerNumber?.hasError('pattern')) && registerNumber.touched ? 'danger' : ''">
+                <ngx-validation-message label="ID Registro" [showMinLength]="registerNumber?.hasError('minlength')"
+                    [showMaxLength]="registerNumber?.hasError('maxlength')"
+                    [showRequired]="registerNumber?.errors?.required && registerNumber.touched"
+                    [showPattern]="registerNumber?.hasError('pattern') && registerNumber.touched" minLength=1 maxLength=255>
+                </ngx-validation-message>
+            </div>
+
+            <div class="form-group row">
+                <input type="text" nbInput maxlength="1" fullWidth formControlName="status"
+                    placeholder="Estado"
+                    [status]="(estatus?.errors?.required || estatus?.hasError('minlength') || estatus?.hasError('maxlength') || estatus?.hasError('pattern')) && estatus.touched ? 'danger' : ''">
+                <ngx-validation-message label="Estado" [showMinLength]="estatus?.hasError('minlength')"
+                    [showMaxLength]="estatus?.hasError('maxlength')"
+                    [showRequired]="estatus?.errors?.required && estatus.touched"
+                    [showPattern]="estatus?.hasError('pattern') && estatus.touched" minLength=1 maxLength=255>
+                </ngx-validation-message>
+            </div>
+
+            <div class="form-group row">
+                <input type="text" nbInput fullWidth maxlength="30" formControlName="description"
+                    placeholder="Descripción"
+                    [status]="(description?.errors?.required || description?.hasError('minlength') || description?.hasError('maxlength') || description?.hasError('pattern')) && description.touched ? 'danger' : ''">
+                <ngx-validation-message label="Descripción" [showMinLength]="description?.hasError('minlength')"
+                    [showMaxLength]="description?.hasError('maxlength')"
+                    [showRequired]="description?.errors?.required && description.touched"
+                    [showPattern]="description?.hasError('pattern') && description.touched" minLength=1 maxLength=255>
+                </ngx-validation-message>
+            </div>
+
+            <div class="form-group">
+                <div class="d-flex justify-content-center">
+                    <button type="submit" nbButton status="primary" [disabled]="!form.valid"
+                        (click)="register()">{{actionBtn}}</button>
+                </div>
+            </div>
+        </form>
+    </nb-card-body>
+</nb-card>

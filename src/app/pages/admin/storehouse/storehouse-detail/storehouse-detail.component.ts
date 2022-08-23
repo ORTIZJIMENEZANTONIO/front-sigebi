@@ -20,8 +20,8 @@ export class StorehouseDetailComponent extends BasePage {
   constructor(private fb: FormBuilder, protected cd: ChangeDetectorRef, protected router: Router, private service: StorehouseService,
     public windowRef: NbWindowRef, @Inject(NB_WINDOW_CONTEXT) context, private dom: DomSanitizer,  private windowService: NbWindowService) { 
       super();
-      if (null != context.delegation){
-        this.storehouse = context.delegation;
+      if (null != context.storehousen){
+        this.storehouse = context.storehouse;
       }
     }
     actionBtn : string = "Guardar";
@@ -38,7 +38,7 @@ export class StorehouseDetailComponent extends BasePage {
 
     });
   
-  get validateDelegation(){
+  get validateStorehouse(){
     return this.form.controls;
   }
     

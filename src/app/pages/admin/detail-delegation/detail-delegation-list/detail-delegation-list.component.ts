@@ -7,6 +7,8 @@ import { DetailDelegation } from '../../../../@core/interfaces/auction/detail-de
 import { BasePage } from '../../../../@core/shared/base-page';
 import  Swal from 'sweetalert2';
 import { DetailDelegationDetailComponent } from '../detail-delegation-detail/detail-delegation-detail.component';
+import { SweetAlertConstants } from '../../../../@core/interfaces/auction/sweetalert-model';
+import { SweetalertService } from '../../../../shared/sweetalert.service';
 
 @Component({
   selector: 'ngx-detail-delegation-list',
@@ -14,51 +16,23 @@ import { DetailDelegationDetailComponent } from '../detail-delegation-detail/det
   styleUrls: ['./detail-delegation-list.component.scss']
 })
 export class DetailDelegationListComponent extends BasePage {
-
-  constructor(private service: DetailDelegationService, public toastrService: NbToastrService,
-    private windowService: NbWindowService, private paginator: MatPaginatorIntl) {
-    super(toastrService);
-    this.paginator.itemsPerPageLabel = "Registros por página";
-    this.searchForm = new FormGroup({
-      text: new FormControl()
-    });
-    this.searchForm.controls['text'].valueChanges.subscribe((value:string)=>{
-      if(value.length > 0){
-        this.service.search(value).subscribe((rows:DetailDelegation[])=>{
-          this.length = rows.length;
-          this.rows = rows;
-        })
-      }else{
-        this.readDetailDelegation()
-      }
-    })
-  }
-
-  length = 100;
-  pageSize = 10;
-  pageSizeOptions: number[] = [5, 10, 25, 100];
-  searchForm:FormGroup
-
+  public searchForm: FormGroup;
+  public list: any;
+  public length = 100;
+  public pageSize = 10;
+  public pageSizeOptions: number[] = [5, 10, 25, 100];
   // MatPaginator Output
-  pageEvent: PageEvent = {
-    pageIndex:0,
-    pageSize:10,
-    length:0
+  public pageEvent: PageEvent = {
+    pageIndex: 0,
+    pageSize: 10,
+    length: 100
   };
-
-  setPageSizeOptions(setPageSizeOptionsInput: string) {
-    if (setPageSizeOptionsInput) {
-      this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
-    }
-  }
-
-  rows: any;
-  settings = {
+  public settings = {
     actions: {
       columnTitle: 'Acciones',
       add: true,
       edit: true,
-      delete: true,
+      delete: false,
     },
     pager : {
       display : false,
@@ -117,68 +91,115 @@ export class DetailDelegationListComponent extends BasePage {
     noDataMessage: "No se encontrarón registros"
   };
 
-  ngOnInit(): void {
-    this.readDetailDelegation();
+  constructor(
+    private service: DetailDelegationService,
+    public toastrService: NbToastrService,
+    private windowService: NbWindowService,
+    private paginator: MatPaginatorIntl,
+    public sweetalertService: SweetalertService
+  ) {
+    super(toastrService, sweetalertService);
+    this.paginator.itemsPerPageLabel = "Registros por página";
+    this.searchForm = new FormGroup({
+      text: new FormControl()
+    });
+    this.searchForm.controls['text'].valueChanges.subscribe((value: string) => {
+      if (value.length > 0) {
+        this.service.search(value).subscribe((rows: DetailDelegation[]) => {
+          this.length = rows.length;
+          this.list = rows;
+        });
+      } else {
+        this.read(0, 10);
+      }
+    });
   }
 
-  readDetailDelegation = (() => {
-    this.rows = null;
-    this.service.list(this.pageEvent.pageIndex, this.pageEvent.pageSize).subscribe((legends:any) =>  {
-      this.rows = legends.data;
-      this.length = legends.count;
-    }, 
-    error => this.onLoadFailed('danger','Error conexión',error.message)
+  ngOnInit(): void {
+    this.read(0, 10);
+  }
+
+  private read(pageIndex: number, pageSize: number) {
+    this.list = null;
+    this.service.list(pageIndex, pageSize).subscribe(
+      (dt: any) => {
+        this.list = dt.data;
+        this.length = dt.count;
+      },
+      err => {
+        let error = '';
+        if (err.status === 0) {
+          error = SweetAlertConstants.noConexion;
+        } else {
+          error = err.message;
+        }
+        this.onLoadFailed('danger', 'Error', error);
+      }, () => {
+
+      }
     );
+  };
 
-  });
-
-  changesPage (event){
-    if(event.pageSize!=this.pageSize){
+  public changesPage(event) {
+    if (event.pageSize != this.pageSize) {
 
     }
     this.pageEvent = event;
-    this.readDetailDelegation()
+    this.read(event.pageIndex, event.pageSize)
   }
 
-  onDeleteConfirm(event): void {
-    Swal.fire({
-      title: 'Esta seguro de eliminar el registro?',
-      text: "Esta acción no es revertible!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      cancelButtonText:'Cancelar',
-      confirmButtonText: 'Si'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.service.delete(event.data.id).subscribe(data =>{
-          this.readDetailDelegation();
-        },err =>{
-          console.log(err);
-        })
-       
+  public onDeleteConfirm(event): void {
+    this.sweetalertQuestion('warning', 'Eliminar', 'Desea eliminar este registro?').then(
+      question => {
+        if (question.isConfirmed) {
+          this.service.delete(event.data.id).subscribe(
+            data => {
+              // if (data.statusCode == 200) {
+              this.onLoadFailed('success', 'Eliminado', data.message);
+              // } else {
+              //   this.onLoadFailed('danger', 'Error', data.message);
+              // }
+            }, err => {
+              let error = '';
+              if (err.status === 0) {
+                error = SweetAlertConstants.noConexion;
+              } else {
+                error = err.message;
+              }
+              this.onLoadFailed('danger', 'Error', error);
+            }, () => {
+              this.read(this.pageEvent.pageIndex, this.pageEvent.pageSize);
+            });
+        }
       }
-    })
-    
+    ).catch(
+      e => {
+        console.error(e);
+      }
+    );
   }
 
-  editRow(event) {
+  public editRow(event) {
     const buttonsConfig: NbWindowControlButtonsConfig = {
       minimize: false,
       maximize: false,
       fullScreen: false,
     };
-    this.windowService.open(DetailDelegationDetailComponent, { title: `Editar detalle delegacion`, context: { detailDelegation: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
-      this.readDetailDelegation();
+    const modalRef = this.windowService.open(DetailDelegationDetailComponent, { title: `Editar`, context: { data: event.data }, buttons: buttonsConfig }).onClose.subscribe(() => {
+      this.read(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
-  
+
   }
 
-  openWindowDetailDelegation() {
-    this.windowService.open(DetailDelegationDetailComponent, { title: `Nuevo detalle delegacion` }).onClose.subscribe(() => {
-      this.readDetailDelegation();
+  public openWindow() {
+    const buttonsConfig: NbWindowControlButtonsConfig = {
+      minimize: false,
+      maximize: false,
+      fullScreen: false,
+    };
+    const modalRef = this.windowService.open(DetailDelegationDetailComponent, { title: `Nuevo`, buttons: buttonsConfig }).onClose.subscribe(() => {
+      this.read(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
-    
+
   }
 }

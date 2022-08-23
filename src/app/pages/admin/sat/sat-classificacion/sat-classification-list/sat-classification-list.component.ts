@@ -89,29 +89,9 @@ export class SatClassificationListComponent extends BasePage {
         //editable: false,
         width: '25px'
       },
-      descripcion: {
-        title: 'Desc',
+      nombre_clasificacion: {
+        title: 'Nombre Clasificacion',
         type: 'string',
-      },
-      no_registro: {
-        title: 'No Registro',
-        type: 'number',
-      },
-      cve_zona_contrato: {
-        title: 'Z. Contrato',
-        type: 'number',
-      },
-      dif_hora: {
-        title: 'Dif Hora',
-        type: 'number',
-      },
-      etapa_edo: {
-        title: 'Etapa EDO',
-        type: 'number',
-      },
-      cve_zona_vigilancia:{
-        title:'Zona Vigilancia',
-        type:'number'
       }
     },
     noDataMessage: "No se encontrarón registros"
