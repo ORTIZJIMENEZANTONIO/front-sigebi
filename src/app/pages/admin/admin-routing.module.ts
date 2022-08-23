@@ -54,10 +54,6 @@ const routes: Routes = [
           .then(m => m.LocalityModule)
       },
       {
-        path: 'dictaments', loadChildren: () => import('./dictamens/dictamens.module')
-          .then(m => m.DictamensModule)
-      },
-      {
         path: 'sinister', loadChildren: () => import('./type-sinister/type-sinister.module')
           .then(m => m.TypeSinisterModule)
       },
@@ -396,6 +392,15 @@ const routes: Routes = [
         path: 'doc-resarcimiento-sat-xml', loadChildren: () => import('./doccompensation-sat-xml/doccompensation-sat-xml.module')
           .then(m => m.DoccompensationSatXmlModule)
       },
+      {
+        path: 'zone-geographic', loadChildren: () => import('./zone-geographic/zone-geographic.module')
+          .then(m => m.ZoneGeographicModule) 
+      },
+      {
+        path: 'type-services', loadChildren: () => import('./type-services/type-services.module')
+          .then(m => m.TypeServicesModule) 
+      }
+      
       //{ path: 'home', component: CategoriesComponent },//ok
     ]
   }

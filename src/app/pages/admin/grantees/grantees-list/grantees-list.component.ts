@@ -1,8 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
 import { MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { NbToastrService, NbWindowControlButtonsConfig, NbWindowService } from '@nebular/theme';
+import { SweetAlertResult } from 'sweetalert2';
 import { GranteesService } from '../../../../@core/backend/common/services/grantees.service';
+import { Indiciados } from '../../../../@core/interfaces/auction/indiciados.model';
+import { SweetAlertConstants, SweetalertModel } from '../../../../@core/interfaces/auction/sweetalert-model';
 import { BasePage } from '../../../../@core/shared/base-page';
+import { SweetalertService } from '../../../../shared/sweetalert.service';
 import { GranteesDeailComponent } from '../grantees-deail/grantees-deail.component';
 
 @Component({
@@ -12,14 +17,30 @@ import { GranteesDeailComponent } from '../grantees-deail/grantees-deail.compone
 })
 export class GranteesListComponent extends BasePage {
   constructor(private service: GranteesService, public toastrService: NbToastrService,
-    private windowService: NbWindowService, private paginator: MatPaginatorIntl) {
-    super(toastrService);
+    private windowService: NbWindowService, private paginator: MatPaginatorIntl,
+    public sweetalertService: SweetalertService) {
+    super(toastrService, sweetalertService);
     this.paginator.itemsPerPageLabel = "Registros por página";
+    this.searchForm = new FormGroup({
+      text: new FormControl()
+    });
+    this.searchForm.controls['text'].valueChanges.subscribe((value:string)=>{
+      if(value.length > 0){
+        this.service.search(value).subscribe((rows:Indiciados[])=>{
+          this.length = rows.length;
+          this.list = rows;
+        })
+      }else{
+        this.read(0,10);
+      }
+    })
   }
 
   length = 100;
   pageSize = 10;
   pageSizeOptions: number[] = [5, 10, 25, 100];
+
+  searchForm:FormGroup;
 
   // MatPaginator Output
   pageEvent: PageEvent = {
@@ -66,7 +87,7 @@ export class GranteesListComponent extends BasePage {
         type: 'number',
       },
       description: {
-        title: 'Descripcion',
+        title: 'Descripción',
         type: 'string',
       },
       puesto: {
@@ -98,11 +119,11 @@ export class GranteesListComponent extends BasePage {
         type: 'string',
       },
       nommun: {
-        title: 'NOMMUN',
+        title: 'Nombre de Municipio',
         type: 'string',
       },
       nomedo: {
-        title: 'NOMEDO',
+        title: 'Nombre de Estado',
         type: 'string',
       },
       cp: {
@@ -110,7 +131,7 @@ export class GranteesListComponent extends BasePage {
         type: 'string',
       },
       usrStatus: {
-        title: 'Usuario',
+        title: 'Estatus usuario',
         type: 'string',
       }
     
@@ -128,7 +149,15 @@ export class GranteesListComponent extends BasePage {
       this.list = dt.data;
       this.length = dt.count;
     }, 
-    error => this.onLoadFailed('danger','Error conexión',error.message)
+    err => {
+      let error = '';
+      if (err.status === 0) {
+        error = SweetAlertConstants.noConexion;
+      } else {
+        error = err.message;
+      }
+      this.onLoadFailed('danger', 'Error', error);
+    }
     );
 
   });
@@ -142,20 +171,35 @@ export class GranteesListComponent extends BasePage {
   }
 
   onDeleteConfirm(event): void {
-    if (window.confirm('Are you sure you want to delete?')) {
-      this.service.delete(event.data.id).subscribe(data =>{
-        console.log(data);
-        if(data.statusCode == 200){
-          this.onLoadFailed('success','Eliminado',data.message);
-        }else{
-          this.onLoadFailed('danger','Error',data.message);
+    this.sweetalertQuestion('warning', 'Eliminar', '¿Desea eliminar este registro?').then(
+      question => {
+        // console.log(question);
+        if (question.isConfirmed) {
+          this.service.delete(event.data.id).subscribe(
+            data => {
+              this.onLoadFailed('success','Donatarios Eliminada correctamente', data.message);
+              this.read(this.pageEvent.pageIndex, this.pageEvent.pageSize);
+            }, err => {
+              let error = '';
+              if (err.status === 0) {
+                error = SweetAlertConstants.noConexion;
+              } else {
+                error = err.message;
+              }
+              this.onLoadFailed('danger', 'Error', error);
+            }
+          );
         }
-        this.read(this.pageEvent.pageIndex, this.pageEvent.pageSize);
-      },err =>{
-      })
-    } else {
-      event.confirm.reject();
-    }
+      }
+    ).catch(
+      e => {
+        console.error(e);
+      }
+    ).finally(
+      () => {
+        console.log('finaliza');
+      }
+    );
   }
 
   editRow(event) {

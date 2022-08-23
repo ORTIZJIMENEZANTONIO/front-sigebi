@@ -2,10 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { NbToastrService, NbWindowService, NbWindowControlButtonsConfig } from '@nebular/theme';
-import Swal from 'sweetalert2';
+import Swal, { SweetAlertResult } from 'sweetalert2';
 import { OpinionService } from '../../../../@core/backend/common/services/opinion.service';
 import { Opinion } from '../../../../@core/interfaces/auction/opinion.model';
+import { SweetAlertConstants, SweetalertModel } from '../../../../@core/interfaces/auction/sweetalert-model';
 import { BasePage } from '../../../../@core/shared/base-page';
+import { SweetalertService } from '../../../../shared/sweetalert.service';
 import { OpinionDetailComponent } from '../opinion-detail/opinion-detail.component';
 
 @Component({
@@ -16,8 +18,8 @@ import { OpinionDetailComponent } from '../opinion-detail/opinion-detail.compone
 export class OpinionListComponent extends BasePage {
 
   constructor(private service: OpinionService, public toastrService: NbToastrService,
-    private windowService: NbWindowService, private paginator: MatPaginatorIntl) {
-    super(toastrService);
+    private windowService: NbWindowService, private paginator: MatPaginatorIntl,  public sweetalertService: SweetalertService) {
+    super(toastrService, sweetalertService);
     this.paginator.itemsPerPageLabel = "Registros por página";
     this.searchForm = new FormGroup({
       text: new FormControl()
@@ -120,7 +122,15 @@ export class OpinionListComponent extends BasePage {
       this.rows = legends.data;
       this.length = legends.count;
     }, 
-    error => this.onLoadFailed('danger','Error conexión',error.message)
+    err => {
+      let error = '';
+      if (err.status === 0) {
+        error = SweetAlertConstants.noConexion;
+      } else {
+        error = err.message;
+      }
+      this.onLoadFailed('danger', 'Error', error);
+    }
     );
 
   });
@@ -134,26 +144,34 @@ export class OpinionListComponent extends BasePage {
   }
 
   onDeleteConfirm(event): void {
-    Swal.fire({
-      title: 'Esta seguro de eliminar el registro?',
-      text: "Esta acción no es revertible!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      cancelButtonText:'Cancelar',
-      confirmButtonText: 'Si'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.service.delete(event.data.id).subscribe(data =>{
-          this.read();
-        },err =>{
-          console.log(err);
-        })
-       
+    this.sweetalertQuestion('warning','Eliminar','¿Desea eliminar este registro?').then(
+      question => {
+        if (question.isConfirmed) {
+          this.service.delete(event.data.id).subscribe(
+            data => {
+              this.onLoadFailed('success','Dictamen eliminado correctamente', data.message);
+              this.read();
+            }, err => {
+              let error = '';
+              if (err.status === 0) {
+                error = SweetAlertConstants.noConexion;
+              } else {
+                error = err.message;
+              }
+              this.onLoadFailed('danger', 'Error', error);
+            }
+          );
+        }
       }
-    })
-    
+    ).catch(
+      e => {
+        console.error(e);
+      }
+    ).finally(
+      () => {
+        console.log('finaliza');
+      }
+    );    
   }
 
   editRow(event) {
@@ -162,17 +180,16 @@ export class OpinionListComponent extends BasePage {
       maximize: false,
       fullScreen: false,
     };
-    this.windowService.open(OpinionDetailComponent, { title: `Editar dictamen`, context: { data: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
+    this.windowService.open(OpinionDetailComponent, { title: `Editar`, context: { data: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
       this.read();
     });
   
   }
 
   openWindow() {
-    this.windowService.open(OpinionDetailComponent, { title: `Nuevo dictamen` }).onClose.subscribe(() => {
+    this.windowService.open(OpinionDetailComponent, { title: `Nuevo` }).onClose.subscribe(() => {
       this.read();
     });
     
   }
-
 }

@@ -96,6 +96,7 @@ import { SatSubclasificationService } from './services/sat-subclasification.serv
 import { SatClassificationService } from './services/sat-classification.service';
 import { OriginCisiService } from './services/origin-cisi.service';
 import { ScoreService } from './services/score.service';
+import { ZoneGeographicService } from './services/zone-geographic.service';
 import { IndicatorReportService } from './services/IndicatorReport.service';
 import { DoccompensationService } from './services/doccompensation.service';
 import { DoccompensationsatService } from './services/doccompesationsat.service';
@@ -209,6 +210,7 @@ const SERVICES = [
   OriginCisiService,
   ScoreService,
   ScoreService,
+  ZoneGeographicService,
   DoccompensationService,
   DoccompensationsatService,
   DoccompensationsatxmlService,
