@@ -21,10 +21,8 @@ import { ThemeModule } from '../../../@theme/theme.module';
   imports: [
     CommonModule,
     PenaltyRoutingModule,
-    FormsModule,
     ReactiveFormsModule,
     ComponentsModule,
-    CommonModule,
     ThemeModule,
     NbCardModule,
     Ng2SmartTableModule,
@@ -32,9 +30,7 @@ import { ThemeModule } from '../../../@theme/theme.module';
     NbButtonModule,
     NbInputModule,
     NbWindowModule.forChild(),
-    MatPaginatorModule,
-    MatInputModule,
-    MatFormFieldModule
+    MatPaginatorModule
   ]
 })
 export class PenaltyModule { }

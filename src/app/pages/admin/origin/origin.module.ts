@@ -23,7 +23,6 @@ import { OriginListComponent } from './origin-list/origin-list.component';
   imports: [
     CommonModule,
     OriginRoutingModule,
-    FormsModule,
     ReactiveFormsModule,
     ComponentsModule,
     ThemeModule,
@@ -33,9 +32,7 @@ import { OriginListComponent } from './origin-list/origin-list.component';
     NbButtonModule,
     NbInputModule,
     NbWindowModule.forChild(),
-    MatPaginatorModule,
-    MatInputModule,
-    MatFormFieldModule
+    MatPaginatorModule
   ]
 })
 export class OriginModule { }

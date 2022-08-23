@@ -22,7 +22,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
   imports: [
     CommonModule,
     ScoreRoutingModule,
-    FormsModule,
     ReactiveFormsModule,
     ComponentsModule,
     ThemeModule,
@@ -32,9 +31,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     NbButtonModule,
     NbInputModule,
     NbWindowModule.forChild(),
-    MatPaginatorModule,
-    MatInputModule,
-    MatFormFieldModule
+    MatPaginatorModule
   ]
 })
 export class ScoreModule { }

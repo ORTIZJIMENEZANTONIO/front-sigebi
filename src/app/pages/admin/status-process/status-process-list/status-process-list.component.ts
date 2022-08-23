@@ -7,6 +7,8 @@ import {MatPaginatorIntl, PageEvent} from '@angular/material/paginator';
 import Swal from 'sweetalert2';
 import { StatusProcessModel } from '../../../../@core/interfaces/auction/statusProcess.model';
 import { FormControl, FormGroup } from '@angular/forms';
+import { SweetAlertConstants } from '../../../../@core/interfaces/auction/sweetalert-model';
+import { SweetalertService } from '../../../../shared/sweetalert.service';
 
 @Component({
   selector: 'ngx-status-process-list',
@@ -14,46 +16,18 @@ import { FormControl, FormGroup } from '@angular/forms';
   styleUrls: ['./status-process-list.component.scss']
 })
 export class StatusProcessListComponent extends BasePage {
-
-  constructor(private service: StatusProcessService, public toastrService: NbToastrService,
-    private windowService: NbWindowService, private paginator: MatPaginatorIntl) {
-    super(toastrService);
-    this.paginator.itemsPerPageLabel = "Registros por página";
-    this.searchForm = new FormGroup({
-      text: new FormControl()
-    });
-    this.searchForm.controls['text'].valueChanges.subscribe((value:string)=>{
-      if(value.length > 0){
-        this.service.search(value).subscribe((rows:StatusProcessModel[])=>{
-          this.length = rows.length;
-          this.statusProcess = rows;
-        })
-      }else{
-        this.readStatusProcess()
-      }
-    })
-  }
-
-  searchForm:FormGroup;
-  length = 100;
-  pageSize = 10;
-  pageSizeOptions: number[] = [5, 10, 25, 100];
-
+  public searchForm: FormGroup;
+  public statusProcess: any;
+  public length = 100;
+  public pageSize = 10;
+  public pageSizeOptions: number[] = [5, 10, 25, 100];
   // MatPaginator Output
-  pageEvent: PageEvent = {
-    pageIndex:0,
-    pageSize:10,
-    length:100
+  public pageEvent: PageEvent = {
+    pageIndex: 0,
+    pageSize: 10,
+    length: 100
   };
-
-  setPageSizeOptions(setPageSizeOptionsInput: string) {
-    if (setPageSizeOptionsInput) {
-      this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
-    }
-  }
-
-  statusProcess: any;
-  settings = {
+  public settings = {
     actions: {
       columnTitle: 'Acciones',
       add: true,
@@ -98,66 +72,115 @@ export class StatusProcessListComponent extends BasePage {
     noDataMessage: "No se encontrarón registros"
   };
 
-  ngOnInit(): void {
-    this.readStatusProcess();
-  }
-
-  readStatusProcess = (() => {
-    this.statusProcess = null;
-    this.service.list(this.pageEvent.pageIndex, this.pageEvent.pageSize).subscribe((statusProcess:any) =>  {
-      this.statusProcess = statusProcess.data;
-      this.length = statusProcess.count;
-    }, 
-    error => this.onLoadFailed('danger','Error conexión',error.message)
-    );
-
-  });
-
-  changesPage (event){
-    this.pageEvent = event;
-    this.readStatusProcess()
-  }
-
-  onDeleteConfirm(event): void {
-    Swal.fire({
-      title: 'Esta seguro de eliminar el registro?',
-      text: "Esta acción no es revertible!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      cancelButtonText:'Cancelar',
-      confirmButtonText: 'Si'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.service.delete(event.data.status).subscribe(data =>{
-          this.readStatusProcess();
-        },err =>{
-          console.log(err);
-        })
-       
+  constructor(
+    private service: StatusProcessService,
+    public toastrService: NbToastrService,
+    private windowService: NbWindowService,
+    private paginator: MatPaginatorIntl,
+    public sweetalertService: SweetalertService
+  ) {
+    super(toastrService, sweetalertService);
+    this.paginator.itemsPerPageLabel = "Registros por página";
+    this.searchForm = new FormGroup({
+      text: new FormControl()
+    });
+    this.searchForm.controls['text'].valueChanges.subscribe((value: string) => {
+      if (value.length > 0) {
+        this.service.search(value).subscribe((rows: StatusProcessModel[]) => {
+          this.length = rows.length;
+          this.statusProcess = rows;
+        });
+      } else {
+        this.read(0, 10);
       }
-    })
-    
+    });
   }
 
-  editRow(event) {
+  ngOnInit(): void {
+    this.read(0, 10);
+  }
+
+  private read(pageIndex: number, pageSize: number) {
+    this.statusProcess = null;
+    this.service.list(pageIndex, pageSize).subscribe(
+      (dt: any) => {
+        this.statusProcess = dt.data;
+        this.length = dt.count;
+      },
+      err => {
+        let error = '';
+        if (err.status === 0) {
+          error = SweetAlertConstants.noConexion;
+        } else {
+          error = err.message;
+        }
+        this.onLoadFailed('danger', 'Error', error);
+      }, () => {
+
+      }
+    );
+  };
+
+  public changesPage(event) {
+    if (event.pageSize != this.pageSize) {
+
+    }
+    this.pageEvent = event;
+    this.read(event.pageIndex, event.pageSize)
+  }
+
+  public onDeleteConfirm(event): void {
+    this.sweetalertQuestion('warning', 'Eliminar', 'Desea eliminar este registro?').then(
+      question => {
+        if (question.isConfirmed) {
+          this.service.delete(event.data.id).subscribe(
+            data => {
+              // if (data.statusCode == 200) {
+              this.onLoadFailed('success', 'Eliminado', data.message);
+              // } else {
+              //   this.onLoadFailed('danger', 'Error', data.message);
+              // }
+            }, err => {
+              let error = '';
+              if (err.status === 0) {
+                error = SweetAlertConstants.noConexion;
+              } else {
+                error = err.message;
+              }
+              this.onLoadFailed('danger', 'Error', error);
+            }, () => {
+              this.read(this.pageEvent.pageIndex, this.pageEvent.pageSize);
+            });
+        }
+      }
+    ).catch(
+      e => {
+        console.error(e);
+      }
+    );
+  }
+
+  public editRow(event) {
     const buttonsConfig: NbWindowControlButtonsConfig = {
       minimize: false,
       maximize: false,
       fullScreen: false,
     };
-    const modalRef = this.windowService.open(StatusProcessDetailComponent, { title: `Editar estatus proceso`, context: { statusProcess: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
-      this.readStatusProcess();
+    const modalRef = this.windowService.open(StatusProcessDetailComponent, { title: `Editar`, context: { data: event.data }, buttons: buttonsConfig }).onClose.subscribe(() => {
+      this.read(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
-  
+
   }
 
-  openWindowStatusProcess() {
-    const modalRef = this.windowService.open(StatusProcessDetailComponent, { title: `Nuevo estatus proceso` }).onClose.subscribe(() => {
-      this.readStatusProcess();
+  public openWindowStatusProcess() {
+    const buttonsConfig: NbWindowControlButtonsConfig = {
+      minimize: false,
+      maximize: false,
+      fullScreen: false,
+    };
+    const modalRef = this.windowService.open(StatusProcessDetailComponent, { title: `Nuevo`, buttons: buttonsConfig }).onClose.subscribe(() => {
+      this.read(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
-    
-  }
 
+  }
 }
