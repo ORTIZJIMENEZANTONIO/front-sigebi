@@ -595,6 +595,10 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: '/pages/admin/service-cat'
       },
       {
+        title: 'Series IFAI',
+        link: '/pages/admin/ifai-serie'
+      },
+      {
         title: 'Empresa terceros',
         link: '/pages/admin/third-company'
       },

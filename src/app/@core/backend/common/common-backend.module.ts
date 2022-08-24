@@ -107,8 +107,7 @@ import { ManagementService } from './services/management.service';
 import { LabelOkeyService } from './services/label-okey.service';
 import { StageService } from './services/stage.service';
 import { SiseProcessService } from './services/sise-process.service';
-import { ServicesModule } from '../../../pages/admin/services/services.module';
-import { IfaiSerieModule } from '../../../pages/admin/ifai-serie/ifai-serie.module';
+import { IfaiSerieService } from './services/ifai-serie.service';
 
 const API = [
   CategoryApi,
@@ -222,8 +221,8 @@ const SERVICES = [
   LabelOkeyService,
   StageService,
   SiseProcessService,
-  ServicesModule,
-  IfaiSerieModule
+  TypeServicesService,
+  IfaiSerieService
 ];
 
 @NgModule({

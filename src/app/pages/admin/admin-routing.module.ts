@@ -404,6 +404,10 @@ const routes: Routes = [
         path: 'service-cat', loadChildren: () => import('./services/services.module')
           .then(m => m.ServicesModule)
       },
+      {
+        path: 'ifai-serie', loadChildren: () => import('./ifai-serie/ifai-serie.module')
+          .then(m => m.IfaiSerieModule)
+      },
       //{ path: 'home', component: CategoriesComponent },//ok
     ]
   }
