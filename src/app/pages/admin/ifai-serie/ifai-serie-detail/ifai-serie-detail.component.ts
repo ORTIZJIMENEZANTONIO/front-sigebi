@@ -67,10 +67,8 @@ export class IfaiSerieDetailComponent extends BasePage {
   private createRegister(data): void {
     this.service.register(data).subscribe(
       (res) => {
-        console.log(res)
         this.onLoadFailed('success', 'Serie', 'Registrado Correctamente');
       }, err => {
-        console.error( err )
         const error = err.status === 0
           ? SweetAlertConstants.noConexion
           : err.message;
