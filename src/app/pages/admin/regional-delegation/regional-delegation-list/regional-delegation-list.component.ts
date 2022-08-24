@@ -5,6 +5,7 @@ import { BasePage } from '../../../../@core/shared/base-page';
 
 import { RegionalDelegationService } from '../../../../@core/backend/common/services/regional-delegation.service';
 import { RegionalDelegationDetailComponent } from '../regional-delegation-detail/regional-delegation-detail.component';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'ngx-regional-delegation-list',
@@ -12,15 +13,18 @@ import { RegionalDelegationDetailComponent } from '../regional-delegation-detail
   styleUrls: ['./regional-delegation-list.component.scss']
 })
 export class RegionalDelegationListComponent extends BasePage {
-
+  public searchForm: FormGroup;
   constructor(
-    private service: RegionalDelegationService, 
-    public  toastrService: NbToastrService,
-    private windowService: NbWindowService, 
+    private service: RegionalDelegationService,
+    public toastrService: NbToastrService,
+    private windowService: NbWindowService,
     private paginator: MatPaginatorIntl
   ) {
     super(toastrService);
     this.paginator.itemsPerPageLabel = "Registros por página";
+    this.searchForm = new FormGroup({
+      text: new FormControl()
+    })
   }
 
   length = 100;
@@ -29,9 +33,9 @@ export class RegionalDelegationListComponent extends BasePage {
 
   // MatPaginator Output
   pageEvent: PageEvent = {
-    pageIndex:0,
-    pageSize:10,
-    length:100
+    pageIndex: 0,
+    pageSize: 10,
+    length: 100
   };
 
   regionalDelegations: any;
@@ -43,9 +47,9 @@ export class RegionalDelegationListComponent extends BasePage {
       edit: true,
       delete: false,
     },
-    pager : {
-      display : false,
-    },      
+    pager: {
+      display: false,
+    },
     hideSubHeader: true,//oculta subheaader de filtro
     mode: 'external', // ventana externa
     add: {
@@ -112,24 +116,24 @@ export class RegionalDelegationListComponent extends BasePage {
   };
 
   ngOnInit(): void {
-    this.readData(0,10);
+    this.readData(0, 10);
   }
-  
+
   setPageSizeOptions(setPageSizeOptionsInput: string) {
     if (setPageSizeOptionsInput)
       this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
   }
 
-  readData = ((pageIndex:number, pageSize:number) => {
+  readData = ((pageIndex: number, pageSize: number) => {
     this.regionalDelegations = null;
-    this.service.list(pageIndex, pageSize).subscribe((regionalDelegations:any) => {
+    this.service.list(pageIndex, pageSize).subscribe((regionalDelegations: any) => {
       this.regionalDelegations = regionalDelegations.data;
       this.length = regionalDelegations.count;
-    }, error => this.onLoadFailed('danger','Error conexión',error.message) );
+    }, error => this.onLoadFailed('danger', 'Error conexión', error.message));
   });
 
-  changesPage (event){
-    if(event.pageSize!=this.pageSize){
+  changesPage(event) {
+    if (event.pageSize != this.pageSize) {
 
     }
     this.pageEvent = event;
@@ -138,9 +142,9 @@ export class RegionalDelegationListComponent extends BasePage {
 
   onDeleteConfirm(event): void {
     if (window.confirm('Are you sure you want to delete?')) {
-      this.service.delete(event.data.id).subscribe( () => {
+      this.service.delete(event.data.id).subscribe(() => {
         this.readData(this.pageEvent.pageIndex, this.pageEvent.pageSize);
-      },err =>{
+      }, err => {
         console.error(err);
       })
     } else {
@@ -154,17 +158,17 @@ export class RegionalDelegationListComponent extends BasePage {
       maximize: false,
       fullScreen: false,
     };
-    const modalRef = this.windowService.open(RegionalDelegationDetailComponent, { title: `Editar asentamiento`, context: { settlement: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
+    const modalRef = this.windowService.open(RegionalDelegationDetailComponent, { title: `Editar asentamiento`, context: { settlement: event.data }, buttons: buttonsConfig }).onClose.subscribe(() => {
       this.readData(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
-  
+
   }
 
   openWindow() {
     const modalRef = this.windowService.open(RegionalDelegationDetailComponent, { title: `Nuevo asentamiento` }).onClose.subscribe(() => {
       this.readData(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
-    
+
   }
 
 }

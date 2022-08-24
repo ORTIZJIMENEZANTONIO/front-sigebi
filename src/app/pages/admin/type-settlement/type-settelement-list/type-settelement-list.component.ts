@@ -5,7 +5,7 @@ import { NbToastrService, NbWindowControlButtonsConfig, NbWindowService } from '
 import { SweetAlertResult } from 'sweetalert2';
 import { TypeSettelementService } from '../../../../@core/backend/common/services/typeSettelement.service';
 import { SettlementInterface } from '../../../../@core/interfaces/auction/settlement.model';
-import { SweetAlertConstants, SweetalertModel } from '../../../../@core/interfaces/auction/sweetalert-model';
+import { SweetAlertConstants } from '../../../../@core/interfaces/auction/sweetalert-model';
 import { BasePage } from '../../../../@core/shared/base-page';
 import { SweetalertService } from '../../../../shared/sweetalert.service';
 import { TypeSettelementDetailComponent } from '../type-settelement-detail/type-settelement-detail.component';
@@ -16,55 +16,27 @@ import { TypeSettelementDetailComponent } from '../type-settelement-detail/type-
   styleUrls: ['./type-settelement-list.component.scss']
 })
 export class TypeSettelementListComponent extends BasePage {
-
-  constructor(private service: TypeSettelementService, public toastrService: NbToastrService,
-    private windowService: NbWindowService, private paginator: MatPaginatorIntl, public sweetalertService: SweetalertService) {
-    super(toastrService, sweetalertService);
-    this.paginator.itemsPerPageLabel = "Registros por página";
-    this.searchForm = new FormGroup({
-      text: new FormControl()
-    });
-    this.searchForm.controls['text'].valueChanges.subscribe((value:string)=>{
-      if(value.length > 0){
-        this.service.search(value).subscribe((rows:SettlementInterface[])=>{
-          this.length = rows.length;
-          this.list = rows;
-        })
-      }else{
-        this.read(0,10);
-      }
-    })
-  }
-
-  length = 100;
-  pageSize = 10;
-  pageSizeOptions: number[] = [5, 10, 25, 100];
-
-  searchForm:FormGroup;
-
+  public searchForm: FormGroup;
+  public list: any;
+  public length = 100;
+  public pageSize = 10;
+  public pageSizeOptions: number[] = [5, 10, 25, 100];
   // MatPaginator Output
-  pageEvent: PageEvent = {
-    pageIndex:0,
-    pageSize:10,
-    length:100
+  public pageEvent: PageEvent = {
+    pageIndex: 0,
+    pageSize: 10,
+    length: 100
   };
-
-  setPageSizeOptions(setPageSizeOptionsInput: string) {
-    if (setPageSizeOptionsInput) {
-      this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
-    }
-  }
-  list: any;
-  settings = {
+  public settings = {
     actions: {
       columnTitle: 'Acciones',
       add: true,
       edit: true,
-      delete: true,
+      delete: false,
     },
-    pager : {
-      display : false,
-    },      
+    pager: {
+      display: false,
+    },
     hideSubHeader: true,//oculta subheaader de filtro
     mode: 'external', // ventana externa
     add: {
@@ -94,19 +66,41 @@ export class TypeSettelementListComponent extends BasePage {
         title: 'Versión',
         type: 'number',
       }
-    
+
     },
     noDataMessage: "No se encontrarón registros"
   };
-
-  ngOnInit(): void {
-    this.read(0,10); 
+  constructor(
+    private service: TypeSettelementService,
+    public toastrService: NbToastrService,
+    private windowService: NbWindowService,
+    private paginator: MatPaginatorIntl,
+    public sweetalertService: SweetalertService
+  ) {
+    super(toastrService, sweetalertService);
+    this.paginator.itemsPerPageLabel = "Registros por página";
+    this.searchForm = new FormGroup({
+      text: new FormControl()
+    });
+    this.searchForm.controls['text'].valueChanges.subscribe((value: string) => {
+      if (value.length > 0) {
+        this.service.search(value).subscribe((rows: any[]) => {
+          this.length = rows.length;
+          this.list = rows;
+        });
+      } else {
+        this.read(0, 10);
+      }
+    });
   }
 
-  read = ((pageIndex:number, pageSize:number) => {
+  ngOnInit(): void {
+    this.read(0, 10);
+  }
+
+  private read(pageIndex: number, pageSize: number) {
     this.list = null;
-    this.service.list(pageIndex, pageSize).subscribe((dt:any) =>  {
-      console.log(dt)
+    this.service.list(pageIndex, pageSize).subscribe((dt:any) =>  {      
       this.list = dt.data;
       this.length = dt.count;
     }, 
@@ -121,14 +115,14 @@ export class TypeSettelementListComponent extends BasePage {
     }
     );
 
-  });
+  }
 
-  changesPage (event){
-    if(event.pageSize!=this.pageSize){
+  public changesPage(event) {
+    if (event.pageSize != this.pageSize) {
 
     }
     this.pageEvent = event;
-    this.read(event.pageIndex * event.pageSize, event.pageSize)
+    this.read(event.pageIndex, event.pageSize)
   }
   
   onDeleteConfirm(event): void {
@@ -155,30 +149,31 @@ export class TypeSettelementListComponent extends BasePage {
       e => {
         console.error(e);
       }
-    ).finally(
-      () => {
-        console.log('finaliza');
-      }
     );
   }
 
-  editRow(event) {
+  public editRow(event) {
     const buttonsConfig: NbWindowControlButtonsConfig = {
       minimize: false,
       maximize: false,
       fullScreen: false,
     };
-    console.log(event.data);
+    
     const modalRef = this.windowService.open(TypeSettelementDetailComponent, { title: `Editar`, context: { data: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
       this.read(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
-  
+
   }
 
-  openWindow() {
-    const modalRef = this.windowService.open(TypeSettelementDetailComponent, { title: `Nuevo` }).onClose.subscribe(() => {
+  public openWindow() {
+    const buttonsConfig: NbWindowControlButtonsConfig = {
+      minimize: false,
+      maximize: false,
+      fullScreen: false,
+    };
+    const modalRef = this.windowService.open(TypeSettelementDetailComponent, { title: `Nuevo`, buttons: buttonsConfig }).onClose.subscribe(() => {
       this.read(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
-    
+
   }
 }

@@ -23,7 +23,6 @@ import { SafeDetailComponent } from './safe-detail/safe-detail.component';
   imports: [
     CommonModule,
     SafeRoutingModule,
-    FormsModule,
     ReactiveFormsModule,
     ComponentsModule,
     ThemeModule,
@@ -33,9 +32,7 @@ import { SafeDetailComponent } from './safe-detail/safe-detail.component';
     NbButtonModule,
     NbInputModule,
     NbWindowModule.forChild(),
-    MatPaginatorModule,
-    MatInputModule,
-    MatFormFieldModule
+    MatPaginatorModule
   ]
 })
 export class SafeModule { }

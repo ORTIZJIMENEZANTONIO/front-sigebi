@@ -33,8 +33,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     NbInputModule,
     NbWindowModule.forChild(),
     MatPaginatorModule,
-    MatInputModule,
-    MatFormFieldModule
   ]
 })
 export class ThirdPartyCompanyModule { }

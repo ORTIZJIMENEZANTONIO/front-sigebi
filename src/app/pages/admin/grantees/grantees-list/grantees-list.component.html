@@ -23,13 +23,8 @@
         <ng2-smart-table [settings]="settings" [source]="list" (delete)="onDeleteConfirm($event)"
             (edit)="editRow($event)">
         </ng2-smart-table>
-        <mat-paginator [length]="length"
-               [pageSize]="pageSize"
-               [pageSizeOptions]="pageSizeOptions"
-               (page)="changesPage($event)"
-               [pageIndex] ="pageEvent.pageIndex"
-               >
+        <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
+            (page)="changesPage($event)" [pageIndex]="pageEvent.pageIndex">
         </mat-paginator>
-
     </nb-card-body>
 </nb-card>

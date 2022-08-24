@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { NbWindowRef, NB_WINDOW_CONTEXT } from '@nebular/theme';
+import { NbToastrService, NbWindowRef, NB_WINDOW_CONTEXT } from '@nebular/theme';
 import { GenericService } from '../../../../@core/backend/common/services/generic.service';
 import { SweetAlertConstants } from '../../../../@core/interfaces/auction/sweetalert-model';
 import { BasePage } from '../../../../@core/shared/base-page';
@@ -22,6 +22,7 @@ export class GenericDatailComponent extends BasePage implements OnInit {
     protected router: Router,
     private service: GenericService,
     public windowRef: NbWindowRef,
+    public toastrService: NbToastrService,
     @Inject(NB_WINDOW_CONTEXT) context) {
     super();
     if (null != context.data) {

@@ -2,58 +2,88 @@ import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { NbWindowRef, NB_WINDOW_CONTEXT, NbWindowService } from '@nebular/theme';
+import { NbWindowRef, NB_WINDOW_CONTEXT, NbWindowService, NbToastrService } from '@nebular/theme';
 import { SatClassificationService } from '../../../../../@core/backend/common/services/sat-classification.service';
+import { SweetAlertConstants } from '../../../../../@core/interfaces/auction/sweetalert-model';
 import { BaseApp } from '../../../../../@core/shared/base-app';
+import { BasePage } from '../../../../../@core/shared/base-page';
 
 @Component({
   selector: 'ngx-sat-classification-detail',
   templateUrl: './sat-classification-detail.component.html',
   styleUrls: ['./sat-classification-detail.component.scss']
 })
-export class SatClassificationDetailComponent extends BaseApp implements OnInit {
-  Form: FormGroup;
-  data: any = {};
+export class SatClassificationDetailComponent extends BasePage implements OnInit {
+  public form: FormGroup;
+  private data: any = {};
+  public actionBtn: string = "Guardar";
 
-  constructor(private fb: FormBuilder, protected cd: ChangeDetectorRef, protected router: Router, private service: SatClassificationService,
-    public windowRef: NbWindowRef, @Inject(NB_WINDOW_CONTEXT) context, private dom: DomSanitizer, private windowService: NbWindowService) {
-    super();
-    if (null != context.data) {
-      this.data = context.data;
-    }
+  constructor(
+    private fb: FormBuilder,
+    protected cd: ChangeDetectorRef,
+    protected router: Router,
+    private service: SatClassificationService,
+    public windowRef: NbWindowRef,
+    public toastrService: NbToastrService,
+    @Inject(NB_WINDOW_CONTEXT) context
+  ) {
+    super(toastrService);
+    if (null != context.questions)
+      this.data = context.questions;
   }
-  actionBtn: string = "Guardar";
 
-  form = this.fb.group({
-    id: [null],
-    nombre_clasificacion:['', Validators.compose([Validators.pattern("")])],
-    version: [0, Validators.compose([Validators.pattern("")])] 
-  });
-
-  get validateOpinion() {
-    return this.form.controls;
-  }
   ngOnInit(): void {
+    this.prepareForm();
+  }
+  private prepareForm(): void {
+    this.form = this.fb.group({
+      id: [null],
+      nombre_clasificacion:['', Validators.compose([Validators.pattern("")])],
+      version: [0, Validators.compose([Validators.pattern("")])] 
+    });
     if (this.data.id != null) {
       this.actionBtn = "Actualizar";
       this.form.patchValue(this.data);
     }
-
   }
 
-  register(): void {
-    if (this.actionBtn == "Guardar") {
-      this.service.register(this.form.value).subscribe(data => {
-        this.windowRef.close();
+  public get nombre_clasificacion() {return this.form.get('nombre_clasificacion');}
+  public get version() {return this.form.get('version');}
+
+  public register(): void {
+    const data = this.form.getRawValue();
+    this.actionBtn == "Guardar" ? this.createRegister(data) : this.updateRegister(data);
+  }
+  private createRegister(data): void {
+    this.service.register(data).subscribe(
+      data => {
+        this.onLoadFailed('success', 'Despacho', 'Registrado Correctamente');
       }, err => {
-        console.log(err);
-      })
-    } else {
-      this.service.update(this.data.id, this.form.value).subscribe(data => {
+        let error = '';
+        if (err.status === 0) {
+          error = SweetAlertConstants.noConexion;
+        } else {
+          error = err.message;
+        }
+        this.onLoadFailed('danger', 'Error', error);
+      }, () => {
         this.windowRef.close();
+      });
+  }
+  private updateRegister(data): void {
+    this.service.update(this.data.id, data).subscribe(
+      data => {
+        this.onLoadFailed('success', 'Despacho', 'Actualizado Correctamente');
       }, err => {
-        console.log(err);
-      })
-    }
+        let error = '';
+        if (err.status === 0) {
+          error = SweetAlertConstants.noConexion;
+        } else {
+          error = err.message;
+        }
+        this.onLoadFailed('danger', 'Error', error);
+      }, () => {
+        this.windowRef.close();
+      });
   }
 }

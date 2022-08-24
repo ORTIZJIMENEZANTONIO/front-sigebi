@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { NbWindowRef, NB_WINDOW_CONTEXT } from '@nebular/theme';
+import { NbToastrService, NbWindowRef, NB_WINDOW_CONTEXT } from '@nebular/theme';
 import { EdosxcoorService } from '../../../../@core/backend/common/services/edos-x-coor.service';
 import { EdosXCoorInterface } from '../../../../@core/interfaces/auction/edos-x-coor.model';
 import { SweetAlertConstants } from '../../../../@core/interfaces/auction/sweetalert-model';
@@ -22,8 +22,9 @@ export class EdosXCoorDetailComponent extends BasePage implements OnInit {
     protected router: Router,
     private service: EdosxcoorService,
     public windowRef: NbWindowRef,
+    public toastrService: NbToastrService,
     @Inject(NB_WINDOW_CONTEXT) context) {
-    super();
+    super(toastrService);
     if (null != context.data) {
       this.data = context.data;
     }

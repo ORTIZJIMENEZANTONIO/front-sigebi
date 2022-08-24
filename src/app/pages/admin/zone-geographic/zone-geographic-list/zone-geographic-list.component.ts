@@ -174,11 +174,7 @@ export class ZoneGeographicListComponent extends BasePage {
       e => {
         console.error(e);
       }
-    ).finally(
-      () => {
-        console.log('finaliza');
-      }
-    );
+    )
   }
 
   editRow(event) {

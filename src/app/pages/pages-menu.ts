@@ -358,6 +358,10 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: '/pages/admin/question',
       },
       {
+        title: 'Procesos SISE',
+        link: '/pages/admin/siseProcess',
+      },
+      {
         title: 'Tipo Siniestro',
         link: '/pages/admin/sinister',
       },
@@ -484,7 +488,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
       },
       {
         title: 'Situacion Bien',
-        link: '/pages/admin/good-situacion'
+        link: '/pages/admin/good-situation'
       },
       {
         title: 'Clasificacion Institucion',
@@ -585,6 +589,10 @@ export const MENU_ITEMS: NbMenuItem[] = [
       {
         title:'Zona Geográficas',
         link:'/pages/admin/zone-geographic'
+      },
+      {
+        title: 'Servicios',
+        link: '/pages/admin/service-cat'
       },
       {
         title: 'Empresa terceros',

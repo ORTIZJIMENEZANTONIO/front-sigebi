@@ -19,10 +19,10 @@ import { MunicipalityListComponent } from './municipality-list/municipality-list
     MunicipalityDetailComponent
   ],
   imports: [
-    FormsModule,
+    CommonModule,
+    MunicipalitysRoutingModule,
     ReactiveFormsModule,
     ComponentsModule,
-    CommonModule,
     ThemeModule,
     NbCardModule,
     Ng2SmartTableModule,
@@ -30,10 +30,7 @@ import { MunicipalityListComponent } from './municipality-list/municipality-list
     NbButtonModule,
     NbInputModule,
     NbWindowModule.forChild(),
-    MunicipalitysRoutingModule,
-    MatPaginatorModule,
-    MatInputModule,
-    MatFormFieldModule
+    MatPaginatorModule
   ]
 })
 export class MunicipalitysModule { }

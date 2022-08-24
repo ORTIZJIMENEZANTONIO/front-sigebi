@@ -4,7 +4,7 @@ import { MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { NbToastrService, NbWindowControlButtonsConfig, NbWindowService } from '@nebular/theme';
 import { SweetAlertResult } from 'sweetalert2';
 import { TypeWarehouseService } from '../../../../@core/backend/common/services/typeWarehouses.service';
-import { SweetAlertConstants, SweetalertModel } from '../../../../@core/interfaces/auction/sweetalert-model';
+import { SweetAlertConstants } from '../../../../@core/interfaces/auction/sweetalert-model';
 import { TypeWarehousesModel } from '../../../../@core/interfaces/auction/typeWarehouses.model';
 import { BasePage } from '../../../../@core/shared/base-page';
 import { SweetalertService } from '../../../../shared/sweetalert.service';
@@ -16,50 +16,23 @@ import { TypeWarehousesDetailComponent } from '../type-warehouses-detail/type-wa
   styleUrls: ['./type-warehouses-list.component.scss']
 })
 export class TypeWarehousesListComponent extends BasePage {
-  constructor(private service: TypeWarehouseService, public toastrService: NbToastrService,
-    private windowService: NbWindowService, private paginator: MatPaginatorIntl, public sweetalertService: SweetalertService) {
-    super(toastrService, sweetalertService);
-    this.paginator.itemsPerPageLabel = "Registros por página";
-    this.searchForm = new FormGroup({
-      text: new FormControl()
-    });
-    this.searchForm.controls['text'].valueChanges.subscribe((value:string)=>{
-      if(value.length > 0){
-        this.service.search(value).subscribe((rows:TypeWarehousesModel[])=>{
-          this.length = rows.length;
-          this.list = rows;
-        })
-      }else{
-        this.read(0,10);
-      }
-    })
-  }
-
-  length = 100;
-  pageSize = 10;
-  pageSizeOptions: number[] = [5, 10, 25, 100];
-
-  searchForm:FormGroup;
-
+  public searchForm: FormGroup;
+  public list: any;
+  public length = 100;
+  public pageSize = 10;
+  public pageSizeOptions: number[] = [5, 10, 25, 100];
   // MatPaginator Output
-  pageEvent: PageEvent = {
-    pageIndex:0,
-    pageSize:10,
-    length:100
+  public pageEvent: PageEvent = {
+    pageIndex: 0,
+    pageSize: 10,
+    length: 100
   };
-
-  setPageSizeOptions(setPageSizeOptionsInput: string) {
-    if (setPageSizeOptionsInput) {
-      this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
-    }
-  }
-  list: any;
-  settings = {
+  public settings = {
     actions: {
       columnTitle: 'Acciones',
       add: true,
       edit: true,
-      delete: true,
+      delete: false,
     },
     pager : {
       display : false,
@@ -105,14 +78,37 @@ export class TypeWarehousesListComponent extends BasePage {
     noDataMessage: "No se encontrarón registros"
   };
 
-  ngOnInit(): void {
-    this.read(0,10); 
+  constructor(
+    private service: TypeWarehouseService,
+    public toastrService: NbToastrService,
+    private windowService: NbWindowService,
+    private paginator: MatPaginatorIntl,
+    public sweetalertService: SweetalertService
+  ) {
+    super(toastrService, sweetalertService);
+    this.paginator.itemsPerPageLabel = "Registros por página";
+    this.searchForm = new FormGroup({
+      text: new FormControl()
+    });
+    this.searchForm.controls['text'].valueChanges.subscribe((value: string) => {
+      if (value.length > 0) {
+        this.service.search(value).subscribe((rows: TypeWarehousesModel[]) => {
+          this.length = rows.length;
+          this.list = rows;
+        });
+      } else {
+        this.read(0, 10);
+      }
+    });
   }
 
-  read = ((pageIndex:number, pageSize:number) => {
+  ngOnInit(): void {
+    this.read(0, 10);
+  }
+
+  private read(pageIndex: number, pageSize: number) {
     this.list = null;
     this.service.list(pageIndex, pageSize).subscribe((dt:any) =>  {
-      console.log(dt)
       this.list = dt.data;
       this.length = dt.count;
     }, 
@@ -127,14 +123,14 @@ export class TypeWarehousesListComponent extends BasePage {
     }
     );
 
-  });
+  }
 
-  changesPage (event){
-    if(event.pageSize!=this.pageSize){
+  public changesPage(event) {
+    if (event.pageSize != this.pageSize) {
 
     }
     this.pageEvent = event;
-    this.read(event.pageIndex * event.pageSize, event.pageSize)
+    this.read(event.pageIndex, event.pageSize)
   }
 
   onDeleteConfirm(event): void {
@@ -161,30 +157,29 @@ export class TypeWarehousesListComponent extends BasePage {
       e => {
         console.error(e);
       }
-    ).finally(
-      () => {
-        console.log('finaliza');
-      }
     );
   }
 
-  editRow(event) {
+  public editRow(event) {
     const buttonsConfig: NbWindowControlButtonsConfig = {
       minimize: false,
       maximize: false,
       fullScreen: false,
     };
-    console.log(event.data);
+
     const modalRef = this.windowService.open(TypeWarehousesDetailComponent, { title: `Editar`, context: { data: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
       this.read(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
-  
   }
 
-  openWindowDictamen() {
-    const modalRef = this.windowService.open(TypeWarehousesDetailComponent, { title: `Nuevo` }).onClose.subscribe(() => {
+  public openWindow() {
+    const buttonsConfig: NbWindowControlButtonsConfig = {
+      minimize: false,
+      maximize: false,
+      fullScreen: false,
+    };
+    const modalRef = this.windowService.open(TypeWarehousesDetailComponent, { title: `Nuevo`, buttons: buttonsConfig }).onClose.subscribe(() => {
       this.read(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
-    
   }
 }

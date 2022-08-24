@@ -6,7 +6,7 @@
         </span>
 
         <div class="add-select">
-            <button (click)="openWindow()"nbButton status="primary">Nueva</button>
+            <button (click)="openWindow()" nbButton status="primary">Nueva</button>
         </div>
 
     </nb-card-header>
@@ -17,19 +17,14 @@
                 <label class="control-label">Buscar: </label>
             </div>
             <div class="col-md-4">
-              <input type="text" formControlName="text"  class="form-control" autofocus/>
+                <input type="text" formControlName="text" class="form-control" autofocus />
             </div>
         </div>
         <ng2-smart-table [settings]="settings" [source]="list" (delete)="onDeleteConfirm($event)"
             (edit)="editRow($event)">
         </ng2-smart-table>
-        <mat-paginator [length]="length"
-               [pageSize]="pageSize"
-               [pageSizeOptions]="pageSizeOptions"
-               (page)="changesPage($event)"
-               [pageIndex] ="pageEvent.pageIndex"
-               >
+        <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
+            (page)="changesPage($event)" [pageIndex]="pageEvent.pageIndex">
         </mat-paginator>
-
     </nb-card-body>
 </nb-card>

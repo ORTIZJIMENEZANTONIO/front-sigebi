@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { NbWindowRef, NB_WINDOW_CONTEXT } from '@nebular/theme';
+import { NbToastrService, NbWindowRef, NB_WINDOW_CONTEXT } from '@nebular/theme';
 import { BasePage } from '../../../../@core/shared/base-page';
 
 import { DeductiveService } from '../../../../@core/backend/common/services/deductive.service';
@@ -24,8 +24,9 @@ export class DeductiveDetailComponent extends BasePage implements OnInit {
     protected router: Router,
     private service: DeductiveService,
     public windowRef: NbWindowRef,
+    public toastrService: NbToastrService,
     @Inject(NB_WINDOW_CONTEXT) context) {
-    super();
+    super(toastrService);
     if (null != context.data) {
       this.data = context.data;
     }

@@ -4,8 +4,7 @@ import { MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { NbToastrService, NbWindowControlButtonsConfig, NbWindowService } from '@nebular/theme';
 import { SweetAlertResult } from 'sweetalert2';
 import { TypeGoodstService } from '../../../../@core/backend/common/services/typeGoods.service';
-import { SweetAlertConstants, SweetalertModel } from '../../../../@core/interfaces/auction/sweetalert-model';
-import { TypeWarehousesModel } from '../../../../@core/interfaces/auction/typeWarehouses.model';
+import { SweetAlertConstants } from '../../../../@core/interfaces/auction/sweetalert-model';
 import { BasePage } from '../../../../@core/shared/base-page';
 import { SweetalertService } from '../../../../shared/sweetalert.service';
 import { TypeGoodDetailComponent } from '../type-good-detail/type-good-detail.component';
@@ -16,45 +15,18 @@ import { TypeGoodDetailComponent } from '../type-good-detail/type-good-detail.co
   styleUrls: ['./type-good-list.component.scss']
 })
 export class TypeGoodListComponent extends BasePage {
-  constructor(private service: TypeGoodstService, public toastrService: NbToastrService,
-    private windowService: NbWindowService, private paginator: MatPaginatorIntl, public sweetalertService: SweetalertService) {
-    super(toastrService, sweetalertService);
-    this.paginator.itemsPerPageLabel = "Registros por página";
-    this.searchForm = new FormGroup({
-      text: new FormControl()
-    });
-    this.searchForm.controls['text'].valueChanges.subscribe((value:string)=>{
-      if(value.length > 0){
-        this.service.search(value).subscribe((rows:TypeWarehousesModel[])=>{
-          this.length = rows.length;
-          this.list = rows;
-        })
-      }else{
-        this.read(0,10);
-      }
-    })
-  }
-
-  length = 100;
-  pageSize = 10;
-  pageSizeOptions: number[] = [5, 10, 25, 100];
-
-  searchForm:FormGroup;
-
+  public searchForm: FormGroup;
+  public list: any;
+  public length = 100;
+  public pageSize = 10;
+  public pageSizeOptions: number[] = [5, 10, 25, 100];
   // MatPaginator Output
-  pageEvent: PageEvent = {
-    pageIndex:0,
-    pageSize:10,
-    length:100
+  public pageEvent: PageEvent = {
+    pageIndex: 0,
+    pageSize: 10,
+    length: 100
   };
-
-  setPageSizeOptions(setPageSizeOptionsInput: string) {
-    if (setPageSizeOptionsInput) {
-      this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
-    }
-  }
-  list: any;
-  settings = {
+  public settings = {
     actions: {
       columnTitle: 'Acciones',
       add: true,
@@ -98,11 +70,35 @@ export class TypeGoodListComponent extends BasePage {
     noDataMessage: "No se encontrarón registros"
   };
 
-  ngOnInit(): void {
-    this.read(0,10); 
+  constructor(
+    private service: TypeGoodstService,
+    public toastrService: NbToastrService,
+    private windowService: NbWindowService,
+    private paginator: MatPaginatorIntl,
+    public sweetalertService: SweetalertService
+  ) {
+    super(toastrService, sweetalertService);
+    this.paginator.itemsPerPageLabel = "Registros por página";
+    this.searchForm = new FormGroup({
+      text: new FormControl()
+    });
+    this.searchForm.controls['text'].valueChanges.subscribe((value: string) => {
+      if (value.length > 0) {
+        this.service.search(value).subscribe((rows: any[]) => {
+          this.length = rows.length;
+          this.list = rows;
+        });
+      } else {
+        this.read(0, 10);
+      }
+    });
   }
 
-  read = ((pageIndex:number, pageSize:number) => {
+  ngOnInit(): void {
+    this.read(0, 10);
+  }
+
+  private read(pageIndex: number, pageSize: number) {
     this.list = null;
     this.service.list(pageIndex, pageSize).subscribe((dt:any) =>  {
       this.list = dt.data;
@@ -119,14 +115,14 @@ export class TypeGoodListComponent extends BasePage {
     }
     );
 
-  });
+  }
 
-  changesPage (event){
-    if(event.pageSize!=this.pageSize){
+  public changesPage(event) {
+    if (event.pageSize != this.pageSize) {
 
     }
     this.pageEvent = event;
-    this.read(event.pageIndex * event.pageSize, event.pageSize)
+    this.read(event.pageIndex, event.pageSize)
   }
 
   onDeleteConfirm(event): void {
@@ -153,29 +149,30 @@ export class TypeGoodListComponent extends BasePage {
       e => {
         console.error(e);
       }
-    ).finally(
-      () => {
-        console.log('finaliza');
-      }
-    );
+    )
   }
 
-  editRow(event) {
+  public editRow(event) {
     const buttonsConfig: NbWindowControlButtonsConfig = {
       minimize: false,
       maximize: false,
       fullScreen: false,
     };
-    const modalRef = this.windowService.open(TypeGoodDetailComponent, { title: `Editar`, context: { data: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
+    const modalRef = this.windowService.open(TypeGoodDetailComponent, { title: `Editar`, context: { data: event.data }, buttons: buttonsConfig }).onClose.subscribe(() => {
       this.read(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
-  
+
   }
 
-  openWindow() {
-    const modalRef = this.windowService.open(TypeGoodDetailComponent, { title: `Nuevo` }).onClose.subscribe(() => {
+  public openWindow() {
+    const buttonsConfig: NbWindowControlButtonsConfig = {
+      minimize: false,
+      maximize: false,
+      fullScreen: false,
+    };
+    const modalRef = this.windowService.open(TypeGoodDetailComponent, { title: `Nuevo`, buttons: buttonsConfig }).onClose.subscribe(() => {
       this.read(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
-    
+
   }
 }

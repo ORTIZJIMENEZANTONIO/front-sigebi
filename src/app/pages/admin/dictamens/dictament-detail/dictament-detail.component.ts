@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { NbWindowRef, NbWindowService, NB_WINDOW_CONTEXT } from '@nebular/theme';
+import { NbToastrService, NbWindowRef, NbWindowService, NB_WINDOW_CONTEXT } from '@nebular/theme';
 import { DictamenService } from '../../../../@core/backend/common/services/dictamen.service';
 import { Dictamen } from '../../../../@core/interfaces/auction/dictamen.model';
 import { SweetAlertConstants } from '../../../../@core/interfaces/auction/sweetalert-model';
@@ -23,8 +23,9 @@ export class DictamentDetailComponent extends BasePage {
     protected router: Router,
     private service: DictamenService,
     public windowRef: NbWindowRef,
+    public toastrService: NbToastrService,
     @Inject(NB_WINDOW_CONTEXT) context) {
-    super();
+    super(toastrService);
     if (null != context.data) {
       this.data = context.data;
     }

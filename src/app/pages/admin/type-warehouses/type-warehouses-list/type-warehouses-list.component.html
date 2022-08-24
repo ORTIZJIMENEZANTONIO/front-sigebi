@@ -6,13 +6,12 @@
         </span>
 
         <div class="add-select">
-            <button (click)="openWindowDictamen()"nbButton status="primary">Nueva</button>
+            <button (click)="openWindow()"nbButton status="primary">Nueva</button>
         </div>
 
     </nb-card-header>
 
     <nb-card-body>
-        
         <div [formGroup]="searchForm" class="form-group row">
             <div class="col-md-1 mt-2">
                 <label class="control-label">Buscar: </label>
@@ -25,13 +24,8 @@
         <ng2-smart-table [settings]="settings" [source]="list" (delete)="onDeleteConfirm($event)"
             (edit)="editRow($event)">
         </ng2-smart-table>
-        <mat-paginator [length]="length"
-               [pageSize]="pageSize"
-               [pageSizeOptions]="pageSizeOptions"
-               (page)="changesPage($event)"
-               [pageIndex] ="pageEvent.pageIndex"
-               >
+        <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
+            (page)="changesPage($event)" [pageIndex]="pageEvent.pageIndex">
         </mat-paginator>
-
     </nb-card-body>
 </nb-card>

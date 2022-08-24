@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { NbWindowRef, NB_WINDOW_CONTEXT } from '@nebular/theme';
+import { NbToastrService, NbWindowRef, NB_WINDOW_CONTEXT } from '@nebular/theme';
 import { DelegationService } from '../../../../@core/backend/common/services/delegation.service';
 import { Delegation } from '../../../../@core/interfaces/auction/Delegation.model';
 import { SweetAlertConstants } from '../../../../@core/interfaces/auction/sweetalert-model';
@@ -23,8 +23,9 @@ export class DelegationDetailComponent extends BasePage implements OnInit{
     protected router: Router,
     private service: DelegationService,
     public windowRef: NbWindowRef,
+    public toastrService: NbToastrService,
     @Inject(NB_WINDOW_CONTEXT) context) {
-    super();
+    super(toastrService);
     if (null != context.data) {
       this.data = context.data;
     }
