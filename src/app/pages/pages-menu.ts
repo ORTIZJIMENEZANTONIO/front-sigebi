@@ -591,6 +591,10 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link:'/pages/admin/zone-geographic'
       },
       {
+        title: 'Respuestas',
+        link: '/pages/admin/response'
+      },
+      {
         title: 'Servicios',
         link: '/pages/admin/service-cat'
       },
