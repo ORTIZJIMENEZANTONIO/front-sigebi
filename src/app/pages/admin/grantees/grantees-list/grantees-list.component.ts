@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { NbToastrService, NbWindowControlButtonsConfig, NbWindowService } from '@nebular/theme';
+import { SweetAlertResult } from 'sweetalert2';
 import { GranteesService } from '../../../../@core/backend/common/services/grantees.service';
 import { GranteesInterface } from '../../../../@core/interfaces/auction/grantees.model';
 import { SweetAlertConstants } from '../../../../@core/interfaces/auction/sweetalert-model';
@@ -58,7 +59,7 @@ export class GranteesListComponent extends BasePage {
         type: 'number',
       },
       description: {
-        title: 'Descripcion',
+        title: 'Descripción',
         type: 'string',
       },
       puesto: {
@@ -90,11 +91,11 @@ export class GranteesListComponent extends BasePage {
         type: 'string',
       },
       nommun: {
-        title: 'NOMMUN',
+        title: 'Nombre de Municipio',
         type: 'string',
       },
       nomedo: {
-        title: 'NOMEDO',
+        title: 'Nombre de Estado',
         type: 'string',
       },
       cp: {
@@ -102,7 +103,7 @@ export class GranteesListComponent extends BasePage {
         type: 'string',
       },
       usrStatus: {
-        title: 'Usuario',
+        title: 'Estatus usuario',
         type: 'string',
       }
     
@@ -124,10 +125,10 @@ export class GranteesListComponent extends BasePage {
     });
     this.searchForm.controls['text'].valueChanges.subscribe((value: string) => {
       if (value.length > 0) {
-        // this.service.search(value).subscribe((rows: GranteesInterface[]) => {
-        //   this.length = rows.length;
-        //   this.list = rows;
-        // });
+        this.service.search(value).subscribe((rows: GranteesInterface[]) => {
+        this.length = rows.length;
+        this.list = rows;
+        });
       } else {
         this.read(0, 10);
       }
@@ -168,16 +169,12 @@ export class GranteesListComponent extends BasePage {
   }
 
   public onDeleteConfirm(event): void {
-    this.sweetalertQuestion('warning', 'Eliminar', 'Desea eliminar este registro?').then(
+    this.sweetalertQuestion('warning', 'Eliminar', '¿Desea eliminar este registro?').then(
       question => {
         if (question.isConfirmed) {
           this.service.delete(event.data.id).subscribe(
             data => {
-              // if (data.statusCode == 200) {
-              this.onLoadFailed('success', 'Eliminado', data.message);
-              // } else {
-              //   this.onLoadFailed('danger', 'Error', data.message);
-              // }
+              this.onLoadFailed('success', 'Donatorio eliminado correctamente', data.message);
             }, err => {
               let error = '';
               if (err.status === 0) {

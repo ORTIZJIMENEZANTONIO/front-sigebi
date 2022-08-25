@@ -306,10 +306,6 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: '/pages/admin/regional-delegation',
       },
       {
-        title: 'Dictamen',
-        link: '/pages/admin/dictaments',
-      },
-      {
         title: 'Emisora',
         link: '/pages/admin/station',
       },
@@ -370,7 +366,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: '/pages/admin/sinister',
       },
       {
-        title: 'Tipo Almacen',
+        title: 'Tipo de Almacenes',
         link: '/pages/admin/typewarehouses',
       },
       {
@@ -392,10 +388,6 @@ export const MENU_ITEMS: NbMenuItem[] = [
       {
         title: 'Estatus Buzon',
         link: '/pages/admin/statusmailbox',
-      },
-      {
-        title: 'Tipo servicios',
-        link: '/pages/admin/typeservices',
       },
       {
         title: 'Tipo relevante',
@@ -587,12 +579,28 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: '/pages/admin/score'
       },
       {
-        title: 'R Asunt Dic',
-        link: '/pages/admin/r-asunt-dic'
+        title:'R Asunt Dic',
+        link:'/pages/admin/r-asunt-dic'
+      },
+      {
+        title:'Tipo de Servicios',
+        link:'/pages/admin/type-services'
+      },  
+      {
+        title:'Zona Geográficas',
+        link:'/pages/admin/zone-geographic'
+      },
+      {
+        title: 'Respuestas',
+        link: '/pages/admin/response'
       },
       {
         title: 'Servicios',
         link: '/pages/admin/service-cat'
+      },
+      {
+        title: 'Series IFAI',
+        link: '/pages/admin/ifai-serie'
       },
       {
         title: 'Empresa terceros',

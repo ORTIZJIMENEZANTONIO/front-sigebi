@@ -1,16 +1,46 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
-import { MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
-import { NbToastrService, NbWindowControlButtonsConfig, NbWindowService } from '@nebular/theme';
-import { SweetAlertResult } from 'sweetalert2';
-import { OfficesService } from '../../../../@core/backend/common/services/offices.service';
-import { OfficesModel } from '../../../../@core/interfaces/auction/offices.model';
-import { SweetAlertConstants, SweetalertModel } from '../../../../@core/interfaces/auction/sweetalert-model';
-import { BaseApp } from '../../../../@core/shared/base-app';
-import { BasePage } from '../../../../@core/shared/base-page';
-import { SweetalertService } from '../../../../shared/sweetalert.service';
+import {
+  Component,
+  OnInit
+} from '@angular/core';
+import {
+  FormControl,
+  FormGroup
+} from '@angular/forms';
+import {
+  MatPaginatorIntl,
+  PageEvent
+} from '@angular/material/paginator';
+import {
+  NbToastrService,
+  NbWindowControlButtonsConfig,
+  NbWindowService
+} from '@nebular/theme';
+import {
+  SweetAlertResult
+} from 'sweetalert2';
+import {
+  OfficesService
+} from '../../../../@core/backend/common/services/offices.service';
+import {
+  OfficesModel
+} from '../../../../@core/interfaces/auction/offices.model';
+import {
+  SweetAlertConstants,
+  SweetalertModel
+} from '../../../../@core/interfaces/auction/sweetalert-model';
+import {
+  BaseApp
+} from '../../../../@core/shared/base-app';
+import {
+  BasePage
+} from '../../../../@core/shared/base-page';
+import {
+  SweetalertService
+} from '../../../../shared/sweetalert.service';
 
-import { OfficesDeailComponent } from '../offices-deail/offices-deail.component';
+import {
+  OfficesDeailComponent
+} from '../offices-deail/offices-deail.component';
 
 @Component({
   selector: 'ngx-offices-list',
@@ -39,7 +69,7 @@ export class OfficesListComponent extends BasePage implements OnInit {
     pager: {
       display: false,
     },
-    hideSubHeader: true,//oculta subheaader de filtro
+    hideSubHeader: true, //oculta subheaader de filtro
     mode: 'external', // ventana externa
     add: {
       addButtonContent: '<i class="nb-plus"></i>',
@@ -179,11 +209,7 @@ export class OfficesListComponent extends BasePage implements OnInit {
         if (question.isConfirmed) {
           this.service.delete(event.data.id).subscribe(
             data => {
-              // if (data.statusCode == 200) {
               this.onLoadFailed('success', 'Eliminado', data.message);
-              // } else {
-              //   this.onLoadFailed('danger', 'Error', data.message);
-              // }
             }, err => {
               let error = '';
               if (err.status === 0) {
@@ -210,7 +236,13 @@ export class OfficesListComponent extends BasePage implements OnInit {
       maximize: false,
       fullScreen: false,
     };
-    const modalRef = this.windowService.open(OfficesDeailComponent, { title: `Editar`, context: { data: event.data }, buttons: buttonsConfig }).onClose.subscribe(() => {
+    const modalRef = this.windowService.open(OfficesDeailComponent, {
+      title: `Editar`,
+      context: {
+        data: event.data
+      },
+      buttons: buttonsConfig
+    }).onClose.subscribe(() => {
       this.read(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
 

@@ -2,24 +2,45 @@
     <nb-card-body>
         <form [formGroup]="formMunicipality">
             <div class="form-group row">
-                <input maxlength="30" nbInput fullWidth formControlName="key" matInput placeholder="Clave">
-                <label class="text-danger" *ngIf="validateMunicipality['key'].hasError('pattern')"><small>Ingrese un nombre válido!</small></label>
+                <input maxlength="30" nbInput fullWidth formControlName="key" placeholder="Clave"
+                    [status]="(key?.errors?.required || key?.hasError('minlength') || key?.hasError('maxlength') || key?.hasError('pattern')) && key.touched ? 'danger' : ''">
+                <ngx-validation-message label="Clave" [showMinLength]="key?.hasError('minlength')"
+                    [showMaxLength]="key?.hasError('maxlength')" [showRequired]="key?.errors?.required && key.touched"
+                    [showPattern]="key?.hasError('pattern') && key.touched" minLength=1 maxLength=255>
+                </ngx-validation-message>
             </div>
             <div class="form-group row">
-                <input maxlength="30" nbInput fullWidth formControlName="entity" matInput placeholder="Entidad">
-                <label class="text-danger" *ngIf="validateMunicipality['entity'].hasError('pattern')"><small>Ingrese un valor númerico!</small></label>
+                <input maxlength="30" nbInput fullWidth formControlName="entity" placeholder="Entidad"
+                    [status]="(entity?.errors?.required || entity?.hasError('minlength') || entity?.hasError('maxlength') || entity?.hasError('pattern')) && entity.touched ? 'danger' : ''">
+                <ngx-validation-message label="Entidad" [showMinLength]="entity?.hasError('minlength')"
+                    [showMaxLength]="entity?.hasError('maxlength')"
+                    [showRequired]="entity?.errors?.required && entity.touched"
+                    [showPattern]="entity?.hasError('pattern') && entity.touched" minLength=1 maxLength=255>
+                </ngx-validation-message>
             </div>
             <div class="form-group row">
-                <input maxlength="60" nbInput fullWidth formControlName="municipalityName" matInput placeholder="Nombre">
-                <label class="text-danger" *ngIf="validateMunicipality['municipalityName'].hasError('pattern')"><small>Ingrese un nombre válido!</small></label>
+                <input maxlength="60" nbInput fullWidth formControlName="municipalityName" placeholder="Nombre"
+                    [status]="(municipalityName?.errors?.required || municipalityName?.hasError('minlength') || municipalityName?.hasError('maxlength') || municipalityName?.hasError('pattern')) && municipalityName.touched ? 'danger' : ''">
+                <ngx-validation-message label="Nombre" [showMinLength]="municipalityName?.hasError('minlength')"
+                    [showMaxLength]="municipalityName?.hasError('maxlength')"
+                    [showRequired]="municipalityName?.errors?.required && municipalityName.touched"
+                    [showPattern]="municipalityName?.hasError('pattern') && municipalityName.touched" minLength=1
+                    maxLength=255>
+                </ngx-validation-message>
             </div>
             <div class="form-group row">
-                <input nbInput fullWidth formControlName="version" matInput placeholder="version">
-                <label class="text-danger" *ngIf="validateMunicipality['version'].hasError('pattern')"><small>Numero de versión no válida!</small></label>
+                <input nbInput fullWidth formControlName="version" placeholder="version"
+                    [status]="(version?.errors?.required || version?.hasError('minlength') || version?.hasError('maxlength') || version?.hasError('pattern')) && version.touched ? 'danger' : ''">
+                <ngx-validation-message label="version" [showMinLength]="version?.hasError('minlength')"
+                    [showMaxLength]="version?.hasError('maxlength')"
+                    [showRequired]="version?.errors?.required && version.touched"
+                    [showPattern]="version?.hasError('pattern') && version.touched" minLength=1 maxLength=255>
+                </ngx-validation-message>
             </div>
-            <div class="form-group row">
-                <div class="offset-sm-3 col-sm-9">
-                    <button type="submit" nbButton status="primary" [disabled]="!formMunicipality.valid" (click)="register()">{{actionBtn}}</button>
+            <div class="form-group">
+                <div class="d-flex justify-content-center">
+                    <button type="submit" nbButton status="primary" [disabled]="!formMunicipality.valid"
+                        (click)="register()">{{actionBtn}}</button>
                 </div>
             </div>
         </form>

@@ -1,21 +1,23 @@
 import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { NbWindowRef, NB_WINDOW_CONTEXT } from '@nebular/theme';
+import { NbToastrService, NbWindowRef, NB_WINDOW_CONTEXT } from '@nebular/theme';
 import { SweetAlertConstants } from '../../../../@core/interfaces/auction/sweetalert-model';
 import { BasePage } from '../../../../@core/shared/base-page';
 
+import { STRING_PATTERN } from '../../../../@components/constants';
 import { SiseProcessService } from '../../../../@core/backend/common/services/sise-process.service';
+import { SiseProcessInterface } from '../../../../@core/interfaces/auction/sise-process.model';
 
 @Component({
   selector: 'ngx-sise-process-detail',
   templateUrl: './sise-process-detail.component.html',
   styleUrls: ['./sise-process-detail.component.scss']
 })
-export class SiseProcessDetailComponent  extends BasePage implements OnInit {
+export class SiseProcessDetailComponent extends BasePage {
 
   public form: FormGroup;
-  private data: any = {};
+  private data: SiseProcessInterface;
   public actionBtn: string = "Guardar";
 
   constructor(
@@ -24,12 +26,12 @@ export class SiseProcessDetailComponent  extends BasePage implements OnInit {
     protected router: Router,
     private service: SiseProcessService,
     public windowRef: NbWindowRef,
-    @Inject(NB_WINDOW_CONTEXT) context
-    ) {
-    super();
+    public toastrService: NbToastrService,
+    @Inject(NB_WINDOW_CONTEXT) context) {
+    super(toastrService);
     if (null != context.data) {
       this.data = context.data;
-    }
+    }    
   }
 
   ngOnInit(): void {
@@ -39,7 +41,7 @@ export class SiseProcessDetailComponent  extends BasePage implements OnInit {
   private prepareForm(): void {
     this.form = this.fb.group({
       id: [null],
-      description: [null, Validators.compose([Validators.pattern(""), Validators.maxLength(50)])],
+      description: [null, Validators.compose([Validators.pattern(STRING_PATTERN), Validators.maxLength(50),  Validators.minLength(1) ])],
     });
     if (this.data.id != null) {
       this.actionBtn = "Actualizar";
@@ -57,27 +59,29 @@ export class SiseProcessDetailComponent  extends BasePage implements OnInit {
 
   private createRegister(data): void {
     this.service.register(data).subscribe(
-      data => {
-        this.windowRef.close();
-        //this.onLoadFailed('success', 'Proceso SISE', 'Registrado Correctamente');
+      (res) => {
+        this.onLoadFailed('success', 'Serie', 'Registrado Correctamente');
       }, err => {
         const error = err.status === 0
           ? SweetAlertConstants.noConexion
           : err.message;
         this.onLoadFailed('danger', 'Error', error);
-      } );
+      }, () => {
+        this.windowRef.close();
+      });
   }
 
   private updateRegister(data): void {
     this.service.update(this.data.id, data).subscribe(
-      data => {
-        this.windowRef.close();
-        // this.onLoadFailed('success', 'Proceso SISE', 'Actualizado Correctamente');
+      (response) => {
+        this.onLoadFailed('success', 'Serie', 'Actualizado Correctamente');
       }, err => {
         const error = err.status === 0
           ? SweetAlertConstants.noConexion
           : err.message;
         this.onLoadFailed('danger', 'Error', error);
+      }, () => {
+        this.windowRef.close();
       });
   }
 

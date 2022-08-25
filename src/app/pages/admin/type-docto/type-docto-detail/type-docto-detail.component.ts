@@ -2,24 +2,27 @@ import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { NbWindowRef, NbWindowService, NB_WINDOW_CONTEXT } from '@nebular/theme';
+import { NbToastrService, NbWindowRef, NbWindowService, NB_WINDOW_CONTEXT } from '@nebular/theme';
 import { TypeDoctoService } from '../../../../@core/backend/common/services/typeDocto.service';
 import { TypeGoodstService } from '../../../../@core/backend/common/services/typeGoods.service';
+import { SweetAlertConstants, SweetalertModel } from '../../../../@core/interfaces/auction/sweetalert-model';
 import { BaseApp } from '../../../../@core/shared/base-app';
+import { BasePage } from '../../../../@core/shared/base-page';
+import { SweetalertService } from '../../../../shared/sweetalert.service';
 
 @Component({
   selector: 'ngx-type-docto-detail',
   templateUrl: './type-docto-detail.component.html',
   styleUrls: ['./type-docto-detail.component.scss']
 })
-export class TypeDoctoDetailComponent extends BaseApp {
+export class TypeDoctoDetailComponent extends BasePage {
 
   Form: FormGroup;
   data: any = {};
 
   constructor(private fb: FormBuilder, protected cd: ChangeDetectorRef, protected router: Router, private service: TypeDoctoService,
-    public windowRef: NbWindowRef, @Inject(NB_WINDOW_CONTEXT) context, private dom: DomSanitizer,  private windowService: NbWindowService) { 
-      super();
+    public windowRef: NbWindowRef, @Inject(NB_WINDOW_CONTEXT) context, private dom: DomSanitizer,  private windowService: NbWindowService, public toastrService: NbToastrService, public sweetalertService: SweetalertService) { 
+      super(toastrService);
       if (null != context.data){
         this.data = context.data;
       }
@@ -36,46 +39,54 @@ export class TypeDoctoDetailComponent extends BaseApp {
     get validateOpinion(){
       return this.form.controls;
     }
+
     ngOnInit(): void {
       if(this.data.id != null){
         this.actionBtn = "Actualizar";
        this.form.patchValue(this.data);
-      }
-      
+       this.form.controls['id'].disable();
+      }      
     }
-  
-
 
   register(): void {
-  
-    if( this.actionBtn == "Guardar"){
-      let params = {
-        userCreation: 'Paul',
-        creationDate:new Date(),
-        userModificatio:'Paul',
-        modificatioDate:new Date(),
-        description: this.form.value.description,
-        version: this.form.value.version,
-        estatus:this.form.value.estatus
-      }
+    let params = {
+      userCreation: 'User',
+      creationDate:new Date(),
+      userModificatio:'User',
+      modificatioDate:new Date(),
+      id: this.form.value.id,
+      description: this.form.value.description,
+      version: this.form.value.version,
+      estatus:this.form.value.estatus
+    }
+    if( this.actionBtn == "Guardar"){      
       this.service.register(params).subscribe(data =>{
+        this.onLoadFailed('success', 'Tipo Docto', 'Registrado Correctamente');
+      }, err => {
+        let error = '';
+        if (err.status === 0) {
+          error = SweetAlertConstants.noConexion;
+        } else {
+          error = err.message;
+        }
+        this.onLoadFailed('danger', 'Error', error);
+      }, () => {
         this.windowRef.close();
-      },err =>{
-        console.log(err);
-      })
+      });
     }else{
-      let params = {
-        userModificatio:'Paul',
-        modificatioDate:new Date(),
-        description: this.form.value.description,
-        version: this.form.value.version,
-        estatus:this.form.value.estatus
-      }
       this.service.update(this.data.id,params).subscribe(data =>{
-       this.windowRef.close();
-      },err =>{
-        console.log(err);
-      })
+        this.onLoadFailed('success', 'Tipo Docto', 'Actualizado Correctamente');
+      }, err => {
+        let error = '';
+        if (err.status === 0) {
+          error = SweetAlertConstants.noConexion;
+        } else {
+          error = err.message;
+        }
+        this.onLoadFailed('danger', 'Error', error);
+      }, () => {
+        this.windowRef.close();
+      });
     }
   }
 }

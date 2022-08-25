@@ -1,40 +1,54 @@
 <nb-card>
-    <nb-card-body>
-        <form [formGroup]="form">
+  <nb-card-body>
+    <form [formGroup]="form">
+      <div class="row">
 
-            <div class="form-group row">
-                <input nbInput fullWidth formControlName="description" matInput placeholder="Descripción"
-                [status]="form.controls['description']?.errors?.required  && form.controls['description'].touched ? 'danger' : ''">
-                <label class="text-danger"
-                 *ngIf="validate['description'].hasError('required') && form.controls['description'].touched"><small>Ingrese una descripción!</small></label>
-            </div>
+        <div class="col-md-12">
+          <div class="form-group">
+            <input nbInput fullWidth formControlName="description"  placeholder="Descripción"
+            >
+            <label class="text-danger"
+              *ngIf="validate['description'].hasError('required')"><small>Ingrese
+                una descripción!</small></label>
+          </div>
+        </div>
 
-            <div class="form-group row">
-                <input nbInput fullWidth formControlName="noRegistration" matInput placeholder="Número de registro"
-                [status]="form.controls['noRegistration']?.errors?.required  && form.controls['noRegistration'].touched ? 'danger' : ''">
-                <label class="text-danger"
-                 *ngIf="validate['noRegistration'].hasError('required') && form.controls['noRegistration'].touched"><small>Ingrese un número de registro!</small></label>
-            </div>
+        <div class="col-md-12">
+          <div class="form-group">
+            <input nbInput fullWidth formControlName="noRegistration"  placeholder="Número de registro"
+            >
+            <label class="text-danger"
+              *ngIf="validate['noRegistration'].hasError('required') && form.controls['noRegistration'].touched"><small>Ingrese
+                un número de registro!</small></label>
+          </div>
+        </div>
 
-            <div class="form-group row">
-                <input nbInput fullWidth formControlName="dict_ofi" matInput placeholder="dictamen_ofi"
-                [status]="form.controls['dict_ofi']?.errors?.required  && form.controls['dict_ofi'].touched ? 'danger' : ''">
-                <label class="text-danger"
-                 *ngIf="validate['dict_ofi'].hasError('required') && form.controls['dict_ofi'].touched"><small>Ingrese un dictamen_ofi!</small></label>
-            </div>
+        <div class="col-md-12">
+          <div class="form-group">
+            <input nbInput fullWidth formControlName="dict_ofi"  placeholder="dictamen_ofi"
+            >
+            <label class="text-danger"
+              *ngIf="validate['dict_ofi'].hasError('required') && form.controls['dict_ofi'].touched"><small>Ingrese un
+                dictamen_ofi!</small></label>
+          </div>
+        </div>
 
-            <div class="form-group row">
-                <input nbInput fullWidth formControlName="areaProcess" matInput placeholder="Area de proceso"
-                [status]="form.controls['areaProcess']?.errors?.required  && form.controls['areaProcess'].touched ? 'danger' : ''">
-                <label class="text-danger"
-                 *ngIf="validate['areaProcess'].hasError('required') && form.controls['areaProcess'].touched"><small>Ingrese un  area de proceso!</small></label>
-            </div>
-       
-            <div class="form-group row">
-                <div class="offset-sm-3 col-sm-9">
-                    <button type="submit" nbButton status="primary" [disabled]="!form.valid" (click)="register()">{{actionBtn}}</button>
-                </div>
-            </div>
-        </form>
-    </nb-card-body>
+        <div class="col-md-12">
+          <div class="form-group">
+            <input nbInput fullWidth formControlName="areaProcess"  placeholder="Area de proceso">
+            <label class="text-danger"
+              *ngIf="validate['areaProcess'].hasError('required') && form.controls['areaProcess'].touched"><small>Ingrese
+                un area de proceso!</small></label>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="d-flex justify-content-center">
+          <button type="submit" nbButton status="primary" [disabled]="!form.valid"
+            (click)="register()">{{actionBtn}}</button>
+        </div>
+      </div>
+    </form>
+  </nb-card-body>
 </nb-card>

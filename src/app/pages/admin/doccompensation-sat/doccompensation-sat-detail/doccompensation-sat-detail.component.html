@@ -4,29 +4,51 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
-                        <input nbInput fullWidth formControlName="idcat" placeholder="Id cat">
-                        <label class="text-danger" *ngIf="validateOpinion['idcat'].hasError('pattern')"><small>Id cat no válido!</small></label>
+                        <input nbInput fullWidth formControlName="idcat" placeholder="Id cat"
+                            [status]="(idcat?.errors?.required || idcat?.hasError('minlength') || idcat?.hasError('maxlength') || idcat?.hasError('pattern')) && idcat.touched ? 'danger' : ''">
+                        <ngx-validation-message label="Id cat" [showMinLength]="idcat?.hasError('minlength')"
+                            [showMaxLength]="idcat?.hasError('maxlength')"
+                            [showRequired]="idcat?.errors?.required && idcat.touched"
+                            [showPattern]="idcat?.hasError('pattern') && idcat.touched" minLength=1 maxLength=255>
+                        </ngx-validation-message>
                     </div>
                 </div>
                 <div class="col-md-12">
                     <div class="form-group">
-                        <input nbInput fullWidth formControlName="typeDocSat" placeholder="Tipo documento">
-                        <label class="text-danger" *ngIf="validateOpinion['typeDocSat'].hasError('pattern')"><small>Tipo documento no
-                                válido!</small></label>
+                        <input nbInput fullWidth formControlName="typeDocSat" placeholder="Tipo documento"
+                            [status]="(typeDocSat?.errors?.required || typeDocSat?.hasError('minlength') || typeDocSat?.hasError('maxlength') || typeDocSat?.hasError('pattern')) && typeDocSat.touched ? 'danger' : ''">
+                        <ngx-validation-message label="Tipo documento"
+                            [showMinLength]="typeDocSat?.hasError('minlength')"
+                            [showMaxLength]="typeDocSat?.hasError('maxlength')"
+                            [showRequired]="typeDocSat?.errors?.required && typeDocSat.touched"
+                            [showPattern]="typeDocSat?.hasError('pattern') && typeDocSat.touched" minLength=1
+                            maxLength=255>
+                        </ngx-validation-message>
                     </div>
                 </div>
                 <div class="col-md-12">
                     <div class="form-group">
-                        <input nbInput fullWidth formControlName="addressee" placeholder="Destinatario">
-                        <label class="text-danger" *ngIf="validateOpinion['addressee'].hasError('pattern')"><small>Destinatario no
-                                válido!</small></label>
+                        <input nbInput fullWidth formControlName="addressee" placeholder="Destinatario"
+                            [status]="(addressee?.errors?.required || addressee?.hasError('minlength') || addressee?.hasError('maxlength') || addressee?.hasError('pattern')) && addressee.touched ? 'danger' : ''">
+                        <ngx-validation-message label="Destinatario" [showMinLength]="addressee?.hasError('minlength')"
+                            [showMaxLength]="addressee?.hasError('maxlength')"
+                            [showRequired]="addressee?.errors?.required && addressee.touched"
+                            [showPattern]="addressee?.hasError('pattern') && addressee.touched" minLength=1
+                            maxLength=255>
+                        </ngx-validation-message>
                     </div>
                 </div>
                 <div class="col-md-12">
                     <div class="form-group">
-                        <input nbInput fullWidth formControlName="subjectCode" placeholder="Asunto código">
-                        <label class="text-danger" *ngIf="validateOpinion['subjectCode'].hasError('pattern')"><small>Asunto no
-                                válido!</small></label>
+                        <input nbInput fullWidth formControlName="subjectCode" placeholder="Asunto código"
+                            [status]="(subjectCode?.errors?.required || subjectCode?.hasError('minlength') || subjectCode?.hasError('maxlength') || subjectCode?.hasError('pattern')) && subjectCode.touched ? 'danger' : ''">
+                        <ngx-validation-message label="Asunto código"
+                            [showMinLength]="subjectCode?.hasError('minlength')"
+                            [showMaxLength]="subjectCode?.hasError('maxlength')"
+                            [showRequired]="subjectCode?.errors?.required && subjectCode.touched"
+                            [showPattern]="subjectCode?.hasError('pattern') && subjectCode.touched" minLength=1
+                            maxLength=255>
+                        </ngx-validation-message>
                     </div>
                 </div>
             </div>

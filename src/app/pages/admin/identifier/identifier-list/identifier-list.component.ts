@@ -2,10 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { NbToastrService, NbWindowControlButtonsConfig, NbWindowService } from '@nebular/theme';
-import Swal from 'sweetalert2';
+import Swal, { SweetAlertResult } from 'sweetalert2';
 import { IdentifierService } from '../../../../@core/backend/common/services/identifier.service';
 import { Identifier } from '../../../../@core/interfaces/auction/identifier.model';
+import { SweetAlertConstants, SweetalertModel } from '../../../../@core/interfaces/auction/sweetalert-model';
 import { BasePage } from '../../../../@core/shared/base-page';
+import { SweetalertService } from '../../../../shared/sweetalert.service';
 import { IdentifierDetailComponent } from '../identifier-detail/identifier-detail.component';
 
 @Component({
@@ -16,8 +18,8 @@ import { IdentifierDetailComponent } from '../identifier-detail/identifier-detai
 export class IdentifierListComponent extends BasePage {
 
   constructor(private service: IdentifierService, public toastrService: NbToastrService,
-    private windowService: NbWindowService, private paginator: MatPaginatorIntl) {
-    super(toastrService);
+    private windowService: NbWindowService, private paginator: MatPaginatorIntl, public sweetalertService: SweetalertService) {
+    super(toastrService, sweetalertService);
     this.paginator.itemsPerPageLabel = "Registros por página";
     this.searchForm = new FormGroup({
       text: new FormControl()
@@ -115,7 +117,15 @@ export class IdentifierListComponent extends BasePage {
       this.rows = legends.data;
       this.length = legends.count;
     }, 
-    error => this.onLoadFailed('danger','Error conexión',error.message)
+    err => {
+      let error = '';
+      if (err.status === 0) {
+        error = SweetAlertConstants.noConexion;
+      } else {
+        error = err.message;
+      }
+      this.onLoadFailed('danger', 'Error', error);
+    }
     );
 
   });
@@ -129,26 +139,34 @@ export class IdentifierListComponent extends BasePage {
   }
 
   onDeleteConfirm(event): void {
-    Swal.fire({
-      title: 'Esta seguro de eliminar el registro?',
-      text: "Esta acción no es revertible!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      cancelButtonText:'Cancelar',
-      confirmButtonText: 'Si'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.service.delete(event.data.code).subscribe(data =>{
-          this.read();
-        },err =>{
-          console.log(err);
-        })
-       
+    this.sweetalertQuestion('warning', 'Eliminar', '¿Desea eliminar este registro?').then(
+      question => {
+        if (question.isConfirmed) {
+          this.service.delete(event.data.code).subscribe(
+            data => {
+              this.onLoadFailed('success','Identificador eliminada correctamente', data.message);
+              this.read();
+            }, err => {
+              let error = '';
+              if (err.status === 0) {
+                error = SweetAlertConstants.noConexion;
+              } else {
+                error = err.message;
+              }
+              this.onLoadFailed('danger', 'Error', error);
+            }
+          );
+        }
       }
-    })
-    
+    ).catch(
+      e => {
+        console.error(e);
+      }
+    ).finally(
+      () => {
+        console.log('finaliza');
+      }
+    );    
   }
 
   editRow(event) {
@@ -169,5 +187,4 @@ export class IdentifierListComponent extends BasePage {
     });
     
   }
-
 }

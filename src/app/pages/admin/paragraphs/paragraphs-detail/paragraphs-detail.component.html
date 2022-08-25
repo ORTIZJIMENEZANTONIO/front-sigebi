@@ -2,21 +2,38 @@
     <nb-card-body>
         <form [formGroup]="formParagraph">
             <div class="form-group row">
-                <input nbInput fullWidth formControlName="paragraph" matInput placeholder="Párrafo">
-                <label class="text-danger" *ngIf="validateParagraph['paragraph'].hasError('pattern')"><small>Ingrese un párrafo válido!</small></label>
+                <textarea nbInput fullWidth formControlName="paragraph" placeholder="Párrafo"
+                    [status]="(paragraphF?.errors?.required || paragraphF?.hasError('minlength') || paragraphF?.hasError('maxlength') || paragraphF?.hasError('pattern')) && paragraphF.touched ? 'danger' : ''">
+                    </textarea>
+                <ngx-validation-message label="Párrafo" [showMinLength]="paragraphF?.hasError('minlength')"
+                    [showMaxLength]="paragraphF?.hasError('maxlength')"
+                    [showRequired]="paragraphF?.errors?.required && paragraphF.touched"
+                    [showPattern]="paragraphF?.hasError('pattern') && paragraphF.touched" minLength=1 maxLength=255>
+                </ngx-validation-message>
             </div>
             <div class="form-group row">
-                <input nbInput fullWidth formControlName="reportName" matInput placeholder="Nombre de reporte">
-                <label class="text-danger" *ngIf="validateParagraph['reportName'].hasError('pattern')"><small>Ingrese un nombre válido!</small></label>
+                <input nbInput fullWidth formControlName="reportName" placeholder="Nombre de reporte"
+                    [status]="(reportName?.errors?.required || reportName?.hasError('minlength') || reportName?.hasError('maxlength') || reportName?.hasError('pattern')) && reportName.touched ? 'danger' : ''">
+                <ngx-validation-message label="Nombre de reporte" [showMinLength]="reportName?.hasError('minlength')"
+                    [showMaxLength]="reportName?.hasError('maxlength')"
+                    [showRequired]="reportName?.errors?.required && reportName.touched"
+                    [showPattern]="reportName?.hasError('pattern') && reportName.touched" minLength=1 maxLength=255>
+                </ngx-validation-message>
             </div>
             <div class="form-group row">
-                <input nbInput fullWidth formControlName="version" matInput placeholder="version">
-                <label class="text-danger" *ngIf="validateParagraph['version'].hasError('pattern')"><small>Numero de versión no válida!</small></label>
+                <input nbInput fullWidth formControlName="version" placeholder="version"
+                    [status]="(version?.errors?.required || version?.hasError('minlength') || version?.hasError('maxlength') || version?.hasError('pattern')) && version.touched ? 'danger' : ''">
+                <ngx-validation-message label="version" [showMinLength]="version?.hasError('minlength')"
+                    [showMaxLength]="version?.hasError('maxlength')"
+                    [showRequired]="version?.errors?.required && version.touched"
+                    [showPattern]="version?.hasError('pattern') && version.touched" minLength=1 maxLength=255>
+                </ngx-validation-message>
             </div>
 
-            <div class="form-group row">
-                <div class="offset-sm-3 col-sm-9">
-                    <button type="submit" nbButton status="primary" [disabled]="!formParagraph.valid" (click)="register()">{{actionBtn}}</button>
+            <div class="form-group">
+                <div class="d-flex justify-content-center">
+                    <button type="submit" nbButton status="primary" [disabled]="!formParagraph.valid"
+                        (click)="register()">{{actionBtn}}</button>
                 </div>
             </div>
         </form>

@@ -17,7 +17,7 @@ import { IfaiSerieDetailComponent } from '../ifai-serie-detail/ifai-serie-detail
   templateUrl: './ifai-serie-list.component.html',
   styleUrls: ['./ifai-serie-list.component.scss']
 })
-export class IfaiSerieListComponent extends BasePage {
+export class IfaiSerieListComponent extends BasePage implements OnInit {
 
   public searchForm: FormGroup;
   public list: any;
@@ -57,66 +57,31 @@ export class IfaiSerieListComponent extends BasePage {
       confirmDelete: true,
     },
     columns: {
-      id: {
+      code: {
         title: 'Registro',
-        type: 'number',
-      },
-      name: {
-        title: 'Nombre',
         type: 'string',
       },
-      street: {
-        title: 'Calle',
+      typeProcedure: {
+        title: 'Tipo trámite',
         type: 'string',
       },
-      noExt: {
-        title: 'No. Exterior',
+      description: {
+        title: 'Descripción',
         type: 'string',
       },
-      noInt: {
-        title: 'No. Interior',
+      status: {
+        title: 'Estatus',
         type: 'string',
       },
-      colony: {
-        title: 'Colonia',
-        type: 'string',
-      },
-      municipalDelegate: {
-        title: 'Delegado Municipal',
-        type: 'string',
-      },
-      postalCode: {
-        title: 'Código Postal',
-        type: 'number',
-      },
-      rfc: {
-        title: 'RFC',
-        type: 'string',
-      },
-      phone: {
-        title: 'Teléfono',
-        type: 'string',
-      },
-      phoneTwo: {
-        title: 'Segundo Teléfono',
-        type: 'string',
-      },
-      fax: {
-        title: 'Segundo Teléfono',
-        type: 'string',
-      },
-      typeOffice: {
-        title: 'Tipo',
-        type: 'string',
-      },
-      noRegistration: {
-        title: 'Numero registro',
+      registryNumber: {
+        title: 'No. de registro',
         type: 'number',
       }
 
     },
     noDataMessage: "No se encontrarón registros"
   };
+
   constructor(
     private service: IfaiSerieService,
     public toastrService: NbToastrService,

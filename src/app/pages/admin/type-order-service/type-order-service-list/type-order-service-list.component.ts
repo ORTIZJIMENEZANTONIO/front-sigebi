@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormGroup, FormControl } from '@angular/forms';
 import { MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { NbToastrService, NbWindowControlButtonsConfig, NbWindowService } from '@nebular/theme';
+import { SweetAlertResult } from 'sweetalert2';
 import { TypeOrderServiceService } from '../../../../@core/backend/common/services/type-order-services.service';
 import { SweetAlertConstants } from '../../../../@core/interfaces/auction/sweetalert-model';
 import { TypeOrderServiceInterface } from '../../../../@core/interfaces/auction/typeorderservices.model';
@@ -85,10 +86,10 @@ export class TypeOrderServiceListComponent extends BasePage {
     });
     this.searchForm.controls['text'].valueChanges.subscribe((value: string) => {
       if (value.length > 0) {
-        // this.service.search(value).subscribe((rows: TypeOrderServiceInterface[]) => {
-        //   this.length = rows.length;
-        //   this.list = rows;
-        // });
+        this.service.search(value).subscribe((rows: TypeOrderServiceInterface[]) => {
+          this.length = rows.length;
+          this.list = rows;
+        });
       } else {
         this.read(0, 10);
       }
@@ -101,24 +102,22 @@ export class TypeOrderServiceListComponent extends BasePage {
 
   private read(pageIndex: number, pageSize: number) {
     this.list = null;
-    this.service.list(pageIndex, pageSize).subscribe(
-      (dt: any) => {
-        this.list = dt.data;
-        this.length = dt.count;
-      },
-      err => {
-        let error = '';
-        if (err.status === 0) {
-          error = SweetAlertConstants.noConexion;
-        } else {
-          error = err.message;
-        }
-        this.onLoadFailed('danger', 'Error', error);
-      }, () => {
-
+    this.service.list(pageIndex, pageSize).subscribe((dt:any) =>  {
+      this.list = dt.data;
+      this.length = dt.count;
+    },
+    err => {
+      let error = '';
+      if (err.status === 0) {
+        error = SweetAlertConstants.noConexion;
+      } else {
+        error = err.message;
       }
+      this.onLoadFailed('danger', 'Error', error);
+    }
     );
-  };
+
+  }
 
   public changesPage(event) {
     if (event.pageSize != this.pageSize) {
@@ -128,17 +127,14 @@ export class TypeOrderServiceListComponent extends BasePage {
     this.read(event.pageIndex, event.pageSize)
   }
 
-  public onDeleteConfirm(event): void {
-    this.sweetalertQuestion('warning', 'Eliminar', 'Desea eliminar este registro?').then(
+  onDeleteConfirm(event): void {
+    this.sweetalertQuestion('warning', 'Eliminar', '¿Desea eliminar este registro?').then(
       question => {
         if (question.isConfirmed) {
           this.service.delete(event.data.id).subscribe(
             data => {
-              // if (data.statusCode == 200) {
-              this.onLoadFailed('success', 'Eliminado', data.message);
-              // } else {
-              //   this.onLoadFailed('danger', 'Error', data.message);
-              // }
+              this.onLoadFailed('success','Tipo orden servicio eliminada correctamente', data.message);
+              this.read(this.pageEvent.pageIndex, this.pageEvent.pageSize);
             }, err => {
               let error = '';
               if (err.status === 0) {
@@ -147,9 +143,8 @@ export class TypeOrderServiceListComponent extends BasePage {
                 error = err.message;
               }
               this.onLoadFailed('danger', 'Error', error);
-            }, () => {
-              this.read(this.pageEvent.pageIndex, this.pageEvent.pageSize);
-            });
+            }
+          );
         }
       }
     ).catch(
@@ -180,6 +175,5 @@ export class TypeOrderServiceListComponent extends BasePage {
     const modalRef = this.windowService.open(TypeOrderServiceDetailComponent, { title: `Nuevo`, buttons: buttonsConfig }).onClose.subscribe(() => {
       this.read(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
-
   }
 }

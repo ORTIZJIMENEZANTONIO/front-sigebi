@@ -1,69 +1,130 @@
 <nb-card>
     <nb-card-body>
-        <form [formGroup]="formNorm" >
+        <form [formGroup]="formNorm">
             <div class="form-group row ">
-                <div class="col-md-6" >
-                    <input class="styles" formControlName="norm" matInput placeholder="Norma">
-                    <label class="text-danger" *ngIf="validateNorm['norm'].hasError('pattern')"><small>Ingrese un nombre válido!</small></label>
+                <div class="col-md-6">
+                    <input nbInput fullWidth class="form-control" formControlName="norm" placeholder="Norma"
+                        [status]="(normF?.errors?.required || normF?.hasError('minlength') || normF?.hasError('maxlength') || normF?.hasError('pattern')) && normF.touched ? 'danger' : ''">
+                    <ngx-validation-message label="NormFa" [showMinLength]="normF?.hasError('minlength')"
+                        [showMaxLength]="normF?.hasError('maxlength')"
+                        [showRequired]="normF?.errors?.required && normF.touched"
+                        [showPattern]="normF?.hasError('pattern') && normF.touched" minLength=1 maxLength=255>
+                    </ngx-validation-message>
                 </div>
                 <div class="col-md-6">
-                    <input class="styles" formControlName="article" matInput placeholder="Artículo">
-                <label class="text-danger" *ngIf="validateNorm['article'].hasError('pattern')"><small>Ingrese un nombre válido!</small></label>
+                    <input nbInput fullWidth class="form-control" formControlName="article" placeholder="Artículo"
+                        [status]="(article?.errors?.required || article?.hasError('minlength') || article?.hasError('maxlength') || article?.hasError('pattern')) && article.touched ? 'danger' : ''">
+                    <ngx-validation-message label="Artículo" [showMinLength]="article?.hasError('minlength')"
+                        [showMaxLength]="article?.hasError('maxlength')"
+                        [showRequired]="article?.errors?.required && article.touched"
+                        [showPattern]="article?.hasError('pattern') && article.touched" minLength=1 maxLength=255>
+                    </ngx-validation-message>
                 </div>
             </div>
 
             <div class="form-group row">
                 <div class="col-md-6 ">
-                    <input class="styles" formControlName="type" matInput placeholder="Tipo">
-                    <label class="text-danger" *ngIf="validateNorm['type'].hasError('pattern')"><small>Ingrese un campo númerico!</small></label>
+                    <input nbInput fullWidth class="form-control" formControlName="type" placeholder="Tipo"
+                        [status]="(type?.errors?.required || type?.hasError('minlength') || type?.hasError('maxlength') || type?.hasError('pattern')) && type.touched ? 'danger' : ''">
+                    <ngx-validation-message label="Tipo" [showMinLength]="type?.hasError('minlength')"
+                        [showMaxLength]="type?.hasError('maxlength')"
+                        [showRequired]="type?.errors?.required && type.touched"
+                        [showPattern]="type?.hasError('pattern') && type.touched" minLength=1 maxLength=255>
+                    </ngx-validation-message>
                 </div>
                 <div class="col-md-6">
-                    <input class="styles" formControlName="characteristics" matInput placeholder="Caracteristicas">
-                    <label class="text-danger" *ngIf="validateNorm['characteristics'].hasError('pattern')"><small>Ingrese un nombre válido!</small></label>
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <div class="col-md-6">
-                    <input class="styles" formControlName="merchandise" matInput placeholder="Mercancias">
-                    <label class="text-danger" *ngIf="validateNorm['merchandise'].hasError('pattern')"><small>Ingrese un nombre válido!</small></label>
-                </div>
-                <div class="col-md-6">
-                    <input class="styles" formControlName="fundament" matInput placeholder="Fundamento">
-                    <label class="text-danger" *ngIf="validateNorm['fundament'].hasError('pattern')"><small>Ingrese un nombre válido!</small></label>
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <div class="col-md-6">
-                    <input class="styles" formControlName="objective" matInput placeholder="Objetivo">
-                <label class="text-danger" *ngIf="validateNorm['objective'].hasError('pattern')"><small>Ingrese un nombre válido!</small></label>
-                </div>
-                <div class="col-md-6">
-                    <input class="styles" formControlName="destination" matInput placeholder="Distino">
-                <label class="text-danger" *ngIf="validateNorm['destination'].hasError('pattern')"><small>Ingrese un campo númerico!</small></label>
+                    <textarea nbInput fullWidth class="form-control" formControlName="characteristics" placeholder="Caracteristicas"
+                        [status]="(characteristics?.errors?.required || characteristics?.hasError('minlength') || characteristics?.hasError('maxlength') || characteristics?.hasError('pattern')) && characteristics.touched ? 'danger' : ''">
+                        </textarea>
+                    <ngx-validation-message label="Caracteristicas"
+                        [showMinLength]="characteristics?.hasError('minlength')"
+                        [showMaxLength]="characteristics?.hasError('maxlength')"
+                        [showRequired]="characteristics?.errors?.required && characteristics.touched"
+                        [showPattern]="characteristics?.hasError('pattern') && characteristics.touched" minLength=1
+                        maxLength=255>
+                    </ngx-validation-message>
                 </div>
             </div>
 
             <div class="form-group row">
                 <div class="col-md-6">
-                    <input class="styles" formControlName="condition" matInput placeholder="Condición">
-                    <label class="text-danger" *ngIf="validateNorm['condition'].hasError('pattern')"><small>Ingrese un campo númerico!</small></label>
+                    <input nbInput fullWidth class="form-control" formControlName="merchandise" placeholder="Mercancias"
+                        [status]="(merchandise?.errors?.required || merchandise?.hasError('minlength') || merchandise?.hasError('maxlength') || merchandise?.hasError('pattern')) && merchandise.touched ? 'danger' : ''">
+                    <ngx-validation-message label="Mercancias" [showMinLength]="merchandise?.hasError('minlength')"
+                        [showMaxLength]="merchandise?.hasError('maxlength')"
+                        [showRequired]="merchandise?.errors?.required && merchandise.touched"
+                        [showPattern]="merchandise?.hasError('pattern') && merchandise.touched" minLength=1
+                        maxLength=255>
+                    </ngx-validation-message>
                 </div>
                 <div class="col-md-6">
-                    <input class="styles" formControlName="version" matInput placeholder="version">
-                    <label class="text-danger" *ngIf="validateNorm['version'].hasError('pattern')"><small>Numero de versión no válida!</small></label>
+                    <input nbInput fullWidth class="form-control" formControlName="fundament" placeholder="Fundamento"
+                        [status]="(fundament?.errors?.required || fundament?.hasError('minlength') || fundament?.hasError('maxlength') || fundament?.hasError('pattern')) && fundament.touched ? 'danger' : ''">
+                    <ngx-validation-message label="Fundamento" [showMinLength]="fundament?.hasError('minlength')"
+                        [showMaxLength]="fundament?.hasError('maxlength')"
+                        [showRequired]="fundament?.errors?.required && fundament.touched"
+                        [showPattern]="fundament?.hasError('pattern') && fundament.touched" minLength=1 maxLength=255>
+                    </ngx-validation-message>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-6">
+                    <input nbInput fullWidth class="form-control" formControlName="objective" placeholder="Objetivo"
+                        [status]="(objective?.errors?.required || objective?.hasError('minlength') || objective?.hasError('maxlength') || objective?.hasError('pattern')) && objective.touched ? 'danger' : ''">
+                    <ngx-validation-message label="Objetivo" [showMinLength]="objective?.hasError('minlength')"
+                        [showMaxLength]="objective?.hasError('maxlength')"
+                        [showRequired]="objective?.errors?.required && objective.touched"
+                        [showPattern]="objective?.hasError('pattern') && objective.touched" minLength=1 maxLength=255>
+                    </ngx-validation-message>
+                </div>
+                <div class="col-md-6">
+                    <input nbInput fullWidth class="form-control" formControlName="destination" placeholder="Destino"
+                        [status]="(destination?.errors?.required || destination?.hasError('minlength') || destination?.hasError('maxlength') || destination?.hasError('pattern')) && destination.touched ? 'danger' : ''">
+                    <ngx-validation-message label="Destino" [showMinLength]="destination?.hasError('minlength')"
+                        [showMaxLength]="destination?.hasError('maxlength')"
+                        [showRequired]="destination?.errors?.required && destination.touched"
+                        [showPattern]="destination?.hasError('pattern') && destination.touched" minLength=1
+                        maxLength=255>
+                    </ngx-validation-message>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-6">
+                    <input nbInput fullWidth class="form-control" formControlName="condition" placeholder="Condición"
+                        [status]="(condition?.errors?.required || condition?.hasError('minlength') || condition?.hasError('maxlength') || condition?.hasError('pattern')) && condition.touched ? 'danger' : ''">
+                    <ngx-validation-message label="Condición" [showMinLength]="condition?.hasError('minlength')"
+                        [showMaxLength]="condition?.hasError('maxlength')"
+                        [showRequired]="condition?.errors?.required && condition.touched"
+                        [showPattern]="condition?.hasError('pattern') && condition.touched" minLength=1 maxLength=255>
+                    </ngx-validation-message>
+                </div>
+                <div class="col-md-6">
+                    <input nbInput fullWidth class="form-control" formControlName="version" placeholder="version"
+                        [status]="(version?.errors?.required || version?.hasError('minlength') || version?.hasError('maxlength') || version?.hasError('pattern')) && version.touched ? 'danger' : ''">
+                    <ngx-validation-message label="version" [showMinLength]="version?.hasError('minlength')"
+                        [showMaxLength]="version?.hasError('maxlength')"
+                        [showRequired]="version?.errors?.required && version.touched"
+                        [showPattern]="version?.hasError('pattern') && version.touched" minLength=1 maxLength=255>
+                    </ngx-validation-message>
                 </div>
             </div>
             <div class="form-group row">
                 <div class="col-md-12">
-                    <input  maxlength="20" class="styles" formControlName="status" matInput placeholder="Estatus">
-                    <label class="text-danger" *ngIf="validateNorm['status'].hasError('required')"><small>Ingrese máximo 20 caracteres!</small></label>
+                    <input maxlength="20" nbInput fullWidth class="form-control" formControlName="status" placeholder="Estatus"
+                        [status]="(estatus?.errors?.required || estatus?.hasError('minlength') || estatus?.hasError('maxlength') || estatus?.hasError('pattern')) && estatus.touched ? 'danger' : ''">
+                    <ngx-validation-message label="Estatus" [showMinLength]="estatus?.hasError('minlength')"
+                        [showMaxLength]="estatus?.hasError('maxlength')"
+                        [showRequired]="estatus?.errors?.required && estatus.touched"
+                        [showPattern]="estatus?.hasError('pattern') && estatus.touched" minLength=1 maxLength=255>
+                    </ngx-validation-message>
                 </div>
             </div>
-            <div class="form-group row justify-content-center">
-                <div class="col-auto text-center">
-                    <button type="submit" nbButton status="primary" [disabled]="!formNorm.valid" (click)="register()">{{actionBtn}}</button>
+            <div class="form-group">
+                <div class="d-flex justify-content-center">
+                    <button type="submit" nbButton status="primary" [disabled]="!formNorm.valid"
+                        (click)="register()">{{actionBtn}}</button>
                 </div>
             </div>
         </form>
