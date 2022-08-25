@@ -216,7 +216,6 @@
 ///////HEADER GOB.MX
 .subheader{
   margin-top: 69px !important;
-  // position: fixed !important;
   z-index: 999 !important;
 }
 .columns{
@@ -234,15 +233,12 @@
     z-index: 9999999 !important;
     background-color: #12322B ;
     width: 100%;
-    // margin-top: -10px !important;
     .form-inline {
       margin: 4rem;
       .nav-link {
           text-decoration: none !important;
-          // font-family: 'Montserrat' !important;
           font-size: 17.5px !important;
           font-weight: 300 !important;
-          // margin: 30px !important;
       }
     }
   }
@@ -274,6 +270,18 @@
     
 }
 .nb-theme-default nb-sidebar nb-menu {
-  margin-top: 28px !important;
+  margin-top: 33px !important;
   margin-bottom: 28px !important;
+}
+
+.nb-theme-default{
+  margin-top: 4rem !important;
+}
+
+.pace .pace-progress {
+  background: #d0021b !important;
+}
+
+.navbar-toggler {
+  margin-right: 20px !important;
 }
