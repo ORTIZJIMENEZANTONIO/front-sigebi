@@ -69,7 +69,6 @@ export class IfaiSerieDetailComponent extends BasePage {
       (res) => {
         this.onLoadFailed('success', 'Serie', 'Registrado Correctamente');
       }, err => {
-        console.log(err)
         const error = err.status === 0
           ? SweetAlertConstants.noConexion
           : err.error?.message
