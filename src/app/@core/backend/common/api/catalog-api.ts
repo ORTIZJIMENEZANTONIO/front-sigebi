@@ -48,6 +48,21 @@ export class CatalogApi {
     this.apiController = url;
     return this.api.put(this.apiController + '/' + id, paragraph);
   }
+  updateCompose(keys: Object, paragraph: any, url: string) {
+    this.apiController = url;
+    const keysArray = Object.values(keys);
+    const keysString = keysArray.join('/')
+    /*
+    keys = {
+      id: 3,
+      idQuestion: 1
+    }
+    [3, 1]
+     => /3/1
+    */
+   console.log( this.apiController + '/' + keysString )
+    return this.api.put(this.apiController + '/' + keysString, paragraph);
+  }
   delete(id: number | string, url: string) {
     this.apiController = url;
     return this.api.delete(this.apiController + '/' + id);

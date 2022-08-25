@@ -5,6 +5,8 @@ import { NbToastrService, NbWindowRef, NB_WINDOW_CONTEXT } from '@nebular/theme'
 import { SweetAlertConstants } from '../../../../@core/interfaces/auction/sweetalert-model';
 import { BasePage } from '../../../../@core/shared/base-page';
 
+import { STRING_PATTERN } from '../../../../@components/constants';
+import { NUMBERS_PATTERN } from '../../../../@components/constants';
 import { IfaiSerieInterface } from '../../../../@core/interfaces/auction/ifai-serie.model';
 import { IfaiSerieService } from '../../../../@core/backend/common/services/ifai-serie.service';
 
@@ -37,23 +39,24 @@ export class IfaiSerieDetailComponent extends BasePage {
     this.prepareForm();
   }
 
-  private prepareForm() {
+  private prepareForm(): void {
     this.form = this.fb.group({
-      id: [''],
-      typeProcedure: [null, [Validators.required]],
-      description: [null, Validators.compose([Validators.required])],
-      registerNumber: [null, Validators.compose([Validators.required])],
-      status: [null, Validators.compose([Validators.required])]
+      code: ['', Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(128), Validators.pattern(STRING_PATTERN) ])],
+      typeProcedure: ['', Validators.compose([ Validators.required, Validators.minLength(1), Validators.maxLength(2), Validators.pattern(STRING_PATTERN) ])],
+      description: [ '', Validators.compose([ Validators.minLength(1), Validators.maxLength(80), Validators.pattern(STRING_PATTERN)]) ],
+      registryNumber: [null, Validators.compose([ Validators.pattern(NUMBERS_PATTERN) ])],
+      status: [null, Validators.compose([Validators.required, Validators.maxLength(1), Validators.minLength(1), Validators.pattern(STRING_PATTERN) ])]
     });
     if (this.data) {
       this.actionBtn = "Actualizar";
-      this.form.patchValue(this.data)
+      this.form.patchValue(this.data);
     }
   }
 
+  public get code() { return this.form.get('code'); }
   public get typeProcedure() { return this.form.get('typeProcedure'); }
   public get description() { return this.form.get('description'); }
-  public get registerNumber() { return this.form.get('registerNumber'); }
+  public get registryNumber() { return this.form.get('registryNumber'); }
   public get estatus() { return this.form.get('status'); }
 
   public register(): void {
@@ -63,12 +66,14 @@ export class IfaiSerieDetailComponent extends BasePage {
 
   private createRegister(data): void {
     this.service.register(data).subscribe(
-      () => {
+      (res) => {
         this.onLoadFailed('success', 'Serie', 'Registrado Correctamente');
       }, err => {
         const error = err.status === 0
           ? SweetAlertConstants.noConexion
-          : err.message;
+          : err.error?.message
+            ? err.error.message
+            : err.message;
         this.onLoadFailed('danger', 'Error', error);
       }, () => {
         this.windowRef.close();

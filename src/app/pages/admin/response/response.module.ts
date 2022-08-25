@@ -4,37 +4,44 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ComponentsModule } from '../../../@components/components.module';
 import { ThemeModule } from '../../../@theme/theme.module';
-import { NbButtonModule, NbCardModule, NbInputModule, NbSelectModule, NbWindowModule } from '@nebular/theme';
+import { NbAutocompleteModule, NbButtonModule, NbCardModule, NbIconModule, NbInputModule, NbSelectModule, NbWindowModule } from '@nebular/theme';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
-import { ServicesRoutingModule } from './services-routing.module';
-import { ServicesDetailComponent } from './services-detail/services-detail.component';
-import { ServicesListComponent } from './services-list/services-list.component';
+import { ResponseRoutingModule } from './response-routing.module';
+import { ResponseDetailComponent } from './response-detail/response-detail.component';
+import { ResponseListComponent } from './response-list/response-list.component';
+import { NbEvaIconsModule } from '@nebular/eva-icons';
+import { MatSelectModule } from '@angular/material/select';
+
 
 @NgModule({
   declarations: [
-    ServicesDetailComponent,
-    ServicesListComponent
+    ResponseDetailComponent,
+    ResponseListComponent
   ],
   imports: [
     CommonModule,
-    ServicesRoutingModule,
+    ResponseRoutingModule,
     FormsModule,
     ReactiveFormsModule,
     ComponentsModule,
     ThemeModule,
+    NbEvaIconsModule,
+    NbIconModule,
     NbCardModule,
     Ng2SmartTableModule,
+    NbAutocompleteModule,
     NbSelectModule,
     NbButtonModule,
     NbInputModule,
     NbWindowModule.forChild(),
     MatPaginatorModule,
     MatInputModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatSelectModule
   ]
 })
-export class ServicesModule { }
+export class ResponseModule { }

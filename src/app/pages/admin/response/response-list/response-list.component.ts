@@ -3,20 +3,20 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { NbToastrService, NbWindowControlButtonsConfig, NbWindowService } from '@nebular/theme';
 import { SweetAlertResult } from 'sweetalert2';
+import { ResponseService } from '../../../../@core/backend/common/services/response.service';
+import { ResponseInterface } from '../../../../@core/interfaces/auction/response.model';
+import { SweetAlertConstants, SweetalertModel } from '../../../../@core/interfaces/auction/sweetalert-model';
+import { BaseApp } from '../../../../@core/shared/base-app';
 import { BasePage } from '../../../../@core/shared/base-page';
 import { SweetalertService } from '../../../../shared/sweetalert.service';
-import { SweetAlertConstants, SweetalertModel } from '../../../../@core/interfaces/auction/sweetalert-model';
-
-import { ServicesDetailComponent } from '../services-detail/services-detail.component';
-import { ServiceCatService } from '../../../../@core/backend/common/services/service-cat.service';
-import { ServiceCatInterface } from '../../../../@core/interfaces/auction/service.model';
+import { ResponseDetailComponent } from '../response-detail/response-detail.component';
 
 @Component({
-  selector: 'ngx-services-list',
-  templateUrl: './services-list.component.html',
-  styleUrls: ['./services-list.component.scss']
+  selector: 'ngx-response-list',
+  templateUrl: './response-list.component.html',
+  styleUrls: ['./response-list.component.scss']
 })
-export class ServicesListComponent extends BasePage implements OnInit {
+export class ResponseListComponent extends BasePage implements OnInit {
 
   public searchForm: FormGroup;
   public list: any;
@@ -56,36 +56,40 @@ export class ServicesListComponent extends BasePage implements OnInit {
       confirmDelete: true,
     },
     columns: {
-      code: {
+      id: {
         title: 'Registro',
-        type: 'striing',
+        type: 'number',
       },
-      description: {
-        title: 'Descripción',
+      idQuestion: {
+        title: 'Pregunta',
+        type: 'string',
+        valuePrepareFunction:(value) =>{
+          return value.text
+        }
+      },
+      text: {
+        title: 'Respuesta',
         type: 'string',
       },
-      unaffordabilityCriterion: {
-        title: 'Criterio de incosteabilidad',
-        type: 'string',
+      startValue: {
+        title: 'Valor inicial',
+        type: 'number',
       },
-      subaccount: {
-        title: 'Subcuenta',
-        type: 'string',
+      endValue: {
+        title: 'Valor final',
+        type: 'number',
       },
       registryNumber: {
         title: 'No. de registro',
         type: 'number',
-      },
-      cost: {
-        title: 'Costo',
-        type: 'string',
-      },
+      }
+
     },
     noDataMessage: "No se encontrarón registros"
   };
 
   constructor(
-    private service: ServiceCatService,
+    private service: ResponseService,
     public toastrService: NbToastrService,
     private windowService: NbWindowService,
     private paginator: MatPaginatorIntl,
@@ -98,7 +102,7 @@ export class ServicesListComponent extends BasePage implements OnInit {
     });
     this.searchForm.controls['text'].valueChanges.subscribe((value: string) => {
       if (value.length > 0) {
-        this.service.search(value).subscribe((rows: ServiceCatInterface[]) => {
+        this.service.search(value).subscribe((rows: ResponseInterface[]) => {
           this.length = rows.length;
           this.list = rows;
         })
@@ -120,9 +124,12 @@ export class ServicesListComponent extends BasePage implements OnInit {
         this.length = dt.count;
       },
       err => {
-        const error = err.status === 0
-          ? SweetAlertConstants.noConexion
-          : err.message;
+        let error = '';
+        if (err.status === 0) {
+          error = SweetAlertConstants.noConexion;
+        } else {
+          error = err.message;
+        }
         this.onLoadFailed('danger', 'Error', error);
       }, () => {
 
@@ -131,6 +138,9 @@ export class ServicesListComponent extends BasePage implements OnInit {
   };
 
   public changesPage(event) {
+    if (event.pageSize != this.pageSize) {
+
+    }
     this.pageEvent = event;
     this.read(event.pageIndex, event.pageSize)
   }
@@ -143,9 +153,12 @@ export class ServicesListComponent extends BasePage implements OnInit {
             data => {
               this.onLoadFailed('success', 'Eliminado', data.message);
             }, err => {
-              const error = err.status === 0
-                ? SweetAlertConstants.noConexion
-                : err.message
+              let error = '';
+              if (err.status === 0) {
+                error = SweetAlertConstants.noConexion;
+              } else {
+                error = err.message;
+              }
               this.onLoadFailed('danger', 'Error', error);
             }, () => {
               this.read(this.pageEvent.pageIndex, this.pageEvent.pageSize);
@@ -165,7 +178,7 @@ export class ServicesListComponent extends BasePage implements OnInit {
       maximize: false,
       fullScreen: false,
     };
-    const modalRef = this.windowService.open(ServicesDetailComponent, { title: `Editar`, context: { data: event.data }, buttons: buttonsConfig }).onClose.subscribe(() => {
+    const modalRef = this.windowService.open(ResponseDetailComponent, { title: `Editar`, context: { data: event.data }, buttons: buttonsConfig }).onClose.subscribe(() => {
       this.read(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
 
@@ -177,9 +190,10 @@ export class ServicesListComponent extends BasePage implements OnInit {
       maximize: false,
       fullScreen: false,
     };
-    const modalRef = this.windowService.open(ServicesDetailComponent, { title: `Nuevo`, buttons: buttonsConfig }).onClose.subscribe(() => {
+    const modalRef = this.windowService.open(ResponseDetailComponent, { title: `Nuevo`, buttons: buttonsConfig }).onClose.subscribe(() => {
       this.read(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
 
   }
+
 }

@@ -18,7 +18,7 @@
               [showMinLength]="description?.hasError('minlength')"
               [showMaxLength]="description?.hasError('maxlength')"
               [showRequired]="description?.errors?.required && description.touched"
-              [showPattern]="description?.hasError('pattern') && description.touched" minLength=1 maxLength=255>
+              [showPattern]="description?.hasError('pattern') && description.touched" minLength=1 maxLength=50>
             </ngx-validation-message>
           </div>
         </div>
