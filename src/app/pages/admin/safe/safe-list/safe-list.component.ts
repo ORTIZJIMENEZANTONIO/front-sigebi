@@ -3,7 +3,6 @@ import { MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { NbToastrService, NbWindowControlButtonsConfig, NbWindowService } from '@nebular/theme';
 import { BasePage } from '../../../../@core/shared/base-page';
 import { FormControl, FormGroup } from '@angular/forms';
-import Swal, { SweetAlertResult } from 'sweetalert2';
 import { SafeService } from '../../../../@core/backend/common/services/safe.service';
 import { SafeDetailComponent } from '../safe-detail/safe-detail.component';
 import { SweetAlertConstants, SweetalertModel } from '../../../../@core/interfaces/auction/sweetalert-model';
@@ -18,7 +17,7 @@ export class SafeListComponent extends BasePage {
   searchForm: FormGroup;
   constructor(private service: SafeService, public toastrService: NbToastrService,
     private windowService: NbWindowService, private paginator: MatPaginatorIntl,
-    private sweetalertService: SweetalertService) {
+    public sweetalertService: SweetalertService) {
     super(toastrService);
     this.paginator.itemsPerPageLabel = "Registros por página";
     this.searchForm = new FormGroup({
@@ -128,7 +127,7 @@ export class SafeListComponent extends BasePage {
         } else {
           error = err.message;
         }
-        this.sweetAlertMessage(SweetAlertConstants.SWEET_ALERT_TITLE_OPS, error);
+        this.onLoadFailed('danger', 'Error', error);
       }
     );
 
@@ -143,19 +142,19 @@ export class SafeListComponent extends BasePage {
   }
 
   onDeleteConfirm(event): void {
-    this.sweetalertQuestion('Eliminar', 'Desea eliminar este registro?').then(
+    this.sweetalertQuestion('warning', 'Eliminar', 'Desea eliminar este registro?').then(
       question => {
-        // console.log(question);
+    
         if (question.isConfirmed) {
           this.service.delete(event.data.id).subscribe(
             data => {
-              // console.log(data);
-              // if (data.statusCode == 200) {
-              //   this.onLoadFailed('success', 'Eliminado', data.message);
-              // } else {
-              //   this.onLoadFailed('danger', 'Error', data.message);
-              // }
-              this.sweetAlertSuccessMessage('Eliminado correctamente');
+              
+               if (data.statusCode == 200) {
+                this.onLoadFailed('success', 'Eliminado', data.message);
+              }// else {
+               // this.onLoadFailed('danger', 'Error', data.message);
+              //}
+             
               this.read(this.pageEvent.pageIndex, this.pageEvent.pageSize);
             }, err => {
               let error = '';
@@ -164,7 +163,7 @@ export class SafeListComponent extends BasePage {
               } else {
                 error = err.message;
               }
-              this.sweetAlertMessage(SweetAlertConstants.SWEET_ALERT_TITLE_OPS, error);
+              this.onLoadFailed('danger', 'Error', error);
             });
         }
       }
@@ -197,30 +196,5 @@ export class SafeListComponent extends BasePage {
     });
 
   }
-  private sweetAlertMessage(title: string, message: string) {
-    let sweetalert = new SweetalertModel();
-    sweetalert.title = title;
-    sweetalert.text = message;
-    sweetalert.icon = SweetAlertConstants.SWEET_ALERT_WARNING;
-    sweetalert.showConfirmButton = true;
-    sweetalert.showCancelButton = false;
-    this.sweetalertService.showAlertBasic(sweetalert);
-  }
-  private sweetalertQuestion(title: string, message: string): Promise<SweetAlertResult> {
-    let sweetalert = new SweetalertModel();
-    sweetalert.title = title;
-    sweetalert.text = message;
-    sweetalert.icon = SweetAlertConstants.SWEET_ALERT_WARNING;
-    sweetalert.showConfirmButton = true;
-    sweetalert.showCancelButton = true;
-    return this.sweetalertService.showAlertConfirm(sweetalert);
-  }
-  private sweetAlertSuccessMessage(title: string) {
-    let sweetalert = new SweetalertModel();
-    sweetalert.title = title;
-    sweetalert.showConfirmButton = false;
-    sweetalert.showCancelButton = false;
-    sweetalert.timer = SweetAlertConstants.SWEET_ALERT_TIMER_1500;
-    this.sweetalertService.showAlertBasic(sweetalert);
-  }
+
 }

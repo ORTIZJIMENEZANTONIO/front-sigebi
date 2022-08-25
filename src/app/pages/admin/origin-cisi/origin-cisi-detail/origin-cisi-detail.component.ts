@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { NbWindowRef, NB_WINDOW_CONTEXT, NbWindowService } from '@nebular/theme';
+import { NbWindowRef, NB_WINDOW_CONTEXT, NbWindowService, NbToastrService } from '@nebular/theme';
 import { OriginCisiService } from '../../../../@core/backend/common/services/origin-cisi.service';
 import { SweetAlertConstants, SweetalertModel } from '../../../../@core/interfaces/auction/sweetalert-model';
 import { BasePage } from '../../../../@core/shared/base-page';
@@ -27,8 +27,9 @@ export class OriginCisiDetailComponent extends BasePage {
     @Inject(NB_WINDOW_CONTEXT) context,
     private dom: DomSanitizer,
     private windowService: NbWindowService,
-    private sweetalertService: SweetalertService) {
-    super();
+    public toA: NbToastrService,
+    public sweetalertService: SweetalertService) {
+    super(toA);
     if (null != context.data) {
       this.data = context.data;
     }
@@ -50,56 +51,41 @@ export class OriginCisiDetailComponent extends BasePage {
   
     }
   
-    register(): void {
-      if (this.actionBtn == "Guardar") {
-        this.service.register(this.form.value).subscribe(
-          data => {
-            this.sweetAlertSuccessMessage('Registrado correctamente.');
-          }, err => {
-            let error = '';
-            if (err.status === 0) {
-              error = SweetAlertConstants.noConexion;
-            } else {
-              error = err.message;
-            }
-            this.sweetAlertMessage(SweetAlertConstants.SWEET_ALERT_TITLE_OPS, error);
-          }, () => {
-            this.windowRef.close();
-          });
-      } else {
-        this.service.update(this.data.id, this.form.value).subscribe(
-          data => {
-            this.sweetAlertSuccessMessage('Actualizado correctamente');
-          }, err => {
-            let error = '';
-            if (err.status === 0) {
-              error = SweetAlertConstants.noConexion;
-            } else {
-              error = err.message;
-            }
-            this.sweetAlertMessage(SweetAlertConstants.SWEET_ALERT_TITLE_OPS, error);
-          }, () => {
-            this.windowRef.close();
-          });
-      }
+    public register(): void {
+      const data = this.form.getRawValue();
+      this.actionBtn == "Guardar" ? this.createRegister(data) : this.updateRegister(data);
     }
-  
-    private sweetAlertMessage(title: string, message: string) {
-      let sweetalert = new SweetalertModel();
-      sweetalert.title = title;
-      sweetalert.text = message;
-      sweetalert.icon = SweetAlertConstants.SWEET_ALERT_WARNING;
-      sweetalert.showConfirmButton = true;
-      sweetalert.showCancelButton = false;
-      this.sweetalertService.showAlertBasic(sweetalert);
+    private createRegister(data): void {
+      this.service.register(data).subscribe(
+        data => {
+          this.onLoadFailed('success', 'Despacho', 'Registrado Correctamente');
+        }, err => {
+          let error = '';
+          if (err.status === 0) {
+            error = SweetAlertConstants.noConexion;
+          } else {
+            error = err.message;
+          }
+          this.onLoadFailed('danger', 'Error', error);
+        }, () => {
+          this.windowRef.close();
+        });
     }
-    private sweetAlertSuccessMessage(title: string) {
-      let sweetalert = new SweetalertModel();
-      sweetalert.title = title;
-      sweetalert.showConfirmButton = false;
-      sweetalert.showCancelButton = false;
-      sweetalert.timer = SweetAlertConstants.SWEET_ALERT_TIMER_1500;
-      this.sweetalertService.showAlertBasic(sweetalert);
+    private updateRegister(data): void {
+      this.service.update(this.data.id, data).subscribe(
+        data => {
+          this.onLoadFailed('success', 'Despacho', 'Actualizado Correctamente');
+        }, err => {
+          let error = '';
+          if (err.status === 0) {
+            error = SweetAlertConstants.noConexion;
+          } else {
+            error = err.message;
+          }
+          this.onLoadFailed('danger', 'Error', error);
+        }, () => {
+          this.windowRef.close();
+        });
     }
   }
   

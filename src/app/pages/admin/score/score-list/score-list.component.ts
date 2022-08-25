@@ -5,8 +5,7 @@ import { ScoreDetailComponent } from '../score-detail/score-detail.component';
 import { FormGroup, FormControl } from '@angular/forms';
 import { MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { NbToastrService, NbWindowService, NbWindowControlButtonsConfig } from '@nebular/theme';
-import Swal, { SweetAlertResult } from 'sweetalert2';
-import { SweetAlertConstants, SweetalertModel } from '../../../../@core/interfaces/auction/sweetalert-model';
+import { SweetAlertConstants } from '../../../../@core/interfaces/auction/sweetalert-model';
 import { SweetalertService } from '../../../../shared/sweetalert.service';
 
 
@@ -19,7 +18,7 @@ export class ScoreListComponent extends BasePage {
   searchForm: FormGroup;
   constructor(private service: ScoreService, public toastrService: NbToastrService,
     private windowService: NbWindowService, private paginator: MatPaginatorIntl,
-    private sweetalertService: SweetalertService) {
+    public sweetalertService: SweetalertService) {
     super(toastrService);
     this.paginator.itemsPerPageLabel = "Registros por página";
     this.searchForm = new FormGroup({
@@ -111,7 +110,7 @@ export class ScoreListComponent extends BasePage {
         } else {
           error = err.message;
         }
-        this.sweetAlertMessage(SweetAlertConstants.SWEET_ALERT_TITLE_OPS, error);
+        this.onLoadFailed('danger', 'Error', error);
       }
     );
 
@@ -126,7 +125,7 @@ export class ScoreListComponent extends BasePage {
   }
 
   onDeleteConfirm(event): void {
-    this.sweetalertQuestion('Eliminar', 'Desea eliminar este registro?').then(
+    this.sweetalertQuestion('warning', 'Eliminar', 'Desea eliminar este registro?').then(
       question => {
         // console.log(question);
         if (question.isConfirmed) {
@@ -138,7 +137,7 @@ export class ScoreListComponent extends BasePage {
               // } else {
               //   this.onLoadFailed('danger', 'Error', data.message);
               // }
-              this.sweetAlertSuccessMessage('Eliminado correctamente');
+              this.onLoadFailed('success', 'Eliminado', data.message);
               this.read(this.pageEvent.pageIndex, this.pageEvent.pageSize);
             }, err => {
               let error = '';
@@ -147,7 +146,7 @@ export class ScoreListComponent extends BasePage {
               } else {
                 error = err.message;
               }
-              this.sweetAlertMessage(SweetAlertConstants.SWEET_ALERT_TITLE_OPS, error);
+              this.onLoadFailed('danger', 'Error', error);
             });
         }
       }
@@ -179,30 +178,5 @@ export class ScoreListComponent extends BasePage {
     });
 
   }
-  private sweetAlertMessage(title: string, message: string) {
-    let sweetalert = new SweetalertModel();
-    sweetalert.title = title;
-    sweetalert.text = message;
-    sweetalert.icon = SweetAlertConstants.SWEET_ALERT_WARNING;
-    sweetalert.showConfirmButton = true;
-    sweetalert.showCancelButton = false;
-    this.sweetalertService.showAlertBasic(sweetalert);
-  }
-  private sweetalertQuestion(title: string, message: string): Promise<SweetAlertResult> {
-    let sweetalert = new SweetalertModel();
-    sweetalert.title = title;
-    sweetalert.text = message;
-    sweetalert.icon = SweetAlertConstants.SWEET_ALERT_WARNING;
-    sweetalert.showConfirmButton = true;
-    sweetalert.showCancelButton = true;
-    return this.sweetalertService.showAlertConfirm(sweetalert);
-  }
-  private sweetAlertSuccessMessage(title: string) {
-    let sweetalert = new SweetalertModel();
-    sweetalert.title = title;
-    sweetalert.showConfirmButton = false;
-    sweetalert.showCancelButton = false;
-    sweetalert.timer = SweetAlertConstants.SWEET_ALERT_TIMER_1500;
-    this.sweetalertService.showAlertBasic(sweetalert);
-  }
+
 }
