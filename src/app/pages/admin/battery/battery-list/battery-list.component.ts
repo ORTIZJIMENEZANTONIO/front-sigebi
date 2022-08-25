@@ -6,9 +6,8 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { BatteryInterface } from '../../../../@core/interfaces/auction/battery.model';
 import { BatteryService } from '../../../../@core/backend/common/services/battery.service';
 import { BatteryDetailComponent } from '../battery-detail/battery-detail.component';
-import Swal, { SweetAlertResult } from 'sweetalert2';
-import { SweetAlertConstants, SweetalertModel } from '../../../../@core/interfaces/auction/sweetalert-model';
 import { SweetalertService } from '../../../../shared/sweetalert.service';
+import { SweetAlertConstants } from '../../../../@core/interfaces/auction/sweetalert-model';
 
 @Component({
   selector: 'ngx-battery-list',
@@ -16,22 +15,6 @@ import { SweetalertService } from '../../../../shared/sweetalert.service';
   styleUrls: ['./battery-list.component.scss']
 })
 export class BatteryListComponent extends BasePage {
-  rows: any;
-
-  searchForm: FormGroup;
-  constructor(private service: BatteryService, public toastrService: NbToastrService,
-    private windowService: NbWindowService, private paginator: MatPaginatorIntl,
-    private sweetalertService: SweetalertService) {
-    super(toastrService);
-    this.paginator.itemsPerPageLabel = "Registros por página";
-    this.searchForm = new FormGroup({
-      text: new FormControl()
-    });
-  }
-
-  length = 100;
-  pageSize = 10;
-  pageSizeOptions: number[] = [5, 10, 25, 100];
 
   public searchForm: FormGroup;
   public list: any;
@@ -39,25 +22,18 @@ export class BatteryListComponent extends BasePage {
   public pageSize = 10;
   public pageSizeOptions: number[] = [5, 10, 25, 100];
   // MatPaginator Output
-  pageEvent: PageEvent = {
+  public pageEvent: PageEvent = {
     pageIndex: 0,
     pageSize: 10,
     length: 100
   };
   public settings = {
 
-  setPageSizeOptions(setPageSizeOptionsInput: string) {
-    if (setPageSizeOptionsInput) {
-      this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
-    }
-  }
-  list: any;
-  settings = {
     actions: {
       columnTitle: 'Acciones',
       add: true,
       edit: true,
-      delete: true,
+      delete: false,
     },
     pager: {
       display: false,
@@ -130,7 +106,7 @@ export class BatteryListComponent extends BasePage {
     this.read(0, 10);
   }
 
-  read = ((pageIndex: number, pageSize: number) => {
+  private read(pageIndex: number, pageSize: number) {
     this.list = null;
     this.service.list(pageIndex, pageSize).subscribe(
       (dt: any) => {
@@ -144,35 +120,32 @@ export class BatteryListComponent extends BasePage {
         } else {
           error = err.message;
         }
-        this.sweetAlertMessage(SweetAlertConstants.SWEET_ALERT_TITLE_OPS, error);
-      }
-    );
+        this.onLoadFailed('danger', 'Error', error);
+      }, () => {
+
       }
     );
   };
-  changesPage(event) {
+
+  public changesPage(event) {
     if (event.pageSize != this.pageSize) {
 
     }
     this.pageEvent = event;
-    this.read(event.pageIndex * event.pageSize, event.pageSize)
+    this.read(event.pageIndex, event.pageSize)
   }
 
-  onDeleteConfirm(event): void {
-    this.sweetalertQuestion('Eliminar', 'Desea eliminar este registro?').then(
+  public onDeleteConfirm(event): void {
+    this.sweetalertQuestion('warning', 'Eliminar', 'Desea eliminar este registro?').then(
       question => {
-        // console.log(question);
         if (question.isConfirmed) {
           this.service.delete(event.data.id).subscribe(
             data => {
-              // console.log(data);
               // if (data.statusCode == 200) {
-              //   this.onLoadFailed('success', 'Eliminado', data.message);
+              this.onLoadFailed('success', 'Eliminado', data.message);
               // } else {
               //   this.onLoadFailed('danger', 'Error', data.message);
               // }
-              this.sweetAlertSuccessMessage('Eliminado correctamente');
-              this.read(this.pageEvent.pageIndex, this.pageEvent.pageSize);
             }, err => {
               let error = '';
               if (err.status === 0) {
@@ -180,17 +153,15 @@ export class BatteryListComponent extends BasePage {
               } else {
                 error = err.message;
               }
-              this.sweetAlertMessage(SweetAlertConstants.SWEET_ALERT_TITLE_OPS, error);
+              this.onLoadFailed('danger', 'Error', error);
+            }, () => {
+              this.read(this.pageEvent.pageIndex, this.pageEvent.pageSize);
             });
         }
       }
     ).catch(
       e => {
         console.error(e);
-      }
-    ).finally(
-      () => {
-        console.log('finaliza');
       }
     );
   }
@@ -207,37 +178,15 @@ export class BatteryListComponent extends BasePage {
 
   }
 
-  openWindow() {
-    const modalRef = this.windowService.open(BatteryDetailComponent, { title: `Nuevo` }).onClose.subscribe(() => {
+  public openWindow() {
+    const buttonsConfig: NbWindowControlButtonsConfig = {
+      minimize: false,
+      maximize: false,
+      fullScreen: false,
+    };
+    const modalRef = this.windowService.open(BatteryDetailComponent, { title: `Nuevo`, buttons: buttonsConfig }).onClose.subscribe(() => {
       this.read(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
 
-  }
-
-  private sweetAlertMessage(title: string, message: string) {
-    let sweetalert = new SweetalertModel();
-    sweetalert.title = title;
-    sweetalert.text = message;
-    sweetalert.icon = SweetAlertConstants.SWEET_ALERT_WARNING;
-    sweetalert.showConfirmButton = true;
-    sweetalert.showCancelButton = false;
-    this.sweetalertService.showAlertBasic(sweetalert);
-  }
-  private sweetalertQuestion(title: string, message: string): Promise<SweetAlertResult> {
-    let sweetalert = new SweetalertModel();
-    sweetalert.title = title;
-    sweetalert.text = message;
-    sweetalert.icon = SweetAlertConstants.SWEET_ALERT_WARNING;
-    sweetalert.showConfirmButton = true;
-    sweetalert.showCancelButton = true;
-    return this.sweetalertService.showAlertConfirm(sweetalert);
-  }
-  private sweetAlertSuccessMessage(title: string) {
-    let sweetalert = new SweetalertModel();
-    sweetalert.title = title;
-    sweetalert.showConfirmButton = false;
-    sweetalert.showCancelButton = false;
-    sweetalert.timer = SweetAlertConstants.SWEET_ALERT_TIMER_1500;
-    this.sweetalertService.showAlertBasic(sweetalert);
   }
 }
