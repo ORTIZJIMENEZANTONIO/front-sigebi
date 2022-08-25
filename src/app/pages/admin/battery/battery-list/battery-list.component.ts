@@ -33,12 +33,18 @@ export class BatteryListComponent extends BasePage {
   pageSize = 10;
   pageSizeOptions: number[] = [5, 10, 25, 100];
 
+  public searchForm: FormGroup;
+  public list: any;
+  public length = 100;
+  public pageSize = 10;
+  public pageSizeOptions: number[] = [5, 10, 25, 100];
   // MatPaginator Output
   pageEvent: PageEvent = {
     pageIndex: 0,
     pageSize: 10,
     length: 100
   };
+  public settings = {
 
   setPageSizeOptions(setPageSizeOptionsInput: string) {
     if (setPageSizeOptionsInput) {
@@ -96,6 +102,29 @@ export class BatteryListComponent extends BasePage {
     },
     noDataMessage: "No se encontrarón registros"
   };
+  constructor(
+    private service: BatteryService,
+    public toastrService: NbToastrService,
+    private windowService: NbWindowService,
+    private paginator: MatPaginatorIntl,
+    public sweetalertService: SweetalertService
+  ) {
+    super(toastrService, sweetalertService);
+    this.paginator.itemsPerPageLabel = "Registros por página";
+    this.searchForm = new FormGroup({
+      text: new FormControl()
+    });
+    this.searchForm.controls['text'].valueChanges.subscribe((value: string) => {
+      if (value.length > 0) {
+        this.service.search(value).subscribe((rows: BatteryInterface[]) => {
+          this.length = rows.length;
+          this.list = rows;
+        });
+      } else {
+        this.read(0, 10);
+      }
+    });
+  }
 
   ngOnInit(): void {
     this.read(0, 10);
@@ -118,9 +147,9 @@ export class BatteryListComponent extends BasePage {
         this.sweetAlertMessage(SweetAlertConstants.SWEET_ALERT_TITLE_OPS, error);
       }
     );
-
-  });
-
+      }
+    );
+  };
   changesPage(event) {
     if (event.pageSize != this.pageSize) {
 
@@ -166,7 +195,7 @@ export class BatteryListComponent extends BasePage {
     );
   }
 
-  editRow(event) {
+  public editRow(event) {
     const buttonsConfig: NbWindowControlButtonsConfig = {
       minimize: false,
       maximize: false,
@@ -184,6 +213,7 @@ export class BatteryListComponent extends BasePage {
     });
 
   }
+
   private sweetAlertMessage(title: string, message: string) {
     let sweetalert = new SweetalertModel();
     sweetalert.title = title;

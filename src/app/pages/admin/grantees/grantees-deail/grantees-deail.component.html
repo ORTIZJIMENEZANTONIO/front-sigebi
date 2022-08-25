@@ -1,59 +1,97 @@
 <nb-card>
     <nb-card-body>
         <form [formGroup]="form">
-            <div class="form-group row">
-                <input nbInput fullWidth formControlName="description" matInput placeholder="Descrpcion">
-                <label class="text-danger" *ngIf="validateOpinion['description'].hasError('pattern')"><small>No válido!</small></label>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input nbInput fullWidth formControlName="description" placeholder="Descripción">
+                        <label class="text-danger" *ngIf="validateOpinion['description'].hasError('pattern')"><small>Descripción no
+                                válido!</small></label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input nbInput fullWidth formControlName="puesto" placeholder="Puesto donatorios">
+                        <label class="text-danger" *ngIf="validateOpinion['puesto'].hasError('pattern')"><small>Puesto donatorios no
+                                válido!</small></label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input nbInput fullWidth formControlName="type" placeholder="Tipo donatorios">
+                        <label class="text-danger" *ngIf="validateOpinion['type'].hasError('pattern')"><small>Tipo donatorios no
+                                válido!</small></label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input nbInput fullWidth formControlName="razonSocial" placeholder="Razón Social">
+                        <label class="text-danger" *ngIf="validateOpinion['razonSocial'].hasError('pattern')"><small>Razón Social no
+                                válido!</small></label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input nbInput fullWidth formControlName="street" placeholder="Calle">
+                        <label class="text-danger" *ngIf="validateOpinion['street'].hasError('pattern')"><small>Calle no
+                                válido!</small></label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input nbInput fullWidth formControlName="noInside" placeholder="No interior">
+                        <label class="text-danger" *ngIf="validateOpinion['noInside'].hasError('pattern')"><small>No interior no
+                                válido!</small></label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input nbInput fullWidth formControlName="noExterior" placeholder="No. Exterior">
+                        <label class="text-danger" *ngIf="validateOpinion['noExterior'].hasError('pattern')"><small>No. Exterior no
+                                válido!</small></label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input nbInput fullWidth formControlName="col" placeholder="Colonia">
+                        <label class="text-danger" *ngIf="validateOpinion['col'].hasError('pattern')"><small>Colonia no
+                                válido!</small></label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input nbInput fullWidth formControlName="nommun" placeholder="Nombre municipio">
+                        <label class="text-danger" *ngIf="validateOpinion['nommun'].hasError('pattern')"><small>Nombre municipio no
+                                válido!</small></label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input nbInput fullWidth formControlName="nomedo" placeholder="Nombre estado">
+                        <label class="text-danger" *ngIf="validateOpinion['nomedo'].hasError('pattern')"><small>Nombre estado no
+                                válido!</small></label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input nbInput fullWidth formControlName="cp" placeholder="Cp">
+                        <label class="text-danger" *ngIf="validateOpinion['cp'].hasError('pattern')"><small>Cp no
+                                válido!</small></label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input nbInput fullWidth formControlName="usrStatus" placeholder="Estatus de usuario">
+                        <label class="text-danger" *ngIf="validateOpinion['usrStatus'].hasError('pattern')"><small>Estatus de usuario no
+                                válido!</small></label>
+                    </div>
+                </div>
             </div>
-            <div class="form-group row">
-                <input nbInput fullWidth formControlName="puesto" matInput placeholder="Puesto">
-                <label class="text-danger" *ngIf="validateOpinion['puesto'].hasError('pattern')"><small>No válido!</small></label>
-            </div>
-            <div class="form-group row">
-                <input nbInput fullWidth formControlName="type" matInput placeholder="Tipo">
-                <label class="text-danger" *ngIf="validateOpinion['type'].hasError('pattern')"><small>No válido!</small></label>
-            </div>
-            <div class="form-group row">
-                <input nbInput fullWidth formControlName="razonSocial" matInput placeholder="Razon social">
-                <label class="text-danger" *ngIf="validateOpinion['razonSocial'].hasError('pattern')"><small>No válido!</small></label>
-            </div>
-            <div class="form-group row">
-                <input nbInput fullWidth formControlName="street" matInput placeholder="Calle">
-                <label class="text-danger" *ngIf="validateOpinion['street'].hasError('pattern')"><small>No válido!</small></label>
-            </div>
-            <div class="form-group row">
-                <input nbInput fullWidth formControlName="noInside" matInput placeholder="No Interior">
-                <label class="text-danger" *ngIf="validateOpinion['noInside'].hasError('pattern')"><small>No válido!</small></label>
-            </div>
-            <div class="form-group row">
-                <input nbInput fullWidth formControlName="noExterior" matInput placeholder="No Exterior">
-                <label class="text-danger" *ngIf="validateOpinion['noExterior'].hasError('pattern')"><small>No válido!</small></label>
-            </div>
-            <div class="form-group row">
-                <input nbInput fullWidth formControlName="col" matInput placeholder="Colonia">
-                <label class="text-danger" *ngIf="validateOpinion['col'].hasError('pattern')"><small>No válido!</small></label>
-            </div>
-            <div class="form-group row">
-                <input nbInput fullWidth formControlName="nommun" matInput placeholder="Nommun">
-                <label class="text-danger" *ngIf="validateOpinion['nommun'].hasError('pattern')"><small>No válido!</small></label>
-            </div>
-            <div class="form-group row">
-                <input nbInput fullWidth formControlName="nomedo" matInput placeholder="Nomedo">
-                <label class="text-danger" *ngIf="validateOpinion['nomedo'].hasError('pattern')"><small>No válido!</small></label>
-            </div>
-            <div class="form-group row">
-                <input nbInput fullWidth formControlName="cp" matInput placeholder="CP">
-                <label class="text-danger" *ngIf="validateOpinion['cp'].hasError('pattern')"><small>No válido!</small></label>
-            </div>
-            <div class="form-group row">
-                <input nbInput fullWidth formControlName="usrStatus" matInput placeholder="Estado usuario">
-                <label class="text-danger" *ngIf="validateOpinion['usrStatus'].hasError('pattern')"><small>No válido!</small></label>
-            </div>
-        
-        
-            <div class="form-group row">
-                <div class="offset-sm-3 col-sm-9">
-                    <button type="submit" nbButton status="primary" [disabled]="!form.valid" (click)="register()">{{actionBtn}}</button>
+
+            <div class="form-group">
+                <div class="d-flex justify-content-center">
+                    <button type="submit" nbButton status="primary" [disabled]="!form.valid"
+                        (click)="register()">{{actionBtn}}</button>
                 </div>
             </div>
         </form>

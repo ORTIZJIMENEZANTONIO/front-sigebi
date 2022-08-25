@@ -1,38 +1,52 @@
 <nb-card>
     <nb-card-body>
         <form [formGroup]="formBatch">
-            
-            <div class="form-group row">
-                <input type="number" nbInput fullWidth formControlName="numStore" matInput placeholder="Número de almacen"
-                [status]="formBatch.controls['numStore']?.errors?.required  && formBatch.controls['numStore'].touched ? 'danger' : ''">
 
-                <label class="text-danger" *ngIf="validateBatch['numStore'].hasError('required') && formBatch.controls['numStore'].touched"><small>Ingrese un número de almacen valido!</small></label>
+            <div class="form-group row">
+                <input type="number" nbInput fullWidth formControlName="numStore" placeholder="Número de almacen"
+                    [status]="(numStore?.errors?.required || numStore?.hasError('minlength') || numStore?.hasError('maxlength') || numStore?.hasError('pattern')) && numStore.touched ? 'danger' : ''">
+                <ngx-validation-message label="Numero almacen" [showMinLength]="numStore?.hasError('minlength')"
+                    [showMaxLength]="numStore?.hasError('maxlength')"
+                    [showRequired]="numStore?.errors?.required && numStore.touched"
+                    [showPattern]="numStore?.hasError('pattern') && numStore.touched" minLength=1 maxLength=255>
+                </ngx-validation-message>
             </div>
 
             <div class="form-group row">
-                <input type="number" nbInput  fullWidth formControlName="numRegister" matInput placeholder="Número de registro"
-                [status]="formBatch.controls['numRegister']?.errors?.required  && formBatch.controls['numRegister'].touched ? 'danger' : ''">
-
-                <label class="text-danger" *ngIf="validateBatch['numRegister'].hasError('required') && formBatch.controls['numRegister'].touched"><small>Ingrese un número de registro valido!</small></label>
+                <input type="number" nbInput fullWidth formControlName="numRegister" placeholder="Número de registro"
+                    [status]="(numRegister?.errors?.required || numRegister?.hasError('minlength') || numRegister?.hasError('maxlength') || numRegister?.hasError('pattern')) && numRegister.touched ? 'danger' : ''">
+                <ngx-validation-message label="Numero registro" [showMinLength]="numRegister?.hasError('minlength')"
+                    [showMaxLength]="numRegister?.hasError('maxlength')"
+                    [showRequired]="numRegister?.errors?.required && numRegister.touched"
+                    [showPattern]="numRegister?.hasError('pattern') && numRegister.touched" minLength=1 maxLength=255>
+                </ngx-validation-message>
             </div>
 
             <div class="form-group row">
-                <input type="text" nbInput maxlength="30" fullWidth formControlName="description" matInput placeholder="Descripción"
-                [status]="formBatch.controls['description']?.errors?.required  && formBatch.controls['description'].touched ? 'danger' : ''">
-
-                <label class="text-danger" *ngIf="validateBatch['description'].hasError('required') && formBatch.controls['description'].touched"><small>Ingrese una descripción valida!</small></label>
-            </div>  
-
-            <div class="form-group row">
-                <input type="text" nbInput  fullWidth formControlName="status" maxlength="1" matInput placeholder="Estado"
-                [status]="formBatch.controls['status']?.errors?.required  && formBatch.controls['status'].touched ? 'danger' : ''">
-
-                <label class="text-danger" *ngIf="validateBatch['status'].hasError('required') && formBatch.controls['status'].touched"><small>Ingrese un estado valido!</small></label>
+                <input type="text" nbInput maxlength="30" fullWidth formControlName="description"
+                    placeholder="Descripción"
+                    [status]="(description?.errors?.required || description?.hasError('minlength') || description?.hasError('maxlength') || description?.hasError('pattern')) && description.touched ? 'danger' : ''">
+                <ngx-validation-message label="Descripcion" [showMinLength]="description?.hasError('minlength')"
+                    [showMaxLength]="description?.hasError('maxlength')"
+                    [showRequired]="description?.errors?.required && description.touched"
+                    [showPattern]="description?.hasError('pattern') && description.touched" minLength=1 maxLength=255>
+                </ngx-validation-message>
             </div>
 
             <div class="form-group row">
-                <div class="offset-sm-3 col-sm-9">
-                    <button type="submit" nbButton status="primary" [disabled]="!formBatch.valid" (click)="register()">{{actionBtn}}</button>
+                <input type="text" nbInput fullWidth formControlName="status" maxlength="1" placeholder="Estado"
+                    [status]="(estatus?.errors?.required || estatus?.hasError('minlength') || estatus?.hasError('maxlength') || estatus?.hasError('pattern')) && estatus.touched ? 'danger' : ''">
+                <ngx-validation-message label="Estado" [showMinLength]="estatus?.hasError('minlength')"
+                    [showMaxLength]="estatus?.hasError('maxlength')"
+                    [showRequired]="estatus?.errors?.required && estatus.touched"
+                    [showPattern]="estatus?.hasError('pattern') && estatus.touched" minLength=1 maxLength=255>
+                </ngx-validation-message>
+            </div>
+
+            <div class="form-group">
+                <div class="d-flex justify-content-center">
+                    <button type="submit" nbButton status="primary" [disabled]="!formBatch.valid"
+                        (click)="register()">{{actionBtn}}</button>
                 </div>
             </div>
 

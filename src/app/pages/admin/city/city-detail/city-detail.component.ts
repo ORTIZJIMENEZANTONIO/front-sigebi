@@ -3,52 +3,65 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 
 import { Router } from '@angular/router';
-import { NbWindowRef, NbWindowService, NB_WINDOW_CONTEXT } from '@nebular/theme';
+import { NbToastrService, NbWindowRef, NbWindowService, NB_WINDOW_CONTEXT } from '@nebular/theme';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { CityService } from '../../../../@core/backend/common/services/city.service';
 import { DelegationService } from '../../../../@core/backend/common/services/delegation.service';
 import { SubdelegationService } from '../../../../@core/backend/common/services/subdelegation.service';
 import { City } from '../../../../@core/interfaces/auction/City.model';
+import { SweetAlertConstants } from '../../../../@core/interfaces/auction/sweetalert-model';
 import { BasePage } from '../../../../@core/shared/base-page';
 
 @Component({
   selector: 'ngx-city-detail',
   templateUrl: './city-detail.component.html',
   styleUrls: ['./city-detail.component.scss']
- 
+
 })
 export class CityDetailComponent extends BasePage {
 
-
-  city: City;
-  formCity: FormGroup;
-
-  filteredOptions$: BehaviorSubject<any[]> = new BehaviorSubject([]);
-  filteredsubdelegations$: BehaviorSubject<any[]> = new BehaviorSubject([]);
-  
-  constructor(private fb: FormBuilder, protected cd: ChangeDetectorRef, protected router: Router, private service: CityService,
-    public windowRef: NbWindowRef, @Inject(NB_WINDOW_CONTEXT) context, private dom: DomSanitizer, private windowService: NbWindowService,
+  public formCity: FormGroup;
+  private data: City;
+  public actionBtn: string = "Guardar";
+  public filteredOptions$: BehaviorSubject<any[]> = new BehaviorSubject([]);
+  public filteredsubdelegations$: BehaviorSubject<any[]> = new BehaviorSubject([]);
+  constructor(
+    private fb: FormBuilder,
+    protected cd: ChangeDetectorRef,
+    protected router: Router,
+    private service: CityService,
+    public windowRef: NbWindowRef,
     private delegationService: DelegationService,
-    private subDelegationService: SubdelegationService
-
+    private subDelegationService: SubdelegationService,
+    public toastrService: NbToastrService,
+    @Inject(NB_WINDOW_CONTEXT) context
   ) {
-    super();
-    if (null != context.city) {
-      this.city = context.city;
+    super(toastrService);
+    if (null != context.data) {
+      this.data = context.data;
     }
+  }
 
-
+  ngOnInit(): void {
+    this.prepareForm();
+  }
+  private prepareForm() {
     this.formCity = this.fb.group({
       id: [''],
       name: [null, Validators.compose([Validators.pattern("[a-zA-Z]((\.|_|-)?[a-zA-ZáéíóúÁÉÍÓÚ\u0020]+){0,255}"), Validators.required])],
       cityCode: ['', Validators.required],
-      detailDelegation:[null,Validators.required],
+      detailDelegation: [null, Validators.required],
       numDelegation: [null, [Validators.min(1)]],
-      detailSubDelegation:[null,Validators.required],
+      detailSubDelegation: [null, Validators.required],
       numSubDelegation: [null, [Validators.min(1)]],
       legendOffice: [null, [Validators.required]],
       numRegister: [null, [Validators.required]],
     });
+    if (this.data) {
+      this.actionBtn = "Actualizar";
+      this.formCity.patchValue(this.data)
+
+    }
     this.formCity.controls['detailDelegation'].valueChanges.subscribe((value: string) => {
       if (value) {
         this.delegationService.search(value).subscribe(data => {
@@ -63,17 +76,16 @@ export class CityDetailComponent extends BasePage {
         })
       }
     })
-
-  }
-  actionBtn: string = "Guardar";
-
-
-
-  get validateCity() {
-    return this.formCity.controls;
   }
 
-  ngOnInit(): void {
+  public get name() { return this.formCity.get('name'); }
+  public get cityCode() { return this.formCity.get('cityCode'); }
+  public get detailDelegation() { return this.formCity.get('detailDelegation'); }
+  public get numDelegation() { return this.formCity.get('numDelegation'); }
+  public get detailSubDelegation() { return this.formCity.get('detailSubDelegation'); }
+  public get numSubDelegation() { return this.formCity.get('numSubDelegation'); }
+  public get legendOffice() { return this.formCity.get('legendOffice'); }
+  public get numRegister() { return this.formCity.get('numRegister'); }
 
     this.subDelegationService.search('').subscribe(data => {
       console.log(data)
@@ -97,28 +109,47 @@ export class CityDetailComponent extends BasePage {
     }
         
   }
-  onSelectionChangeSubdelegation(event){
+  public onSelectionChangeSubdelegation(event){
     if(event.id){
       this.formCity.controls['numSubDelegation'].setValue(event.id);
       this.formCity.controls['detailSubDelegation'].setValue(event.description);
     }
   }
 
-  register(): void {
-    const data = this.formCity.value;
-    if (this.actionBtn == "Guardar") {
-      this.service.register(data).subscribe(data => {
-        this.windowRef.close();
+  public register(): void {
+    const data = this.formCity.getRawValue();
+    this.actionBtn == "Guardar" ? this.createRegister(data) : this.updateRegister(data);
+  }
+  private createRegister(data): void {
+    this.service.register(data).subscribe(
+      () => {
+        this.onLoadFailed('success', 'Despacho', 'Registrado Correctamente');
       }, err => {
-        console.log(err);
-      })
-    } else {
-      console.log(data);
-      this.service.update(this.city.id, data).subscribe(data => {
+        let error = '';
+        if (err.status === 0) {
+          error = SweetAlertConstants.noConexion;
+        } else {
+          error = err.message;
+        }
+        this.onLoadFailed('danger', 'Error', error);
+      }, () => {
         this.windowRef.close();
+      });
+  }
+  private updateRegister(data): void {
+    this.service.update(this.data.id, data).subscribe(
+      () => {
+        this.onLoadFailed('success', 'Despacho', 'Actualizado Correctamente');
       }, err => {
-        console.log(err);
-      })
-    }
+        let error = '';
+        if (err.status === 0) {
+          error = SweetAlertConstants.noConexion;
+        } else {
+          error = err.message;
+        }
+        this.onLoadFailed('danger', 'Error', error);
+      }, () => {
+        this.windowRef.close();
+      });
   }
 }

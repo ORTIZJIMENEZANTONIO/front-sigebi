@@ -1,8 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
 import { MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { NbToastrService, NbWindowControlButtonsConfig, NbWindowService } from '@nebular/theme';
+import { SweetAlertResult } from 'sweetalert2';
 import { TypeDoctoService } from '../../../../@core/backend/common/services/typeDocto.service';
+import { SweetAlertConstants } from '../../../../@core/interfaces/auction/sweetalert-model';
+import { TypeDoctoInterface } from '../../../../@core/interfaces/auction/typeDocto.model';
 import { BasePage } from '../../../../@core/shared/base-page';
+import { SweetalertService } from '../../../../shared/sweetalert.service';
 import { TypeDoctoDetailComponent } from '../type-docto-detail/type-docto-detail.component';
 
 @Component({
@@ -11,36 +16,23 @@ import { TypeDoctoDetailComponent } from '../type-docto-detail/type-docto-detail
   styleUrls: ['./type-docto-list.component.scss']
 })
 export class TypeDoctoListComponent extends BasePage {
-
-  constructor(private service: TypeDoctoService, public toastrService: NbToastrService,
-    private windowService: NbWindowService, private paginator: MatPaginatorIntl) {
-    super(toastrService);
-    this.paginator.itemsPerPageLabel = "Registros por página";
-  }
-
-  length = 100;
-  pageSize = 10;
-  pageSizeOptions: number[] = [5, 10, 25, 100];
-
+  public searchForm: FormGroup;
+  public list: any;
+  public length = 100;
+  public pageSize = 10;
+  public pageSizeOptions: number[] = [5, 10, 25, 100];
   // MatPaginator Output
-  pageEvent: PageEvent = {
-    pageIndex:0,
-    pageSize:10,
-    length:100
+  public pageEvent: PageEvent = {
+    pageIndex: 0,
+    pageSize: 10,
+    length: 100
   };
-
-  setPageSizeOptions(setPageSizeOptionsInput: string) {
-    if (setPageSizeOptionsInput) {
-      this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
-    }
-  }
-  list: any;
-  settings = {
+  public settings = {
     actions: {
       columnTitle: 'Acciones',
       add: true,
       edit: true,
-      delete: true,
+      delete: false,
     },
     pager : {
       display : false,
@@ -64,7 +56,7 @@ export class TypeDoctoListComponent extends BasePage {
     columns: {
       id: {
         title: 'Registro',
-        type: 'number',
+        type: 'string',
       },
       description: {
         title: 'Descripción',
@@ -83,63 +75,110 @@ export class TypeDoctoListComponent extends BasePage {
     noDataMessage: "No se encontrarón registros"
   };
 
-  ngOnInit(): void {
-    this.read(0,10); 
+  constructor(
+    private service: TypeDoctoService,
+    public toastrService: NbToastrService,
+    private windowService: NbWindowService,
+    private paginator: MatPaginatorIntl,
+    public sweetalertService: SweetalertService
+  ) {
+    super(toastrService, sweetalertService);
+    this.paginator.itemsPerPageLabel = "Registros por página";
+    this.searchForm = new FormGroup({
+      text: new FormControl()
+    });
+    this.searchForm.controls['text'].valueChanges.subscribe((value: string) => {
+      if (value.length > 0) {
+        this.service.search(value).subscribe((rows: TypeDoctoInterface[]) => {
+        this.length = rows.length;
+        this.list = rows;
+        });
+      } else {
+        this.read(0, 10);
+      }
+    });
   }
 
-  read = ((pageIndex:number, pageSize:number) => {
-    this.list = null;
-    this.service.list(pageIndex, pageSize).subscribe((dt:any) =>  {
-      this.list = dt.data;
-      this.length = dt.count;
-    }, 
-    error => this.onLoadFailed('danger','Error conexión',error.message)
+  ngOnInit(): void {
+    this.read(0, 10);
+  }
+
+  private read(pageIndex: number, pageSize: number) {
+      this.list = null;
+      this.service.list(pageIndex, pageSize).subscribe((dt:any) =>  {
+        this.list = dt.data;
+        this.length = dt.count;
+      }, 
+      err => {
+        let error = '';
+        if (err.status === 0) {
+          error = SweetAlertConstants.noConexion;
+        } else {
+          error = err.message;
+        }
+        this.onLoadFailed('danger', 'Error', error);
+      }
     );
 
-  });
+  }
+    
 
-  changesPage (event){
-    if(event.pageSize!=this.pageSize){
+  public changesPage(event) {
+    if (event.pageSize != this.pageSize) {
 
     }
     this.pageEvent = event;
-    this.read(event.pageIndex * event.pageSize, event.pageSize)
+    this.read(event.pageIndex, event.pageSize)
   }
 
   onDeleteConfirm(event): void {
-    if (window.confirm('Are you sure you want to delete?')) {
-      this.service.delete(event.data.id).subscribe(data =>{
-        console.log(data);
-        if(data.statusCode == 200){
-          this.onLoadFailed('success','Eliminado',data.message);
-        }else{
-          this.onLoadFailed('danger','Error',data.message);
+    this.sweetalertQuestion('warning', 'Eliminar', '¿Desea eliminar este registro?').then(
+      question => {
+        if (question.isConfirmed) {
+          this.service.delete(event.data.id).subscribe(
+            data => {
+              this.onLoadFailed('success','Tipo Docto eliminada correctamente', data.message);
+              this.read(this.pageEvent.pageIndex, this.pageEvent.pageSize);
+            }, err => {
+              let error = '';
+              if (err.status === 0) {
+                error = SweetAlertConstants.noConexion;
+              } else {
+                error = err.message;
+              }
+              this.onLoadFailed('danger', 'Error', error);
+            }
+          );
         }
-        this.read(this.pageEvent.pageIndex, this.pageEvent.pageSize);
-      },err =>{
-      })
-    } else {
-      event.confirm.reject();
-    }
+      }
+    ).catch(
+      e => {
+        console.error(e);
+      }
+    )
   }
 
-  editRow(event) {
+  public editRow(event) {
     const buttonsConfig: NbWindowControlButtonsConfig = {
       minimize: false,
       maximize: false,
       fullScreen: false,
     };
-    const modalRef = this.windowService.open(TypeDoctoDetailComponent, { title: `Editar`, context: { data: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
+    const modalRef = this.windowService.open(TypeDoctoDetailComponent, { title: `Editar`, context: { data: event.data }, buttons: buttonsConfig }).onClose.subscribe(() => {
       this.read(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
-  
+
   }
 
-  openWindow() {
-    const modalRef = this.windowService.open(TypeDoctoDetailComponent, { title: `Nuevo` }).onClose.subscribe(() => {
+  public openWindow() {
+    const buttonsConfig: NbWindowControlButtonsConfig = {
+      minimize: false,
+      maximize: false,
+      fullScreen: false,
+    };
+    const modalRef = this.windowService.open(TypeDoctoDetailComponent, { title: `Nuevo`, buttons: buttonsConfig }).onClose.subscribe(() => {
       this.read(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
     
   }
-
 }

@@ -5,6 +5,12 @@ import { ClaimConclusionRoutingModule } from './claim-conclusion-routing.module'
 import { ClaimConclusionListComponent } from './claim-conclusion-list/claim-conclusion-list.component';
 import { ClaimConclusionDetailComponent } from './claim-conclusion-detail/claim-conclusion-detail.component';
 import { AdminModule } from '../admin.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NbCardModule, NbSelectModule, NbButtonModule, NbInputModule, NbWindowModule } from '@nebular/theme';
+import { Ng2SmartTableModule } from 'ng2-smart-table';
+import { ComponentsModule } from '../../../@components/components.module';
+import { ThemeModule } from '../../../@theme/theme.module';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 
 @NgModule({
@@ -13,9 +19,19 @@ import { AdminModule } from '../admin.module';
     ClaimConclusionDetailComponent
   ],
   imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    ComponentsModule,
     CommonModule,
+    ThemeModule,
+    NbCardModule,
+    Ng2SmartTableModule,
+    NbSelectModule,
+    NbButtonModule,
+    NbInputModule,
+    NbWindowModule.forChild(),
     ClaimConclusionRoutingModule,
-    AdminModule
+    MatPaginatorModule
   ]
 })
 export class ClaimConclusionModule { }

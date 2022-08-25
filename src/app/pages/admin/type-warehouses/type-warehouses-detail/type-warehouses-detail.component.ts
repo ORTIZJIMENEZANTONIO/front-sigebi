@@ -2,24 +2,28 @@ import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { NbWindowRef, NbWindowService, NB_WINDOW_CONTEXT } from '@nebular/theme';
+import { NbToastrService, NbWindowRef, NbWindowService, NB_WINDOW_CONTEXT } from '@nebular/theme';
 import { TypeWarehouseService } from '../../../../@core/backend/common/services/typeWarehouses.service';
+import { SweetAlertConstants, SweetalertModel } from '../../../../@core/interfaces/auction/sweetalert-model';
+import { TypeWarehousesModel } from '../../../../@core/interfaces/auction/typeWarehouses.model';
 import { BaseApp } from '../../../../@core/shared/base-app';
+import { BasePage } from '../../../../@core/shared/base-page';
+import { SweetalertService } from '../../../../shared/sweetalert.service';
 
 @Component({
   selector: 'ngx-type-warehouses-detail',
   templateUrl: './type-warehouses-detail.component.html',
   styleUrls: ['./type-warehouses-detail.component.scss']
 })
-export class TypeWarehousesDetailComponent extends BaseApp {
+export class TypeWarehousesDetailComponent extends BasePage {
 
    
   Form: FormGroup;
   data: any = {};
 
   constructor(private fb: FormBuilder, protected cd: ChangeDetectorRef, protected router: Router, private service: TypeWarehouseService,
-    public windowRef: NbWindowRef, @Inject(NB_WINDOW_CONTEXT) context, private dom: DomSanitizer,  private windowService: NbWindowService) { 
-      super();
+    public windowRef: NbWindowRef, @Inject(NB_WINDOW_CONTEXT) context, private dom: DomSanitizer,  private windowService: NbWindowService, public toastrService: NbToastrService, public sweetalertService: SweetalertService) { 
+      super(toastrService);
       if (null != context.data){
         this.data = context.data;
       }
@@ -29,8 +33,8 @@ export class TypeWarehousesDetailComponent extends BaseApp {
     form = this.fb.group({
       id:[null],
       description: [null, Validators.compose([Validators.pattern(""), Validators.required])],
-      version: [null, Validators.compose([Validators.pattern("[0-9]"),Validators.required])],
-      estatus: [null, Validators.compose([Validators.pattern("[0-9]"),Validators.required])],
+      version: [null, Validators.compose([Validators.pattern(""),Validators.required])],
+      estatus: [null, Validators.compose([Validators.pattern(""),Validators.required])],
     });
   
     get validateOpinion(){
@@ -39,42 +43,67 @@ export class TypeWarehousesDetailComponent extends BaseApp {
     ngOnInit(): void {
       if(this.data.id != null){
         this.actionBtn = "Actualizar";
-        // this.formOpinion.controls['description'].setValue(this.opinion.description);
-        // this.formOpinion.controls['noRegistration'].setValue(this.opinion.noRegistration);
-        // this.formOpinion.controls['dict_ofi'].setValue(this.opinion.dict_ofi);
-        // this.formOpinion.controls['areaProcess'].setValue(this.opinion.areaProcess);
         this.form.patchValue(this.data);
       }
       
     }
-  
-
 
   register(): void {
-    if( this.actionBtn == "Guardar"){
-      let params = {
-        userCreation: 'Paul',
-        creationDate:new Date(),
-        userModificatio:'Paul',
-        modificatioDate:new Date(),
-        description: this.form.value.description,
-        version: this.form.value.version,
-        estatus: this.form.value.estatus,
-
-      }
-      this.service.register(params).subscribe(data =>{
-        console.log(data)
+    let params = {
+      userCreation: 'User',
+      creationDate: new Date(),
+      userModificatio: 'User',
+      modificatioDate: new Date(),
+      description: this.form.value.description,
+      version: this.form.value.version,
+      estatus: this.form.value.estatus,
+    }
+    if (this.actionBtn == "Guardar") {
+      this.service.register(params).subscribe(data => {
+        this.onLoadFailed('success', 'Tipo almacen', 'Registrado Correctamente');
+      }, err => {
+        let error = '';
+        if (err.status === 0) {
+          error = SweetAlertConstants.noConexion;
+        } else {
+          error = err.message;
+        }
+        this.onLoadFailed('danger', 'Error', error);
+      }, () => {
         this.windowRef.close();
-      },err =>{
-        console.log(err);
-      })
-    }else{
-      this.service.update(this.data.id,this.form.value).subscribe(data =>{
-       this.windowRef.close();
-      },err =>{
-        console.log(err);
-      })
+      });
+    } else {
+      this.service.update(this.data.id, params).subscribe(data => {
+        this.onLoadFailed('success', 'Tipo almacen', 'Actualizado Correctamente');
+      }, err => {
+        let error = '';
+        if (err.status === 0) {
+          error = SweetAlertConstants.noConexion;
+        } else {
+          error = err.message;
+        }
+        this.onLoadFailed('danger', 'Error', error);
+      }, () => {
+        this.windowRef.close();
+      });
     }
   }
 
+  private sweetAlertMessage(title: string, message: string) {
+    let sweetalert = new SweetalertModel();
+    sweetalert.title = title;
+    sweetalert.text = message;
+    sweetalert.icon = SweetAlertConstants.SWEET_ALERT_WARNING;
+    sweetalert.showConfirmButton = true;
+    sweetalert.showCancelButton = false;
+    this.sweetalertService.showAlertBasic(sweetalert);
+  }
+  private sweetAlertSuccessMessage(title: string) {
+    let sweetalert = new SweetalertModel();
+    sweetalert.title = title;
+    sweetalert.showConfirmButton = false;
+    sweetalert.showCancelButton = false;
+    sweetalert.timer = SweetAlertConstants.SWEET_ALERT_TIMER_1500;
+    this.sweetalertService.showAlertBasic(sweetalert);
+  }
 }

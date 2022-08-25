@@ -1,89 +1,199 @@
 <nb-card>
     <nb-card-body>
-        <form [formGroup]="formFraction" >
-            <div class="form-group row ">
-                <div class="col-md-6" >
-                    <input maxlength="30" class="styles" formControlName="code" matInput placeholder="Codigo">
-                    <label class="text-danger" *ngIf="validateFraction['code'].hasError('pattern')"><small>Campo inválido!</small></label>
+        <form [formGroup]="formFraction">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input nbInput fullWidth maxlength="30" class="form-control" formControlName="code"
+                            placeholder="Codigo"
+                            [status]="(code?.errors?.required || code?.hasError('minlength') || code?.hasError('maxlength') || code?.hasError('pattern')) && code.touched ? 'danger' : ''">
+                        <ngx-validation-message label="Codigo" [showMinLength]="code?.hasError('minlength')"
+                            [showMaxLength]="code?.hasError('maxlength')"
+                            [showRequired]="code?.errors?.required && code.touched"
+                            [showPattern]="code?.hasError('pattern') && code.touched" minLength=1 maxLength=255>
+                        </ngx-validation-message>
+                    </div>
                 </div>
                 <div class="col-md-6">
-                    <input maxlength="30" class="styles" formControlName="level" matInput placeholder="Nivel">
-                <label class="text-danger" *ngIf="validateFraction['level'].hasError('pattern')"><small>Campo inválido!</small></label>
+                    <div class="form-group">
+                        <input nbInput fullWidth maxlength="30" class="form-control" formControlName="level"
+                            placeholder="Nivel"
+                            [status]="(level?.errors?.required || level?.hasError('minlength') || level?.hasError('maxlength') || level?.hasError('pattern')) && level.touched ? 'danger' : ''">
+                        <ngx-validation-message label="Nivel" [showMinLength]="level?.hasError('minlength')"
+                            [showMaxLength]="level?.hasError('maxlength')"
+                            [showRequired]="level?.errors?.required && level.touched"
+                            [showPattern]="level?.hasError('pattern') && level.touched" minLength=1 maxLength=255>
+                        </ngx-validation-message>
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group row">
                 <div class="col-md-6 ">
-                    <input class="styles" formControlName="description" matInput placeholder="Descripción">
-                    <label class="text-danger" *ngIf="validateFraction['description'].hasError('pattern')"><small>Campo inválido!</small></label>
+                    <div class="form-group ">
+                        <input nbInput fullWidth class="form-control" formControlName="description"
+                            placeholder="Descripción"
+                            [status]="(description?.errors?.required || description?.hasError('minlength') || description?.hasError('maxlength') || description?.hasError('pattern')) && description.touched ? 'danger' : ''">
+                        <ngx-validation-message label="Descripción" [showMinLength]="description?.hasError('minlength')"
+                            [showMaxLength]="description?.hasError('maxlength')"
+                            [showRequired]="description?.errors?.required && description.touched"
+                            [showPattern]="description?.hasError('pattern') && description.touched" minLength=1
+                            maxLength=255>
+                        </ngx-validation-message>
+                    </div>
                 </div>
                 <div class="col-md-6 ">
-                    <input class="styles" formControlName="normDetalle" type="text" id="normId" matInput placeholder="Norma"  [nbAutocomplete]="auto"  >
-                    <nb-autocomplete #auto [activeFirst]="true" (selectedChange)="onSelectionChangeNorm($event)">
-                        <nb-option *ngFor="let option of filteredOptions$ | async" [value]="option">
-                            {{ option.norm }}
-                        </nb-option>
-                    </nb-autocomplete>
-                    <label class="text-danger" *ngIf="validateNorm['normId'].hasError('min')"><small>Seleccione una norma!</small></label>
+                    <div class="form-group">
+                        <input nbInput fullWidth class="form-control" formControlName="normDetalle" type="text"
+                            id="normId" placeholder="Norma" [nbAutocomplete]="auto"
+                            [status]="(normDetalle?.errors?.required || normDetalle?.hasError('minlength') || normDetalle?.hasError('maxlength') || normDetalle?.hasError('pattern')) && normDetalle.touched ? 'danger' : ''">
+                        <nb-autocomplete #auto [activeFirst]="true" (selectedChange)="onSelectionChangeNorm($event)">
+                            <nb-option *ngFor="let option of filteredOptions$ | async" [value]="option">
+                                {{ option.norm }}
+                            </nb-option>
+                        </nb-autocomplete>
+                        <ngx-validation-message label="Norma" [showMinLength]="normDetalle?.hasError('minlength')"
+                            [showMaxLength]="normDetalle?.hasError('maxlength')"
+                            [showRequired]="normDetalle?.errors?.required && normDetalle.touched"
+                            [showPattern]="normDetalle?.hasError('pattern') && normDetalle.touched" minLength=1
+                            maxLength=255>
+                        </ngx-validation-message>
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group row">
                 <div class="col-md-6">
-                    <input maxlength="30" class="styles" formControlName="unit" matInput placeholder="Unidad">
-                    <label class="text-danger" *ngIf="validateFraction['unit'].hasError('pattern')"><small>Campo inválido!</small></label>
+                    <div class="form-group">
+                        <input nbInput fullWidth maxlength="30" class="form-control" formControlName="unit"
+                            placeholder="Unidad"
+                            [status]="(unit?.errors?.required || unit?.hasError('minlength') || unit?.hasError('maxlength') || unit?.hasError('pattern')) && unit.touched ? 'danger' : ''">
+                        <ngx-validation-message label="Unidad" [showMinLength]="unit?.hasError('minlength')"
+                            [showMaxLength]="unit?.hasError('maxlength')"
+                            [showRequired]="unit?.errors?.required && unit.touched"
+                            [showPattern]="unit?.hasError('pattern') && unit.touched" minLength=1 maxLength=255>
+                        </ngx-validation-message>
+                    </div>
                 </div>
                 <div class="col-md-6">
-                    <input class="styles" formControlName="clasificationId" matInput placeholder="Clasificacion">
-                    <label class="text-danger" *ngIf="validateFraction['clasificationId'].hasError('pattern')"><small>Campo inválido!</small></label>
+                    <div class="form-group">
+                        <input nbInput fullWidth class="form-control" formControlName="clasificationId"
+                            placeholder="Clasificacion"
+                            [status]="(clasificationId?.errors?.required || clasificationId?.hasError('minlength') || clasificationId?.hasError('maxlength') || clasificationId?.hasError('pattern')) && clasificationId.touched ? 'danger' : ''">
+                        <ngx-validation-message label="Clasificacion"
+                            [showMinLength]="clasificationId?.hasError('minlength')"
+                            [showMaxLength]="clasificationId?.hasError('maxlength')"
+                            [showRequired]="clasificationId?.errors?.required && clasificationId.touched"
+                            [showPattern]="clasificationId?.hasError('pattern') && clasificationId.touched" minLength=1
+                            maxLength=255>
+                        </ngx-validation-message>
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group row">
                 <div class="col-md-6">
-                    <input class="styles" formControlName="version" matInput placeholder="version">
-                    <label class="text-danger" *ngIf="validateFraction['version'].hasError('pattern')"><small>Numero de versión no válida!</small></label>
+                    <div class="form-group ">
+                        <input nbInput fullWidth class="form-control" formControlName="version" placeholder="version"
+                            [status]="(version?.errors?.required || version?.hasError('minlength') || version?.hasError('maxlength') || version?.hasError('pattern')) && version.touched ? 'danger' : ''">
+                        <ngx-validation-message label="Version" [showMinLength]="version?.hasError('minlength')"
+                            [showMaxLength]="version?.hasError('maxlength')"
+                            [showRequired]="version?.errors?.required && version.touched"
+                            [showPattern]="version?.hasError('pattern') && version.touched" minLength=1 maxLength=255>
+                        </ngx-validation-message>
+                    </div>
                 </div>
                 <div class="col-md-6">
-                    <input class="styles" formControlName="relevantTypeId" matInput placeholder="Tipo relevante">
-                    <label class="text-danger" *ngIf="validateFraction['relevantTypeId'].hasError('pattern')"><small>Ingrese un campo númerico!</small></label>
+                    <div class="form-group">
+                        <input nbInput fullWidth class="form-control" formControlName="relevantTypeId"
+                            placeholder="Tipo relevante"
+                            [status]="(relevantTypeId?.errors?.required || relevantTypeId?.hasError('minlength') || relevantTypeId?.hasError('maxlength') || relevantTypeId?.hasError('pattern')) && relevantTypeId.touched ? 'danger' : ''">
+                        <ngx-validation-message label="Tipo relevante"
+                            [showMinLength]="relevantTypeId?.hasError('minlength')"
+                            [showMaxLength]="relevantTypeId?.hasError('maxlength')"
+                            [showRequired]="relevantTypeId?.errors?.required && relevantTypeId.touched"
+                            [showPattern]="relevantTypeId?.hasError('pattern') && relevantTypeId.touched" minLength=1
+                            maxLength=255>
+                        </ngx-validation-message>
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group row">
                 <div class="col-md-6">
-                    <input  maxlength="30" class="styles" formControlName="codeErp1" matInput placeholder="Codigo Erp1">
-                    <label class="text-danger" *ngIf="validateFraction['codeErp1'].hasError('pattern')"><small>Ingrese máximo 20 caracteres!</small></label>
+                    <div class="form-group ">
+                        <input nbInput fullWidth maxlength="30" class="form-control" formControlName="codeErp1"
+                            placeholder="Codigo Erp1"
+                            [status]="(codeErp1?.errors?.required || codeErp1?.hasError('minlength') || codeErp1?.hasError('maxlength') || codeErp1?.hasError('pattern')) && codeErp1.touched ? 'danger' : ''">
+                        <ngx-validation-message label="Codigo Erp1" [showMinLength]="codeErp1?.hasError('minlength')"
+                            [showMaxLength]="codeErp1?.hasError('maxlength')"
+                            [showRequired]="codeErp1?.errors?.required && codeErp1.touched"
+                            [showPattern]="codeErp1?.hasError('pattern') && codeErp1.touched" minLength=1 maxLength=255>
+                        </ngx-validation-message>
+                    </div>
                 </div>
                 <div class="col-md-6">
-                    <input  maxlength="30" class="styles" formControlName="codeErp2" matInput placeholder="Codigo Erp2">
-                    <label class="text-danger" *ngIf="validateFraction['codeErp2'].hasError('pattern')"><small>Ingrese máximo 30 caracteres!</small></label>
+                    <div class="form-group">
+                        <input nbInput fullWidth maxlength="30" class="form-control" formControlName="codeErp2"
+                            placeholder="Codigo Erp2"
+                            [status]="(codeErp2?.errors?.required || codeErp2?.hasError('minlength') || codeErp2?.hasError('maxlength') || codeErp2?.hasError('pattern')) && codeErp2.touched ? 'danger' : ''">
+                        <ngx-validation-message label="Codigo Erp2" [showMinLength]="codeErp2?.hasError('minlength')"
+                            [showMaxLength]="codeErp2?.hasError('maxlength')"
+                            [showRequired]="codeErp2?.errors?.required && codeErp2.touched"
+                            [showPattern]="codeErp2?.hasError('pattern') && codeErp2.touched" minLength=1 maxLength=255>
+                        </ngx-validation-message>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group row">
                 <div class="col-md-6">
-                    <input  maxlength="30" class="styles" formControlName="codeErp3" matInput placeholder="Codigo Erp3">
-                    <label class="text-danger" *ngIf="validateFraction['codeErp3'].hasError('pattern')"><small>Ingrese máximo 30 caracteres!</small></label>
+                    <div class="form-group ">
+                        <input nbInput fullWidth maxlength="30" class="form-control" formControlName="codeErp3"
+                            placeholder="Codigo Erp3"
+                            [status]="(codeErp3?.errors?.required || codeErp3?.hasError('minlength') || codeErp3?.hasError('maxlength') || codeErp3?.hasError('pattern')) && codeErp3.touched ? 'danger' : ''">
+                        <ngx-validation-message label="Codigo Erp3" [showMinLength]="codeErp3?.hasError('minlength')"
+                            [showMaxLength]="codeErp3?.hasError('maxlength')"
+                            [showRequired]="codeErp3?.errors?.required && codeErp3.touched"
+                            [showPattern]="codeErp3?.hasError('pattern') && codeErp3.touched" minLength=1 maxLength=255>
+                        </ngx-validation-message>
+                    </div>
                 </div>
                 <div class="col-md-6">
-                    <input  maxlength="1" class="styles" formControlName="decimalAmount" matInput placeholder="Cantidad decimal">
-                    <label class="text-danger" *ngIf="validateFraction['decimalAmount'].hasError('pattern')"><small>Ingrese máximo 20 caracteres!</small></label>
+                    <div class="form-group">
+                        <input nbInput fullWidth maxlength="1" class="form-control" formControlName="decimalAmount"
+                            placeholder="Cantidad decimal"
+                            [status]="(decimalAmount?.errors?.required || decimalAmount?.hasError('minlength') || decimalAmount?.hasError('maxlength') || decimalAmount?.hasError('pattern')) && decimalAmount.touched ? 'danger' : ''">
+                        <ngx-validation-message label="Cantidad decimal"
+                            [showMinLength]="decimalAmount?.hasError('minlength')"
+                            [showMaxLength]="decimalAmount?.hasError('maxlength')"
+                            [showRequired]="decimalAmount?.errors?.required && decimalAmount.touched"
+                            [showPattern]="decimalAmount?.hasError('pattern') && decimalAmount.touched" minLength=1
+                            maxLength=255>
+                        </ngx-validation-message>
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group row">
                 <div class="col-md-6">
-                    <input  maxlength="20" class="styles" formControlName="status" matInput placeholder="Estatus">
-                    <label class="text-danger" *ngIf="validateFraction['status'].hasError('pattern')"><small>Ingrese máximo 20 caracteres!</small></label>
+                    <div class="form-group">
+                        <input nbInput fullWidth maxlength="20" class="form-control" formControlName="status"
+                            placeholder="Estatus"
+                            [status]="(estatus?.errors?.required || estatus?.hasError('minlength') || estatus?.hasError('maxlength') || estatus?.hasError('pattern')) && estatus.touched ? 'danger' : ''">
+                        <ngx-validation-message label="Estatus" [showMinLength]="estatus?.hasError('minlength')"
+                            [showMaxLength]="estatus?.hasError('maxlength')"
+                            [showRequired]="estatus?.errors?.required && estatus.touched"
+                            [showPattern]="estatus?.hasError('pattern') && estatus.touched" minLength=1 maxLength=255>
+                        </ngx-validation-message>
+                    </div>
                 </div>
                 <div class="col-md-6">
-                    <input class="styles" formControlName="fractionCode" matInput placeholder="Codigo fracción">
-                    <label class="text-danger" *ngIf="validateFraction['fractionCode'].hasError('pattern')"><small>Ingrese un valor númerico!</small></label>
+                    <div class="form-group">
+                        <input nbInput fullWidth class="form-control" formControlName="fractionCode"
+                            placeholder="Codigo fracción"
+                            [status]="(fractionCode?.errors?.required || fractionCode?.hasError('minlength') || fractionCode?.hasError('maxlength') || fractionCode?.hasError('pattern')) && fractionCode.touched ? 'danger' : ''">
+                        <ngx-validation-message label="Codigo fracción"
+                            [showMinLength]="fractionCode?.hasError('minlength')"
+                            [showMaxLength]="fractionCode?.hasError('maxlength')"
+                            [showRequired]="fractionCode?.errors?.required && fractionCode.touched"
+                            [showPattern]="fractionCode?.hasError('pattern') && fractionCode.touched" minLength=1
+                            maxLength=255>
+                        </ngx-validation-message>
+                    </div>
                 </div>
             </div>
-            <div class="form-group row justify-content-center">
-                <div class="col-auto text-center">
-                    <button type="submit" nbButton status="primary" [disabled]="!formFraction.valid" (click)="register()">{{actionBtn}}</button>
+            <div class="form-group">
+                <div class="d-flex justify-content-center">
+                    <button type="submit" nbButton status="primary" [disabled]="!formFraction.valid"
+                        (click)="register()">{{actionBtn}}</button>
                 </div>
             </div>
         </form>

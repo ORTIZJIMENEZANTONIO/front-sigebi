@@ -54,7 +54,7 @@ export class SweetAlertConstants {
     public static SWEET_ALERT_CONFIRM_CLASS = 'mb-3 mr-5 btn btn-xs btn-primary';
     public static SWEET_ALERT_CANCEL = 'Cancelar';
     public static SWEET_ALERT_CANCEL_CLASS = 'mb-3 ml-5 btn btn-xs btn-danger';
-    public static SWEET_ALERT_SHOW_CONFIRM_BUTTOM = true;
+    public static SWEET_ALERT_SHOW_CONFIRM_BUTTOM = false;
     public static SWEET_ALERT_SWEET = false;
     public static SWEET_ALERT_CLOSE = false;
     public static SWEET_ALERT_SHOW_CANCEL_BUTTOM = false;

@@ -2,37 +2,48 @@
     <nb-card-body>
         <form [formGroup]="form">
 
-            <div class="form-group row">
-                <input nbInput fullWidth formControlName="name" matInput placeholder="Nombre"
-                [status]="form.controls['name']?.errors?.required  && form.controls['name'].touched ? 'danger' : ''">
-                <label class="text-danger"
-                 *ngIf="validate['name'].hasError('required') && form.controls['name'].touched"><small>Ingrese un Nombre!</small></label>
-            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <input nbInput fullWidth formControlName="name" placeholder="Nombre"
+                        >
+                        <label class="text-danger"
+                        *ngIf="validate['name'].hasError('required') && form.controls['name'].touched"><small>Ingrese un Nombre!</small></label>
+                    </div>
+                </div>
 
-            <div class="form-group row">
-                <input nbInput fullWidth formControlName="noRegistration" matInput placeholder="Número de registro"
-                [status]="form.controls['noRegistration']?.errors?.required  && form.controls['noRegistration'].touched ? 'danger' : ''">
-                <label class="text-danger"
-                 *ngIf="validate['noRegistration'].hasError('required') && form.controls['noRegistration'].touched"><small>Ingrese un número de registro!</small></label>
-            </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <input nbInput fullWidth formControlName="noRegistration" placeholder="Número de registro"
+                        >
+                        <label class="text-danger"
+                        *ngIf="validate['noRegistration'].hasError('required') && form.controls['noRegistration'].touched"><small>Ingrese un número de registro!</small></label>
+                    </div>
+                </div>
 
-            <div class="form-group row">
-                <input nbInput fullWidth formControlName="curp" matInput placeholder="Curp"
-                [status]="form.controls['curp']?.errors?.required  && form.controls['curp'].touched ? 'danger' : ''">
-                <label class="text-danger"
-                 *ngIf="validate['curp'].hasError('required') && form.controls['curp'].touched"><small>Ingrese un curp!</small></label>
-            </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <input nbInput fullWidth formControlName="curp" placeholder="Curp"
+                        >
+                        <label class="text-danger"
+                        *ngIf="validate['curp'].hasError('required') && form.controls['curp'].touched"><small>Ingrese un curp!</small></label>
+                    </div>
+                </div>
 
-            <div class="form-group row">
-                <input nbInput fullWidth formControlName="consecutive" matInput placeholder="Consecutivo"
-                [status]="form.controls['consecutive']?.errors?.required  && form.controls['consecutive'].touched ? 'danger' : ''">
-                <label class="text-danger"
-                 *ngIf="validate['consecutive'].hasError('required') && form.controls['consecutive'].touched"><small>Ingrese un  consecutivo!</small></label>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <input nbInput fullWidth formControlName="consecutive"  placeholder="Consecutivo"
+                        >
+                        <label class="text-danger"
+                        *ngIf="validate['consecutive'].hasError('required') && form.controls['consecutive'].touched"><small>Ingrese un  consecutivo!</small></label>
+                    </div>
+                </div>
             </div>
        
-            <div class="form-group row">
-                <div class="offset-sm-3 col-sm-9">
-                    <button type="submit" nbButton status="primary" [disabled]="!form.valid" (click)="register()">{{actionBtn}}</button>
+            <div class="form-group">
+                <div class="d-flex justify-content-center">
+                    <button type="submit" nbButton status="primary" [disabled]="!form.valid"
+                        (click)="register()">{{actionBtn}}</button>
                 </div>
             </div>
         </form>

@@ -306,10 +306,6 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: '/pages/admin/regional-delegation',
       },
       {
-        title: 'Dictamen',
-        link: '/pages/admin/dictaments',
-      },
-      {
         title: 'Emisora',
         link: '/pages/admin/station',
       },
@@ -362,11 +358,15 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: '/pages/admin/question',
       },
       {
+        title: 'Procesos SISE',
+        link: '/pages/admin/siseProcess',
+      },
+      {
         title: 'Tipo Siniestro',
         link: '/pages/admin/sinister',
       },
       {
-        title: 'Tipo Almacen',
+        title: 'Tipo de Almacenes',
         link: '/pages/admin/typewarehouses',
       },
       {
@@ -388,10 +388,6 @@ export const MENU_ITEMS: NbMenuItem[] = [
       {
         title: 'Estatus Buzon',
         link: '/pages/admin/statusmailbox',
-      },
-      {
-        title: 'Tipo servicios',
-        link: '/pages/admin/typeservices',
       },
       {
         title: 'Tipo relevante',
@@ -492,7 +488,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
       },
       {
         title: 'Situacion Bien',
-        link: '/pages/admin/good-situacion'
+        link: '/pages/admin/good-situation'
       },
       {
         title: 'Clasificacion Institucion',
@@ -583,8 +579,56 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: '/pages/admin/score'
       },
       {
-        title: 'R Asunt Dic',
-        link: '/pages/admin/r-asunt-dic'
+        title:'R Asunt Dic',
+        link:'/pages/admin/r-asunt-dic'
+      },
+      {
+        title:'Tipo de Servicios',
+        link:'/pages/admin/type-services'
+      },  
+      {
+        title:'Zona Geográficas',
+        link:'/pages/admin/zone-geographic'
+      },
+      {
+        title: 'Servicios',
+        link: '/pages/admin/service-cat'
+      },
+      {
+        title: 'Empresa terceros',
+        link: '/pages/admin/third-company'
+      },
+      {
+        title: 'Entfed',
+        link: '/pages/admin/entfed'
+      },
+      {
+        title: 'Estado repuves',
+        link: '/pages/admin/repuve'
+      },
+      {
+        title: 'Gestión',
+        link: '/pages/admin/management'
+      },
+      {
+        title: 'Etiqutas bien',
+        link: '/pages/admin/label-okey'
+      },
+      {
+        title: 'Etapas',
+        link: '/pages/admin/stages'
+      },
+      {
+        title: 'Documentos resarcimiento',
+        link: '/pages/admin/doc-resarcimiento'
+      },
+      {
+        title: 'Documentos resarcimiento sat',
+        link: '/pages/admin/doc-resarcimiento-sat'
+      },
+      {
+        title: 'Documentos resarcimiento sat xml',
+        link: '/pages/admin/doc-resarcimiento-sat-xml'
       },
 
     ],

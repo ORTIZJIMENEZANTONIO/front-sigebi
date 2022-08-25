@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, Inject, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { NbWindowRef, NB_WINDOW_CONTEXT, NbWindowService } from '@nebular/theme';
+import { NbWindowRef, NB_WINDOW_CONTEXT, NbWindowService, NbToastrService } from '@nebular/theme';
 import { DomSanitizer } from '@angular/platform-browser';
 import { BasePage } from '../../../../@core/shared/base-page';
 
@@ -24,8 +24,9 @@ export class ClarificationDetailComponent extends BasePage {
     private service: ClarificationService,
     public windowRef: NbWindowRef, 
     private dom: DomSanitizer,  
+    public toastrService: NbToastrService,
     private windowService: NbWindowService) { 
-      super();
+      super(toastrService);
       if (null != context.deductive){
         this.deductive = context.deductive;
       }

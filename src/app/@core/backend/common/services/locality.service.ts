@@ -30,7 +30,7 @@ export class LocalityService {
         return this.api.register(locality,this.url);
     }
 
-    update(id:number, locality: LocalityModel): Observable<LocalityModel>{
+    update(id:string, locality: LocalityModel): Observable<LocalityModel>{
         return this.api.update(id, locality,this.url);
     }
 

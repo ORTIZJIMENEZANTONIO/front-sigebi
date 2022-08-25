@@ -16,7 +16,6 @@ import { SweetalertService } from '../../../../shared/sweetalert.service';
   styleUrls: ['./score-list.component.scss']
 })
 export class ScoreListComponent extends BasePage {
-
   searchForm: FormGroup;
   constructor(private service: ScoreService, public toastrService: NbToastrService,
     private windowService: NbWindowService, private paginator: MatPaginatorIntl,
@@ -95,12 +94,9 @@ export class ScoreListComponent extends BasePage {
     },
     noDataMessage: "No se encontrarón registros"
   };
-
- 
   ngOnInit(): void {
     this.read(0, 10);
   }
-
   read = ((pageIndex: number, pageSize: number) => {
     this.list = null;
     this.service.list(pageIndex, pageSize).subscribe(
@@ -166,7 +162,7 @@ export class ScoreListComponent extends BasePage {
     );
   }
 
-  editRow(event) {
+  public editRow(event) {
     const buttonsConfig: NbWindowControlButtonsConfig = {
       minimize: false,
       maximize: false,
@@ -177,7 +173,6 @@ export class ScoreListComponent extends BasePage {
     });
 
   }
-
   openWindow() {
     const modalRef = this.windowService.open(ScoreDetailComponent, { title: `Nuevo` }).onClose.subscribe(() => {
       this.read(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);

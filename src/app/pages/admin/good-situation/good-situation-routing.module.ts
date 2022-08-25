@@ -4,8 +4,8 @@ import { GoodSituationListComponent } from './good-situation-list/good-situation
 
 const routes: Routes = [
   {
-    path:'',
-    component:GoodSituationListComponent
+    path: '',
+    component: GoodSituationListComponent
   }
 ];
 

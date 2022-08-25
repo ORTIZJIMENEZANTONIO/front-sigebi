@@ -22,7 +22,6 @@ import { SettlementListComponent } from './settlement-list/settlement-list.compo
   imports: [
     CommonModule,
     SettlementRoutingModule,
-    FormsModule,
     ReactiveFormsModule,
     ComponentsModule,
     ThemeModule,
@@ -32,9 +31,7 @@ import { SettlementListComponent } from './settlement-list/settlement-list.compo
     NbButtonModule,
     NbInputModule,
     NbWindowModule.forChild(),
-    MatPaginatorModule,
-    MatInputModule,
-    MatFormFieldModule
+    MatPaginatorModule
   ]
 })
 export class SettlementModule { }

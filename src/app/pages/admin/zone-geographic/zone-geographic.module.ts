@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { DelegationRoutingModule } from './delegation-routing.module';
-import { DelegationListComponent } from './delegation-list/delegation-list.component';
-import { DelegationDetailComponent } from './delegation-detail/delegation-detail.component';
+import { ZoneGeographicRoutingModule } from './zone-geographic-routing.module';
+import { ZoneGeographicListComponent } from './zone-geographic-list/zone-geographic-list.component';
+import { ZoneGeographicDetailComponent } from './zone-geographic-detail/zone-geographic-detail.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -16,15 +16,16 @@ import { ThemeModule } from '../../../@theme/theme.module';
 
 @NgModule({
   declarations: [
-    DelegationListComponent,
-    DelegationDetailComponent
+    ZoneGeographicListComponent,
+    ZoneGeographicDetailComponent
   ],
   imports: [
     CommonModule,
-    DelegationRoutingModule,
+    ZoneGeographicRoutingModule,
     FormsModule,
     ReactiveFormsModule,
     ComponentsModule,
+    CommonModule,
     ThemeModule,
     NbCardModule,
     Ng2SmartTableModule,
@@ -37,4 +38,4 @@ import { ThemeModule } from '../../../@theme/theme.module';
     MatFormFieldModule
   ]
 })
-export class DelegationModule { }
+export class ZoneGeographicModule { }

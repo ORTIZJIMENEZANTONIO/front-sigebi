@@ -13,6 +13,7 @@ import { SweetalertService } from '../../../../shared/sweetalert.service';
   templateUrl: './battery-detail.component.html',
   styleUrls: ['./battery-detail.component.scss']
 })
+
 export class BatteryDetailComponent extends BaseApp {
   Form: FormGroup;
   data: any = {};
@@ -23,11 +24,13 @@ export class BatteryDetailComponent extends BaseApp {
     protected router: Router,
     private service: BatteryService,
     public windowRef: NbWindowRef,
+
     @Inject(NB_WINDOW_CONTEXT) context,
     private dom: DomSanitizer,
     private windowService: NbWindowService,
     private sweetalertService: SweetalertService) {
     super();
+    
     if (null != context.data) {
       this.data = context.data;
     }
@@ -104,5 +107,6 @@ export class BatteryDetailComponent extends BaseApp {
       sweetalert.timer = SweetAlertConstants.SWEET_ALERT_TIMER_1500;
       this.sweetalertService.showAlertBasic(sweetalert);
     }
+
   }
   

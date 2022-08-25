@@ -7,7 +7,7 @@ const routes: Routes = [
     path: '',
     component: BatchListComponent
   }
-  ];
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

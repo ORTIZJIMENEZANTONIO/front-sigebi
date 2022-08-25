@@ -16,7 +16,6 @@ import { SweetAlertConstants, SweetalertModel } from '../../../../@core/interfac
   styleUrls: ['./storehouse-list.component.scss']
 })
 export class StorehouseListComponent extends BasePage {
-
   searchForm: FormGroup;
   constructor(private service: StorehouseService, public toastrService: NbToastrService,
     private windowService: NbWindowService, private paginator: MatPaginatorIntl,
@@ -38,7 +37,6 @@ export class StorehouseListComponent extends BasePage {
     pageSize: 10,
     length: 100
   };
-
   setPageSizeOptions(setPageSizeOptionsInput: string) {
     if (setPageSizeOptionsInput) {
       this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
@@ -104,10 +102,33 @@ export class StorehouseListComponent extends BasePage {
     noDataMessage: "No se encontrarón registros"
   };
 
+  constructor(
+    private service: StorehouseService,
+    public toastrService: NbToastrService,
+    private windowService: NbWindowService,
+    private paginator: MatPaginatorIntl,
+    public sweetalertService: SweetalertService
+  ) {
+    super(toastrService, sweetalertService);
+    this.paginator.itemsPerPageLabel = "Registros por página";
+    this.searchForm = new FormGroup({
+      text: new FormControl()
+    });
+    this.searchForm.controls['text'].valueChanges.subscribe((value: string) => {
+      if (value.length > 0) {
+        this.service.search(value).subscribe((rows: StorehouseInterface[]) => {
+          this.length = rows.length;
+          this.storehouses = rows;
+        });
+      } else {
+        this.read(0, 10);
+      }
+    });
+  }
+
   ngOnInit(): void {
     this.read(0, 10);
   }
-
   read = ((pageIndex: number, pageSize: number) => {
     this.list = null;
     this.service.list(pageIndex, pageSize).subscribe(
@@ -125,9 +146,9 @@ export class StorehouseListComponent extends BasePage {
         this.sweetAlertMessage(SweetAlertConstants.SWEET_ALERT_TITLE_OPS, error);
       }
     );
-
-  });
-
+      }
+    );
+  };
   changesPage(event) {
     if (event.pageSize != this.pageSize) {
 
@@ -173,7 +194,7 @@ export class StorehouseListComponent extends BasePage {
     );
   }
 
-  editRow(event) {
+  public editRow(event) {
     const buttonsConfig: NbWindowControlButtonsConfig = {
       minimize: false,
       maximize: false,
@@ -184,7 +205,6 @@ export class StorehouseListComponent extends BasePage {
     });
 
   }
-
   openWindow() {
     const modalRef = this.windowService.open(StorehouseDetailComponent, { title: `Nuevo` }).onClose.subscribe(() => {
       this.read(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);

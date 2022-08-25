@@ -96,7 +96,20 @@ import { SatSubclasificationService } from './services/sat-subclasification.serv
 import { SatClassificationService } from './services/sat-classification.service';
 import { OriginCisiService } from './services/origin-cisi.service';
 import { ScoreService } from './services/score.service';
+import { ZoneGeographicService } from './services/zone-geographic.service';
 import { IndicatorReportService } from './services/IndicatorReport.service';
+import { DoccompensationService } from './services/doccompensation.service';
+import { DoccompensationsatService } from './services/doccompesationsat.service';
+import { DoccompensationsatxmlService } from './services/doccompensationsatxml.service';
+import { ThirdPartyCompanyService } from './services/third-party-company.service';
+import { EntfedService } from './services/entfed.service';
+import { EstRpuveService } from './services/est-repuve.service';
+import { ManagementService } from './services/management.service';
+import { LabelOkeyService } from './services/label-okey.service';
+import { StageService } from './services/stage.service';
+import { SiseProcessService } from './services/sise-process.service';
+import { ServicesModule } from '../../../pages/admin/services/services.module';
+import { IfaiSerieModule } from '../../../pages/admin/ifai-serie/ifai-serie.module';
 
 const API = [
   CategoryApi,
@@ -199,7 +212,20 @@ const SERVICES = [
   IndicatorReportService,
   OriginCisiService,
   ScoreService,
-  ScoreService
+  ScoreService,
+  ZoneGeographicService,
+  DoccompensationService,
+  DoccompensationsatService,
+  DoccompensationsatxmlService,
+  ThirdPartyCompanyService,
+  EntfedService,
+  EstRpuveService,
+  ManagementService,
+  LabelOkeyService,
+  StageService,
+  SiseProcessService,
+  ServicesModule,
+  IfaiSerieModule
 ];
 
 @NgModule({
