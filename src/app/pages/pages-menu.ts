@@ -595,6 +595,10 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: '/pages/admin/response'
       },
       {
+        title: 'Respuestas REPUVE',
+        link: '/pages/admin/response-repuve'
+      },
+      {
         title: 'Servicios',
         link: '/pages/admin/service-cat'
       },

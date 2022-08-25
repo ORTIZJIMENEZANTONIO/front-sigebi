@@ -111,6 +111,7 @@ import { SiseProcessService } from './services/sise-process.service';
 import { IfaiSerieService } from './services/ifai-serie.service';
 import { ServiceCatService } from './services/service-cat.service';
 import { ResponseService } from './services/response.service';
+import { ResponseRepuveService } from './services/reponse-repuve..service';
 
 const API = [
   CategoryApi,
@@ -228,7 +229,8 @@ const SERVICES = [
   SiseProcessService,
   TypeServicesService,
   IfaiSerieService,
-  ResponseService
+  ResponseService,
+  ResponseRepuveService
 ];
 
 @NgModule({

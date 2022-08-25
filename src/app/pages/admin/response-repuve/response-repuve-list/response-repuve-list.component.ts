@@ -6,17 +6,16 @@ import { SweetAlertResult } from 'sweetalert2';
 import { BasePage } from '../../../../@core/shared/base-page';
 import { SweetalertService } from '../../../../shared/sweetalert.service';
 import { SweetAlertConstants, SweetalertModel } from '../../../../@core/interfaces/auction/sweetalert-model';
-
-import { SiseProcessDetailComponent } from '../sise-process-detail/sise-process-detail.component';
-import { SiseProcessService } from '../../../../@core/backend/common/services/sise-process.service';
-import { SiseProcessInterface } from '../../../../@core/interfaces/auction/sise-process.model';
+import { ResponseRepuveService } from '../../../../@core/backend/common/services/reponse-repuve..service';
+import { ResponseRepuveInterface } from '../../../../@core/interfaces/auction/response-repuve.model';
+import { ResponseRepuveDetailComponent } from '../response-repuve-detail/response-repuve-detail.component';
 
 @Component({
-  selector: 'ngx-sise-process-list',
-  templateUrl: './sise-process-list.component.html',
-  styleUrls: ['./sise-process-list.component.scss']
+  selector: 'ngx-response-repuve-list',
+  templateUrl: './response-repuve-list.component.html',
+  styleUrls: ['./response-repuve-list.component.scss']
 })
-export class SiseProcessListComponent extends BasePage implements OnInit {
+export class ResponseRepuveListComponent extends BasePage implements OnInit  {
 
   public searchForm: FormGroup;
   public list: any;
@@ -70,7 +69,7 @@ export class SiseProcessListComponent extends BasePage implements OnInit {
   };
 
   constructor(
-    private service: SiseProcessService,
+    private service: ResponseRepuveService,
     public toastrService: NbToastrService,
     private windowService: NbWindowService,
     private paginator: MatPaginatorIntl,
@@ -83,7 +82,7 @@ export class SiseProcessListComponent extends BasePage implements OnInit {
     });
     this.searchForm.controls['text'].valueChanges.subscribe((value: string) => {
       if (value.length > 0) {
-        this.service.search(value).subscribe((rows: SiseProcessInterface[]) => {
+        this.service.search(value).subscribe((rows: ResponseRepuveInterface[]) => {
           this.length = rows.length;
           this.list = rows;
         })
@@ -150,7 +149,7 @@ export class SiseProcessListComponent extends BasePage implements OnInit {
       maximize: false,
       fullScreen: false,
     };
-    const modalRef = this.windowService.open(SiseProcessDetailComponent, { title: `Editar`, context: { data: event.data }, buttons: buttonsConfig }).onClose.subscribe(() => {
+    const modalRef = this.windowService.open(ResponseRepuveDetailComponent, { title: `Editar`, context: { data: event.data }, buttons: buttonsConfig }).onClose.subscribe(() => {
       this.read(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
 
@@ -162,10 +161,11 @@ export class SiseProcessListComponent extends BasePage implements OnInit {
       maximize: false,
       fullScreen: false,
     };
-    const modalRef = this.windowService.open(SiseProcessDetailComponent, { title: `Nuevo`, buttons: buttonsConfig }).onClose.subscribe(() => {
+    const modalRef = this.windowService.open(ResponseRepuveDetailComponent, { title: `Nuevo`, buttons: buttonsConfig }).onClose.subscribe(() => {
       this.read(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
 
   }
+
 
 }

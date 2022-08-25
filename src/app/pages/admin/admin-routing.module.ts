@@ -416,6 +416,10 @@ const routes: Routes = [
         path: 'response', loadChildren: () => import('./response/response.module')
           .then(m => m.ResponseModule)
       },
+      {
+        path: 'response-repuve', loadChildren: () => import('./response-repuve/response-repuve.module')
+          .then(m => m.ResponseRepuveModule)
+      },
       //{ path: 'home', component: CategoriesComponent },//ok
     ]
   }

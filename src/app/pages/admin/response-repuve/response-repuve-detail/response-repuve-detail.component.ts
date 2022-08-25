@@ -5,26 +5,26 @@ import { NbToastrService, NbWindowRef, NB_WINDOW_CONTEXT } from '@nebular/theme'
 import { SweetAlertConstants } from '../../../../@core/interfaces/auction/sweetalert-model';
 import { BasePage } from '../../../../@core/shared/base-page';
 
-import { NUMBERS_PATTERN, STRING_PATTERN } from '../../../../@components/constants';
-import { ServiceCatService } from '../../../../@core/backend/common/services/service-cat.service';
-import { ServiceCatInterface } from '../../../../@core/interfaces/auction/service.model';
+import { STRING_PATTERN } from '../../../../@components/constants';
+import { ResponseRepuveInterface } from '../../../../@core/interfaces/auction/response-repuve.model';
+import { ResponseRepuveService } from '../../../../@core/backend/common/services/reponse-repuve..service';
 
 @Component({
-  selector: 'ngx-services-detail',
-  templateUrl: './services-detail.component.html',
-  styleUrls: ['./services-detail.component.scss']
+  selector: 'ngx-response-repuve-detail',
+  templateUrl: './response-repuve-detail.component.html',
+  styleUrls: ['./response-repuve-detail.component.scss']
 })
-export class ServicesDetailComponent extends BasePage {
-
+export class ResponseRepuveDetailComponent extends BasePage {
+  
   public form: FormGroup;
-  private data: ServiceCatInterface;
+  private data: ResponseRepuveInterface;
   public actionBtn: string = "Guardar";
 
   constructor(
     private fb: FormBuilder,
     protected cd: ChangeDetectorRef,
     protected router: Router,
-    private service: ServiceCatService,
+    private service: ResponseRepuveService,
     public windowRef: NbWindowRef,
     public toastrService: NbToastrService,
     @Inject(NB_WINDOW_CONTEXT) context) {
@@ -40,12 +40,8 @@ export class ServicesDetailComponent extends BasePage {
 
   private prepareForm(): void {
     this.form = this.fb.group({
-      code: [null, Validators.compose([Validators.required, Validators.pattern(STRING_PATTERN), Validators.maxLength(30),  Validators.minLength(1) ])],
+      id: [null],
       description: [null, Validators.compose([Validators.required, Validators.pattern(STRING_PATTERN), Validators.maxLength(200),  Validators.minLength(1) ])],
-      unaffordabilityCriterion: [null, Validators.compose([Validators.pattern(STRING_PATTERN), Validators.maxLength(1),  Validators.minLength(1) ])],
-      subaccount:  [null, Validators.compose([Validators.required, Validators.pattern(STRING_PATTERN), Validators.maxLength(4),  Validators.minLength(1) ])],
-      registryNumber:  [null, Validators.compose([Validators.pattern(NUMBERS_PATTERN) ])],
-      cost:  [null, Validators.compose([Validators.pattern(STRING_PATTERN), Validators.maxLength(5),  Validators.minLength(1) ])],
     });
     if (this.data) {
       this.actionBtn = "Actualizar";
@@ -53,12 +49,8 @@ export class ServicesDetailComponent extends BasePage {
     }
   }
 
-  public get code() { return this.form.get('code'); }
+  public get id() { return this.form.get('id'); }
   public get description() { return this.form.get('description'); }
-  public get unaffordabilityCriterion() { return this.form.get('unaffordabilityCriterion'); }
-  public get subaccount() { return this.form.get('subaccount'); }
-  public get registryNumber() { return this.form.get('registryNumber'); }
-  public get cost() { return this.form.get('cost'); }
 
   public register(): void {
     const data = this.form.getRawValue();
@@ -80,7 +72,8 @@ export class ServicesDetailComponent extends BasePage {
   }
 
   private updateRegister(data): void {
-    this.service.update(this.data.code, data).subscribe(
+    delete data.id;
+    this.service.update(this.data.id, data).subscribe(
       (response) => {
         this.onLoadFailed('success', 'Servicio', 'Actualizado Correctamente');
       }, err => {
@@ -92,5 +85,6 @@ export class ServicesDetailComponent extends BasePage {
         this.windowRef.close();
       });
   }
+
 
 }
