@@ -6,7 +6,9 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { BatteryInterface } from '../../../../@core/interfaces/auction/battery.model';
 import { BatteryService } from '../../../../@core/backend/common/services/battery.service';
 import { BatteryDetailComponent } from '../battery-detail/battery-detail.component';
-import Swal from 'sweetalert2';
+import Swal, { SweetAlertResult } from 'sweetalert2';
+import { SweetAlertConstants, SweetalertModel } from '../../../../@core/interfaces/auction/sweetalert-model';
+import { SweetalertService } from '../../../../shared/sweetalert.service';
 
 @Component({
   selector: 'ngx-battery-list',
@@ -16,54 +18,44 @@ import Swal from 'sweetalert2';
 export class BatteryListComponent extends BasePage {
   rows: any;
 
+  searchForm: FormGroup;
   constructor(private service: BatteryService, public toastrService: NbToastrService,
-    private windowService: NbWindowService, private paginator: MatPaginatorIntl)
-   {
+    private windowService: NbWindowService, private paginator: MatPaginatorIntl,
+    private sweetalertService: SweetalertService) {
     super(toastrService);
     this.paginator.itemsPerPageLabel = "Registros por página";
     this.searchForm = new FormGroup({
       text: new FormControl()
     });
-    this.searchForm.controls['text'].valueChanges.subscribe((value:string)=>{
-      if(value.length > 0){
-        this.service.search(value).subscribe((rows:BatteryInterface[])=>{
-          this.length = rows.length;
-          this.rows = rows;
-        })
-      }else{
-        this.readBattery()
-      }
-    })
-
   }
 
   length = 100;
   pageSize = 10;
   pageSizeOptions: number[] = [5, 10, 25, 100];
-  searchForm:FormGroup
 
   // MatPaginator Output
   pageEvent: PageEvent = {
-    pageIndex:0,
-    pageSize:10,
-    length:100
+    pageIndex: 0,
+    pageSize: 10,
+    length: 100
   };
 
   setPageSizeOptions(setPageSizeOptionsInput: string) {
-    if (setPageSizeOptionsInput)
+    if (setPageSizeOptionsInput) {
       this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
+    }
   }
-
+  list: any;
   settings = {
     actions: {
       columnTitle: 'Acciones',
       add: true,
       edit: true,
-      delete: false,
+      delete: true,
     },
-    pager : {
-      display : false,
-    },      
+    pager: {
+      display: false,
+    },
     hideSubHeader: true,//oculta subheaader de filtro
     mode: 'external', // ventana externa
     add: {
@@ -106,49 +98,72 @@ export class BatteryListComponent extends BasePage {
   };
 
   ngOnInit(): void {
-    this.readBattery();
+    this.read(0, 10);
   }
 
-  readBattery = (() => {
- 
-    this.service.list(this.pageEvent.pageIndex, this.pageEvent.pageSize).subscribe((batteries:any) =>  {
-      this.rows = batteries.data;
-      this.length = batteries.count;
-    }, 
-    error => this.onLoadFailed('danger','Error conexión',error.message)
+  read = ((pageIndex: number, pageSize: number) => {
+    this.list = null;
+    this.service.list(pageIndex, pageSize).subscribe(
+      (dt: any) => {
+        this.list = dt.data;
+        this.length = dt.count;
+      },
+      err => {
+        let error = '';
+        if (err.status === 0) {
+          error = SweetAlertConstants.noConexion;
+        } else {
+          error = err.message;
+        }
+        this.sweetAlertMessage(SweetAlertConstants.SWEET_ALERT_TITLE_OPS, error);
+      }
     );
 
   });
 
-  changesPage (event){
-    if(event.pageSize!=this.pageSize){
+  changesPage(event) {
+    if (event.pageSize != this.pageSize) {
 
     }
     this.pageEvent = event;
-    this.readBattery()
+    this.read(event.pageIndex * event.pageSize, event.pageSize)
   }
 
   onDeleteConfirm(event): void {
-    Swal.fire({
-      title: 'Esta seguro de eliminar el registro?',
-      text: "Esta acción no es revertible!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      cancelButtonText:'Cancelar',
-      confirmButtonText: 'Si'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.service.delete(event.data.id).subscribe(data =>{
-          this.readBattery();
-        },err =>{
-          console.log(err);
-        })
-       
+    this.sweetalertQuestion('Eliminar', 'Desea eliminar este registro?').then(
+      question => {
+        // console.log(question);
+        if (question.isConfirmed) {
+          this.service.delete(event.data.id).subscribe(
+            data => {
+              // console.log(data);
+              // if (data.statusCode == 200) {
+              //   this.onLoadFailed('success', 'Eliminado', data.message);
+              // } else {
+              //   this.onLoadFailed('danger', 'Error', data.message);
+              // }
+              this.sweetAlertSuccessMessage('Eliminado correctamente');
+              this.read(this.pageEvent.pageIndex, this.pageEvent.pageSize);
+            }, err => {
+              let error = '';
+              if (err.status === 0) {
+                error = SweetAlertConstants.noConexion;
+              } else {
+                error = err.message;
+              }
+              this.sweetAlertMessage(SweetAlertConstants.SWEET_ALERT_TITLE_OPS, error);
+            });
+        }
       }
-    })
-    
+    ).catch(
+      e => {
+        console.error(e);
+      }
+    ).finally(
+      () => {
+        console.log('finaliza');
+      }
+    );
   }
 
   editRow(event) {
@@ -157,17 +172,42 @@ export class BatteryListComponent extends BasePage {
       maximize: false,
       fullScreen: false,
     };
-    this.windowService.open(BatteryDetailComponent, { title: `Editar batería`, context: { battery: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
-      this.readBattery();
+    const modalRef = this.windowService.open(BatteryDetailComponent, { title: `Editar`, context: { data: event.data }, buttons: buttonsConfig }).onClose.subscribe(() => {
+      this.read(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
-  
+
   }
 
   openWindow() {
-    this.windowService.open(BatteryDetailComponent, { title: `Nueva batería` }).onClose.subscribe(() => {
-      this.readBattery();
+    const modalRef = this.windowService.open(BatteryDetailComponent, { title: `Nuevo` }).onClose.subscribe(() => {
+      this.read(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
-    
-  }
 
+  }
+  private sweetAlertMessage(title: string, message: string) {
+    let sweetalert = new SweetalertModel();
+    sweetalert.title = title;
+    sweetalert.text = message;
+    sweetalert.icon = SweetAlertConstants.SWEET_ALERT_WARNING;
+    sweetalert.showConfirmButton = true;
+    sweetalert.showCancelButton = false;
+    this.sweetalertService.showAlertBasic(sweetalert);
+  }
+  private sweetalertQuestion(title: string, message: string): Promise<SweetAlertResult> {
+    let sweetalert = new SweetalertModel();
+    sweetalert.title = title;
+    sweetalert.text = message;
+    sweetalert.icon = SweetAlertConstants.SWEET_ALERT_WARNING;
+    sweetalert.showConfirmButton = true;
+    sweetalert.showCancelButton = true;
+    return this.sweetalertService.showAlertConfirm(sweetalert);
+  }
+  private sweetAlertSuccessMessage(title: string) {
+    let sweetalert = new SweetalertModel();
+    sweetalert.title = title;
+    sweetalert.showConfirmButton = false;
+    sweetalert.showCancelButton = false;
+    sweetalert.timer = SweetAlertConstants.SWEET_ALERT_TIMER_1500;
+    this.sweetalertService.showAlertBasic(sweetalert);
+  }
 }

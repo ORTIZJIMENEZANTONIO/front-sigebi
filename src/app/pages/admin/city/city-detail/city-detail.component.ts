@@ -75,6 +75,11 @@ export class CityDetailComponent extends BasePage {
 
   ngOnInit(): void {
 
+    this.subDelegationService.search('').subscribe(data => {
+      console.log(data)
+      this.filteredsubdelegations$.next(data);
+    })
+
     if (this.city) {
       this.actionBtn = "Actualizar";
       this.formCity.patchValue(this.city);
