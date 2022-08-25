@@ -87,7 +87,22 @@ export class CityDetailComponent extends BasePage {
   public get legendOffice() { return this.formCity.get('legendOffice'); }
   public get numRegister() { return this.formCity.get('numRegister'); }
 
-  public onSelectionChangeDelegation(event){
+    this.subDelegationService.search('').subscribe(data => {
+      console.log(data)
+      this.filteredsubdelegations$.next(data);
+    })
+
+    if (this.city) {
+      this.actionBtn = "Actualizar";
+      this.formCity.patchValue(this.city);
+      this.formCity.controls['numDelegation'].setValue(this.city.numDelegation['id'])
+      this.formCity.controls['detailDelegation'].setValue(this.city.numDelegation['description'])
+      this.formCity.controls['numSubDelegation'].setValue(this.city.numSubDelegation['id'])
+      this.formCity.controls['detailSubDelegation'].setValue(this.city.numSubDelegation['description'])
+    }
+  }
+
+  onSelectionChangeDelegation(event){
     if(event.id){
       this.formCity.controls['numDelegation'].setValue(event.id);
       this.formCity.controls['detailDelegation'].setValue(event.description);

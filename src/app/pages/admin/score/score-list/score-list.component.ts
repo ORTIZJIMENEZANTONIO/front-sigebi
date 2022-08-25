@@ -2,12 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { BasePage } from '../../../../@core/shared/base-page';
 import { ScoreService } from '../../../../@core/backend/common/services/score.service';
 import { ScoreDetailComponent } from '../score-detail/score-detail.component';
-import { ScoreInterface } from '../../../../@core/interfaces/auction/score.model';
 import { FormGroup, FormControl } from '@angular/forms';
 import { MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { NbToastrService, NbWindowService, NbWindowControlButtonsConfig } from '@nebular/theme';
-import Swal from 'sweetalert2';
-import { SweetAlertConstants } from '../../../../@core/interfaces/auction/sweetalert-model';
+import Swal, { SweetAlertResult } from 'sweetalert2';
+import { SweetAlertConstants, SweetalertModel } from '../../../../@core/interfaces/auction/sweetalert-model';
 import { SweetalertService } from '../../../../shared/sweetalert.service';
 
 
@@ -17,27 +16,44 @@ import { SweetalertService } from '../../../../shared/sweetalert.service';
   styleUrls: ['./score-list.component.scss']
 })
 export class ScoreListComponent extends BasePage {
-  public searchForm: FormGroup;
-  public rows: any;
-  public length = 100;
-  public pageSize = 10;
-  public pageSizeOptions: number[] = [5, 10, 25, 100];
+  searchForm: FormGroup;
+  constructor(private service: ScoreService, public toastrService: NbToastrService,
+    private windowService: NbWindowService, private paginator: MatPaginatorIntl,
+    private sweetalertService: SweetalertService) {
+    super(toastrService);
+    this.paginator.itemsPerPageLabel = "Registros por página";
+    this.searchForm = new FormGroup({
+      text: new FormControl()
+    });
+  }
+
+  length = 100;
+  pageSize = 10;
+  pageSizeOptions: number[] = [5, 10, 25, 100];
+
   // MatPaginator Output
-  public pageEvent: PageEvent = {
+  pageEvent: PageEvent = {
     pageIndex: 0,
     pageSize: 10,
     length: 100
   };
-  public settings = {
+
+  setPageSizeOptions(setPageSizeOptionsInput: string) {
+    if (setPageSizeOptionsInput) {
+      this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
+    }
+  }
+  list: any;
+  settings = {
     actions: {
       columnTitle: 'Acciones',
       add: true,
       edit: true,
-      delete: false,
+      delete: true,
     },
-    pager : {
-      display : false,
-    },      
+    pager: {
+      display: false,
+    },
     hideSubHeader: true,//oculta subheaader de filtro
     mode: 'external', // ventana externa
     add: {
@@ -78,40 +94,14 @@ export class ScoreListComponent extends BasePage {
     },
     noDataMessage: "No se encontrarón registros"
   };
-
-  constructor(
-    private service: ScoreService,
-    public toastrService: NbToastrService,
-    private windowService: NbWindowService,
-    private paginator: MatPaginatorIntl,
-    public sweetalertService: SweetalertService
-  ) {
-    super(toastrService, sweetalertService);
-    this.paginator.itemsPerPageLabel = "Registros por página";
-    this.searchForm = new FormGroup({
-      text: new FormControl()
-    });
-    this.searchForm.controls['text'].valueChanges.subscribe((value: string) => {
-      if (value.length > 0) {
-        this.service.search(value).subscribe((rows: ScoreInterface[]) => {
-          this.length = rows.length;
-          this.rows = rows;
-        });
-      } else {
-        this.read(0, 10);
-      }
-    });
-  }
-
   ngOnInit(): void {
     this.read(0, 10);
   }
-
-  private read(pageIndex: number, pageSize: number) {
-    this.rows = null;
+  read = ((pageIndex: number, pageSize: number) => {
+    this.list = null;
     this.service.list(pageIndex, pageSize).subscribe(
       (dt: any) => {
-        this.rows = dt.data;
+        this.list = dt.data;
         this.length = dt.count;
       },
       err => {
@@ -121,32 +111,35 @@ export class ScoreListComponent extends BasePage {
         } else {
           error = err.message;
         }
-        this.onLoadFailed('danger', 'Error', error);
-      }, () => {
-
+        this.sweetAlertMessage(SweetAlertConstants.SWEET_ALERT_TITLE_OPS, error);
       }
     );
-  };
 
-  public changesPage(event) {
+  });
+
+  changesPage(event) {
     if (event.pageSize != this.pageSize) {
 
     }
     this.pageEvent = event;
-    this.read(event.pageIndex, event.pageSize)
+    this.read(event.pageIndex * event.pageSize, event.pageSize)
   }
 
-  public onDeleteConfirm(event): void {
-    this.sweetalertQuestion('warning', 'Eliminar', 'Desea eliminar este registro?').then(
+  onDeleteConfirm(event): void {
+    this.sweetalertQuestion('Eliminar', 'Desea eliminar este registro?').then(
       question => {
+        // console.log(question);
         if (question.isConfirmed) {
           this.service.delete(event.data.id).subscribe(
             data => {
+              // console.log(data);
               // if (data.statusCode == 200) {
-              this.onLoadFailed('success', 'Eliminado', data.message);
+              //   this.onLoadFailed('success', 'Eliminado', data.message);
               // } else {
               //   this.onLoadFailed('danger', 'Error', data.message);
               // }
+              this.sweetAlertSuccessMessage('Eliminado correctamente');
+              this.read(this.pageEvent.pageIndex, this.pageEvent.pageSize);
             }, err => {
               let error = '';
               if (err.status === 0) {
@@ -154,15 +147,17 @@ export class ScoreListComponent extends BasePage {
               } else {
                 error = err.message;
               }
-              this.onLoadFailed('danger', 'Error', error);
-            }, () => {
-              this.read(this.pageEvent.pageIndex, this.pageEvent.pageSize);
+              this.sweetAlertMessage(SweetAlertConstants.SWEET_ALERT_TITLE_OPS, error);
             });
         }
       }
     ).catch(
       e => {
         console.error(e);
+      }
+    ).finally(
+      () => {
+        console.log('finaliza');
       }
     );
   }
@@ -178,16 +173,36 @@ export class ScoreListComponent extends BasePage {
     });
 
   }
-
-  public openWindow() {
-    const buttonsConfig: NbWindowControlButtonsConfig = {
-      minimize: false,
-      maximize: false,
-      fullScreen: false,
-    };
-    const modalRef = this.windowService.open(ScoreDetailComponent, { title: `Nuevo`, buttons: buttonsConfig }).onClose.subscribe(() => {
+  openWindow() {
+    const modalRef = this.windowService.open(ScoreDetailComponent, { title: `Nuevo` }).onClose.subscribe(() => {
       this.read(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
 
+  }
+  private sweetAlertMessage(title: string, message: string) {
+    let sweetalert = new SweetalertModel();
+    sweetalert.title = title;
+    sweetalert.text = message;
+    sweetalert.icon = SweetAlertConstants.SWEET_ALERT_WARNING;
+    sweetalert.showConfirmButton = true;
+    sweetalert.showCancelButton = false;
+    this.sweetalertService.showAlertBasic(sweetalert);
+  }
+  private sweetalertQuestion(title: string, message: string): Promise<SweetAlertResult> {
+    let sweetalert = new SweetalertModel();
+    sweetalert.title = title;
+    sweetalert.text = message;
+    sweetalert.icon = SweetAlertConstants.SWEET_ALERT_WARNING;
+    sweetalert.showConfirmButton = true;
+    sweetalert.showCancelButton = true;
+    return this.sweetalertService.showAlertConfirm(sweetalert);
+  }
+  private sweetAlertSuccessMessage(title: string) {
+    let sweetalert = new SweetalertModel();
+    sweetalert.title = title;
+    sweetalert.showConfirmButton = false;
+    sweetalert.showCancelButton = false;
+    sweetalert.timer = SweetAlertConstants.SWEET_ALERT_TIMER_1500;
+    this.sweetalertService.showAlertBasic(sweetalert);
   }
 }
