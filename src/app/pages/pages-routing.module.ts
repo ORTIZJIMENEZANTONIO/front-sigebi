@@ -82,6 +82,12 @@ const routes: Routes = [{
     },
     
     {
+      path: 'executive-processes',
+      loadChildren: () => import('./executive-processes/executive-processes.module')
+        .then(m => m.ExecutiveProcessesModule),
+    },
+    
+    {
       path: '',
       redirectTo: 'dashboard',
       pathMatch: 'full',
