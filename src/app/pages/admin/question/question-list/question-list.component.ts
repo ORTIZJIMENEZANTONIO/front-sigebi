@@ -1,13 +1,13 @@
-import Swal, { SweetAlertResult } from 'sweetalert2';
+import Swal from 'sweetalert2';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { NbToastrService, NbWindowControlButtonsConfig, NbWindowService } from '@nebular/theme';
 import { BasePage } from '../../../../@core/shared/base-page';
+
 import { QuestionService } from '../../../../@core/backend/common/services/question.service';
 import { QuestionDetailComponent } from '../question-detail/question-detail.component';
-import { SweetAlertConstants, SweetalertModel } from '../../../../@core/interfaces/auction/sweetalert-model';
-import { SweetalertService } from '../../../../shared/sweetalert.service';
+import { QuestionInterface } from '../../../../@core/interfaces/auction/question.model';
 
 @Component({
   selector: 'ngx-question-list',
@@ -15,16 +15,32 @@ import { SweetalertService } from '../../../../shared/sweetalert.service';
   styleUrls: ['./question-list.component.scss']
 })
 export class QuestionListComponent extends BasePage {
-  searchForm: FormGroup;
-  constructor(private service: QuestionService, public toastrService: NbToastrService,
-    private windowService: NbWindowService, private paginator: MatPaginatorIntl,
-    private sweetalertService: SweetalertService) {
+
+  constructor(
+    private service: QuestionService, 
+    public  toastrService: NbToastrService,
+    private windowService: NbWindowService, 
+    private paginator: MatPaginatorIntl
+  ) {
     super(toastrService);
     this.paginator.itemsPerPageLabel = "Registros por página";
     this.searchForm = new FormGroup({
       text: new FormControl()
     });
+    this.searchForm.controls['text'].valueChanges.subscribe((value:string)=>{
+      if(value.length > 0){
+        this.service.search(value).subscribe((rows:QuestionInterface[])=>{
+          this.length = rows.length;
+          this.rows = rows;
+        })
+      }else{
+        this.readData()
+      }
+    })
   }
+
+  rows: any;
+  searchForm:FormGroup;
 
   length = 100;
   pageSize = 10;
@@ -32,27 +48,21 @@ export class QuestionListComponent extends BasePage {
 
   // MatPaginator Output
   pageEvent: PageEvent = {
-    pageIndex: 0,
-    pageSize: 10,
-    length: 100
+    pageIndex:0,
+    pageSize:10,
+    length:100
   };
 
-  setPageSizeOptions(setPageSizeOptionsInput: string) {
-    if (setPageSizeOptionsInput) {
-      this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
-    }
-  }
-  list: any;
   settings = {
     actions: {
       columnTitle: 'Acciones',
       add: true,
       edit: true,
-      delete: true,
+      delete: false,
     },
-    pager: {
-      display: false,
-    },
+    pager : {
+      display : false,
+    },      
     hideSubHeader: true,//oculta subheaader de filtro
     mode: 'external', // ventana externa
     add: {
@@ -95,72 +105,50 @@ export class QuestionListComponent extends BasePage {
   };
 
   ngOnInit(): void {
-    this.read(0, 10);
+    this.readData();
+  }
+  
+  setPageSizeOptions(setPageSizeOptionsInput: string) {
+    if (setPageSizeOptionsInput)
+      this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
   }
 
-  read = ((pageIndex: number, pageSize: number) => {
-    this.list = null;
-    this.service.list(pageIndex, pageSize).subscribe(
-      (dt: any) => {
-        this.list = dt.data;
-        this.length = dt.count;
-      },
-      err => {
-        let error = '';
-        if (err.status === 0) {
-          error = SweetAlertConstants.noConexion;
-        } else {
-          error = err.message;
-        }
-        this.sweetAlertMessage(SweetAlertConstants.SWEET_ALERT_TITLE_OPS, error);
-      }
-    );
-
+  readData = ( () => {
+    this.rows = null;
+    this.service.list(this.pageEvent.pageIndex, this.pageEvent.pageSize).subscribe((data:any) => {
+      this.rows = data.data;
+      this.length = data.count;
+    }, error => this.onLoadFailed('danger','Error conexión',error.message) );
   });
 
-  changesPage(event) {
-    if (event.pageSize != this.pageSize) {
+  changesPage (event){
+    if(event.pageSize!=this.pageSize){
 
     }
     this.pageEvent = event;
-    this.read(event.pageIndex * event.pageSize, event.pageSize)
+    this.readData();
   }
 
   onDeleteConfirm(event): void {
-    this.sweetalertQuestion('Eliminar', 'Desea eliminar este registro?').then(
-      question => {
-        // console.log(question);
-        if (question.isConfirmed) {
-          this.service.delete(event.data.id).subscribe(
-            data => {
-              // console.log(data);
-              // if (data.statusCode == 200) {
-              //   this.onLoadFailed('success', 'Eliminado', data.message);
-              // } else {
-              //   this.onLoadFailed('danger', 'Error', data.message);
-              // }
-              this.sweetAlertSuccessMessage('Eliminado correctamente');
-              this.read(this.pageEvent.pageIndex, this.pageEvent.pageSize);
-            }, err => {
-              let error = '';
-              if (err.status === 0) {
-                error = SweetAlertConstants.noConexion;
-              } else {
-                error = err.message;
-              }
-              this.sweetAlertMessage(SweetAlertConstants.SWEET_ALERT_TITLE_OPS, error);
-            });
-        }
+    Swal.fire({
+      title: 'Esta seguro de eliminar el registro?',
+      text: "Esta acción no es revertible!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText:'Cancelar',
+      confirmButtonText: 'Si'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.service.delete(event.data.id).subscribe(() =>{
+          this.readData();
+        },err =>{
+          console.error(err);
+        })
+       
       }
-    ).catch(
-      e => {
-        console.error(e);
-      }
-    ).finally(
-      () => {
-        console.log('finaliza');
-      }
-    );
+    })
   }
 
   editRow(event) {
@@ -169,42 +157,21 @@ export class QuestionListComponent extends BasePage {
       maximize: false,
       fullScreen: false,
     };
-    const modalRef = this.windowService.open(QuestionDetailComponent, { title: `Editar`, context: { data: event.data }, buttons: buttonsConfig }).onClose.subscribe(() => {
-      this.read(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
-    });
-
+    
+    this.windowService.open(QuestionDetailComponent, { 
+      title: `Editar pregunta`, 
+      context: { questions: event.data }, 
+      buttons: buttonsConfig  }).onClose.subscribe(() => {
+        this.readData();
+      }
+    );
   }
 
   openWindow() {
-    const modalRef = this.windowService.open(QuestionDetailComponent, { title: `Nuevo` }).onClose.subscribe(() => {
-      this.read(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
+    this.windowService.open(QuestionDetailComponent, { title: `Nueva pregunta` }).onClose.subscribe(() => {
+      this.readData();
     });
+    
+  }
 
-  }
-  private sweetAlertMessage(title: string, message: string) {
-    let sweetalert = new SweetalertModel();
-    sweetalert.title = title;
-    sweetalert.text = message;
-    sweetalert.icon = SweetAlertConstants.SWEET_ALERT_WARNING;
-    sweetalert.showConfirmButton = true;
-    sweetalert.showCancelButton = false;
-    this.sweetalertService.showAlertBasic(sweetalert);
-  }
-  private sweetalertQuestion(title: string, message: string): Promise<SweetAlertResult> {
-    let sweetalert = new SweetalertModel();
-    sweetalert.title = title;
-    sweetalert.text = message;
-    sweetalert.icon = SweetAlertConstants.SWEET_ALERT_WARNING;
-    sweetalert.showConfirmButton = true;
-    sweetalert.showCancelButton = true;
-    return this.sweetalertService.showAlertConfirm(sweetalert);
-  }
-  private sweetAlertSuccessMessage(title: string) {
-    let sweetalert = new SweetalertModel();
-    sweetalert.title = title;
-    sweetalert.showConfirmButton = false;
-    sweetalert.showCancelButton = false;
-    sweetalert.timer = SweetAlertConstants.SWEET_ALERT_TIMER_1500;
-    this.sweetalertService.showAlertBasic(sweetalert);
-  }
 }
