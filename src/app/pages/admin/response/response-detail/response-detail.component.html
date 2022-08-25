@@ -1,0 +1,86 @@
+<nb-card>
+  <nb-card-body>
+    <form [formGroup]="form">
+      <div class="form-group row">
+        <input type="number" nbInput fullWidth formControlName="id"
+          placeholder="Id de respuesta ej. 1"
+          [status]="(id?.errors?.required || id?.hasError('pattern') ) && id.touched ? 'danger' : ''"
+        />
+        <ngx-validation-message label="Identificador" 
+          [showRequired]="id?.errors?.required && id.touched"
+          [showPattern]="id?.hasError('pattern') && id.touched">
+        </ngx-validation-message>
+      </div>
+      
+      <div class="form-group row">
+        <input type="text" nbInput fullWidth formControlName="question"
+          placeholder="Pregunta"
+          [nbAutocomplete]="auto"
+          [status]="(question?.hasError('pattern') ) ? 'danger' : ''"
+        />
+        <nb-autocomplete #auto [activeFirst]="false"
+          (selectedChange)="onSelectionChangeQuestion($event)">
+          <nb-option *ngFor="let option of filteredOptions$ | async" [value]="option">
+            {{ option.text }}
+          </nb-option>
+        </nb-autocomplete>
+        <ngx-validation-message label="Pregunta" 
+          [showPattern]="question?.hasError('pattern')">
+        </ngx-validation-message>
+      </div>
+    
+      <div class="form-group row">
+        <input type="string" nbInput fullWidth formControlName="text"
+          placeholder="Respuesta"
+          [status]="(text?.errors?.required || text?.hasError('minlength') || text?.hasError('maxlength') || text?.hasError('pattern')) && text.touched ? 'danger' : ''"
+        />
+        <ngx-validation-message label="Respuesta" 
+          [showMinLength]="text?.hasError('minlength')"
+          [showMaxLength]="text?.hasError('maxlength')"
+          [showRequired]="text?.errors?.required && text.touched"
+          [showPattern]="text?.hasError('pattern') && text.touched" minLength=1 maxLength=80>
+        </ngx-validation-message>
+      </div>
+
+      <div class="form-group row">
+        <input type="number" nbInput fullWidth formControlName="startValue"
+          placeholder="Valor inicial ej. 1"
+          [status]="(startValue?.errors?.required || startValue?.hasError('pattern') ) && startValue.touched ? 'danger' : ''"
+        />
+        <ngx-validation-message label="Valor inicial" 
+          [showRequired]="startValue?.errors?.required && startValue.touched"
+          [showPattern]="startValue?.hasError('pattern') && startValue.touched">
+        </ngx-validation-message>
+      </div>
+
+      <div class="form-group row">
+        <input type="number" nbInput fullWidth formControlName="endValue"
+          placeholder="Valor final ej. 1"
+          [status]="(endValue?.errors?.required || endValue?.hasError('pattern') ) && endValue.touched ? 'danger' : ''"
+        />
+        <ngx-validation-message label="Valor final" 
+          [showRequired]="endValue?.errors?.required && endValue.touched"
+          [showPattern]="endValue?.hasError('pattern') && endValue.touched">
+        </ngx-validation-message>
+      </div>
+
+      <div class="form-group row">
+        <input type="number" nbInput fullWidth formControlName="registryNumber"
+          placeholder="No. de registro"
+          [status]="(registryNumber?.errors?.required || registryNumber?.hasError('pattern') ) && registryNumber.touched ? 'danger' : ''"
+        />
+        <ngx-validation-message label="No. de registro" 
+          [showRequired]="registryNumber?.errors?.required && registryNumber.touched"
+          [showPattern]="registryNumber?.hasError('pattern') && registryNumber.touched">
+        </ngx-validation-message>
+      </div>
+    
+      <div class="form-group">
+        <div class="d-flex justify-content-center">
+          <button type="submit" nbButton status="primary" [disabled]="!form.valid"
+            (click)="register()">{{actionBtn}}</button>
+        </div>
+      </div>
+    </form>
+  </nb-card-body>
+</nb-card>

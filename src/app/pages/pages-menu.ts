@@ -591,8 +591,16 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link:'/pages/admin/zone-geographic'
       },
       {
+        title: 'Respuestas',
+        link: '/pages/admin/response'
+      },
+      {
         title: 'Servicios',
         link: '/pages/admin/service-cat'
+      },
+      {
+        title: 'Series IFAI',
+        link: '/pages/admin/ifai-serie'
       },
       {
         title: 'Empresa terceros',

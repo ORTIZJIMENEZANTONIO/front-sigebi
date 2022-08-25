@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BasePage } from '../../../../@core/shared/base-page';
 import { ScoreService } from '../../../../@core/backend/common/services/score.service';
 import { ScoreDetailComponent } from '../score-detail/score-detail.component';
+import { ScoreInterface } from '../../../../@core/interfaces/auction/score.model';
 import { FormGroup, FormControl } from '@angular/forms';
 import { MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { NbToastrService, NbWindowService, NbWindowControlButtonsConfig } from '@nebular/theme';
@@ -15,44 +16,27 @@ import { SweetalertService } from '../../../../shared/sweetalert.service';
   styleUrls: ['./score-list.component.scss']
 })
 export class ScoreListComponent extends BasePage {
-  searchForm: FormGroup;
-  constructor(private service: ScoreService, public toastrService: NbToastrService,
-    private windowService: NbWindowService, private paginator: MatPaginatorIntl,
-    public sweetalertService: SweetalertService) {
-    super(toastrService);
-    this.paginator.itemsPerPageLabel = "Registros por página";
-    this.searchForm = new FormGroup({
-      text: new FormControl()
-    });
-  }
 
-  length = 100;
-  pageSize = 10;
-  pageSizeOptions: number[] = [5, 10, 25, 100];
-
-  // MatPaginator Output
-  pageEvent: PageEvent = {
+  public searchForm: FormGroup;
+  public rows: any;
+  public length = 100;
+  public pageSize = 10;
+  public pageSizeOptions: number[] = [5, 10, 25, 100];
+  public pageEvent: PageEvent = {
     pageIndex: 0,
     pageSize: 10,
     length: 100
   };
-
-  setPageSizeOptions(setPageSizeOptionsInput: string) {
-    if (setPageSizeOptionsInput) {
-      this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
-    }
-  }
-  list: any;
-  settings = {
+  public settings = {
     actions: {
       columnTitle: 'Acciones',
       add: true,
       edit: true,
-      delete: true,
+      delete: false,
     },
-    pager: {
-      display: false,
-    },
+    pager : {
+      display : false,
+    },      
     hideSubHeader: true,//oculta subheaader de filtro
     mode: 'external', // ventana externa
     add: {
@@ -93,14 +77,40 @@ export class ScoreListComponent extends BasePage {
     },
     noDataMessage: "No se encontrarón registros"
   };
+
+  constructor(
+    private service: ScoreService,
+    public toastrService: NbToastrService,
+    private windowService: NbWindowService,
+    private paginator: MatPaginatorIntl,
+    public sweetalertService: SweetalertService
+  ) {
+    super(toastrService, sweetalertService);
+    this.paginator.itemsPerPageLabel = "Registros por página";
+    this.searchForm = new FormGroup({
+      text: new FormControl()
+    });
+    this.searchForm.controls['text'].valueChanges.subscribe((value: string) => {
+      if (value.length > 0) {
+        this.service.search(value).subscribe((rows: ScoreInterface[]) => {
+          this.length = rows.length;
+          this.rows = rows;
+        });
+      } else {
+        this.read(0, 10);
+      }
+    });
+  }
+
   ngOnInit(): void {
     this.read(0, 10);
   }
-  read = ((pageIndex: number, pageSize: number) => {
-    this.list = null;
+
+  private read(pageIndex: number, pageSize: number) {
+    this.rows = null;
     this.service.list(pageIndex, pageSize).subscribe(
       (dt: any) => {
-        this.list = dt.data;
+        this.rows = dt.data;
         this.length = dt.count;
       },
       err => {
@@ -111,29 +121,27 @@ export class ScoreListComponent extends BasePage {
           error = err.message;
         }
         this.onLoadFailed('danger', 'Error', error);
+      }, () => {
       }
     );
+  };
 
-  });
-
-  changesPage(event) {
+  public changesPage(event) {
     if (event.pageSize != this.pageSize) {
 
     }
     this.pageEvent = event;
-    this.read(event.pageIndex * event.pageSize, event.pageSize)
+    this.read(event.pageIndex, event.pageSize)
   }
 
-  onDeleteConfirm(event): void {
+  public onDeleteConfirm(event): void {
     this.sweetalertQuestion('warning', 'Eliminar', 'Desea eliminar este registro?').then(
       question => {
-        // console.log(question);
         if (question.isConfirmed) {
           this.service.delete(event.data.id).subscribe(
             data => {
-              // console.log(data);
               // if (data.statusCode == 200) {
-              //   this.onLoadFailed('success', 'Eliminado', data.message);
+              this.onLoadFailed('success', 'Eliminado', data.message);
               // } else {
               //   this.onLoadFailed('danger', 'Error', data.message);
               // }
@@ -147,16 +155,14 @@ export class ScoreListComponent extends BasePage {
                 error = err.message;
               }
               this.onLoadFailed('danger', 'Error', error);
+            }, () => {
+              this.read(this.pageEvent.pageIndex, this.pageEvent.pageSize);
             });
         }
       }
     ).catch(
       e => {
         console.error(e);
-      }
-    ).finally(
-      () => {
-        console.log('finaliza');
       }
     );
   }
@@ -172,11 +178,16 @@ export class ScoreListComponent extends BasePage {
     });
 
   }
-  openWindow() {
-    const modalRef = this.windowService.open(ScoreDetailComponent, { title: `Nuevo` }).onClose.subscribe(() => {
+
+  public openWindow() {
+    const buttonsConfig: NbWindowControlButtonsConfig = {
+      minimize: false,
+      maximize: false,
+      fullScreen: false,
+    };
+    const modalRef = this.windowService.open(ScoreDetailComponent, { title: `Nuevo`, buttons: buttonsConfig }).onClose.subscribe(() => {
       this.read(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
 
   }
-
 }

@@ -1,13 +1,12 @@
 import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { NbWindowRef, NB_WINDOW_CONTEXT, NbWindowService, NbToastrService } from '@nebular/theme';
-import { BaseApp } from '../../../../@core/shared/base-app';
-import { SafeService } from '../../../../@core/backend/common/services/safe.service';
-import { SweetalertService } from '../../../../shared/sweetalert.service';
-import { SweetAlertConstants, SweetalertModel } from '../../../../@core/interfaces/auction/sweetalert-model';
+import { NbWindowRef, NB_WINDOW_CONTEXT, NbToastrService } from '@nebular/theme';
 import { BasePage } from '../../../../@core/shared/base-page';
+import { SafeInterface } from '../../../../@core/interfaces/auction/safe.model';
+import { SafeService } from '../../../../@core/backend/common/services/safe.service';
+import { SweetAlertConstants } from '../../../../@core/interfaces/auction/sweetalert-model';
+
 
 @Component({
   selector: 'ngx-safe-detail',
@@ -16,8 +15,11 @@ import { BasePage } from '../../../../@core/shared/base-page';
 })
 export class SafeDetailComponent extends BasePage {
 
-  Form: FormGroup;
-  data: any = {};
+  storehouse: SafeInterface;
+
+  public form: FormGroup;
+  private data: any = {};
+  public actionBtn: string = "Guardar";
 
   constructor(
     private fb: FormBuilder,
@@ -25,19 +27,19 @@ export class SafeDetailComponent extends BasePage {
     protected router: Router,
     private service: SafeService,
     public windowRef: NbWindowRef,
-    @Inject(NB_WINDOW_CONTEXT) context,
-    private dom: DomSanitizer,
-    private windowService: NbWindowService,
-    public toA: NbToastrService,
-    public sweetalertService: SweetalertService) {
-    super(toA);
+    public toastrService: NbToastrService,
+    @Inject(NB_WINDOW_CONTEXT) context
+  ) {
+    super(toastrService);
     if (null != context.data) {
       this.data = context.data;
     }
   }
-  actionBtn: string = "Guardar";
-
-    form = this.fb.group({
+  ngOnInit(): void {
+    this.prepareForm();
+  }
+  private prepareForm(): void {
+    this.form = this.fb.group({
 
       idSafe:[''],
       manager: ['',Validators.required],
@@ -50,17 +52,7 @@ export class SafeDetailComponent extends BasePage {
       cityCode: ['',Validators.required],
 
     });
-  
-    get validateSafe() {
-      return this.form.controls;
-    }
-    ngOnInit(): void {
-      if (this.data.id != null) {
-        this.actionBtn = "Actualizar";
-        this.form.patchValue(this.data);
-      }
-  
-    }
+  }
   
     public register(): void {
       const data = this.form.getRawValue();
@@ -97,6 +89,10 @@ export class SafeDetailComponent extends BasePage {
         }, () => {
           this.windowRef.close();
         });
-    }
-  }
-  
+        if (this.data.id != null) {
+          this.actionBtn = "Actualizar";
+          this.form.patchValue(this.data);
+        }
+      }
+
+}

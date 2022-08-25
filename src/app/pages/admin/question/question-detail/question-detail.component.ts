@@ -4,9 +4,12 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { NbWindowRef, NB_WINDOW_CONTEXT, NbWindowService, NbToastrService } from '@nebular/theme';
 import { BasePage } from '../../../../@core/shared/base-page';
+
+import { QuestionInterface } from '../../../../@core/interfaces/auction/question.model';
 import { QuestionService } from '../../../../@core/backend/common/services/question.service';
 import { SweetalertService } from '../../../../shared/sweetalert.service';
 import { SweetAlertConstants } from '../../../../@core/interfaces/auction/sweetalert-model';
+
 
 
 @Component({
@@ -16,8 +19,9 @@ import { SweetAlertConstants } from '../../../../@core/interfaces/auction/sweeta
 })
 export class QuestionDetailComponent extends BasePage {
 
-  Form: FormGroup;
-  data: any = {};
+  public form: FormGroup;
+  private data: any = {};
+  public actionBtn: string = "Guardar";
 
   constructor(
     private fb: FormBuilder,
@@ -25,75 +29,68 @@ export class QuestionDetailComponent extends BasePage {
     protected router: Router,
     private service: QuestionService,
     public windowRef: NbWindowRef,
-    @Inject(NB_WINDOW_CONTEXT) context,
-    private dom: DomSanitizer,
-    private windowService: NbWindowService,
     public toastrService: NbToastrService,
-    public sweetalertService: SweetalertService) {
+    @Inject(NB_WINDOW_CONTEXT) context
+  ) {
     super(toastrService);
     if (null != context.data) {
       this.data = context.data;
     }
   }
-  actionBtn: string = "Guardar";
+  ngOnInit(): void {
+    this.prepareForm();
+  }
+  private prepareForm(): void {
+    this.form = this.fb.group({
 
-    form = this.fb.group({
-
-      id:[null],
-      text: [null, Validators.compose([Validators.pattern(""), Validators.required])],
-      type: [null, Validators.compose([Validators.pattern(""), Validators.required])],
-      maximumScore: [null, Validators.compose([Validators.pattern(""), Validators.required])],
-      registerNumber: [null, Validators.compose([Validators.pattern(""), Validators.required])],
+      id:[''],
+      text: ['',Validators.required],
+      type: ['', Validators.required],
+      maximumScore: ['',[Validators.required]],
+      registerNumber: ['',[Validators.required]],
       
     });
   
-    get validateQuestion() {
-      return this.form.controls;
+    if (this.data.id != null) {
+      this.actionBtn = "Actualizar";
+      this.form.patchValue(this.data);
     }
-    ngOnInit(): void {
-      if (this.data.id != null) {
-        this.actionBtn = "Actualizar";
-        this.form.patchValue(this.data);
-      }
-  
-    }
-  
-    public register(): void {
-      const data = this.form.getRawValue();
-      this.actionBtn == "Guardar" ? this.createRegister(data) : this.updateRegister(data);
-    }
-    private createRegister(data): void {
-      this.service.register(data).subscribe(
-        data => {
-          this.onLoadFailed('success', 'Despacho', 'Registrado Correctamente');
-        }, err => {
-          let error = '';
-          if (err.status === 0) {
-            error = SweetAlertConstants.noConexion;
-          } else {
-            error = err.message;
-          }
-          this.onLoadFailed('danger', 'Error', error);
-        }, () => {
-          this.windowRef.close();
-        });
-    }
-    private updateRegister(data): void {
-      this.service.update(this.data.id, data).subscribe(
-        data => {
-          this.onLoadFailed('success', 'Despacho', 'Actualizado Correctamente');
-        }, err => {
-          let error = '';
-          if (err.status === 0) {
-            error = SweetAlertConstants.noConexion;
-          } else {
-            error = err.message;
-          }
-          this.onLoadFailed('danger', 'Error', error);
-        }, () => {
-          this.windowRef.close();
-        });
-    }
-  
   }
   
+  public register(): void {
+    const data = this.form.getRawValue();
+    this.actionBtn == "Guardar" ? this.createRegister(data) : this.updateRegister(data);
+  }
+  private createRegister(data): void {
+    this.service.register(data).subscribe(
+      data => {
+        this.onLoadFailed('success', 'Despacho', 'Registrado Correctamente');
+      }, err => {
+        let error = '';
+        if (err.status === 0) {
+          error = SweetAlertConstants.noConexion;
+        } else {
+          error = err.message;
+        }
+        this.onLoadFailed('danger', 'Error', error);
+      }, () => {
+        this.windowRef.close();
+      });
+  }
+  private updateRegister(data): void {
+    this.service.update(this.data.id, data).subscribe(
+      data => {
+        this.onLoadFailed('success', 'Despacho', 'Actualizado Correctamente');
+      }, err => {
+        let error = '';
+        if (err.status === 0) {
+          error = SweetAlertConstants.noConexion;
+        } else {
+          error = err.message;
+        }
+        this.onLoadFailed('danger', 'Error', error);
+      }, () => {
+        this.windowRef.close();
+      });
+  }
+}

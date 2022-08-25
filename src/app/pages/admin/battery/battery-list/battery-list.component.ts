@@ -6,8 +6,8 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { BatteryInterface } from '../../../../@core/interfaces/auction/battery.model';
 import { BatteryService } from '../../../../@core/backend/common/services/battery.service';
 import { BatteryDetailComponent } from '../battery-detail/battery-detail.component';
-import { SweetAlertConstants, SweetalertModel } from '../../../../@core/interfaces/auction/sweetalert-model';
 import { SweetalertService } from '../../../../shared/sweetalert.service';
+import { SweetAlertConstants } from '../../../../@core/interfaces/auction/sweetalert-model';
 
 @Component({
   selector: 'ngx-battery-list',

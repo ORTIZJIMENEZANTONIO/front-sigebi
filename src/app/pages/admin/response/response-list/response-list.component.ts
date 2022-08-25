@@ -1,22 +1,22 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { NbToastrService, NbWindowControlButtonsConfig, NbWindowService } from '@nebular/theme';
+import { SweetAlertResult } from 'sweetalert2';
+import { ResponseService } from '../../../../@core/backend/common/services/response.service';
+import { ResponseInterface } from '../../../../@core/interfaces/auction/response.model';
+import { SweetAlertConstants, SweetalertModel } from '../../../../@core/interfaces/auction/sweetalert-model';
+import { BaseApp } from '../../../../@core/shared/base-app';
 import { BasePage } from '../../../../@core/shared/base-page';
-import { FormControl, FormGroup } from '@angular/forms';
-import Swal from 'sweetalert2';
-import { StorehouseInterface } from '../../../../@core/interfaces/auction/storehouse.model';
-import { StorehouseService } from '../../../../@core/backend/common/services/storehouse.service';
-import { StorehouseDetailComponent } from '../storehouse-detail/storehouse-detail.component';
-import { SweetAlertConstants } from '../../../../@core/interfaces/auction/sweetalert-model';
 import { SweetalertService } from '../../../../shared/sweetalert.service';
-
+import { ResponseDetailComponent } from '../response-detail/response-detail.component';
 
 @Component({
-  selector: 'ngx-storehouse-list',
-  templateUrl: './storehouse-list.component.html',
-  styleUrls: ['./storehouse-list.component.scss']
+  selector: 'ngx-response-list',
+  templateUrl: './response-list.component.html',
+  styleUrls: ['./response-list.component.scss']
 })
-export class StorehouseListComponent extends BasePage {
+export class ResponseListComponent extends BasePage implements OnInit {
 
   public searchForm: FormGroup;
   public list: any;
@@ -29,16 +29,16 @@ export class StorehouseListComponent extends BasePage {
     pageSize: 10,
     length: 100
   };
-  public  settings = {
+  public settings = {
     actions: {
       columnTitle: 'Acciones',
       add: true,
       edit: true,
       delete: false,
     },
-    pager : {
-      display : false,
-    },      
+    pager: {
+      display: false,
+    },
     hideSubHeader: true,//oculta subheaader de filtro
     mode: 'external', // ventana externa
     add: {
@@ -56,40 +56,40 @@ export class StorehouseListComponent extends BasePage {
       confirmDelete: true,
     },
     columns: {
-      idStorehouse: {
+      id: {
         title: 'Registro',
+        type: 'number',
+      },
+      idQuestion: {
+        title: 'Pregunta',
+        type: 'string',
+        valuePrepareFunction:(value) =>{
+          return value.text
+        }
+      },
+      text: {
+        title: 'Respuesta',
         type: 'string',
       },
-      manager: {
-        title: 'Encargado',
-        type: 'string'
+      startValue: {
+        title: 'Valor inicial',
+        type: 'number',
       },
-      description: {
-        title: 'Descripción',
-        type: 'string'
+      endValue: {
+        title: 'Valor final',
+        type: 'number',
       },
-      municipality: {
-        title: 'Municipio',
-        type: 'string',
-      },
-      locality: {
-        title: 'Localidad',
-        type: 'string',
-      },
-      ubication: {
-        title: 'Ubicación',
-        type: 'string',
-      },
-      idEntity: {
-        title: 'Entidad',
-        type: 'string',
+      registryNumber: {
+        title: 'No. de registro',
+        type: 'number',
       }
+
     },
     noDataMessage: "No se encontrarón registros"
   };
 
   constructor(
-    private service: StorehouseService,
+    private service: ResponseService,
     public toastrService: NbToastrService,
     private windowService: NbWindowService,
     private paginator: MatPaginatorIntl,
@@ -102,7 +102,7 @@ export class StorehouseListComponent extends BasePage {
     });
     this.searchForm.controls['text'].valueChanges.subscribe((value: string) => {
       if (value.length > 0) {
-        this.service.search(value).subscribe((rows: StorehouseInterface[]) => {
+        this.service.search(value).subscribe((rows: ResponseInterface[]) => {
           this.length = rows.length;
           this.list = rows;
         })
@@ -145,18 +145,13 @@ export class StorehouseListComponent extends BasePage {
     this.read(event.pageIndex, event.pageSize)
   }
 
-
   public onDeleteConfirm(event): void {
     this.sweetalertQuestion('warning', 'Eliminar', 'Desea eliminar este registro?').then(
       question => {
         if (question.isConfirmed) {
           this.service.delete(event.data.id).subscribe(
             data => {
-              // if (data.statusCode == 200) {
               this.onLoadFailed('success', 'Eliminado', data.message);
-              // } else {
-              //   this.onLoadFailed('danger', 'Error', data.message);
-              // }
             }, err => {
               let error = '';
               if (err.status === 0) {
@@ -177,18 +172,17 @@ export class StorehouseListComponent extends BasePage {
     );
   }
 
-  editRow(event) {
+  public editRow(event) {
     const buttonsConfig: NbWindowControlButtonsConfig = {
       minimize: false,
       maximize: false,
       fullScreen: false,
     };
-    const modalRef = this.windowService.open(StorehouseDetailComponent, { title: `Editar`, context: { data: event.data }, buttons: buttonsConfig }).onClose.subscribe(() => {
+    const modalRef = this.windowService.open(ResponseDetailComponent, { title: `Editar`, context: { data: event.data }, buttons: buttonsConfig }).onClose.subscribe(() => {
       this.read(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
 
   }
-
 
   public openWindow() {
     const buttonsConfig: NbWindowControlButtonsConfig = {
@@ -196,9 +190,10 @@ export class StorehouseListComponent extends BasePage {
       maximize: false,
       fullScreen: false,
     };
-    const modalRef = this.windowService.open(StorehouseDetailComponent, { title: `Nuevo`, buttons: buttonsConfig }).onClose.subscribe(() => {
+    const modalRef = this.windowService.open(ResponseDetailComponent, { title: `Nuevo`, buttons: buttonsConfig }).onClose.subscribe(() => {
       this.read(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
 
   }
+
 }

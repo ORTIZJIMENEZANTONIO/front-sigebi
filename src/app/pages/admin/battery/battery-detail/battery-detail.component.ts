@@ -11,7 +11,6 @@ import { BasePage } from '../../../../@core/shared/base-page';
   templateUrl: './battery-detail.component.html',
   styleUrls: ['./battery-detail.component.scss']
 })
-
 export class BatteryDetailComponent extends BasePage implements OnInit {
   public form: FormGroup;
   private data: any = {};
@@ -49,7 +48,6 @@ export class BatteryDetailComponent extends BasePage implements OnInit {
       this.form.patchValue(this.data);
     }
   }
-
   public get storeCode() { return this.form.get('storeCode'); }
   public get description() { return this.form.get('description'); }
   public get registerNumber() { return this.form.get('registerNumber'); }
@@ -76,7 +74,7 @@ export class BatteryDetailComponent extends BasePage implements OnInit {
       });
   }
   private updateRegister(data): void {
-    this.service.update(this.data.id, data).subscribe(
+    this.service.update(this.data.idBattery, data).subscribe(
       data => {
         this.onLoadFailed('success', 'Despacho', 'Actualizado Correctamente');
       }, err => {

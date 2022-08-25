@@ -1,6 +1,6 @@
 export interface IfaiSerieInterface {
 
-  code: string;
+  code: string | null;
   typeProcedure: string;
   description: string | null;
   status: string;

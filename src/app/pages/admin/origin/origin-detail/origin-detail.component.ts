@@ -1,13 +1,20 @@
 import { ChangeDetectorRef, Component, Inject } from '@angular/core';
-import { BaseApp } from '../../../../@core/shared/base-app';
+import { BasePage } from '../../../../@core/shared/base-page';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+<<<<<<< HEAD
 import { NbWindowRef, NB_WINDOW_CONTEXT, NbWindowService, NbToastrService } from '@nebular/theme';
 import { OriginService  } from '../../../../@core/backend/common/services/origin.service';
 import { SweetalertService } from '../../../../shared/sweetalert.service';
 import { SweetAlertConstants, SweetalertModel } from '../../../../@core/interfaces/auction/sweetalert-model';
 import { BasePage } from '../../../../@core/shared/base-page';
+=======
+import { NbWindowRef, NB_WINDOW_CONTEXT, NbWindowService } from '@nebular/theme';
+
+import { OriginInterface } from '../../../../@core/interfaces/auction/origin.model';
+import { OriginService  } from '../../../../@core/backend/common/services/origin.service';
+>>>>>>> 3fee159132d2c12e33e949fae17d361950d48746
 
 @Component({
   selector: 'ngx-origin-detail',
@@ -16,14 +23,15 @@ import { BasePage } from '../../../../@core/shared/base-page';
 })
 export class OriginDetailComponent extends BasePage {
 
-  Form: FormGroup;
-  data: any = {};
+  form: FormGroup;
+  origin: OriginInterface;
 
   constructor(
-    private fb: FormBuilder,
-    protected cd: ChangeDetectorRef,
-    protected router: Router,
+    private fb: FormBuilder, 
+    protected cd: ChangeDetectorRef, 
+    protected router: Router, 
     private service: OriginService,
+<<<<<<< HEAD
     public windowRef: NbWindowRef,
     @Inject(NB_WINDOW_CONTEXT) context,
     private dom: DomSanitizer,
@@ -36,8 +44,18 @@ export class OriginDetailComponent extends BasePage {
     }
   }
   actionBtn: string = "Guardar";
+=======
+    public windowRef: NbWindowRef, 
+    @Inject(NB_WINDOW_CONTEXT) context, 
+    private dom: DomSanitizer,  
+    ) { 
+      super();
+      if (null != context.origin){
+        this.origin = context.origin;
+      } 
+>>>>>>> 3fee159132d2c12e33e949fae17d361950d48746
       
-      form = this.fb.group({
+      this.form = this.fb.group({
       id: [null],
       idTransferer: [null, Validators.compose([Validators.pattern("[0-9]{1,255}"),Validators.required])],
       keyTransferer: [null, Validators.compose([Validators.required, Validators.pattern("^[a-zA-Z0-9@.-_-]{1,255}")])],
@@ -50,17 +68,23 @@ export class OriginDetailComponent extends BasePage {
     });
 
 
-   get validate() {
-    return this.form.controls;
-  }
-  ngOnInit(): void {
-    if (this.data.id != null) {
-      this.actionBtn = "Actualizar";
-      this.form.patchValue(this.data);
     }
+       actionBtn : string = "Guardar";
+
+
+  
+    get validate(){
+      return this.form.controls;
+    }
+    
+  ngOnInit(): void {
+    this.origin
+      ? this.actionBtn = "Actualizar"
+      :  this.form.patchValue(this.origin)
 
   }
 
+<<<<<<< HEAD
   public register(): void {
     const data = this.form.getRawValue();
     this.actionBtn == "Guardar" ? this.createRegister(data) : this.updateRegister(data);
@@ -98,3 +122,28 @@ export class OriginDetailComponent extends BasePage {
       });
   }
 }
+=======
+  register(): void {
+    const data = this.form.value;
+    data.modificationDate = new Date();
+    if( this.actionBtn == "Guardar"){
+
+/*       data.userCreation ="Rafael";
+      data.userModification = "Antonio";
+      data.creationDate = new Date(); */
+
+      this.service.register(data).subscribe(data =>{
+        this.windowRef.close();
+      },err =>{
+        console.log(err);
+      })
+    }else{
+      this.service.update(this.origin.id,data).subscribe(data =>{
+        this.windowRef.close();
+      },err =>{
+        console.log(err);
+      })
+    }
+  }
+}
+>>>>>>> 3fee159132d2c12e33e949fae17d361950d48746
