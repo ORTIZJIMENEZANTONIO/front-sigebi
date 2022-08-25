@@ -109,6 +109,7 @@ import { LabelOkeyService } from './services/label-okey.service';
 import { StageService } from './services/stage.service';
 import { SiseProcessService } from './services/sise-process.service';
 import { IfaiSerieService } from './services/ifai-serie.service';
+import { ServiceCatService } from './services/service-cat.service';
 
 const API = [
   CategoryApi,
@@ -222,6 +223,7 @@ const SERVICES = [
   ManagementService,
   LabelOkeyService,
   StageService,
+  ServiceCatService,
   SiseProcessService,
   TypeServicesService,
   IfaiSerieService

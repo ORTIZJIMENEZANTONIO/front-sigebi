@@ -10,7 +10,6 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
-
 import { ServicesRoutingModule } from './services-routing.module';
 import { ServicesDetailComponent } from './services-detail/services-detail.component';
 import { ServicesListComponent } from './services-list/services-list.component';
