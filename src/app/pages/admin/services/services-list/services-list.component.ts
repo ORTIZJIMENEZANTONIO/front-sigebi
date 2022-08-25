@@ -3,13 +3,12 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { NbToastrService, NbWindowControlButtonsConfig, NbWindowService } from '@nebular/theme';
 import { SweetAlertResult } from 'sweetalert2';
-import { SweetAlertConstants, SweetalertModel } from '../../../../@core/interfaces/auction/sweetalert-model';
-import { BaseApp } from '../../../../@core/shared/base-app';
 import { BasePage } from '../../../../@core/shared/base-page';
 import { SweetalertService } from '../../../../shared/sweetalert.service';
+import { SweetAlertConstants, SweetalertModel } from '../../../../@core/interfaces/auction/sweetalert-model';
 
 import { ServicesDetailComponent } from '../services-detail/services-detail.component';
-import { ServiceCatService } from '../../../../@core/backend/common/services/serviceCat.service';
+import { ServiceCatService } from '../../../../@core/backend/common/services/service-cat.service';
 import { ServiceCatInterface } from '../../../../@core/interfaces/auction/service.model';
 
 @Component({
@@ -57,15 +56,30 @@ export class ServicesListComponent extends BasePage implements OnInit {
       confirmDelete: true,
     },
     columns: {
-      id: {
+      code: {
         title: 'Registro',
-        type: 'number',
+        type: 'striing',
       },
       description: {
         title: 'Descripción',
         type: 'string',
       },
-
+      unaffordabilityCriterion: {
+        title: 'Criterio de incosteabilidad',
+        type: 'string',
+      },
+      subaccount: {
+        title: 'Subcuenta',
+        type: 'string',
+      },
+      registryNumber: {
+        title: 'No. de registro',
+        type: 'number',
+      },
+      cost: {
+        title: 'Costo',
+        type: 'string',
+      },
     },
     noDataMessage: "No se encontrarón registros"
   };

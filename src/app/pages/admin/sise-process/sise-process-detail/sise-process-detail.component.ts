@@ -5,8 +5,8 @@ import { NbToastrService, NbWindowRef, NB_WINDOW_CONTEXT } from '@nebular/theme'
 import { SweetAlertConstants } from '../../../../@core/interfaces/auction/sweetalert-model';
 import { BasePage } from '../../../../@core/shared/base-page';
 
-import { SiseProcessService } from '../../../../@core/backend/common/services/sise-process.service';
 import { STRING_PATTERN } from '../../../../@components/constants';
+import { SiseProcessService } from '../../../../@core/backend/common/services/sise-process.service';
 import { SiseProcessInterface } from '../../../../@core/interfaces/auction/sise-process.model';
 
 @Component({

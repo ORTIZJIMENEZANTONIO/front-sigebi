@@ -39,7 +39,7 @@ export class IfaiSerieDetailComponent extends BasePage {
     this.prepareForm();
   }
 
-  private prepareForm() {
+  private prepareForm(): void {
     this.form = this.fb.group({
       code: ['', Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(128), Validators.pattern(STRING_PATTERN) ])],
       typeProcedure: ['', Validators.compose([ Validators.required, Validators.minLength(1), Validators.maxLength(2), Validators.pattern(STRING_PATTERN) ])],
