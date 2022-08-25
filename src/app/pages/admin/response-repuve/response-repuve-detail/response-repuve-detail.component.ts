@@ -86,5 +86,4 @@ export class ResponseRepuveDetailComponent extends BasePage {
       });
   }
 
-
 }
