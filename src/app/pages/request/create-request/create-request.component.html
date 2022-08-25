@@ -218,9 +218,9 @@
                             <button nbButtonToggle size="small" value="One">
                                 <nb-icon icon="plus"></nb-icon>Nuevo Bien
                             </button>
-                            <button nbButtonToggle size="small" value="Two">Seleccionar Domicilio</button>
-                            <button nbButtonToggle size="small" value="Three">Menaje</button>
-                            <button nbButtonToggle size="small" value="Two">Clasificación Masiva</button>
+                            <button nbButtonToggle size="small" (click)="addressesOfTheRequest()" value="Two">Seleccionar Domicilio</button>
+                            <button nbButtonToggle size="small" (click)="realStateOfTheTransferor()" value="Three">Menaje</button>
+                            <button nbButtonToggle size="small" (click)="massiveClassification()" value="Two">Clasificación Masiva</button>
                             <button nbButtonToggle size="small" value="Three">Importar Archivo</button>
                             <button nbButtonToggle size="small" value="Three">Eliminar</button>
                         </nb-button-group>
@@ -251,7 +251,8 @@
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <label for="inputLastName" class="label">Nivel 3</label>
-                                <nb-select placeholder="Seleccione..." fullWidth>
+                              
+                                <nb-select  placeholder="Seleccione..." fullWidth>
                                 </nb-select>
                             </div>
                         </div>
@@ -438,7 +439,139 @@
                             </div>
                         </nb-tab>
                         <nb-tab tabTitle="Domicilio del Bien" tabIcon="home" responsive>
-                            <p>List of <strong>orders</strong>.</p>
+                            <label for="" class="label text-danger">Si el domicilio esta referenciado a mas de un bien será modificado para todos ellos</label>
+                            <div class="row">
+                                <div class="col-sm-4 ">
+                                    <div class="justify-content-between align-middle">
+                                        <button nbButton size="tiny" class="ml-1 ">Seleccionar domicilio</button>
+                                        <button nbButton size="tiny" class="ml-1">Menaje</button>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="inputFirstName" class="label">Referencia Vía 2</label>
+                                        <input type="text" nbInput fullWidth>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="inputFirstName" class="label">Alias</label>
+                                        <input type="text" nbInput fullWidth>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="inputFirstName" class="label">Referencia Vía 3</label>
+                                        <input type="text" nbInput fullWidth>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="inputFirstName" class="label">Estado</label>
+                                        <nb-select placeholder="Seleccione..." fullWidth>
+                                            <nb-option selected value="bueno">Ciudad de Mexico</nb-option>
+                                        </nb-select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="inputFirstName" class="label">Latitud</label>
+                                        <input type="text" nbInput fullWidth>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="inputFirstName" class="label">Municipio</label>
+                                        <nb-select placeholder="Seleccione..." fullWidth>
+                                            <nb-option value="bueno">Xochimilco</nb-option>
+                                        </nb-select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="inputFirstName" class="label">Longitud</label>
+                                        <input type="text" nbInput fullWidth>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="inputFirstName" class="label">Colonia</label>
+                                        <nb-select placeholder="Seleccione..." fullWidth>
+                                            <nb-option value="bueno">Barrio Capulco</nb-option>
+                                        </nb-select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="inputFirstName" class="label">Nombre de la Vía</label>
+                                        <input type="text" nbInput fullWidth>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="inputFirstName" class="label">C.P.</label>
+                                        <input type="text" nbInput fullWidth>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="inputFirstName" class="label">Origen de la Vía</label>
+                                        <input type="text" nbInput fullWidth>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="inputFirstName" class="label">Num. Ext.</label>
+                                        <input type="text" nbInput fullWidth>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="inputFirstName" class="label">Destino de la Vía</label>
+                                        <input type="text" nbInput fullWidth>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="inputFirstName" class="label">Num. Int.</label>
+                                        <input type="text" nbInput fullWidth>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="inputFirstName" class="label">Kilometro de la Vía</label>
+                                        <input type="text" nbInput fullWidth>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="inputFirstName" class="label">Referencia Vía 1</label>
+                                        <input type="text" nbInput fullWidth>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="inputFirstName" class="label">Descripción</label>
+                                        <textarea type="text" nbInput fullWidth></textarea>
+                                    </div>
+                                </div>
+                            </div>
                         </nb-tab>
                         <nb-tab tabTitle="Información de Vehiculo" *ngIf="tipoBien=='Vehiculo'" tabIcon="car" responsive>
 

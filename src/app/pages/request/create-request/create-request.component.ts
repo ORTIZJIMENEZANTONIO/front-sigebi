@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { NbWindowControlButtonsConfig, NbWindowService } from '@nebular/theme';
+import { AddressesOfTheRequestComponent } from '../addresses-of-the-request/addresses-of-the-request.component';
+import { MassiveClassificationComponent } from '../massive-classification/massive-classification.component';
+import { RealStateOfTheTransferorComponent } from '../real-state-of-the-transferor/real-state-of-the-transferor.component';
 
 @Component({
   selector: 'ngx-create-request',
@@ -8,7 +12,11 @@ import { Component, OnInit } from '@angular/core';
 export class CreateRequestComponent implements OnInit {
 
   tipoBien = "";
-
+  buttonsConfig: NbWindowControlButtonsConfig = {
+    minimize: false,
+    maximize: false,
+    fullScreen: false,
+  };
   rows: any;
   settings = {
     actions: {
@@ -88,7 +96,9 @@ export class CreateRequestComponent implements OnInit {
     noDataMessage: "No se encontrarón registros"
   };
 
-  constructor() { }
+  constructor(
+    private windowService: NbWindowService
+  ) { }
 
   ngOnInit(): void {
   }
@@ -97,6 +107,31 @@ export class CreateRequestComponent implements OnInit {
     console.log('====================================');
     console.log(event);
     console.log('====================================');
+  }
+
+  addressesOfTheRequest(){
+    
+    this.windowService.open(AddressesOfTheRequestComponent, { title: `Domicilios de la solicitud`, context: { requets: [] }, buttons: this.buttonsConfig  }).onClose.subscribe(() => {
+      console.log('====================================');
+      console.log("SOLICITUDES RESTANTES");
+      console.log('====================================');
+    });
+  }
+  realStateOfTheTransferor(){
+  
+    this.windowService.open(RealStateOfTheTransferorComponent, { title: `Bienes Inmuebles de la Transferente`, context: { requets: [] }, buttons: this.buttonsConfig  }).onClose.subscribe(() => {
+      console.log('====================================');
+      console.log("SOLICITUDES RESTANTES");
+      console.log('====================================');
+    });
+  }
+  massiveClassification(){
+  
+    this.windowService.open(MassiveClassificationComponent, { title: `Busca tu Clasificación`, context: { requets: [] }, buttons: this.buttonsConfig  }).onClose.subscribe(() => {
+      console.log('====================================');
+      console.log("SOLICITUDES RESTANTES");
+      console.log('====================================');
+    });
   }
 
 }

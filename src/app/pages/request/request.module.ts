@@ -14,11 +14,17 @@ import { ComponentsModule } from '../../@components/components.module';
 import { ThemeModule } from '../../@theme/theme.module';
 import { TurnRequestComponent } from './turn-request/turn-request.component';
 import { CreateRequestComponent } from './create-request/create-request.component';
+import { RealStateOfTheTransferorComponent } from './real-state-of-the-transferor/real-state-of-the-transferor.component';
+import { AddressesOfTheRequestComponent } from './addresses-of-the-request/addresses-of-the-request.component';
+import { MassiveClassificationComponent } from './massive-classification/massive-classification.component';
 @NgModule({
   declarations: [
     RequestToTurnComponent,
     TurnRequestComponent,
-    CreateRequestComponent
+    CreateRequestComponent,
+    RealStateOfTheTransferorComponent,
+    AddressesOfTheRequestComponent,
+    MassiveClassificationComponent
   ],
   imports: [
     CommonModule,
