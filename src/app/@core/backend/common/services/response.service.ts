@@ -31,7 +31,6 @@ export class ResponseService {
   }
 
   update(id:Object, data: ResponseInterface): Observable<ResponseInterface>{
-    console.log(id)
     return this.api.updateCompose( id, data, this.url );
   }
 
