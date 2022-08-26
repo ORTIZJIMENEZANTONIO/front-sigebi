@@ -111,6 +111,8 @@ import { SiseProcessService } from './services/sise-process.service';
 import { IfaiSerieService } from './services/ifai-serie.service';
 import { ServiceCatService } from './services/service-cat.service';
 import { ResponseService } from './services/response.service';
+import { AAccumulatedAssetsService } from './services/a-accumulated-assets.service'; 
+import { QAccumulatedGoodsService } from './services/q-accumulated-goods.service';
 
 const API = [
   CategoryApi,
@@ -228,7 +230,10 @@ const SERVICES = [
   SiseProcessService,
   TypeServicesService,
   IfaiSerieService,
-  ResponseService
+  ResponseService,
+  AAccumulatedAssetsService,
+  QAccumulatedGoodsService
+
 ];
 
 @NgModule({

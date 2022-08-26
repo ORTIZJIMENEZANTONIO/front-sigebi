@@ -1,1 +1,133 @@
-<p>q-accumulated-goods-list works!</p>
+<div>
+
+    <nb-card>
+      <nb-card-header>Reporte Acumulado de Bienes Trimestral</nb-card-header>
+      <nb-card-body>
+
+        <form>
+
+          <div class="row">
+
+            <div class="col-sm-1">
+              <div class="form-group">
+                <label for="inputFirstName" class="label">Delegación</label>
+                <input type="text" nbInput fullWidth id="inputFirstName" placeholder="#">
+              </div>
+            </div>
+
+            <div class="col-sm-8">
+              <div class="form-group">
+                <label for="inputLastName" class="label">&nbsp; </label>
+                <input type="text" nbInput fullWidth id="inputLastName" placeholder="Descrición de la Delegación">
+              </div>
+            </div>
+
+            <div class="col-sm-1">
+              <div class="form-group">
+                <label for="inputLastName" class="label">&nbsp; </label>
+                <button (click)="openWindow()" nbButton status="warning" ghost>Ver Catálogo</button>
+              </div>
+            </div>
+            
+          </div>
+
+          <div class="row">
+
+            <div class="col-sm-1">
+              <div class="form-group">
+                <label for="inputFirstName" class="label">Sub Delegación</label>
+                <input type="text" nbInput fullWidth id="inputFirstName" placeholder="#">
+              </div>
+            </div>
+
+            <div class="col-sm-8">
+              <div class="form-group">
+                <label for="inputLastName" class="label">&nbsp;</label>
+                <input type="text" nbInput fullWidth id="inputLastName" placeholder="Descrición de la Sub Delegación">
+              </div>
+            </div>
+
+            <div class="col-sm-1">
+              <div class="form-group">
+                <label for="inputLastName" class="label">&nbsp; </label>
+                <button (click)="openWindow()" nbButton status="warning" ghost>Ver Catálogo</button>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="row">
+            <div class="col-sm-1">
+              <div class="form-group">
+                <label for="inputFirstName" class="label">De la fecha</label>
+                <input nbInput fullWidth
+                       placeholder="inicio"
+                      [nbDatepicker]="formpicker">
+              <nb-datepicker #formpicker></nb-datepicker>
+              </div>
+            </div>
+
+            <div class="col-sm-1">
+              <div class="form-group">
+                <label for="inputFirstName" class="label">A la fecha</label>
+                <input nbInput fullWidth
+                       placeholder="fin"
+                      [nbDatepicker]="formpicker">
+              <nb-datepicker #formpicker></nb-datepicker>
+              </div>
+            </div>
+          </div>
+
+          <button (click)="openWindow()"nbButton status="primary">Imprimir</button>
+          
+
+        </form>
+
+      </nb-card-body>
+    </nb-card>
+</div>
+
+<!--Template de tabla con datos, para usar en otro componente 
+<nb-card class="cat-card">
+
+    Encabezado  
+    <nb-card-header>
+      <span class="title">
+        Reporte Acumulado de Bienes Trimestral
+      </span>
+      <div class="add-select">
+        <button (click)="openWindow()"nbButton status="primary">Nueva</button>
+      </div>
+    </nb-card-header>
+  
+    Parte del cuerpo
+    <nb-card-body>
+      <div [formGroup]="searchForm" class="form-group row">
+        <div class="col-md-1 mt-2">
+          <label class="control-label">Buscar: </label> etiqueta 
+        </div>
+        <div class="col-md-4">
+          <input type="text" formControlName="text" class="form-control" autofocus /> agregar texto
+        </div>
+      </div>
+  
+      Tabla
+      <ng2-smart-table 
+        [settings]="settings" 
+        [source]="list" 
+        (delete)="onDeleteConfirm($event)"    
+        (edit)="editRow($event)">
+      </ng2-smart-table>
+  
+      Paginación
+      <mat-paginator 
+        [length]="length"
+        [pageSize]="pageSize"
+        [pageSizeOptions]="pageSizeOptions"
+        (page)="changesPage($event)"
+        [pageIndex] ="pageEvent.pageIndex"
+      ></mat-paginator>
+  
+    </nb-card-body>
+  </nb-card>
+-->

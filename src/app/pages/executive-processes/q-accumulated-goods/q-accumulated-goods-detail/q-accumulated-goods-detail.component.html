@@ -1,1 +1,93 @@
-<p>q-accumulated-goods-detail works!</p>
+En espera de los datos de la BD :D
+<!--
+
+<nb-card>
+    <nb-card-body>
+      <form [formGroup]="form">
+  
+        <div class="form-group row">
+          <input type="text" nbInput maxlength="30" fullWidth formControlName="code"
+            placeholder="Código de serie ej. 1123"
+            [status]="(code?.errors?.required || code?.hasError('maxlength') || code?.hasError('pattern') ) && code.touched ? 'danger' : ''"
+          />
+          <ngx-validation-message label="Código" 
+            [showMinLength]="code?.hasError('minlength')"
+            [showMaxLength]="code?.hasError('maxlength')"
+            [showRequired]="code?.errors?.required && code.touched"
+            [showPattern]="code?.hasError('pattern') && code.touched" minLength=1 maxLength=30>
+          </ngx-validation-message>
+        </div>
+        
+        <div class="form-group row">
+          <input type="string" nbInput fullWidth maxlength="1" formControlName="unaffordabilityCriterion"
+            placeholder="Criterio de incosteabilidad"
+            [status]="(unaffordabilityCriterion?.errors?.required || unaffordabilityCriterion?.hasError('minlength') || unaffordabilityCriterion?.hasError('maxlength') || unaffordabilityCriterion?.hasError('pattern')) && unaffordabilityCriterion.touched ? 'danger' : ''"
+          />
+          <ngx-validation-message label="Criterio de incosteabilidad" 
+            [showMinLength]="unaffordabilityCriterion?.hasError('minlength')"
+            [showMaxLength]="unaffordabilityCriterion?.hasError('maxlength')"
+            [showPattern]="unaffordabilityCriterion?.hasError('pattern') && unaffordabilityCriterion.touched" minLength=1 maxLength=1>
+          </ngx-validation-message>
+        </div>
+  
+        <div class="form-group row">
+          <input type="text" nbInput fullWidth maxlength="200" formControlName="description"
+            placeholder="Descripción"
+            [status]="( description?.hasError('minlength') || description?.hasError('maxlength') || description?.hasError('pattern')) && description.touched ? 'danger' : ''"
+          />
+          <ngx-validation-message label="Descripción" 
+            [showMinLength]="description?.hasError('minlength')"
+            [showMaxLength]="description?.hasError('maxlength')"
+            [showRequired]="description?.errors?.required && description.touched"
+            [showPattern]="description?.hasError('pattern') && description.touched" minLength=1 maxLength=200>
+          </ngx-validation-message>
+        </div>
+  
+        <div class="form-group row">
+          <input type="text" nbInput maxlength="4" fullWidth formControlName="subaccount"
+            placeholder="Subcuenta"
+            [status]="(subaccount?.errors?.required || subaccount?.hasError('minlength') || subaccount?.hasError('maxlength') || subaccount?.hasError('pattern')) && subaccount.touched ? 'danger' : ''"
+          />
+          <ngx-validation-message label="Subcuenta" 
+            [showMinLength]="subaccount?.hasError('minlength')"
+            [showMaxLength]="subaccount?.hasError('maxlength')"
+            [showRequired]="subaccount?.errors?.required && subaccount.touched"
+            [showPattern]="subaccount?.hasError('pattern') && subaccount.touched" minLength=1 maxLength=4>
+          </ngx-validation-message>
+        </div>
+  
+        <div class="form-group row">
+          <input type="number" nbInput fullWidth formControlName="registryNumber"
+            placeholder="No. de registro"
+            [status]="(registryNumber?.hasError('pattern')) && registryNumber.touched ? 'danger' : ''"
+          />
+          <ngx-validation-message label="No. de registro" 
+            [showPattern]="registryNumber?.hasError('pattern') && registryNumber.touched" minLength=1 maxLength=255 min=0>
+          </ngx-validation-message>
+        </div>
+  
+        <div class="form-group row">
+          <input type="text" nbInput fullWidth formControlName="cost"
+            placeholder="Costo"
+            [status]="(cost?.hasError('pattern')) && cost.touched ? 'danger' : ''"
+          />
+          <ngx-validation-message label="No. de registro" 
+            [showMinLength]="cost?.hasError('minlength')"
+            [showMaxLength]="cost?.hasError('maxlength')"
+            [showRequired]="cost?.errors?.required && cost.touched"
+            [showPattern]="cost?.hasError('pattern') && cost.touched" minLength=1 maxLength=4>
+          </ngx-validation-message>
+        </div>
+        
+        <div class="form-group">
+          <div class="d-flex justify-content-center">
+            <button type="submit" nbButton status="primary" [disabled]="!form.valid"
+              (click)="register()">{{actionBtn}}</button>
+          </div>
+        </div>
+        
+      </form>
+    </nb-card-body>
+  </nb-card>
+
+-->
