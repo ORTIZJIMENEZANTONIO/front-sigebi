@@ -646,6 +646,10 @@ export const MENU_ITEMS: NbMenuItem[] = [
         title: 'Documentos resarcimiento sat xml',
         link: '/pages/admin/doc-resarcimiento-sat-xml'
       },
+       {
+        title: 'Estatus sinisestros',
+        link: '/pages/admin/claims-status'
+      }
 
     ],
   },
