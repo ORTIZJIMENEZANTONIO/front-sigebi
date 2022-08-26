@@ -6,25 +6,25 @@ import { SweetAlertConstants } from '../../../../@core/interfaces/auction/sweeta
 import { BasePage } from '../../../../@core/shared/base-page';
 
 import { STRING_PATTERN } from '../../../../@components/constants';
-import { SiseProcessService } from '../../../../@core/backend/common/services/sise-process.service';
-import { SiseProcessInterface } from '../../../../@core/interfaces/auction/sise-process.model';
+import { ResponseRepuveInterface } from '../../../../@core/interfaces/auction/response-repuve.model';
+import { ResponseRepuveService } from '../../../../@core/backend/common/services/reponse-repuve..service';
 
 @Component({
-  selector: 'ngx-sise-process-detail',
-  templateUrl: './sise-process-detail.component.html',
-  styleUrls: ['./sise-process-detail.component.scss']
+  selector: 'ngx-response-repuve-detail',
+  templateUrl: './response-repuve-detail.component.html',
+  styleUrls: ['./response-repuve-detail.component.scss']
 })
-export class SiseProcessDetailComponent extends BasePage {
-
+export class ResponseRepuveDetailComponent extends BasePage {
+  
   public form: FormGroup;
-  private data: SiseProcessInterface;
+  private data: ResponseRepuveInterface;
   public actionBtn: string = "Guardar";
 
   constructor(
     private fb: FormBuilder,
     protected cd: ChangeDetectorRef,
     protected router: Router,
-    private service: SiseProcessService,
+    private service: ResponseRepuveService,
     public windowRef: NbWindowRef,
     public toastrService: NbToastrService,
     @Inject(NB_WINDOW_CONTEXT) context) {
@@ -60,7 +60,7 @@ export class SiseProcessDetailComponent extends BasePage {
   private createRegister(data): void {
     this.service.register(data).subscribe(
       (res) => {
-        this.onLoadFailed('success', 'Proceso', 'Registrado Correctamente');
+        this.onLoadFailed('success', 'Servicio', 'Registrado Correctamente');
       }, err => {
         const error = err.status === 0
           ? SweetAlertConstants.noConexion
@@ -75,7 +75,7 @@ export class SiseProcessDetailComponent extends BasePage {
     delete data.id;
     this.service.update(this.data.id, data).subscribe(
       (response) => {
-        this.onLoadFailed('success', 'Proceso', 'Actualizado Correctamente');
+        this.onLoadFailed('success', 'Servicio', 'Actualizado Correctamente');
       }, err => {
         const error = err.status === 0
           ? SweetAlertConstants.noConexion

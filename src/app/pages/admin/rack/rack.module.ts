@@ -12,18 +12,19 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { MatSelectModule } from '@angular/material/select';
 
-import { ResponseRoutingModule } from './response-routing.module';
-import { ResponseDetailComponent } from './response-detail/response-detail.component';
-import { ResponseListComponent } from './response-list/response-list.component';
+import { RackRoutingModule } from './rack-routing.module';
+import { RackDetailComponent } from './rack-detail/rack-detail.component';
+import { RackListComponent } from './rack-list/rack-list.component';
+
 
 @NgModule({
   declarations: [
-    ResponseDetailComponent,
-    ResponseListComponent
+    RackDetailComponent,
+    RackListComponent
   ],
   imports: [
     CommonModule,
-    ResponseRoutingModule,
+    RackRoutingModule,
     FormsModule,
     ReactiveFormsModule,
     ComponentsModule,
@@ -43,4 +44,4 @@ import { ResponseListComponent } from './response-list/response-list.component';
     MatSelectModule
   ]
 })
-export class ResponseModule { }
+export class RackModule { }
