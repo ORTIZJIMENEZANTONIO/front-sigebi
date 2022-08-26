@@ -591,6 +591,10 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link:'/pages/admin/zone-geographic'
       },
       {
+        title: 'Racks',
+        link: '/pages/admin/rack'
+      },
+      {
         title: 'Respuestas',
         link: '/pages/admin/response'
       },

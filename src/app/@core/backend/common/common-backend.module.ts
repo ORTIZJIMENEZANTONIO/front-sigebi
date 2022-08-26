@@ -112,6 +112,7 @@ import { IfaiSerieService } from './services/ifai-serie.service';
 import { ServiceCatService } from './services/service-cat.service';
 import { ResponseService } from './services/response.service';
 import { ResponseRepuveService } from './services/reponse-repuve..service';
+import { RackService } from './services/rack.service';
 
 const API = [
   CategoryApi,
@@ -230,7 +231,8 @@ const SERVICES = [
   TypeServicesService,
   IfaiSerieService,
   ResponseService,
-  ResponseRepuveService
+  ResponseRepuveService,
+  RackService
 ];
 
 @NgModule({

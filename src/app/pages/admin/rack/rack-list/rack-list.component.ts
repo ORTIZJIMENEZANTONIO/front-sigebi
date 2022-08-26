@@ -8,16 +8,16 @@ import { BaseApp } from '../../../../@core/shared/base-app';
 import { BasePage } from '../../../../@core/shared/base-page';
 import { SweetalertService } from '../../../../shared/sweetalert.service';
 
-import { ResponseService } from '../../../../@core/backend/common/services/response.service';
-import { ResponseDetailComponent } from '../response-detail/response-detail.component';
-import { ResponseInterface } from '../../../../@core/interfaces/auction/response.model';
+import { RackService } from '../../../../@core/backend/common/services/rack.service';
+import { RackInterface } from '../../../../@core/interfaces/auction/rack.model';
+import { RackDetailComponent } from '../rack-detail/rack-detail.component';
 
 @Component({
-  selector: 'ngx-response-list',
-  templateUrl: './response-list.component.html',
-  styleUrls: ['./response-list.component.scss']
+  selector: 'ngx-rack-list',
+  templateUrl: './rack-list.component.html',
+  styleUrls: ['./rack-list.component.scss']
 })
-export class ResponseListComponent extends BasePage implements OnInit {
+export class RackListComponent  extends BasePage implements OnInit {
 
   public searchForm: FormGroup;
   public list: any;
@@ -61,7 +61,7 @@ export class ResponseListComponent extends BasePage implements OnInit {
         title: 'Registro',
         type: 'number',
       },
-      idQuestion: {
+      idWarehouse: {
         title: 'Pregunta',
         type: 'string',
         valuePrepareFunction:(value) =>{
@@ -90,7 +90,7 @@ export class ResponseListComponent extends BasePage implements OnInit {
   };
 
   constructor(
-    private service: ResponseService,
+    private service: RackService,
     public toastrService: NbToastrService,
     private windowService: NbWindowService,
     private paginator: MatPaginatorIntl,
@@ -103,7 +103,7 @@ export class ResponseListComponent extends BasePage implements OnInit {
     });
     this.searchForm.controls['text'].valueChanges.subscribe((value: string) => {
       if (value.length > 0) {
-        this.service.search(value).subscribe((rows: ResponseInterface[]) => {
+        this.service.search(value).subscribe((rows: RackInterface[]) => {
           this.length = rows.length;
           this.list = rows;
         })
@@ -179,7 +179,7 @@ export class ResponseListComponent extends BasePage implements OnInit {
       maximize: false,
       fullScreen: false,
     };
-    const modalRef = this.windowService.open(ResponseDetailComponent, { title: `Editar`, context: { data: event.data }, buttons: buttonsConfig }).onClose.subscribe(() => {
+    const modalRef = this.windowService.open(RackDetailComponent, { title: `Editar`, context: { data: event.data }, buttons: buttonsConfig }).onClose.subscribe(() => {
       this.read(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
 
@@ -191,7 +191,7 @@ export class ResponseListComponent extends BasePage implements OnInit {
       maximize: false,
       fullScreen: false,
     };
-    const modalRef = this.windowService.open(ResponseDetailComponent, { title: `Nuevo`, buttons: buttonsConfig }).onClose.subscribe(() => {
+    const modalRef = this.windowService.open(RackDetailComponent, { title: `Nuevo`, buttons: buttonsConfig }).onClose.subscribe(() => {
       this.read(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
 
