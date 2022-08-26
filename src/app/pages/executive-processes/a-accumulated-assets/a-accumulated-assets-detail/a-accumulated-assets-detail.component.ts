@@ -6,8 +6,8 @@ import { SweetAlertConstants } from '../../../../@core/interfaces/auction/sweeta
 import { BasePage } from '../../../../@core/shared/base-page';
 
 import { NUMBERS_PATTERN, STRING_PATTERN } from '../../../../@components/constants';
-import { ServiceCatService } from '../../../../@core/backend/common/services/service-cat.service';
-import { ServiceCatInterface } from '../../../../@core/interfaces/auction/service.model';
+import { DelegationService } from '../../../../@core/backend/common/services/delegation.service';
+import { Delegation } from '../../../../@core/interfaces/auction/delegation.model';
 
 @Component({
   selector: 'ngx-a-accumulated-assets-detail',
@@ -16,15 +16,15 @@ import { ServiceCatInterface } from '../../../../@core/interfaces/auction/servic
 })
 export class AAccumulatedAssetsDetailComponent extends BasePage {
 
-  public form: FormGroup;
-  private data: ServiceCatInterface;
+  public form: FormGroup; //modificar form según la categoria
+  private data: Delegation;
   public actionBtn: string = "Guardar";
 
   constructor(
     private fb: FormBuilder,
     protected cd: ChangeDetectorRef,
     protected router: Router,
-    private service: ServiceCatService,
+    private service: DelegationService,
     public windowRef: NbWindowRef,
     public toastrService: NbToastrService,
     @Inject(NB_WINDOW_CONTEXT) context) {
@@ -38,29 +38,45 @@ export class AAccumulatedAssetsDetailComponent extends BasePage {
     this.prepareForm();
   }
 
-  private prepareForm(): void {
+  private prepareForm() {
     this.form = this.fb.group({
-      code: [null, Validators.compose([Validators.required, Validators.pattern(STRING_PATTERN), Validators.maxLength(30),  Validators.minLength(1) ])],
-      description: [null, Validators.compose([Validators.required, Validators.pattern(STRING_PATTERN), Validators.maxLength(200),  Validators.minLength(1) ])],
-      unaffordabilityCriterion: [null, Validators.compose([Validators.pattern(STRING_PATTERN), Validators.maxLength(1),  Validators.minLength(1) ])],
-      subaccount:  [null, Validators.compose([Validators.required, Validators.pattern(STRING_PATTERN), Validators.maxLength(4),  Validators.minLength(1) ])],
-      registryNumber:  [null, Validators.compose([Validators.pattern(NUMBERS_PATTERN) ])],
-      cost:  [null, Validators.compose([Validators.pattern(STRING_PATTERN), Validators.maxLength(5),  Validators.minLength(1) ])],
-    });
+      id: [''],
+
+      description: ['', Validators.required],
+
+      zoneContractCVE: ['', Validators.required],
+
+      diffHours: ['', [Validators.required]],
+
+      phaseEdo: ['', [Validators.required]],
+
+      zoneVigilanceCVE: ['', [Validators.required]],
+
+      numRegister: ['', Validators.required],
+
+    }); //Control de los campos en modal
     if (this.data) {
       this.actionBtn = "Actualizar";
       this.form.patchValue(this.data);
+      this.form.controls['id'].disable();
+      this.form.controls['description'].disable();
+      this.form.controls['zoneContractCVE'].disable();
+      this.form.controls['phaseEdo'].disable();
+      this.form.controls['zoneVigilanceCVE'].disable();
+      this.form.controls['diffHours'].disable();
     }
+    
+    
   }
 
-  public get code() { return this.form.get('code'); }
   public get description() { return this.form.get('description'); }
-  public get unaffordabilityCriterion() { return this.form.get('unaffordabilityCriterion'); }
-  public get subaccount() { return this.form.get('subaccount'); }
-  public get registryNumber() { return this.form.get('registryNumber'); }
-  public get cost() { return this.form.get('cost'); }
+  public get zoneContractCVE() { return this.form.get('zoneContractCVE'); }
+  public get diffHours() { return this.form.get('diffHours'); }
+  public get phaseEdo() { return this.form.get('phaseEdo'); }
+  public get zoneVigilanceCVE() { return this.form.get('zoneVigilanceCVE'); }
+  public get numRegister() { return this.form.get('numRegister'); }
 
-  public register(): void {
+  public register(): void { //Actualizar, imprimir, PENDIENTE
     const data = this.form.getRawValue();
     this.actionBtn == "Guardar" ? this.createRegister(data) : this.updateRegister(data);
   }
@@ -80,7 +96,7 @@ export class AAccumulatedAssetsDetailComponent extends BasePage {
   }
 
   private updateRegister(data): void {
-    this.service.update(this.data.code, data).subscribe(
+    this.service.update(this.data.id, data).subscribe(
       (response) => {
         this.onLoadFailed('success', 'Serie', 'Actualizado Correctamente');
       }, err => {

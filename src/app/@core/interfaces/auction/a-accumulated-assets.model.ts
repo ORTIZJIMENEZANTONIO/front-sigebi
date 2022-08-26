@@ -1,10 +1,17 @@
 export interface AAccumulatedAssetsInterface {
+        
+        id?: number;
     
-        code: string;
-        description: string;
-        unaffordabilityCriterion: string | null;
-        subaccount: string;
-        registryNumber: number | null;
-        cost: string | null;
+        description : string
+        
+        numRegister:number;
+    
+        zoneContractCVE:number;
+    
+        diffHours : number;
+    
+        phaseEdo : number;
+    
+        zoneVigilanceCVE : number;
       
 }

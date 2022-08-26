@@ -8,8 +8,11 @@ import { SweetalertService } from '../../../../shared/sweetalert.service';
 import { SweetAlertConstants, SweetalertModel } from '../../../../@core/interfaces/auction/sweetalert-model';
 
 import { AAccumulatedAssetsDetailComponent } from '../a-accumulated-assets-detail/a-accumulated-assets-detail.component';
-import { AAccumulatedAssetsInterface } from '../../../../@core/interfaces/auction/a-accumulated-assets.model';
-import { AAccumulatedAssetsService } from '../../../../@core/backend/common/services/a-accumulated-assets.service';
+/*import { AAccumulatedAssetsInterface } from '../../../../@core/interfaces/auction/a-accumulated-assets.model';
+import { AAccumulatedAssetsService } from '../../../../@core/backend/common/services/a-accumulated-assets.service';*/
+
+import { Delegation } from '../../../../@core/interfaces/auction/Delegation.model';
+import { DelegationService } from '../../../../@core/backend/common/services/delegation.service';
 
 @Component({
   selector: 'ngx-a-accumulated-assets-list',
@@ -31,7 +34,7 @@ export class AAccumulatedAssetsListComponent extends BasePage implements OnInit 
   };
   public settings = {
     actions: {
-      columnTitle: 'Acciones',
+      columnTitle: 'Detalles',
       add: true,
       edit: true,
       delete: false,
@@ -56,36 +59,40 @@ export class AAccumulatedAssetsListComponent extends BasePage implements OnInit 
       confirmDelete: true,
     },
     columns: {
-      code: {
-        title: 'Registro',
-        type: 'striing',
+
+      id: {
+        title: 'id',
+        type: 'number',
+        //editable: false,
+        width: '25px'
       },
       description: {
-        title: 'Descripción',
+        title: 'Delegación',
         type: 'string',
       },
-      unaffordabilityCriterion: {
-        title: 'Criterio de incosteabilidad',
-        type: 'string',
-      },
-      subaccount: {
-        title: 'Subcuenta',
-        type: 'string',
-      },
-      registryNumber: {
-        title: 'No. de registro',
+      idSubDelegacion: { //cambio
+        title: 'id subDelegacion',
         type: 'number',
       },
-      cost: {
-        title: 'Costo',
-        type: 'string',
+      descripcionSubDelegacion: {
+        title: 'Sub Delegación',
+        type: 'number',
       },
+      fechaInicial: {
+        title: 'Fecha de recepción inicial',
+        type: 'number',
+      },
+      fechaFinal: {
+        title: 'Fecha final',
+        type: 'number',
+      },
+      
     },
     noDataMessage: "No se encontrarón registros"
   };
 
   constructor(
-    private service: AAccumulatedAssetsService,
+    private service: DelegationService,
     public toastrService: NbToastrService,
     private windowService: NbWindowService,
     private paginator: MatPaginatorIntl,
@@ -99,7 +106,7 @@ export class AAccumulatedAssetsListComponent extends BasePage implements OnInit 
     //Llama a la interfaz con sus datos
     this.searchForm.controls['text'].valueChanges.subscribe((value: string) => {
       if (value.length > 0) {
-        this.service.search(value).subscribe((rows: AAccumulatedAssetsInterface[]) => {
+        this.service.search(value).subscribe((rows: Delegation[]) => {
           this.length = rows.length;
           this.list = rows;
         })
@@ -166,13 +173,13 @@ export class AAccumulatedAssetsListComponent extends BasePage implements OnInit 
       maximize: false,
       fullScreen: false,
     };
-    const modalRef = this.windowService.open(AAccumulatedAssetsDetailComponent, { title: `Editar`, context: { data: event.data }, buttons: buttonsConfig }).onClose.subscribe(() => {
+    const modalRef = this.windowService.open(AAccumulatedAssetsDetailComponent, { title: `Detalles`, context: { data: event.data }, buttons: buttonsConfig }).onClose.subscribe(() => {
       this.read(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
 
   }
 
-  public openWindow() {
+  public openWindow() { //Botón oculto
     const buttonsConfig: NbWindowControlButtonsConfig = {
       minimize: false,
       maximize: false,

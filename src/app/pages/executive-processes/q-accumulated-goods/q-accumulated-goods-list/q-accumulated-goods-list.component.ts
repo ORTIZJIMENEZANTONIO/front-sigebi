@@ -183,5 +183,18 @@ export class QAccumulatedGoodsListComponent extends BasePage implements OnInit {
     });
 
   }
+
+  public openWindow2() {
+    const buttonsConfig: NbWindowControlButtonsConfig = {
+      minimize: false,
+      maximize: false,
+      fullScreen: false,
+    };
+    const modalRef = this.windowService.open(QAccumulatedGoodsDetailComponent, { title: `Nuevo`, buttons: buttonsConfig }).onClose.subscribe(() => {
+      this.read(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
+    });
+
+  }
+
 }
 
