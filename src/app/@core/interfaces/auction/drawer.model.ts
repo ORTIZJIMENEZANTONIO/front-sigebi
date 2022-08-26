@@ -1,6 +1,6 @@
 export interface Drawer {
-noBobeda?: number;
-noDrawer?: string;
-status?: number;
-noRegistration:string;
+    noBobeda?: number;
+    noDrawer?: number;
+    status?: string;
+    noRegistration: number;
 }
