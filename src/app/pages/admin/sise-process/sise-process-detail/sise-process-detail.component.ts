@@ -41,9 +41,9 @@ export class SiseProcessDetailComponent extends BasePage {
   private prepareForm(): void {
     this.form = this.fb.group({
       id: [null],
-      description: [null, Validators.compose([Validators.pattern(STRING_PATTERN), Validators.maxLength(50),  Validators.minLength(1) ])],
+      description: [null, Validators.compose([Validators.required, Validators.pattern(STRING_PATTERN), Validators.maxLength(200),  Validators.minLength(1) ])],
     });
-    if (this.data.id != null) {
+    if (this.data) {
       this.actionBtn = "Actualizar";
       this.form.patchValue(this.data);
     }
@@ -60,7 +60,7 @@ export class SiseProcessDetailComponent extends BasePage {
   private createRegister(data): void {
     this.service.register(data).subscribe(
       (res) => {
-        this.onLoadFailed('success', 'Serie', 'Registrado Correctamente');
+        this.onLoadFailed('success', 'Proceso', 'Registrado Correctamente');
       }, err => {
         const error = err.status === 0
           ? SweetAlertConstants.noConexion
@@ -72,9 +72,10 @@ export class SiseProcessDetailComponent extends BasePage {
   }
 
   private updateRegister(data): void {
+    delete data.id;
     this.service.update(this.data.id, data).subscribe(
       (response) => {
-        this.onLoadFailed('success', 'Serie', 'Actualizado Correctamente');
+        this.onLoadFailed('success', 'Proceso', 'Actualizado Correctamente');
       }, err => {
         const error = err.status === 0
           ? SweetAlertConstants.noConexion

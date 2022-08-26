@@ -112,6 +112,16 @@ import { IfaiSerieService } from './services/ifai-serie.service';
 import { ServiceCatService } from './services/service-cat.service';
 import { ResponseService } from './services/response.service';
 
+import { ResponseRepuveService } from './services/reponse-repuve..service';
+import { RackService } from './services/rack.service';
+import { ServicesModule } from '../../../pages/admin/services/services.module';
+import { IfaiSerieModule } from '../../../pages/admin/ifai-serie/ifai-serie.module';
+import { ClaimsStatusModule } from '../../../pages/admin/claims-status/claims-status.module';
+import { ClaimsStatusService } from './services/claims-status.service';
+import { DrawerService } from './services/drawer.service';
+
+
+
 const API = [
   CategoryApi,
   ImageCategoryApi,
@@ -228,7 +238,13 @@ const SERVICES = [
   SiseProcessService,
   TypeServicesService,
   IfaiSerieService,
-  ResponseService
+  ResponseService,
+  ResponseRepuveService,
+  RackService,
+  ServicesModule,
+  IfaiSerieModule,
+  ClaimsStatusService,
+  DrawerService
 ];
 
 @NgModule({

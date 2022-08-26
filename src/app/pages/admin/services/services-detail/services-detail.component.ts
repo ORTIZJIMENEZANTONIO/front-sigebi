@@ -68,7 +68,7 @@ export class ServicesDetailComponent extends BasePage {
   private createRegister(data): void {
     this.service.register(data).subscribe(
       (res) => {
-        this.onLoadFailed('success', 'Serie', 'Registrado Correctamente');
+        this.onLoadFailed('success', 'Servicio', 'Registrado Correctamente');
       }, err => {
         const error = err.status === 0
           ? SweetAlertConstants.noConexion
@@ -82,7 +82,7 @@ export class ServicesDetailComponent extends BasePage {
   private updateRegister(data): void {
     this.service.update(this.data.code, data).subscribe(
       (response) => {
-        this.onLoadFailed('success', 'Serie', 'Actualizado Correctamente');
+        this.onLoadFailed('success', 'Servicio', 'Actualizado Correctamente');
       }, err => {
         const error = err.status === 0
           ? SweetAlertConstants.noConexion

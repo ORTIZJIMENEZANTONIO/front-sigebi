@@ -9,13 +9,12 @@ import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { NbEvaIconsModule } from '@nebular/eva-icons';
+import { MatSelectModule } from '@angular/material/select';
 
 import { ResponseRoutingModule } from './response-routing.module';
 import { ResponseDetailComponent } from './response-detail/response-detail.component';
 import { ResponseListComponent } from './response-list/response-list.component';
-import { NbEvaIconsModule } from '@nebular/eva-icons';
-import { MatSelectModule } from '@angular/material/select';
-
 
 @NgModule({
   declarations: [

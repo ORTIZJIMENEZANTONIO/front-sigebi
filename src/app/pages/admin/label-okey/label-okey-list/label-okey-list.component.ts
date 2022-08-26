@@ -5,6 +5,7 @@ import { NbToastrService, NbWindowControlButtonsConfig, NbWindowService } from '
 import { LabelOkeyService } from '../../../../@core/backend/common/services/label-okey.service';
 import { LabeloKey } from '../../../../@core/interfaces/auction/labelokey.model';
 import { BasePage } from '../../../../@core/shared/base-page';
+import { SweetalertService } from '../../../../shared/sweetalert.service';
 import { LabelOkeyDetailComponent } from '../label-okey-detail/label-okey-detail.component';
 
 @Component({
@@ -17,8 +18,10 @@ export class LabelOkeyListComponent extends BasePage{
 
   searchForm: FormGroup;
   constructor(private service: LabelOkeyService, public toastrService: NbToastrService,
-    private windowService: NbWindowService, private paginator: MatPaginatorIntl) {
-    super(toastrService);
+    private windowService: NbWindowService,
+    public sweetalertService: SweetalertService,
+     private paginator: MatPaginatorIntl) {
+    super(toastrService,sweetalertService);
     this.paginator.itemsPerPageLabel = "Registros por página";
     this.searchForm = new FormGroup({
       text: new FormControl()
@@ -115,20 +118,25 @@ export class LabelOkeyListComponent extends BasePage{
   }
 
   onDeleteConfirm(event): void {
-    if (window.confirm('Are you sure you want to delete?')) {
-      this.service.delete(event.data.id).subscribe(data => {
-        console.log(data);
-        if (data.statusCode == 200) {
-          this.onLoadFailed('success', 'Eliminado', data.message);
-        } else {
-          this.onLoadFailed('danger', 'Error', data.message);
+    this.sweetalertQuestion('warning', 'Eliminar', 'Desea eliminar este registro?').then(
+      question => {
+        if (question.isConfirmed) {
+          this.service.delete(event.data.id).subscribe(
+            data => {
+              this.onLoadFailed('success', 'Eliminado','Eliminado correctamente');
+            }, err => {
+              let error = '';
+              this.onLoadFailed('danger', 'Error', 'Ocurrio un error');
+            }, () => {
+              this.read(this.pageEvent.pageIndex, this.pageEvent.pageSize);
+            });
         }
-        this.read(this.pageEvent.pageIndex, this.pageEvent.pageSize);
-      }, err => {
-      })
-    } else {
-      event.confirm.reject();
-    }
+      }
+    ).catch(
+      e => {
+        console.error(e);
+      }
+    );
   }
 
   editRow(event) {
