@@ -18,7 +18,7 @@ import { SweetalertService } from '../../../../shared/sweetalert.service';
 export class ScoreListComponent extends BasePage {
 
   public searchForm: FormGroup;
-  public rows: any;
+  public list: any;
   public length = 100;
   public pageSize = 10;
   public pageSizeOptions: number[] = [5, 10, 25, 100];
@@ -94,7 +94,7 @@ export class ScoreListComponent extends BasePage {
       if (value.length > 0) {
         this.service.search(value).subscribe((rows: ScoreInterface[]) => {
           this.length = rows.length;
-          this.rows = rows;
+          this.list = rows;
         });
       } else {
         this.read(0, 10);
@@ -107,10 +107,10 @@ export class ScoreListComponent extends BasePage {
   }
 
   private read(pageIndex: number, pageSize: number) {
-    this.rows = null;
+    this.list = null;
     this.service.list(pageIndex, pageSize).subscribe(
       (dt: any) => {
-        this.rows = dt.data;
+        this.list = dt.data;
         this.length = dt.count;
       },
       err => {
