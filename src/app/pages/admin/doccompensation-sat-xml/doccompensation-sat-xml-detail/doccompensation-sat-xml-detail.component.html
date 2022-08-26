@@ -1,0 +1,38 @@
+<nb-card>
+    <nb-card-body>
+        <form [formGroup]="form">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <input nbInput fullWidth formControlName="idOficioSat" placeholder="Id oficio"
+                            [status]="(idOficioSat?.errors?.required || idOficioSat?.hasError('minlength') || idOficioSat?.hasError('maxlength') || idOficioSat?.hasError('pattern')) && idOficioSat.touched ? 'danger' : ''">
+                        <ngx-validation-message label="Id oficio" [showMinLength]="idOficioSat?.hasError('minlength')"
+                            [showMaxLength]="idOficioSat?.hasError('maxlength')"
+                            [showRequired]="idOficioSat?.errors?.required && idOficioSat.touched"
+                            [showPattern]="idOficioSat?.hasError('pattern') && idOficioSat.touched" minLength=1
+                            maxLength=255>
+                        </ngx-validation-message>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <input nbInput fullWidth formControlName="typeDocSatXml" placeholder="Tipo documento"
+                            [status]="(typeDocSatXml?.errors?.required || typeDocSatXml?.hasError('minlength') || typeDocSatXml?.hasError('maxlength') || typeDocSatXml?.hasError('pattern')) && typeDocSatXml.touched ? 'danger' : ''">
+                        <ngx-validation-message label="Tipo documento" [showMinLength]="typeDocSatXml?.hasError('minlength')"
+                            [showMaxLength]="typeDocSatXml?.hasError('maxlength')"
+                            [showRequired]="typeDocSatXml?.errors?.required && typeDocSatXml.touched"
+                            [showPattern]="typeDocSatXml?.hasError('pattern') && typeDocSatXml.touched" minLength=1
+                            maxLength=255>
+                        </ngx-validation-message>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="d-flex justify-content-center">
+                    <button type="submit" nbButton status="primary" [disabled]="!form.valid"
+                        (click)="register()">{{actionBtn}}</button>
+                </div>
+            </div>
+        </form>
+    </nb-card-body>
+</nb-card>

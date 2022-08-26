@@ -1,0 +1,56 @@
+<nb-card>
+    <nb-card-body>
+        <form [formGroup]="formRegulatory">
+            
+            <div class="form-group row">
+                <input type="text" nbInput fullWidth formControlName="version" matInput placeholder="Version"
+                [status]="formRegulatory.controls['version']?.errors?.pattern  && formRegulatory.controls['version'].touched ? 'danger' : ''">
+
+                <label class="text-danger" *ngIf="validateRegulatory['version'].hasError('pattern') && formRegulatory.controls['version'].touched"><small>Ingrese una versión valida!</small></label>
+            </div>
+
+            <div class="form-group row">
+                <input type="number" nbInput  fullWidth formControlName="id_fraccion" matInput placeholder="ID Fracción"
+                [status]="formRegulatory.controls['id_fraccion']?.errors?.required  && formRegulatory.controls['id_fraccion'].touched ? 'danger' : ''">
+
+                <label class="text-danger" *ngIf="validateRegulatory['id_fraccion'].hasError('required') && formRegulatory.controls['id_fraccion'].touched"><small>Ingrese una id fracción valida!</small></label>
+            </div>
+
+            <div class="form-group row">
+                <input type="text" nbInput fullWidth maxlength="30" formControlName="numero" matInput placeholder="Número"
+                [status]="formRegulatory.controls['numero']?.errors?.required  && formRegulatory.controls['numero'].touched ? 'danger' : ''">
+
+                <label class="text-danger" *ngIf="validateRegulatory['numero'].hasError('required') && formRegulatory.controls['numero'].touched"><small>Ingrese un número de regulación valido!</small></label>
+            </div>
+
+            <div class="form-group row">
+                <input type="text" nbInput fullWidth maxlength="600" formControlName="descripcion" matInput placeholder="Descripción"
+                [status]="formRegulatory.controls['descripcion']?.errors?.required  && formRegulatory.controls['descripcion'].touched ? 'danger' : ''">
+
+                <label class="text-danger" *ngIf="validateRegulatory['descripcion'].hasError('required') && formRegulatory.controls['descripcion'].touched"><small>Ingrese una descripción valida!</small></label>
+            </div>
+
+            <div class="form-group row">
+                <input type="text" nbInput fullWidth maxlength="5" formControlName="validar_ef" matInput placeholder="EF"
+                [status]="formRegulatory.controls['validar_ef']?.errors?.required  && formRegulatory.controls['validar_ef'].touched ? 'danger' : ''">
+
+                <label class="text-danger" *ngIf="validateRegulatory['validar_ef'].hasError('required') && formRegulatory.controls['validar_ef'].touched"><small>Ingrese una EF valida!</small></label>
+            </div>
+
+            <div class="form-group row">
+                <input type="text" nbInput fullWidth maxlength="5" formControlName="validar_ec" matInput placeholder="EC"
+                [status]="formRegulatory.controls['validar_ec']?.errors?.required  && formRegulatory.controls['validar_ec'].touched ? 'danger' : ''">
+
+                <label class="text-danger" *ngIf="validateRegulatory['validar_ec'].hasError('required') && formRegulatory.controls['validar_ec'].touched"><small>Ingrese una EC valida!</small></label>
+            </div>
+
+
+       
+            <div class="form-group row">
+                <div class="offset-sm-3 col-sm-9">
+                    <button type="submit" nbButton status="primary" [disabled]="!formRegulatory.valid" (click)="register()">{{actionBtn}}</button>
+                </div>
+            </div>
+        </form>
+    </nb-card-body>
+</nb-card>

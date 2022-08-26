@@ -1,0 +1,40 @@
+<nb-card>
+    <nb-card-body>
+        <form [formGroup]="form">
+
+            <div class="form-group row">
+                <input nbInput fullWidth formControlName="nameSubClasification" placeholder="Nombre sub clasificacion"
+                    [status]="(nameSubClasification?.errors?.required || nameSubClasification?.hasError('minlength') || nameSubClasification?.hasError('maxlength') || nameSubClasification?.hasError('pattern')) && nameSubClasification.touched ? 'danger' : ''">
+                <ngx-validation-message label="Nombre sub clasificacion" [showMinLength]="nameSubClasification?.hasError('minlength')"
+                    [showMaxLength]="nameSubClasification?.hasError('maxlength')"
+                    [showRequired]="nameSubClasification?.errors?.required && nameSubClasification.touched"
+                    [showPattern]="nameSubClasification?.hasError('pattern') && nameSubClasification.touched" minLength=1 maxLength=255>
+                </ngx-validation-message>
+            </div>
+
+            <div class="form-group row">
+                <input formControlName="nombre_clasificacion" type="text" id="no_delegacion" placeholder="Clasificacion"
+                    [nbAutocomplete]="auto"
+                    nbInput [status]="(nombre_clasificacion?.errors?.required || nombre_clasificacion?.hasError('minlength') || nombre_clasificacion?.hasError('maxlength') || nombre_clasificacion?.hasError('pattern')) && nombre_clasificacion.touched ? 'danger' : ''">
+                <nb-autocomplete #auto [activeFirst]="true" (selectedChange)="onSelectionChangeClasification($event)">
+                    <nb-option *ngFor="let option of filteredOptions$ | async" [value]="option">
+                        {{ option.nombre_clasificacion }}
+                    </nb-option>
+                </nb-autocomplete>
+                <ngx-validation-message label="Clasificacion" [showMinLength]="nombre_clasificacion?.hasError('minlength')"
+                    [showMaxLength]="nombre_clasificacion?.hasError('maxlength')"
+                    [showRequired]="nombre_clasificacion?.errors?.required && nombre_clasificacion.touched"
+                    [showPattern]="nombre_clasificacion?.hasError('pattern') && nombre_clasificacion.touched" minLength=1 maxLength=255>
+                </ngx-validation-message>
+
+            </div>
+
+            <div class="form-group row">
+                <div class="offset-sm-3 col-sm-9">
+                    <button type="submit" nbButton status="primary" [disabled]="!form.valid"
+                        (click)="register()">{{actionBtn}}</button>
+                </div>
+            </div>
+        </form>
+    </nb-card-body>
+</nb-card>

@@ -2,7 +2,9 @@ import { Component } from '@angular/core';
 import { MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { NbToastrService, NbWindowControlButtonsConfig, NbWindowService } from '@nebular/theme';
 import { BasePage } from '../../../../@core/shared/base-page';
-
+import { FormControl, FormGroup } from '@angular/forms';
+import Swal from 'sweetalert2';
+import { SafeInterface } from '../../../../@core/interfaces/auction/safe.model';
 import { SafeService } from '../../../../@core/backend/common/services/safe.service';
 import { SafeDetailComponent } from '../safe-detail/safe-detail.component';
 
@@ -21,12 +23,25 @@ export class SafeListComponent extends BasePage {
   ) {
     super(toastrService);
     this.paginator.itemsPerPageLabel = "Registros por página";
+    this.searchForm = new FormGroup({
+      text: new FormControl()
+    });
+    this.searchForm.controls['text'].valueChanges.subscribe((value:string)=>{
+      if(value.length > 0){
+        this.service.search(value).subscribe((rows:SafeInterface[])=>{
+          this.length = rows.length;
+          this.safes = rows;
+        })
+      }else{
+        this.readSafe()
+      }
+    })
   }
 
   length = 100;
   pageSize = 10;
   pageSizeOptions: number[] = [5, 10, 25, 100];
-
+  searchForm:FormGroup
   // MatPaginator Output
   pageEvent: PageEvent = {
     pageIndex:0,
@@ -104,20 +119,18 @@ export class SafeListComponent extends BasePage {
   };
 
   ngOnInit(): void {
-    this.readData(0,10);
-  }
-  
-  setPageSizeOptions(setPageSizeOptionsInput: string) {
-    if (setPageSizeOptionsInput)
-      this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
+    this.readSafe();
   }
 
-  readData = ((pageIndex:number, pageSize:number) => {
+  readSafe = (() => {
     this.safes = null;
-    this.service.list(pageIndex, pageSize).subscribe((safes:any) => {
-      this.safes = safes.data;
-      this.length = safes.count;
-    }, error => this.onLoadFailed('danger','Error conexión',error.message) );
+    this.service.list(this.pageEvent.pageIndex, this.pageEvent.pageSize).subscribe((legends:any) =>  {
+      this.safes = legends.data;
+      this.length = legends.count;
+    }, 
+    error => this.onLoadFailed('danger','Error conexión',error.message)
+    );
+
   });
 
   changesPage (event){
@@ -125,19 +138,30 @@ export class SafeListComponent extends BasePage {
 
     }
     this.pageEvent = event;
-    this.readData(event.pageIndex, event.pageSize)
+    this.readSafe()
   }
 
   onDeleteConfirm(event): void {
-    if (window.confirm('Are you sure you want to delete?')) {
-      this.service.delete(event.data.id).subscribe( () => {
-        this.readData(this.pageEvent.pageIndex, this.pageEvent.pageSize);
-      },err =>{
-        console.error(err);
-      })
-    } else {
-      event.confirm.reject();
-    }
+    Swal.fire({
+      title: 'Esta seguro de eliminar el registro?',
+      text: "Esta acción no es revertible!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText:'Cancelar',
+      confirmButtonText: 'Si'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.service.delete(event.data.id).subscribe(data =>{
+          this.readSafe();
+        },err =>{
+          console.log(err);
+        })
+       
+      }
+    })
+    
   }
 
   editRow(event) {
@@ -146,15 +170,15 @@ export class SafeListComponent extends BasePage {
       maximize: false,
       fullScreen: false,
     };
-    const modalRef = this.windowService.open(SafeDetailComponent, { title: `Editar bóveda`, context: { safes: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
-      this.readData(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
+    this.windowService.open(SafeDetailComponent, { title: `Editar boveda`, context: { city: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
+      this.readSafe();
     });
   
   }
 
   openWindow() {
-    const modalRef = this.windowService.open(SafeDetailComponent, { title: `Nueva bóveda` }).onClose.subscribe(() => {
-      this.readData(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
+    this.windowService.open(SafeDetailComponent, { title: `Nueva boveda` }).onClose.subscribe(() => {
+      this.readSafe();
     });
     
   }

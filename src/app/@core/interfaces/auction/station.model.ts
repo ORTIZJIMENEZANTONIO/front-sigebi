@@ -1,4 +1,4 @@
-export interface StationInterface {
+export interface Station {
   
   id: number | null;
   idTransferor: number;

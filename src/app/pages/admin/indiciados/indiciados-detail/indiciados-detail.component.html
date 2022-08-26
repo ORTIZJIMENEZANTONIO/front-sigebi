@@ -1,0 +1,51 @@
+<nb-card>
+    <nb-card-body>
+        <form [formGroup]="form">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <input nbInput fullWidth formControlName="name" placeholder="Nombre"
+                        >
+                        <label class="text-danger"
+                        *ngIf="validate['name'].hasError('required') && form.controls['name'].touched"><small>Ingrese un Nombre!</small></label>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <input nbInput fullWidth formControlName="noRegistration" placeholder="Número de registro"
+                        >
+                        <label class="text-danger"
+                        *ngIf="validate['noRegistration'].hasError('required') && form.controls['noRegistration'].touched"><small>Ingrese un número de registro!</small></label>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <input nbInput fullWidth formControlName="curp" placeholder="Curp"
+                        >
+                        <label class="text-danger"
+                        *ngIf="validate['curp'].hasError('required') && form.controls['curp'].touched"><small>Ingrese un curp!</small></label>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <input nbInput fullWidth formControlName="consecutive"  placeholder="Consecutivo"
+                        >
+                        <label class="text-danger"
+                        *ngIf="validate['consecutive'].hasError('required') && form.controls['consecutive'].touched"><small>Ingrese un  consecutivo!</small></label>
+                    </div>
+                </div>
+            </div>
+       
+            <div class="form-group">
+                <div class="d-flex justify-content-center">
+                    <button type="submit" nbButton status="primary" [disabled]="!form.valid"
+                        (click)="register()">{{actionBtn}}</button>
+                </div>
+            </div>
+        </form>
+    </nb-card-body>
+</nb-card>

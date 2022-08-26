@@ -5,14 +5,12 @@ import { GranteesRoutingModule } from './grantees-routing.module';
 import { GranteesDeailComponent } from './grantees-deail/grantees-deail.component';
 import { GranteesListComponent } from './grantees-list/grantees-list.component';
 
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { ComponentsModule } from '../../../@components/components.module';
 import { ThemeModule } from '../../../@theme/theme.module';
 import { NbButtonModule, NbCardModule, NbInputModule, NbSelectModule, NbWindowModule } from '@nebular/theme';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
 
 @NgModule({
   declarations: [
@@ -22,10 +20,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
   imports: [
     CommonModule,
     GranteesRoutingModule,
-    FormsModule,
     ReactiveFormsModule,
     ComponentsModule,
-    CommonModule,
     ThemeModule,
     NbCardModule,
     Ng2SmartTableModule,
@@ -33,9 +29,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     NbButtonModule,
     NbInputModule,
     NbWindowModule.forChild(),
-    MatPaginatorModule,
-    MatInputModule,
-    MatFormFieldModule
+    MatPaginatorModule
   ]
 })
 export class GranteesModule { }

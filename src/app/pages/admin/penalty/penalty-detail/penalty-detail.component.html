@@ -1,0 +1,95 @@
+<nb-card>
+    <nb-card-body>
+        <form [formGroup]="form">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type="text" formControlName="serviceType" placeholder="Tipo Servicio" nbInput fullWidth
+                            class="form-control"
+                            [status]="(serviceType?.errors?.required || serviceType?.hasError('minlength') || serviceType?.hasError('maxlength') || serviceType?.hasError('pattern')) && serviceType.touched ? 'danger' : ''">
+                        <ngx-validation-message label="Tipo Servicio"
+                            [showMinLength]="serviceType?.hasError('minlength')"
+                            [showMaxLength]="serviceType?.hasError('maxlength')"
+                            [showRequired]="serviceType?.errors?.required && serviceType.touched"
+                            [showPattern]="serviceType?.hasError('pattern') && serviceType.touched" minLength=1
+                            maxLength=255>
+                        </ngx-validation-message>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type="text" formControlName="penaltyPercentage" placeholder="Porcentaje penalizacion"
+                            nbInput fullWidth class="form-control"
+                            [status]="(penaltyPercentage?.errors?.required || penaltyPercentage?.hasError('minlength') || penaltyPercentage?.hasError('maxlength') || penaltyPercentage?.hasError('pattern')) && penaltyPercentage.touched ? 'danger' : ''">
+                        <ngx-validation-message label="Porcentaje penalizacion"
+                            [showMinLength]="penaltyPercentage?.hasError('minlength')"
+                            [showMaxLength]="penaltyPercentage?.hasError('maxlength')"
+                            [showRequired]="penaltyPercentage?.errors?.required && penaltyPercentage.touched"
+                            [showPattern]="penaltyPercentage?.hasError('pattern') && penaltyPercentage.touched"
+                            minLength=1 maxLength=255>
+                        </ngx-validation-message>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type="text" formControlName="equivalentDays" placeholder="Dias equivalentes" nbInput
+                            fullWidth class="form-control"
+                            [status]="(equivalentDays?.errors?.required || equivalentDays?.hasError('minlength') || equivalentDays?.hasError('maxlength') || equivalentDays?.hasError('pattern')) && equivalentDays.touched ? 'danger' : ''">
+                        <ngx-validation-message label="Dias equivalentes"
+                            [showMinLength]="equivalentDays?.hasError('minlength')"
+                            [showMaxLength]="equivalentDays?.hasError('maxlength')"
+                            [showRequired]="equivalentDays?.errors?.required && equivalentDays.touched"
+                            [showPattern]="equivalentDays?.hasError('pattern') && equivalentDays.touched" minLength=1
+                            maxLength=255>
+                        </ngx-validation-message>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type="text" formControlName="contractNumber" placeholder="Numero de contrato" nbInput
+                            fullWidth class="form-control"
+                            [status]="(contractNumber?.errors?.required || contractNumber?.hasError('minlength') || contractNumber?.hasError('maxlength') || contractNumber?.hasError('pattern')) && contractNumber.touched ? 'danger' : ''">
+                        <ngx-validation-message label="Numero de contrato"
+                            [showMinLength]="contractNumber?.hasError('minlength')"
+                            [showMaxLength]="contractNumber?.hasError('maxlength')"
+                            [showRequired]="contractNumber?.errors?.required && contractNumber.touched"
+                            [showPattern]="contractNumber?.hasError('pattern') && contractNumber.touched" minLength=1
+                            maxLength=255>
+                        </ngx-validation-message>
+                    </div>
+                </div>
+                <div class="col-md-6">
+
+                    <div class="form-group">
+                        <input type="text" formControlName="version" placeholder="Version" nbInput fullWidth
+                            class="form-control"
+                            [status]="(version?.errors?.required || version?.hasError('minlength') || version?.hasError('maxlength') || version?.hasError('pattern')) && version.touched ? 'danger' : ''">
+                        <ngx-validation-message label="Version" [showMinLength]="version?.hasError('minlength')"
+                            [showMaxLength]="version?.hasError('maxlength')"
+                            [showRequired]="version?.errors?.required && version.touched"
+                            [showPattern]="version?.hasError('pattern') && version.touched" minLength=1 maxLength=255>
+                        </ngx-validation-message>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type="text" formControlName="status" placeholder="Estatus" nbInput fullWidth
+                            class="form-control"
+                            [status]="(estatus?.errors?.required || estatus?.hasError('minlength') || estatus?.hasError('maxlength') || estatus?.hasError('pattern')) && estatus.touched ? 'danger' : ''">
+                        <ngx-validation-message label="Estatus" [showMinLength]="estatus?.hasError('minlength')"
+                            [showMaxLength]="estatus?.hasError('maxlength')"
+                            [showRequired]="estatus?.errors?.required && estatus.touched"
+                            [showPattern]="estatus?.hasError('pattern') && estatus.touched" minLength=1 maxLength=255>
+                        </ngx-validation-message>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="d-flex justify-content-center">
+                    <button type="submit" nbButton status="primary" [disabled]="!form.valid"
+                        (click)="register()">{{actionBtn}}</button>
+                </div>
+            </div>
+        </form>
+    </nb-card-body>
+</nb-card>

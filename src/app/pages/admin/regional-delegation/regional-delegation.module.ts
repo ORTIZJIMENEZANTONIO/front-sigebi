@@ -23,7 +23,6 @@ import { RegionalDelegationListComponent } from './regional-delegation-list/regi
   imports: [
     CommonModule,
     RegionalDelegationRoutingModule,
-    FormsModule,
     ReactiveFormsModule,
     ComponentsModule,
     ThemeModule,
@@ -33,9 +32,7 @@ import { RegionalDelegationListComponent } from './regional-delegation-list/regi
     NbButtonModule,
     NbInputModule,
     NbWindowModule.forChild(),
-    MatPaginatorModule,
-    MatInputModule,
-    MatFormFieldModule
+    MatPaginatorModule
   ]
 })
 export class RegionalDelegationModule { }

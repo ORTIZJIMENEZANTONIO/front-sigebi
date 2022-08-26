@@ -40,7 +40,7 @@ export class SafeDetailComponent extends BasePage {
 
     });
   
-  get validateDelegation(){
+  get validateSafe(){
     return this.form.controls;
   }
     

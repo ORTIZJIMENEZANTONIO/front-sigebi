@@ -44,7 +44,7 @@ export class QuestionDetailComponent extends BasePage {
       
     });
   
-  get validateDelegation(){
+  get validateQuestion(){
     return this.form.controls;
   }
     

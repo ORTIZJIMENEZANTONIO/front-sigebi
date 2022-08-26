@@ -3,8 +3,9 @@ import { NbMediaBreakpointsService, NbMenuService, NbSidebarService, NbThemeServ
 
 import { UserData } from '../../../@core/data/users';
 import { LayoutService } from '../../../@core/utils';
-import { map, takeUntil } from 'rxjs/operators';
+import { map, takeUntil, filter } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'ngx-header',
@@ -38,22 +39,26 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   currentTheme = 'default';
 
-  userMenu = [ { title: 'Profile' }, { title: 'Log out' } ];
+
+  userMenu = [ { title: 'Profile' }, { title: 'Salir' } ];
 
   constructor(private sidebarService: NbSidebarService,
               private menuService: NbMenuService,
               private themeService: NbThemeService,
               private userService: UserData,
               private layoutService: LayoutService,
-              private breakpointService: NbMediaBreakpointsService) {
+              private breakpointService: NbMediaBreakpointsService,
+              private router: Router) {
   }
 
   ngOnInit() {
     this.currentTheme = this.themeService.currentTheme;
-
-    this.userService.getUsers()
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((users: any) => this.user = users.nick);
+    this.user = { name: localStorage.getItem("name"), picture: 'assets/images/nick.png' }
+    // this.userService.getUsers()
+    //   .pipe(takeUntil(this.destroy$))
+    //   .subscribe((users: any) => this.user = users.user);
+    //   this.user.name = localStorage.getItem('name');
+      // .subscribe((users: any) =>  console.log(users.user));
 
     const { xl } = this.breakpointService.getBreakpointsMap();
     this.themeService.onMediaQueryChange()
@@ -69,6 +74,21 @@ export class HeaderComponent implements OnInit, OnDestroy {
         takeUntil(this.destroy$),
       )
       .subscribe(themeName => this.currentTheme = themeName);
+
+      this.menuService.onItemClick()
+      .pipe(
+        filter(({ tag }) => tag === 'userMenu'),
+        map(({ item: { title } }) => title),
+      )
+      .subscribe(
+        title => {
+          switch(title){
+            case 'Salir':
+              localStorage.clear();
+              this.router.navigate(['auth/login']);
+              break;
+          }
+        });
   }
 
   ngOnDestroy() {

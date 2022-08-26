@@ -1,1 +1,144 @@
-<p>departament-detail works!</p>
+<nb-card>
+    <nb-card-body>
+        <form [formGroup]="formDepartament">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type="number" nbInput fullWidth formControlName="numDelegation"
+                            placeholder="Número de delegación"
+                            [status]="(numDelegation?.errors?.required || numDelegation?.hasError('minlength') || numDelegation?.hasError('maxlength') || numDelegation?.hasError('pattern')) && numDelegation.touched ? 'danger' : ''">
+                        <ngx-validation-message label="Número de delegación"
+                            [showMinLength]="numDelegation?.hasError('minlength')"
+                            [showMaxLength]="numDelegation?.hasError('maxlength')"
+                            [showRequired]="numDelegation?.errors?.required && numDelegation.touched"
+                            [showPattern]="numDelegation?.hasError('pattern') && numDelegation.touched" minLength=1
+                            maxLength=255>
+                        </ngx-validation-message>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type="number" nbInput fullWidth formControlName="numSubDelegation"
+                            placeholder="Número sub delegación"
+                            [status]="(numSubDelegation?.errors?.required || numSubDelegation?.hasError('minlength') || numSubDelegation?.hasError('maxlength') || numSubDelegation?.hasError('pattern')) && numSubDelegation.touched ? 'danger' : ''">
+                        <ngx-validation-message label="Número sub delegación"
+                            [showMinLength]="numSubDelegation?.hasError('minlength')"
+                            [showMaxLength]="numSubDelegation?.hasError('maxlength')"
+                            [showRequired]="numSubDelegation?.errors?.required && numSubDelegation.touched"
+                            [showPattern]="numSubDelegation?.hasError('pattern') && numSubDelegation.touched"
+                            minLength=1 maxLength=255>
+                        </ngx-validation-message>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type="text" nbInput maxlength="30" fullWidth formControlName="dsarea"
+                            placeholder="Descripción de área"
+                            [status]="(dsarea?.errors?.required || dsarea?.hasError('minlength') || dsarea?.hasError('maxlength') || dsarea?.hasError('pattern')) && dsarea.touched ? 'danger' : ''">
+                        <ngx-validation-message label="Descripción de área"
+                            [showMinLength]="dsarea?.hasError('minlength')"
+                            [showMaxLength]="dsarea?.hasError('maxlength')"
+                            [showRequired]="dsarea?.errors?.required && dsarea.touched"
+                            [showPattern]="dsarea?.hasError('pattern') && dsarea.touched" minLength=1 maxLength=255>
+                        </ngx-validation-message>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type="text" nbInput fullWidth formControlName="description" maxlength="200"
+                            placeholder="Descripción"
+                            [status]="(description?.errors?.required || description?.hasError('minlength') || description?.hasError('maxlength') || description?.hasError('pattern')) && description.touched ? 'danger' : ''">
+                        <ngx-validation-message label="Descripcion" [showMinLength]="description?.hasError('minlength')"
+                            [showMaxLength]="description?.hasError('maxlength')"
+                            [showRequired]="description?.errors?.required && description.touched"
+                            [showPattern]="description?.hasError('pattern') && description.touched" minLength=1
+                            maxLength=255>
+                        </ngx-validation-message>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type="number" nbInput fullWidth formControlName="lastOffice"
+                            placeholder="CVE zona contrato"
+                            [status]="(lastOffice?.errors?.required || lastOffice?.hasError('minlength') || lastOffice?.hasError('maxlength') || lastOffice?.hasError('pattern')) && lastOffice.touched ? 'danger' : ''">
+                        <ngx-validation-message label="CVE zona contrato"
+                            [showMinLength]="lastOffice?.hasError('minlength')"
+                            [showMaxLength]="lastOffice?.hasError('maxlength')"
+                            [showRequired]="lastOffice?.errors?.required && lastOffice.touched"
+                            [showPattern]="lastOffice?.hasError('pattern') && lastOffice.touched" minLength=1
+                            maxLength=255>
+                        </ngx-validation-message>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type="number" nbInput fullWidth formControlName="numRegister"
+                            placeholder="Número de registro"
+                            [status]="(numRegister?.errors?.required || numRegister?.hasError('minlength') || numRegister?.hasError('maxlength') || numRegister?.hasError('pattern')) && numRegister.touched ? 'danger' : ''">
+                        <ngx-validation-message label="Número de registro"
+                            [showMinLength]="numRegister?.hasError('minlength')"
+                            [showMaxLength]="numRegister?.hasError('maxlength')"
+                            [showRequired]="numRegister?.errors?.required && numRegister.touched"
+                            [showPattern]="numRegister?.hasError('pattern') && numRegister.touched" minLength=1
+                            maxLength=255>
+                        </ngx-validation-message>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type="number" nbInput fullWidth formControlName="level" placeholder="Nivel"
+                            [status]="(level?.errors?.required || level?.hasError('minlength') || level?.hasError('maxlength') || level?.hasError('pattern')) && level.touched ? 'danger' : ''">
+                        <ngx-validation-message label="Nivel" [showMinLength]="level?.hasError('minlength')"
+                            [showMaxLength]="level?.hasError('maxlength')"
+                            [showRequired]="level?.errors?.required && level.touched"
+                            [showPattern]="level?.hasError('pattern') && level.touched" minLength=1 maxLength=255>
+                        </ngx-validation-message>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type="number" nbInput fullWidth formControlName="depend" placeholder="Dependencia"
+                            [status]="(depend?.errors?.required || depend?.hasError('minlength') || depend?.hasError('maxlength') || depend?.hasError('pattern')) && depend.touched ? 'danger' : ''">
+                        <ngx-validation-message label="Dependencia" [showMinLength]="depend?.hasError('minlength')"
+                            [showMaxLength]="depend?.hasError('maxlength')"
+                            [showRequired]="depend?.errors?.required && depend.touched"
+                            [showPattern]="depend?.hasError('pattern') && depend.touched" minLength=1 maxLength=255>
+                        </ngx-validation-message>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type="number" nbInput fullWidth formControlName="depDelegation"
+                            placeholder="Departamento delegación"
+                            [status]="(depDelegation?.errors?.required || depDelegation?.hasError('minlength') || depDelegation?.hasError('maxlength') || depDelegation?.hasError('pattern')) && depDelegation.touched ? 'danger' : ''">
+                        <ngx-validation-message label="Departamento delegación"
+                            [showMinLength]="depDelegation?.hasError('minlength')"
+                            [showMaxLength]="depDelegation?.hasError('maxlength')"
+                            [showRequired]="depDelegation?.errors?.required && depDelegation.touched"
+                            [showPattern]="depDelegation?.hasError('pattern') && depDelegation.touched" minLength=1
+                            maxLength=255>
+                        </ngx-validation-message>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type="number" nbInput fullWidth formControlName="phaseEdo" placeholder="Fase EDO"
+                            [status]="(phaseEdo?.errors?.required || phaseEdo?.hasError('minlength') || phaseEdo?.hasError('maxlength') || phaseEdo?.hasError('pattern')) && phaseEdo.touched ? 'danger' : ''">
+                        <ngx-validation-message label="Fase EDO" [showMinLength]="phaseEdo?.hasError('minlength')"
+                            [showMaxLength]="phaseEdo?.hasError('maxlength')"
+                            [showRequired]="phaseEdo?.errors?.required && phaseEdo.touched"
+                            [showPattern]="phaseEdo?.hasError('pattern') && phaseEdo.touched" minLength=1 maxLength=255>
+                        </ngx-validation-message>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="d-flex justify-content-center">
+                    <button type="submit" nbButton status="primary" [disabled]="!formDepartament.valid"
+                        (click)="register()">{{actionBtn}}</button>
+                </div>
+            </div>
+        </form>
+    </nb-card-body>
+</nb-card>

@@ -87,11 +87,11 @@ export class MediumPhotographyListComponent extends BasePage {
         //editable: false,
         // width: '25px'
       },
-      ruta: {
+      route: {
         title: 'Ruta',
         type: 'string',
       },
-      estatus: {
+      status: {
         title: 'Estatus',
         type: 'string',
       },
@@ -152,14 +152,14 @@ export class MediumPhotographyListComponent extends BasePage {
       maximize: false,
       fullScreen: false,
     };
-    this.windowService.open(MediumPhotographyDetailComponent, { title: `Editar juzgado`, context: { notary: event.data }, buttons: buttonsConfig }).onClose.subscribe(() => {
+    this.windowService.open(MediumPhotographyDetailComponent, { title: `Editar medio fotográfico`, context: { notary: event.data }, buttons: buttonsConfig }).onClose.subscribe(() => {
       this.readMediumPhotography();
     });
 
   }
 
   openWindow() {
-    this.windowService.open(MediumPhotographyDetailComponent, { title: `Nuevo juzgado` }).onClose.subscribe(() => {
+    this.windowService.open(MediumPhotographyDetailComponent, { title: `Nuevo medio fotográfico` }).onClose.subscribe(() => {
       this.readMediumPhotography();
     });
 

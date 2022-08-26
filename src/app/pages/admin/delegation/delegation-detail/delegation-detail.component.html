@@ -1,48 +1,93 @@
 <nb-card>
     <nb-card-body>
         <form [formGroup]="formDelegation">
-            <div class="form-group row">
-                <input nbInput fullWidth formControlName="descripcion" matInput placeholder="descripcion"
-                [status]="formDelegation.controls['descripcion']?.errors?.required  && formDelegation.controls['descripcion'].touched ? 'danger' : ''">
-                <label class="text-danger"
-                 *ngIf="validateDelegation['descripcion'].hasError('required') && formDelegation.controls['descripcion'].touched"><small>Ingrese una descripcion!</small></label>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input nbInput fullWidth formControlName="description" placeholder="Descripción"
+                            [status]="(description?.errors?.required || description?.hasError('minlength') || description?.hasError('maxlength') || description?.hasError('pattern')) && description.touched ? 'danger' : ''">
+                        <ngx-validation-message label="Descripción" [showMinLength]="description?.hasError('minlength')"
+                            [showMaxLength]="description?.hasError('maxlength')"
+                            [showRequired]="description?.errors?.required && description.touched"
+                            [showPattern]="description?.hasError('pattern') && description.touched" minLength=1
+                            maxLength=255>
+                        </ngx-validation-message>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type="number" nbInput fullWidth formControlName="zoneVigilanceCVE"
+                            placeholder="CVE Zona de vigilancia"
+                            [status]="(zoneVigilanceCVE?.errors?.required || zoneVigilanceCVE?.hasError('minlength') || zoneVigilanceCVE?.hasError('maxlength') || zoneVigilanceCVE?.hasError('pattern')) && zoneVigilanceCVE.touched ? 'danger' : ''">
+                        <ngx-validation-message label="CVE Zona de vigilancia"
+                            [showMinLength]="zoneVigilanceCVE?.hasError('minlength')"
+                            [showMaxLength]="zoneVigilanceCVE?.hasError('maxlength')"
+                            [showRequired]="zoneVigilanceCVE?.errors?.required && zoneVigilanceCVE.touched"
+                            [showPattern]="zoneVigilanceCVE?.hasError('pattern') && zoneVigilanceCVE.touched"
+                            minLength=1 maxLength=255>
+                        </ngx-validation-message>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type="number" nbInput fullWidth formControlName="phaseEdo" placeholder="Etapa Edo"
+                            [status]="(phaseEdo?.errors?.required || phaseEdo?.hasError('minlength') || phaseEdo?.hasError('maxlength')
+                || phaseEdo?.hasError('pattern')) && phaseEdo.touched ? 'danger' : ''">
+                        <ngx-validation-message label="Etapa Edo" [showMinLength]="phaseEdo?.hasError('minlength')"
+                            [showMaxLength]="phaseEdo?.hasError('maxlength')"
+                            [showRequired]="phaseEdo?.errors?.required && phaseEdo.touched"
+                            [showPattern]="phaseEdo?.hasError('pattern') && phaseEdo.touched" minLength=1 maxLength=255>
+                        </ngx-validation-message>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type="number" nbInput fullWidth formControlName="diffHours"
+                            placeholder="Diferencia de horas" [status]="(diffHours?.errors?.required || diffHours?.hasError('minlength') || diffHours?.hasError('maxlength')
+                || diffHours?.hasError('pattern')) && diffHours.touched ? 'danger' : ''">
+                        <ngx-validation-message label="Diferencia de horas"
+                            [showMinLength]="diffHours?.hasError('minlength')"
+                            [showMaxLength]="diffHours?.hasError('maxlength')"
+                            [showRequired]="diffHours?.errors?.required && diffHours.touched"
+                            [showPattern]="diffHours?.hasError('pattern') && diffHours.touched" minLength=1
+                            maxLength=255>
+                        </ngx-validation-message>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type="number" nbInput fullWidth formControlName="zoneContractCVE"
+                            placeholder="CVE zona de contrato"
+                            [status]="(zoneContractCVE?.errors?.required || zoneContractCVE?.hasError('minlength') || zoneContractCVE?.hasError('maxlength') || zoneContractCVE?.hasError('pattern')) && zoneContractCVE.touched ? 'danger' : ''">
+                        <ngx-validation-message label="CVE zona de contrato"
+                            [showMinLength]="zoneContractCVE?.hasError('minlength')"
+                            [showMaxLength]="zoneContractCVE?.hasError('maxlength')"
+                            [showRequired]="zoneContractCVE?.errors?.required && zoneContractCVE.touched"
+                            [showPattern]="zoneContractCVE?.hasError('pattern') && zoneContractCVE.touched" minLength=1
+                            maxLength=255>
+                        </ngx-validation-message>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type="number" nbInput fullWidth formControlName="numRegister"
+                            placeholder="Número de registro"
+                            [status]="(numRegister?.errors?.required || numRegister?.hasError('minlength') || numRegister?.hasError('maxlength') || numRegister?.hasError('pattern')) && numRegister.touched ? 'danger' : ''">
+                        <ngx-validation-message label="Número de registro"
+                            [showMinLength]="numRegister?.hasError('minlength')"
+                            [showMaxLength]="numRegister?.hasError('maxlength')"
+                            [showRequired]="numRegister?.errors?.required && numRegister.touched"
+                            [showPattern]="numRegister?.hasError('pattern') && numRegister.touched" minLength=1
+                            maxLength=255>
+                        </ngx-validation-message>
+                    </div>
+                </div>
             </div>
 
-            <div class="form-group row">
-                <input type="number" nbInput fullWidth formControlName="cve_zona_vigilancia" matInput placeholder="CVE Zona de vigilancia"
-                [status]="formDelegation.controls['cve_zona_vigilancia']?.errors?.required  && formDelegation.controls['cve_zona_vigilancia'].touched ? 'danger' : ''">
-                <label class="text-danger" *ngIf="validateDelegation['cve_zona_vigilancia'].hasError('required') && formDelegation.controls['cve_zona_vigilancia'].touched"><small>Campo cve de zona de vigilancia requerido!</small></label>
-            </div>
-
-            <div class="form-group row">
-                <input type="number" nbInput fullWidth formControlName="etapa_edo" matInput placeholder="Etapa Edo"
-                [status]="formDelegation.controls['etapa_edo']?.errors?.required  && formDelegation.controls['etapa_edo'].touched ? 'danger' : ''">
-                <label class="text-danger" *ngIf="validateDelegation['etapa_edo'].hasError('required')  && formDelegation.controls['etapa_edo'].touched "><small>Ingrese la etapa edo!</small></label>
-            </div>
-
-            <div class="form-group row">
-                <input type="number" nbInput fullWidth formControlName="dif_hora" matInput placeholder="Diferencia de horas"
-                [status]="formDelegation.controls['dif_hora']?.errors?.required  && formDelegation.controls['dif_hora'].touched ? 'danger' : ''">
-                <label class="text-danger" *ngIf="validateDelegation['dif_hora'].hasError('required')  && formDelegation.controls['dif_hora'].touched "><small>Ingrese la diferencia de horas!</small></label>
-            </div>
-
-            <div class="form-group row">
-                <input type="number" nbInput fullWidth formControlName="cve_zona_contrato" matInput placeholder="CVE zona de contrato"
-                [status]="formDelegation.controls['cve_zona_contrato']?.errors?.required  && formDelegation.controls['cve_zona_contrato'].touched ? 'danger' : ''">
-
-                <label class="text-danger" *ngIf="validateDelegation['cve_zona_contrato'].hasError('required') && formDelegation.controls['cve_zona_contrato'].touched"><small>Ingrese cve de zona de contrato!</small></label>
-            </div>
-
-            <div class="form-group row">
-                <input type="number" nbInput fullWidth formControlName="no_registro" matInput placeholder="Número de registro"
-                [status]="formDelegation.controls['no_registro']?.errors?.required  && formDelegation.controls['no_registro'].touched ? 'danger' : ''">
-
-                <label class="text-danger" *ngIf="validateDelegation['no_registro'].hasError('required') && formDelegation.controls['no_registro'].touched"><small>Ingrese el numero de registro!</small></label>
-            </div>
-       
-            <div class="form-group row">
-                <div class="offset-sm-3 col-sm-9">
-                    <button type="submit" nbButton status="primary" [disabled]="!formDelegation.valid" (click)="register()">{{actionBtn}}</button>
+            <div class="form-group">
+                <div class="d-flex justify-content-center">
+                    <button type="submit" nbButton status="primary" [disabled]="!formDelegation.valid"
+                        (click)="register()">{{actionBtn}}</button>
                 </div>
             </div>
         </form>

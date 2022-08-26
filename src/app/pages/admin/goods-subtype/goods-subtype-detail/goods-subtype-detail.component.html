@@ -1,0 +1,59 @@
+<nb-card>
+    <nb-card-body>
+        <form [formGroup]="form">
+
+            <div class="form-group row">
+                <input nbInput fullWidth formControlName="nameGoodSubtype" placeholder="Nombre Sub tipo bienes"
+                    [status]="(nameGoodSubtype?.errors?.required || nameGoodSubtype?.hasError('minlength') || nameGoodSubtype?.hasError('maxlength') || nameGoodSubtype?.hasError('pattern')) && nameGoodSubtype.touched ? 'danger' : ''">
+                <ngx-validation-message label="Nombre Sub tipo bienes"
+                    [showMinLength]="nameGoodSubtype?.hasError('minlength')"
+                    [showMaxLength]="nameGoodSubtype?.hasError('maxlength')"
+                    [showRequired]="nameGoodSubtype?.errors?.required && nameGoodSubtype.touched"
+                    [showPattern]="nameGoodSubtype?.hasError('pattern') && nameGoodSubtype.touched" minLength=1
+                    maxLength=255>
+                </ngx-validation-message>
+            </div>
+
+            <div class="form-group row">
+                <input nbInput fullWidth formControlName="numberPhotographs" placeholder="Numero de fotografias"
+                    [status]="(numberPhotographs?.errors?.required || numberPhotographs?.hasError('minlength') || numberPhotographs?.hasError('maxlength') || numberPhotographs?.hasError('pattern')) && numberPhotographs.touched ? 'danger' : ''">
+                <ngx-validation-message label="Numero de fotografias"
+                    [showMinLength]="numberPhotographs?.hasError('minlength')"
+                    [showMaxLength]="numberPhotographs?.hasError('maxlength')"
+                    [showRequired]="numberPhotographs?.errors?.required && numberPhotographs.touched"
+                    [showPattern]="numberPhotographs?.hasError('pattern') && numberPhotographs.touched" minLength=1
+                    maxLength=255>
+                </ngx-validation-message>
+            </div>
+
+            <div class="form-group row">
+                <input nbInput fullWidth formControlName="descFotographs" placeholder="Descripcion fotografias"
+                    [status]="(descFotographs?.errors?.required || descFotographs?.hasError('minlength') || descFotographs?.hasError('maxlength') || descFotographs?.hasError('pattern')) && descFotographs.touched ? 'danger' : ''">
+                <ngx-validation-message label="Descripcion fotografias"
+                    [showMinLength]="descFotographs?.hasError('minlength')"
+                    [showMaxLength]="descFotographs?.hasError('maxlength')"
+                    [showRequired]="descFotographs?.errors?.required && descFotographs.touched"
+                    [showPattern]="descFotographs?.hasError('pattern') && descFotographs.touched" minLength=1
+                    maxLength=255>
+                </ngx-validation-message>
+            </div>
+
+            <div class="form-group row">
+                <input nbInput fullWidth formControlName="version" placeholder="Version"
+                    [status]="(version?.errors?.required || version?.hasError('minlength') || version?.hasError('maxlength') || version?.hasError('pattern')) && version.touched ? 'danger' : ''">
+                <ngx-validation-message label="Version" [showMinLength]="version?.hasError('minlength')"
+                    [showMaxLength]="version?.hasError('maxlength')"
+                    [showRequired]="version?.errors?.required && version.touched"
+                    [showPattern]="version?.hasError('pattern') && version.touched" minLength=1 maxLength=255>
+                </ngx-validation-message>
+            </div>
+
+            <div class="form-group">
+                <div class="d-flex justify-content-center">
+                    <button type="submit" nbButton status="primary" [disabled]="!form.valid"
+                        (click)="register()">{{actionBtn}}</button>
+                </div>
+            </div>
+        </form>
+    </nb-card-body>
+</nb-card>

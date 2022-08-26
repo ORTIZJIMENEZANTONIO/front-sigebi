@@ -2,26 +2,38 @@
     <nb-card-body>
         <form [formGroup]="formLegend">
             <div class="form-group row">
-                <input nbInput fullWidth formControlName="legend" matInput placeholder="leyenda">
-                <label class="text-danger" *ngIf="validateLegend['legend'].hasError('pattern')"><small>Ingrese un nombre válido!</small></label>
+                <textarea nbInput fullWidth formControlName="legend" placeholder="leyenda"
+                    [status]="(legend?.errors?.required || legend?.hasError('minlength') || legend?.hasError('maxlength') || legend?.hasError('pattern')) && legend.touched ? 'danger' : ''">
+                    </textarea>
+                <ngx-validation-message label="leyenda" [showMinLength]="legend?.hasError('minlength')"
+                    [showMaxLength]="legend?.hasError('maxlength')"
+                    [showRequired]="legend?.errors?.required && legend.touched"
+                    [showPattern]="legend?.hasError('pattern') && legend.touched" minLength=1 maxLength=255>
+                </ngx-validation-message>
             </div>
             <div class="form-group row">
-                <input nbInput fullWidth formControlName="version" matInput placeholder="version">
-                <label class="text-danger" *ngIf="validateLegend['version'].hasError('pattern')"><small>Numero de versión no válida!</small></label>
+                <input nbInput fullWidth formControlName="version" placeholder="version"
+                    [status]="(version?.errors?.required || version?.hasError('minlength') || version?.hasError('maxlength') || version?.hasError('pattern')) && version.touched ? 'danger' : ''">
+                <ngx-validation-message label="Version" [showMinLength]="version?.hasError('minlength')"
+                    [showMaxLength]="version?.hasError('maxlength')"
+                    [showRequired]="version?.errors?.required && version.touched"
+                    [showPattern]="version?.hasError('pattern') && version.touched" minLength=1 maxLength=255>
+                </ngx-validation-message>
             </div>
             <div class="form-group row">
                 <select class="form-control" formControlName="status" title="Seleccione una opción">
                     <option selected disabled>Seleccionar...</option>
-                    <option value="0" selected>Activo</option>
-                    <option value="1">Inactivo</option>
+                    <option [value]="0" selected>Activo</option>
+                    <option [value]="1">Inactivo</option>
                 </select>
             </div>
             <!-- <div class="form-group row">
-                <input nbInput fullWidth formControlName="status" matInput placeholder="status">
+                <input nbInput fullWidth formControlName="status"  placeholder="status">
             </div> -->
             <div class="form-group row">
                 <div class="offset-sm-3 col-sm-9">
-                    <button type="submit" nbButton status="primary" [disabled]="!formLegend.valid" (click)="register()">{{actionBtn}}</button>
+                    <button type="submit" nbButton status="primary" [disabled]="!formLegend.valid"
+                        (click)="register()">{{actionBtn}}</button>
                 </div>
             </div>
         </form>

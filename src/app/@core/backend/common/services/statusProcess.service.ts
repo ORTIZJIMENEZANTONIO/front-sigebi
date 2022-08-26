@@ -25,7 +25,7 @@ export class StatusProcessService {
         return this.api.register(statusProcess, this.url);
     }
 
-    update(id:number, statusProcess: StatusProcessModel): Observable<StatusProcessModel>{
+    update(id:string, statusProcess: StatusProcessModel): Observable<StatusProcessModel>{
         return this.api.update(id, statusProcess, this.url);
     }
 

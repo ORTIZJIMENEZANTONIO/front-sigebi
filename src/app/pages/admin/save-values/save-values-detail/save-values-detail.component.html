@@ -1,0 +1,61 @@
+<nb-card>
+    <nb-card-body>
+        <form [formGroup]="form">            
+            
+            <div class="row">
+                
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <input nbInput fullWidth formControlName="cve" placeholder="Clave"
+>
+                        <label class="text-danger"
+                        *ngIf="validate['cve'].hasError('required') && form.controls['cve'].touched"><small>Ingrese una clave!</small></label>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <input nbInput fullWidth formControlName="description" placeholder="Descripción"
+>
+                        <label class="text-danger"
+                        *ngIf="validate['description'].hasError('required') && form.controls['description'].touched"><small>Ingrese una descripción!</small></label>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <input nbInput fullWidth formControlName="location" placeholder="Ubicación"
+                        >
+                        <label class="text-danger"
+                        *ngIf="validate['location'].hasError('required') && form.controls['location'].touched"><small>Ingrese una Ubicación!</small></label>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <input nbInput fullWidth formControlName="responsible" placeholder="Responsable"
+                        >
+                        <label class="text-danger"
+                        *ngIf="validate['responsible'].hasError('required') && form.controls['responsible'].touched"><small>Ingrese un Responsable!</small></label>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <input nbInput fullWidth formControlName="noRegistration" placeholder="Número de registro"
+                        >
+                        <label class="text-danger"
+                        *ngIf="validate['noRegistration'].hasError('required') && form.controls['noRegistration'].touched"><small>Ingrese un número de registro!</small></label>
+                    </div>
+                </div>
+            </div>
+       
+            <div class="form-group">
+                <div class="d-flex justify-content-center">
+                    <button type="submit" nbButton status="primary" [disabled]="!form.valid"
+                        (click)="register()">{{actionBtn}}</button>
+                </div>
+            </div>
+        </form>
+    </nb-card-body>
+</nb-card>

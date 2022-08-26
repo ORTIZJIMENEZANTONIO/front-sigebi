@@ -1,0 +1,38 @@
+<nb-card>
+  <nb-card-body>
+    <form [formGroup]="form">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group">
+            <input nbInput fullWidth formControlName="type" placeholder="Tipo de servicio">
+            <label class="text-danger" *ngIf="validateOpinion['type'].hasError('pattern')"><small>Tipo de servicio no
+                válido!</small></label>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="form-group">
+            <input nbInput fullWidth formControlName="concept" placeholder="Concepto de servicio">
+            <label class="text-danger" *ngIf="validateOpinion['concept'].hasError('pattern')"><small>Concepto de
+                servicio no
+                válido!</small></label>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="form-group">
+            <input nbInput fullWidth formControlName="version" placeholder="Versión">
+            <label class="text-danger" *ngIf="validateOpinion['version'].hasError('pattern')"><small>Versión no
+                válido!</small></label>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="d-flex justify-content-center">
+          <button type="submit" nbButton status="primary" [disabled]="!form.valid"
+            (click)="register()">{{actionBtn}}</button>
+        </div>
+      </div>
+      
+    </form>
+  </nb-card-body>
+</nb-card>

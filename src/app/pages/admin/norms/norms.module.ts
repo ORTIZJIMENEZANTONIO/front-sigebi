@@ -19,10 +19,10 @@ import { NormListComponent } from './norm-list/norm-list.component';
     NormListComponent
   ],
   imports: [
-    FormsModule,
+    CommonModule,
+    NormsRoutingModule,
     ReactiveFormsModule,
     ComponentsModule,
-    CommonModule,
     ThemeModule,
     NbCardModule,
     Ng2SmartTableModule,
@@ -30,10 +30,7 @@ import { NormListComponent } from './norm-list/norm-list.component';
     NbButtonModule,
     NbInputModule,
     NbWindowModule.forChild(),
-    NormsRoutingModule,
-    MatPaginatorModule,
-    MatInputModule,
-    MatFormFieldModule
+    MatPaginatorModule
   ]
 })
 export class NormsModule { }

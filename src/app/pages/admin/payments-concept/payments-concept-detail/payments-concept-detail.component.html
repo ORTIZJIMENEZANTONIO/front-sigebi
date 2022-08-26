@@ -2,15 +2,12 @@
     <nb-card-body>
         <form [formGroup]="formPaymentsConcept">
             <div class="form-group row">
-                <input nbInput fullWidth formControlName="descripcion" matInput placeholder="descripcion">
-                <label class="text-danger" *ngIf="validatePaymentsConcept['descripcion'].hasError('required')"><small>Ingrese una descripción!</small></label>
+                <input nbInput fullWidth type="text" formControlName="description" matInput placeholder="Descripción">
+                <label class="text-danger" *ngIf="validatePaymentsConcept['description'].hasError('required')"><small>Ingrese una descripción!</small></label>
             </div>
-
-
-
             <div class="form-group row">
-                <input nbInput fullWidth type="number" formControlName="no_registro" matInput placeholder="Número de registro">
-                <label class="text-danger" *ngIf="validatePaymentsConcept['no_registro'].hasError('min')"><small>Ingrese el numero de registro!</small></label>
+                <input nbInput fullWidth type="number" formControlName="numRegister" matInput placeholder="Número de registro">
+                <label class="text-danger" *ngIf="validatePaymentsConcept['numRegister'].hasError('min')"><small>Ingrese el numero de registro!</small></label>
             </div>
        
             <div class="form-group row">
