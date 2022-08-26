@@ -136,6 +136,7 @@ export class GoodSssubtypeListComponent extends BasePage {
       (dt: any) => {
         this.list = dt.data;
         this.length = dt.count;
+        console.log(dt);
       },
       err => {
         let error = '';

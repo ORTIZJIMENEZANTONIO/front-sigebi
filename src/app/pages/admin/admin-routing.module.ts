@@ -54,10 +54,6 @@ const routes: Routes = [
           .then(m => m.LocalityModule)
       },
       {
-        path: 'dictaments', loadChildren: () => import('./dictamens/dictamens.module')
-          .then(m => m.DictamensModule)
-      },
-      {
         path: 'sinister', loadChildren: () => import('./type-sinister/type-sinister.module')
           .then(m => m.TypeSinisterModule)
       },
@@ -397,12 +393,48 @@ const routes: Routes = [
           .then(m => m.DoccompensationSatXmlModule)
       },
       {
+        path: 'zone-geographic', loadChildren: () => import('./zone-geographic/zone-geographic.module')
+          .then(m => m.ZoneGeographicModule) 
+      },
+      {
+        path: 'type-services', loadChildren: () => import('./type-services/type-services.module')
+          .then(m => m.TypeServicesModule) 
+      },
+      {
         path: 'siseProcess', loadChildren: () => import('./sise-process/sise-process.module')
           .then(m => m.SiseProcessModule)
       },
       {
         path: 'service-cat', loadChildren: () => import('./services/services.module')
           .then(m => m.ServicesModule)
+      },
+      {
+
+        path: 'ifai-serie', loadChildren: () => import('./ifai-serie/ifai-serie.module')
+          .then(m => m.IfaiSerieModule)
+      },
+      {
+        path: 'response', loadChildren: () => import('./response/response.module')
+          .then(m => m.ResponseModule)
+      },{
+
+
+      
+        path: 'claims-status', loadChildren: () => import('./claims-status/claims-status.module')
+          .then(m => m.ClaimsStatusModule)
+    
+      },
+      {
+        path: 'response-repuve', loadChildren: () => import('./response-repuve/response-repuve.module')
+          .then(m => m.ResponseRepuveModule)
+      },
+      {
+        path: 'rack', loadChildren: () => import('./rack/rack.module')
+          .then(m => m.RackModule)
+      },
+       {
+        path: 'drawer', loadChildren: () => import('./drawers/drawers.module')
+          .then(m => m.DrawersModule)
       },
       //{ path: 'home', component: CategoriesComponent },//ok
     ]

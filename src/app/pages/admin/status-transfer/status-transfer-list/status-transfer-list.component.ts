@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { NbToastrService, NbWindowControlButtonsConfig, NbWindowService } from '@nebular/theme';
+import { SweetAlertResult } from 'sweetalert2';
 import { StatusTransferService } from '../../../../@core/backend/common/services/statusTrasnsfer.service';
 import { StatusTransferInterface } from '../../../../@core/interfaces/auction/statusTransfer.model';
 import { SweetAlertConstants } from '../../../../@core/interfaces/auction/sweetalert-model';
@@ -101,7 +102,7 @@ export class StatusTransferListComponent extends BasePage {
   ngOnInit(): void {
     this.read(0, 10);
   }
-
+  
   private read(pageIndex: number, pageSize: number) {
     this.list = null;
     this.service.list(pageIndex, pageSize).subscribe(
@@ -132,16 +133,13 @@ export class StatusTransferListComponent extends BasePage {
   }
 
   public onDeleteConfirm(event): void {
-    this.sweetalertQuestion('warning', 'Eliminar', 'Desea eliminar este registro?').then(
+    this.sweetalertQuestion('warning', 'Eliminar', '¿Desea eliminar este registro?').then(
       question => {
         if (question.isConfirmed) {
           this.service.delete(event.data.id).subscribe(
             data => {
-              // if (data.statusCode == 200) {
-              this.onLoadFailed('success', 'Eliminado', data.message);
-              // } else {
-              //   this.onLoadFailed('danger', 'Error', data.message);
-              // }
+              this.onLoadFailed('success','Estado de transferencia Eliminada correctamente', data.message);
+              this.read(this.pageEvent.pageIndex, this.pageEvent.pageSize);
             }, err => {
               let error = '';
               if (err.status === 0) {

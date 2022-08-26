@@ -27,7 +27,7 @@ export class MunicipalityService {
         return this.api.register(municipality, this.url);
     }
 
-    update(id:number, municipality: MunicipalityModel): Observable<MunicipalityModel>{
+    update(id:string, municipality: MunicipalityModel): Observable<MunicipalityModel>{
         return this.api.update(id, municipality, this.url);
     }
 

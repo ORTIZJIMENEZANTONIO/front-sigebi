@@ -127,11 +127,7 @@ export class StagesListComponent extends BasePage {
         if (question.isConfirmed) {
           this.service.delete(event.data.id).subscribe(
             data => {
-              // if (data.statusCode == 200) {
               this.onLoadFailed('success', 'Eliminado', data.message);
-              // } else {
-              //   this.onLoadFailed('danger', 'Error', data.message);
-              // }
             }, err => {
               let error = '';
               if (err.status === 0) {

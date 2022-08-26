@@ -1,25 +1,39 @@
 <nb-card>
-    <nb-card-body>
-        <form [formGroup]="form">
-            <div class="form-group row">
-                <input nbInput fullWidth formControlName="bank" matInput placeholder="Banco">
-                <label class="text-danger" *ngIf="validateOpinion['bank'].hasError('pattern')"><small>Banco no válido!</small></label>
-            </div>
-            <div class="form-group row">
-                <input nbInput fullWidth formControlName="code" matInput placeholder="Codigo">
-                <label class="text-danger" *ngIf="validateOpinion['code'].hasError('pattern')"><small>Codigo no válido!</small></label>
-            </div>
-            <div class="form-group row">
-                <input nbInput fullWidth formControlName="description" matInput placeholder="Descripcion">
-                <label class="text-danger" *ngIf="validateOpinion['description'].hasError('pattern')"><small>Descripcion no  válido!</small></label>
-            </div>
-     
+  <nb-card-body>
+    <form [formGroup]="form">
 
-            <div class="form-group row">
-                <div class="offset-sm-3 col-sm-9">
-                    <button type="submit" nbButton status="primary" [disabled]="!form.valid" (click)="register()">{{actionBtn}}</button>
-                </div>
-            </div>
-        </form>
-    </nb-card-body>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group">
+            <input nbInput fullWidth formControlName="bank" placeholder="Banco">
+            <label class="text-danger" *ngIf="validateOpinion['bank'].hasError('pattern')"><small>Banco no
+                válido!</small></label>
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <div class="form-group">
+            <input nbInput fullWidth formControlName="code" placeholder="Codigo">
+            <label class="text-danger" *ngIf="validateOpinion['code'].hasError('pattern')"><small>Codigo no
+                válido!</small></label>
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <div class="form-group">
+            <input nbInput fullWidth formControlName="description" placeholder="Descripcion">
+            <label class="text-danger" *ngIf="validateOpinion['description'].hasError('pattern')"><small>Descripcion no
+                válido!</small></label>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="d-flex justify-content-center">
+          <button type="submit" nbButton status="primary" [disabled]="!form.valid"
+            (click)="register()">{{actionBtn}}</button>
+        </div>
+      </div>
+    </form>
+  </nb-card-body>
 </nb-card>

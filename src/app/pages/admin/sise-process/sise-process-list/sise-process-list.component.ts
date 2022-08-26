@@ -105,12 +105,9 @@ export class SiseProcessListComponent extends BasePage implements OnInit {
         this.length = dt.count;
       },
       err => {
-        let error = '';
-        if (err.status === 0) {
-          error = SweetAlertConstants.noConexion;
-        } else {
-          error = err.message;
-        }
+        const error = err.status === 0
+          ? SweetAlertConstants.noConexion
+          : err.message;
         this.onLoadFailed('danger', 'Error', error);
       }, () => {
 
@@ -119,9 +116,6 @@ export class SiseProcessListComponent extends BasePage implements OnInit {
   };
 
   public changesPage(event) {
-    if (event.pageSize != this.pageSize) {
-
-    }
     this.pageEvent = event;
     this.read(event.pageIndex, event.pageSize)
   }
@@ -134,12 +128,9 @@ export class SiseProcessListComponent extends BasePage implements OnInit {
             data => {
               this.onLoadFailed('success', 'Eliminado', data.message);
             }, err => {
-              let error = '';
-              if (err.status === 0) {
-                error = SweetAlertConstants.noConexion;
-              } else {
-                error = err.message;
-              }
+              const error = err.status === 0
+                ? SweetAlertConstants.noConexion
+                : err.message;
               this.onLoadFailed('danger', 'Error', error);
             }, () => {
               this.read(this.pageEvent.pageIndex, this.pageEvent.pageSize);

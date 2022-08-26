@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormGroup, FormControl } from '@angular/forms';
 import { MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { NbToastrService, NbWindowControlButtonsConfig, NbWindowService } from '@nebular/theme';
+import { SweetAlertResult } from 'sweetalert2';
 import { TypeGoodstService } from '../../../../@core/backend/common/services/typeGoods.service';
 import { SweetAlertConstants } from '../../../../@core/interfaces/auction/sweetalert-model';
 import { BasePage } from '../../../../@core/shared/base-page';
@@ -83,10 +84,10 @@ export class TypeGoodListComponent extends BasePage {
     });
     this.searchForm.controls['text'].valueChanges.subscribe((value: string) => {
       if (value.length > 0) {
-        // this.service.search(value).subscribe((rows: any[]) => {
-        //   this.length = rows.length;
-        //   this.list = rows;
-        // });
+        this.service.search(value).subscribe((rows: any[]) => {
+          this.length = rows.length;
+          this.list = rows;
+        });
       } else {
         this.read(0, 10);
       }
@@ -99,24 +100,22 @@ export class TypeGoodListComponent extends BasePage {
 
   private read(pageIndex: number, pageSize: number) {
     this.list = null;
-    this.service.list(pageIndex, pageSize).subscribe(
-      (dt: any) => {
-        this.list = dt.data;
-        this.length = dt.count;
-      },
-      err => {
-        let error = '';
-        if (err.status === 0) {
-          error = SweetAlertConstants.noConexion;
-        } else {
-          error = err.message;
-        }
-        this.onLoadFailed('danger', 'Error', error);
-      }, () => {
-
+    this.service.list(pageIndex, pageSize).subscribe((dt:any) =>  {
+      this.list = dt.data;
+      this.length = dt.count;
+    }, 
+    err => {
+      let error = '';
+      if (err.status === 0) {
+        error = SweetAlertConstants.noConexion;
+      } else {
+        error = err.message;
       }
+      this.onLoadFailed('danger', 'Error', error);
+    }
     );
-  };
+
+  }
 
   public changesPage(event) {
     if (event.pageSize != this.pageSize) {
@@ -126,17 +125,14 @@ export class TypeGoodListComponent extends BasePage {
     this.read(event.pageIndex, event.pageSize)
   }
 
-  public onDeleteConfirm(event): void {
-    this.sweetalertQuestion('warning', 'Eliminar', 'Desea eliminar este registro?').then(
+  onDeleteConfirm(event): void {
+    this.sweetalertQuestion('warning', 'Eliminar', '¿Desea eliminar este registro?').then(
       question => {
         if (question.isConfirmed) {
           this.service.delete(event.data.id).subscribe(
             data => {
-              // if (data.statusCode == 200) {
-              this.onLoadFailed('success', 'Eliminado', data.message);
-              // } else {
-              //   this.onLoadFailed('danger', 'Error', data.message);
-              // }
+              this.onLoadFailed('success','Tipo Bien eliminada correctamente', data.message);
+              this.read(this.pageEvent.pageIndex, this.pageEvent.pageSize);
             }, err => {
               let error = '';
               if (err.status === 0) {
@@ -145,16 +141,15 @@ export class TypeGoodListComponent extends BasePage {
                 error = err.message;
               }
               this.onLoadFailed('danger', 'Error', error);
-            }, () => {
-              this.read(this.pageEvent.pageIndex, this.pageEvent.pageSize);
-            });
+            }
+          );
         }
       }
     ).catch(
       e => {
         console.error(e);
       }
-    );
+    )
   }
 
   public editRow(event) {

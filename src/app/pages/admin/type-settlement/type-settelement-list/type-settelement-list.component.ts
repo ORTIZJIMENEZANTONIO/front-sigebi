@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { NbToastrService, NbWindowControlButtonsConfig, NbWindowService } from '@nebular/theme';
+import { SweetAlertResult } from 'sweetalert2';
 import { TypeSettelementService } from '../../../../@core/backend/common/services/typeSettelement.service';
 import { SettlementInterface } from '../../../../@core/interfaces/auction/settlement.model';
 import { SweetAlertConstants } from '../../../../@core/interfaces/auction/sweetalert-model';
@@ -55,7 +56,7 @@ export class TypeSettelementListComponent extends BasePage {
     columns: {
       cve: {
         title: 'Registro',
-        type: 'varchar',
+        type: 'string',
       },
       name: {
         title: 'Nombre',
@@ -99,24 +100,22 @@ export class TypeSettelementListComponent extends BasePage {
 
   private read(pageIndex: number, pageSize: number) {
     this.list = null;
-    this.service.list(pageIndex, pageSize).subscribe(
-      (dt: any) => {
-        this.list = dt.data;
-        this.length = dt.count;
-      },
-      err => {
-        let error = '';
-        if (err.status === 0) {
-          error = SweetAlertConstants.noConexion;
-        } else {
-          error = err.message;
-        }
-        this.onLoadFailed('danger', 'Error', error);
-      }, () => {
-
+    this.service.list(pageIndex, pageSize).subscribe((dt:any) =>  {      
+      this.list = dt.data;
+      this.length = dt.count;
+    }, 
+    err => {
+      let error = '';
+      if (err.status === 0) {
+        error = SweetAlertConstants.noConexion;
+      } else {
+        error = err.message;
       }
+      this.onLoadFailed('danger', 'Error', error);
+    }
     );
-  };
+
+  }
 
   public changesPage(event) {
     if (event.pageSize != this.pageSize) {
@@ -125,18 +124,15 @@ export class TypeSettelementListComponent extends BasePage {
     this.pageEvent = event;
     this.read(event.pageIndex, event.pageSize)
   }
-
-  public onDeleteConfirm(event): void {
-    this.sweetalertQuestion('warning', 'Eliminar', 'Desea eliminar este registro?').then(
+  
+  onDeleteConfirm(event): void {
+    this.sweetalertQuestion('warning', 'Eliminar', '¿Desea eliminar este registro?').then(
       question => {
         if (question.isConfirmed) {
-          this.service.delete(event.data.id).subscribe(
+          this.service.delete(event.data.cve).subscribe(
             data => {
-              // if (data.statusCode == 200) {
-              this.onLoadFailed('success', 'Eliminado', data.message);
-              // } else {
-              //   this.onLoadFailed('danger', 'Error', data.message);
-              // }
+              this.onLoadFailed('success','Tipo Asentamiento eliminada correctamente', data.message);
+              this.read(this.pageEvent.pageIndex, this.pageEvent.pageSize);
             }, err => {
               let error = '';
               if (err.status === 0) {
@@ -145,9 +141,8 @@ export class TypeSettelementListComponent extends BasePage {
                 error = err.message;
               }
               this.onLoadFailed('danger', 'Error', error);
-            }, () => {
-              this.read(this.pageEvent.pageIndex, this.pageEvent.pageSize);
-            });
+            }
+          );
         }
       }
     ).catch(
@@ -163,7 +158,8 @@ export class TypeSettelementListComponent extends BasePage {
       maximize: false,
       fullScreen: false,
     };
-    const modalRef = this.windowService.open(TypeSettelementDetailComponent, { title: `Editar`, context: { data: event.data }, buttons: buttonsConfig }).onClose.subscribe(() => {
+    
+    const modalRef = this.windowService.open(TypeSettelementDetailComponent, { title: `Editar`, context: { data: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
       this.read(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
 

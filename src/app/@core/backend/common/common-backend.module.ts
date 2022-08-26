@@ -96,6 +96,7 @@ import { SatSubclasificationService } from './services/sat-subclasification.serv
 import { SatClassificationService } from './services/sat-classification.service';
 import { OriginCisiService } from './services/origin-cisi.service';
 import { ScoreService } from './services/score.service';
+import { ZoneGeographicService } from './services/zone-geographic.service';
 import { IndicatorReportService } from './services/IndicatorReport.service';
 import { DoccompensationService } from './services/doccompensation.service';
 import { DoccompensationsatService } from './services/doccompesationsat.service';
@@ -107,8 +108,19 @@ import { ManagementService } from './services/management.service';
 import { LabelOkeyService } from './services/label-okey.service';
 import { StageService } from './services/stage.service';
 import { SiseProcessService } from './services/sise-process.service';
+import { IfaiSerieService } from './services/ifai-serie.service';
+import { ServiceCatService } from './services/service-cat.service';
+import { ResponseService } from './services/response.service';
+
+import { ResponseRepuveService } from './services/reponse-repuve..service';
+import { RackService } from './services/rack.service';
 import { ServicesModule } from '../../../pages/admin/services/services.module';
 import { IfaiSerieModule } from '../../../pages/admin/ifai-serie/ifai-serie.module';
+import { ClaimsStatusModule } from '../../../pages/admin/claims-status/claims-status.module';
+import { ClaimsStatusService } from './services/claims-status.service';
+import { DrawerService } from './services/drawer.service';
+
+
 
 const API = [
   CategoryApi,
@@ -212,6 +224,7 @@ const SERVICES = [
   OriginCisiService,
   ScoreService,
   ScoreService,
+  ZoneGeographicService,
   DoccompensationService,
   DoccompensationsatService,
   DoccompensationsatxmlService,
@@ -221,9 +234,17 @@ const SERVICES = [
   ManagementService,
   LabelOkeyService,
   StageService,
+  ServiceCatService,
   SiseProcessService,
+  TypeServicesService,
+  IfaiSerieService,
+  ResponseService,
+  ResponseRepuveService,
+  RackService,
   ServicesModule,
-  IfaiSerieModule
+  IfaiSerieModule,
+  ClaimsStatusService,
+  DrawerService
 ];
 
 @NgModule({

@@ -156,10 +156,10 @@ export class TransferentesListComponent extends BasePage {
     });
     this.searchForm.controls['text'].valueChanges.subscribe((value: string) => {
       if (value.length > 0) {
-        // this.service.search(value).subscribe((rows: TransferentesInterface[]) => {
-        //   this.length = rows.length;
-        //   this.list = rows;
-        // });
+        this.service.search(value).subscribe((rows: TransferentesInterface[]) => {
+        this.length = rows.length;
+        this.list = rows;
+        });
       } else {
         this.read(0, 10);
       }
@@ -200,16 +200,12 @@ export class TransferentesListComponent extends BasePage {
   }
 
   public onDeleteConfirm(event): void {
-    this.sweetalertQuestion('warning', 'Eliminar', 'Desea eliminar este registro?').then(
+    this.sweetalertQuestion('warning', 'Eliminar', '¿Desea eliminar este registro?').then(
       question => {
         if (question.isConfirmed) {
           this.service.delete(event.data.id).subscribe(
             data => {
-              // if (data.statusCode == 200) {
-              this.onLoadFailed('success', 'Eliminado', data.message);
-              // } else {
-              //   this.onLoadFailed('danger', 'Error', data.message);
-              // }
+              this.onLoadFailed('success', 'Transferente eliminado correctamente', data.message);
             }, err => {
               let error = '';
               if (err.status === 0) {

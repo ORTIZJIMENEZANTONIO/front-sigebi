@@ -2,20 +2,27 @@
     <nb-card-body>
         <form [formGroup]="form">
             <div class="form-group row">
-                <input nbInput fullWidth formControlName="id" matInput
-                    placeholder="Identificador">
-                <label class="text-danger" *ngIf="validateLegalSupport['id'].hasError('required')"><small>No
-                        válido!</small></label>
+                <input nbInput fullWidth formControlName="id" placeholder="Identificador"
+                    [status]="(id?.errors?.required || id?.hasError('minlength') || id?.hasError('maxlength') || id?.hasError('pattern')) && id.touched ? 'danger' : ''">
+                <ngx-validation-message label="Identificador" [showMinLength]="id?.hasError('minlength')"
+                    [showMaxLength]="id?.hasError('maxlength')"
+                    [showRequired]="id?.errors?.required && id.touched"
+                    [showPattern]="id?.hasError('pattern') && id.touched" minLength=1 maxLength=255>
+                </ngx-validation-message>
             </div>
             <div class="form-group row">
-                <textarea nbInput fullWidth formControlName="support" matInput
-                    placeholder="Sustento"></textarea>
-                <label class="text-danger" *ngIf="validateLegalSupport['support'].hasError('pattern')"><small>No
-                        válido!</small></label>
+                <textarea nbInput fullWidth formControlName="support" placeholder="Sustento"
+                    [status]="(support?.errors?.required || support?.hasError('minlength') || support?.hasError('maxlength') || support?.hasError('pattern')) && support.touched ? 'danger' : ''">
+                </textarea>
+                <ngx-validation-message label="Sustento" [showMinLength]="support?.hasError('minlength')"
+                    [showMaxLength]="support?.hasError('maxlength')"
+                    [showRequired]="support?.errors?.required && support.touched"
+                    [showPattern]="support?.hasError('pattern') && support.touched" minLength=1 maxLength=255>
+                </ngx-validation-message>
             </div>
 
-            <div class="form-group row">
-                <div class="offset-sm-3 col-sm-9">
+            <div class="form-group">
+                <div class="d-flex justify-content-center">
                     <button type="submit" nbButton status="primary" [disabled]="!form.valid"
                         (click)="register()">{{actionBtn}}</button>
                 </div>
