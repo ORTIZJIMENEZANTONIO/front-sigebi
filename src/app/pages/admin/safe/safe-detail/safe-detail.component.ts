@@ -42,18 +42,27 @@ export class SafeDetailComponent extends BasePage {
     this.form = this.fb.group({
 
       idSafe:[''],
-      manager: ['',Validators.required],
-      descripcion: ['', Validators.required],
-      ubication: ['',[Validators.required]],
-      registerNumber: ['',[Validators.required]],
-      municipalityCode: ['',[Validators.required]],
-      localityCode: ['',Validators.required],
-      stateCode: ['',[Validators.required]],
-      cityCode: ['',Validators.required],
+      manager: [null, Validators.compose([Validators.pattern(""), Validators.required])],
+      description: [null, Validators.compose([Validators.pattern(""), Validators.required])],
+      ubication: [null, Validators.compose([Validators.pattern(""), Validators.required])],
+      registerNumber: [null, Validators.compose([Validators.pattern(""), Validators.required])],
+      municipalityCode: [null, Validators.compose([Validators.pattern(""), Validators.required])],
+      localityCode: [null, Validators.compose([Validators.pattern(""), Validators.required])],
+      stateCode: [null, Validators.compose([Validators.pattern(""), Validators.required])],
+      cityCode: [null, Validators.compose([Validators.pattern(""), Validators.required])]
 
     });
   }
   
+  public get manager() { return this.form.get('manager'); }
+  public get description() { return this.form.get('description'); }
+  public get ubication() { return this.form.get('ubication'); }
+  public get registerNumber() { return this.form.get('registerNumber'); }
+  public get municipalityCode() { return this.form.get('municipalityCode'); }
+  public get localityCode() { return this.form.get('localityCode'); }
+  public get stateCode() { return this.form.get('stateCode'); }
+  public get cityCode() { return this.form.get('cityCode'); }
+
     public register(): void {
       const data = this.form.getRawValue();
       this.actionBtn == "Guardar" ? this.createRegister(data) : this.updateRegister(data);

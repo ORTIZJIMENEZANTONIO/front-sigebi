@@ -46,6 +46,9 @@ export class OriginCisiDetailComponent extends BasePage {
       this.form.patchValue(this.data);
     }
   }
+
+  public get detail() { return this.form.get('detail'); }
+
     public register(): void {
       const data = this.form.getRawValue();
       this.actionBtn == "Guardar" ? this.createRegister(data) : this.updateRegister(data);

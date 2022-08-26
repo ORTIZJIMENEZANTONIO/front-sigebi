@@ -37,10 +37,10 @@ export class BatteryDetailComponent extends BasePage implements OnInit {
 
     this.form = this.fb.group({
     idBattery:[null],
-    description: [null, Validators.compose([Validators.required])],
-    registerNumber: [null, Validators.compose([Validators.required])],
-    status: [null, Validators.compose([Validators.required])],
-    storeCode: [null, Validators.compose([Validators.required])]
+    description: [null, Validators.compose([Validators.pattern(""), Validators.required, Validators.maxLength(20)])],
+    registerNumber: [null, Validators.compose([Validators.pattern(""), Validators.required, Validators.maxLength(20)])],
+    status: [null, Validators.compose([Validators.pattern(""), Validators.required, Validators.maxLength(20)])],
+    storeCode: [null, Validators.compose([Validators.pattern(""), Validators.required, Validators.maxLength(20)])]
     });
 
     if (this.data.id != null) {

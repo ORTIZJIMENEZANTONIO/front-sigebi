@@ -46,8 +46,18 @@ export class OriginDetailComponent extends BasePage {
       idCity: [null, Validators.compose([Validators.pattern("[0-9]{1,255}"),Validators.required])],
       keyEntityFederative: [null, Validators.compose([Validators.required, Validators.pattern("^[a-zA-Z0-9@.-_-]{1,15}")])],
     });
-
+    
     }
+
+    public get idTransferer() { return this.form.get('idTransferer'); }
+    public get keyTransferer() { return this.form.get('keyTransferer'); }
+    public get description() { return this.form.get('description'); }
+    public get type() { return this.form.get('type'); }
+    public get address() { return this.form.get('address'); }
+    public get city() { return this.form.get('city'); }
+    public get idCity() { return this.form.get('idCity'); }
+    public get keyEntityFederative() { return this.form.get('keyEntityFederative'); }
+
     public register(): void {
       const data = this.form.getRawValue();
       this.actionBtn == "Guardar" ? this.createRegister(data) : this.updateRegister(data);

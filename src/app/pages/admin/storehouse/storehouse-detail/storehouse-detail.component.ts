@@ -33,18 +33,16 @@ export class StorehouseDetailComponent extends BasePage {
     this.form = this.fb.group({
 
       idStorehouse:[''],
-      manager: ['',Validators.required],
-      descripcion: ['', Validators.required],
-      municipality: ['',[Validators.required]],
-      locality: ['',[Validators.required]],
-      ubication: ['',[Validators.required]],
-      idEntity: ['',Validators.required],
+      manager: [null, Validators.compose([Validators.pattern("[0-9]{1,255}"),Validators.required])],
+      descripcion: [null, Validators.compose([Validators.pattern("[0-9]{1,255}"),Validators.required])],
+      municipality: [null, Validators.compose([Validators.pattern("[0-9]{1,255}"),Validators.required])],
+      locality: [null, Validators.compose([Validators.pattern("[0-9]{1,255}"),Validators.required])],
+      ubication: [null, Validators.compose([Validators.pattern("[0-9]{1,255}"),Validators.required])],
+      idEntity: [null, Validators.compose([Validators.pattern("[0-9]{1,255}"),Validators.required])]
 
     });
   }  
-  get validateStorehouse(){
-    return this.form.controls;
-  }
+
   ngOnInit(): void {
   
     if(this.data){

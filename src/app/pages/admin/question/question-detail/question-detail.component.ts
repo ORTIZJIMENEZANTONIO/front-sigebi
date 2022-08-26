@@ -44,10 +44,10 @@ export class QuestionDetailComponent extends BasePage {
     this.form = this.fb.group({
 
       id:[''],
-      text: ['',Validators.required],
-      type: ['', Validators.required],
-      maximumScore: ['',[Validators.required]],
-      registerNumber: ['',[Validators.required]],
+      text: [null, Validators.compose([Validators.pattern(""), Validators.required])],
+      type: [null, Validators.compose([Validators.pattern(""), Validators.required])],
+      maximumScore: [null, Validators.compose([Validators.pattern(""), Validators.required])],
+      registerNumber: [null, Validators.compose([Validators.pattern(""), Validators.required])],
       
     });
   
@@ -56,6 +56,12 @@ export class QuestionDetailComponent extends BasePage {
       this.form.patchValue(this.data);
     }
   }
+
+  public get text() { return this.form.get('text'); }
+  public get type() { return this.form.get('type'); }
+  public get maximumScore() { return this.form.get('maximumScore'); }
+  public get registerNumber() { return this.form.get('registerNumber'); }
+
   
   public register(): void {
     const data = this.form.getRawValue();

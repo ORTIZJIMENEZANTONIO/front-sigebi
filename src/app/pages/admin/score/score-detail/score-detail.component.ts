@@ -39,17 +39,19 @@ export class ScoreDetailComponent extends BasePage {
       registryNumber: [null, Validators.compose([Validators.pattern("[0-9]{1,255}"),Validators.required])],
 
     });
+
+    if (this.data.id != null) {
+      this.actionBtn = "Actualizar";
+      this.form.patchValue(this.data);
+    }
+
    } 
-    get validateScore(){
-      return this.form.controls;
-    }
-    ngOnInit(): void {
-    
-      if(this.data){
-        this.actionBtn = "Actualizar";
-      }
-      
-    }
+
+   public get code() { return this.form.get('code'); }
+   public get initialRank() { return this.form.get('initialRank'); }
+   public get endRank() { return this.form.get('endRank'); }
+   public get clasification() { return this.form.get('clasification'); }
+   public get registryNumber() { return this.form.get('registryNumber'); }
   
   public register(): void {
     const data = this.form.getRawValue();
