@@ -432,6 +432,10 @@ const routes: Routes = [
         path: 'rack', loadChildren: () => import('./rack/rack.module')
           .then(m => m.RackModule)
       },
+       {
+        path: 'drawer', loadChildren: () => import('./drawers/drawers.module')
+          .then(m => m.DrawersModule)
+      },
       //{ path: 'home', component: CategoriesComponent },//ok
     ]
   }

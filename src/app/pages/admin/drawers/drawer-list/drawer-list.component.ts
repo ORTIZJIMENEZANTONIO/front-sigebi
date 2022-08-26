@@ -18,7 +18,7 @@ import {
 import {
   SweetAlertResult
 } from 'sweetalert2';
-import { ClaimsStatusService } from '../../../../@core/backend/common/services/claims-status.service';
+import { DrawerService } from '../../../../@core/backend/common/services/drawer.service';
 import {
   OfficesService
 } from '../../../../@core/backend/common/services/offices.service';
@@ -38,16 +38,16 @@ import {
 import {
   SweetalertService
 } from '../../../../shared/sweetalert.service';
-import { ClaimsStatusDetailComponent } from '../claims-status-detail/claims-status-detail.component';
+import { DrawerDetailComponent } from '../drawer-detail/drawer-detail.component';
 
 
 @Component({
-  selector: 'ngx-claims-status-list',
-  templateUrl: './claims-status-list.component.html',
-  styleUrls: ['./claims-status-list.component.scss']
+  selector: 'ngx-drawer-list',
+  templateUrl: './drawer-list.component.html',
+  styleUrls: ['./drawer-list.component.scss']
 })
+export class DrawerListComponent extends BasePage {
 
-export class ClaimsStatusListComponent extends BasePage {
   public searchForm: FormGroup;
   public list: any;
   public length = 100;
@@ -90,21 +90,64 @@ export class ClaimsStatusListComponent extends BasePage {
         title: 'Registro',
         type: 'number',
       },
-      description: {
-        title: 'Descripción',
+      name: {
+        title: 'Nombre',
         type: 'string',
       },
-      flag: {
-        title: 'Bandera',
+      street: {
+        title: 'Calle',
+        type: 'string',
+      },
+      noExt: {
+        title: 'No. Exterior',
+        type: 'string',
+      },
+      noInt: {
+        title: 'No. Interior',
+        type: 'string',
+      },
+      colony: {
+        title: 'Colonia',
+        type: 'string',
+      },
+      municipalDelegate: {
+        title: 'Delegado Municipal',
+        type: 'string',
+      },
+      postalCode: {
+        title: 'Código Postal',
+        type: 'number',
+      },
+      rfc: {
+        title: 'RFC',
+        type: 'string',
+      },
+      phone: {
+        title: 'Teléfono',
+        type: 'string',
+      },
+      phoneTwo: {
+        title: 'Segundo Teléfono',
+        type: 'string',
+      },
+      fax: {
+        title: 'Segundo Teléfono',
+        type: 'string',
+      },
+      typeOffice: {
+        title: 'Tipo',
+        type: 'string',
+      },
+      noRegistration: {
+        title: 'Numero registro',
         type: 'number',
       }
-    
 
     },
     noDataMessage: "No se encontrarón registros"
   };
   constructor(
-    private service: ClaimsStatusService,
+    private service: DrawerService,
     public toastrService: NbToastrService,
     private windowService: NbWindowService,
     private paginator: MatPaginatorIntl,
@@ -193,7 +236,7 @@ export class ClaimsStatusListComponent extends BasePage {
       maximize: false,
       fullScreen: false,
     };
-    const modalRef = this.windowService.open(ClaimsStatusDetailComponent, {
+    const modalRef = this.windowService.open(DrawerDetailComponent, {
       title: `Editar`,
       context: {
         data: event.data
@@ -211,7 +254,7 @@ export class ClaimsStatusListComponent extends BasePage {
       maximize: false,
       fullScreen: false,
     };
-    const modalRef = this.windowService.open(ClaimsStatusDetailComponent, { title: `Nuevo`, buttons: buttonsConfig }).onClose.subscribe(() => {
+    const modalRef = this.windowService.open(DrawerDetailComponent, { title: `Nuevo`, buttons: buttonsConfig }).onClose.subscribe(() => {
       this.read(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
 

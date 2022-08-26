@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ClaimsStatusListComponent } from './claims-status-list/claims-status-list.component';
+import { DrawerListComponent } from './drawer-list/drawer-list.component';
 
 const routes: Routes = [
   {
-    path:'',component:ClaimsStatusListComponent
+    path:'', component:DrawerListComponent
   }
 ];
 
@@ -12,4 +12,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class ClaimsStatusRoutingModule { }
+export class DrawersRoutingModule { }

@@ -649,6 +649,10 @@ export const MENU_ITEMS: NbMenuItem[] = [
        {
         title: 'Estatus sinisestros',
         link: '/pages/admin/claims-status'
+      },
+      {
+        title: 'Gavetas',
+        link: '/pages/admin/drawers'
       }
 
     ],

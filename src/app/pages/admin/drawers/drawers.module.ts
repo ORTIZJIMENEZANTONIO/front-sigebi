@@ -1,12 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { ClaimsStatusRoutingModule } from './claims-status-routing.module';
-import { ClaimsStatusListComponent } from './claims-status-list/claims-status-list.component';
-import { ClaimsStatusDetailComponent } from './claims-status-detail/claims-status-detail.component';
-
-
-
+import { DrawersRoutingModule } from './drawers-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ComponentsModule } from '../../../@components/components.module';
 import { ThemeModule } from '../../../@theme/theme.module';
@@ -15,16 +10,15 @@ import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { DrawerDetailComponent } from './drawer-detail/drawer-detail.component';
+import { DrawerListComponent } from './drawer-list/drawer-list.component';
+
 
 @NgModule({
-  declarations: [
-    ClaimsStatusListComponent,
-    ClaimsStatusDetailComponent
-  ],
+  declarations: [DrawerDetailComponent,DrawerListComponent],
   imports: [
     CommonModule,
-    ClaimsStatusRoutingModule,
-    FormsModule,
+    DrawersRoutingModule,
     ReactiveFormsModule,
     ComponentsModule,
     ThemeModule,
@@ -34,9 +28,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     NbButtonModule,
     NbInputModule,
     NbWindowModule.forChild(),
-    MatPaginatorModule,
-    MatInputModule,
-    MatFormFieldModule
+    MatPaginatorModule
   ]
 })
-export class ClaimsStatusModule { }
+export class DrawersModule { }
