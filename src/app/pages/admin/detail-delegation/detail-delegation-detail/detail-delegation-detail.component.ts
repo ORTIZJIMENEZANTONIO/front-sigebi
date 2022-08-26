@@ -47,7 +47,7 @@ export class DetailDelegationDetailComponent extends BasePage {
       address: ['', Validators.required],
       position: ['', Validators.required],
       area: ['', Validators.required],
-      mail: ['', Validators.email],
+      mail: [null, Validators.compose([Validators.email, Validators.required])],
 
       numP1: ['', Validators.required],
       numP2: ['', Validators.required],
@@ -88,7 +88,7 @@ export class DetailDelegationDetailComponent extends BasePage {
   private createRegister(data): void {
     this.service.register(data).subscribe(
       () => {
-        this.onLoadFailed('success', 'Despacho', 'Registrado Correctamente');
+        this.onLoadFailed('success', 'Detalle delegación', 'Registrado Correctamente');
       }, err => {
         let error = '';
         if (err.status === 0) {
@@ -104,7 +104,7 @@ export class DetailDelegationDetailComponent extends BasePage {
   private updateRegister(data): void {
     this.service.update(this.data.id, data).subscribe(
       () => {
-        this.onLoadFailed('success', 'Despacho', 'Actualizado Correctamente');
+        this.onLoadFailed('success', 'Detalle delegación', 'Actualizado Correctamente');
       }, err => {
         let error = '';
         if (err.status === 0) {

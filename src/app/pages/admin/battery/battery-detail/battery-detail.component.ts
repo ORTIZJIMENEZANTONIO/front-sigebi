@@ -37,10 +37,10 @@ export class BatteryDetailComponent extends BasePage implements OnInit {
 
     this.form = this.fb.group({
     idBattery:[null],
-    description: [null, Validators.compose([Validators.pattern(""), Validators.required, Validators.maxLength(20)])],
+    description: [null, Validators.compose([Validators.pattern(""), Validators.required, Validators.maxLength(30)])],
     registerNumber: [null, Validators.compose([Validators.pattern(""), Validators.required, Validators.maxLength(20)])],
-    status: [null, Validators.compose([Validators.pattern(""), Validators.required, Validators.maxLength(20)])],
-    storeCode: [null, Validators.compose([Validators.pattern(""), Validators.required, Validators.maxLength(20)])]
+    status: [null, Validators.compose([Validators.pattern(""), Validators.required, Validators.maxLength(1)])],
+    storeCode: [null, Validators.compose([Validators.pattern(""), Validators.required, Validators.maxLength(5)])]
     });
 
     if (this.data.id != null) {
@@ -60,7 +60,7 @@ export class BatteryDetailComponent extends BasePage implements OnInit {
   private createRegister(data): void {
     this.service.register(data).subscribe(
       data => {
-        this.onLoadFailed('success', 'Despacho', 'Registrado Correctamente');
+        this.onLoadFailed('success', 'Bateria', 'Registrado Correctamente');
       }, err => {
         let error = '';
         if (err.status === 0) {
@@ -76,7 +76,7 @@ export class BatteryDetailComponent extends BasePage implements OnInit {
   private updateRegister(data): void {
     this.service.update(this.data.idBattery, data).subscribe(
       data => {
-        this.onLoadFailed('success', 'Despacho', 'Actualizado Correctamente');
+        this.onLoadFailed('success', 'Bateria', 'Actualizado Correctamente');
       }, err => {
         let error = '';
         if (err.status === 0) {

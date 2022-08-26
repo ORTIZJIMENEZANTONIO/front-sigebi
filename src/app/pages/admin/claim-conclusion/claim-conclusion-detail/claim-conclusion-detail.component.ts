@@ -38,10 +38,8 @@ export class ClaimConclusionDetailComponent extends BasePage implements OnInit {
   private prepareForm() {
     this.form = this.fb.group({
       id: [''],
-
-      description: ['', Validators.required],
-
-      flag: ['', Validators.required]
+      description: [null, Validators.compose([Validators.pattern(""), Validators.required, Validators.maxLength(200)])],
+      flag: [null, Validators.compose([Validators.pattern(""), Validators.required, Validators.maxLength(20)])]
 
     });
     if (this.data) {
@@ -61,7 +59,7 @@ export class ClaimConclusionDetailComponent extends BasePage implements OnInit {
   private createRegister(data): void {
     this.service.register(data).subscribe(
       () => {
-        this.onLoadFailed('success', 'Despacho', 'Registrado Correctamente');
+        this.onLoadFailed('success', 'Conclusión siniestro', 'Registrado Correctamente');
       }, err => {
         let error = '';
         if (err.status === 0) {
@@ -77,7 +75,7 @@ export class ClaimConclusionDetailComponent extends BasePage implements OnInit {
   private updateRegister(data): void {
     this.service.update(this.data.id, data).subscribe(
       () => {
-        this.onLoadFailed('success', 'Despacho', 'Actualizado Correctamente');
+        this.onLoadFailed('success', 'Conclusión siniestro', 'Actualizado Correctamente');
       }, err => {
         let error = '';
         if (err.status === 0) {

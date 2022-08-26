@@ -2,9 +2,9 @@ export interface ClaimConclusion{
           
     id?: number;
     
-    descripcion : string
+    description : string
 
-    bandera: number; 
+    flag: number; 
 
     
 }

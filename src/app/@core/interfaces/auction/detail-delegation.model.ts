@@ -1,23 +1,23 @@
 export interface DetailDelegation{
     id?: number;
     
-    nombre : string
+    name : string
 
-    no_delegacion:number;
+    numDelegation:number;
 
     area : string;
 
-    puesto : string;
+    position : string;
 
-    ubicacion : string;
+    location : string;
     
-    direccion : string;
+    address : string;
 
-    correo: string;
+    mail: string;
 
-    tel1 : number
+    numP1 : number
 
-    tel2 : number
+    numP2 : number
 
-    tel3 : number
+    numP3 : number
 }
