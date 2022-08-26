@@ -409,12 +409,32 @@ const routes: Routes = [
           .then(m => m.ServicesModule)
       },
       {
+
         path: 'ifai-serie', loadChildren: () => import('./ifai-serie/ifai-serie.module')
           .then(m => m.IfaiSerieModule)
       },
       {
         path: 'response', loadChildren: () => import('./response/response.module')
           .then(m => m.ResponseModule)
+      },{
+
+
+      
+        path: 'claims-status', loadChildren: () => import('./claims-status/claims-status.module')
+          .then(m => m.ClaimsStatusModule)
+    
+      },
+      {
+        path: 'response-repuve', loadChildren: () => import('./response-repuve/response-repuve.module')
+          .then(m => m.ResponseRepuveModule)
+      },
+      {
+        path: 'rack', loadChildren: () => import('./rack/rack.module')
+          .then(m => m.RackModule)
+      },
+       {
+        path: 'drawer', loadChildren: () => import('./drawers/drawers.module')
+          .then(m => m.DrawersModule)
       },
       //{ path: 'home', component: CategoriesComponent },//ok
     ]

@@ -6,6 +6,7 @@ import { ManagementService } from '../../../../@core/backend/common/services/man
 import { ManagementDetailComponent } from '../management-detail/management-detail.component';
 import { BasePage } from '../../../../@core/shared/base-page';
 import { Management } from '../../../../@core/interfaces/auction/management.model';
+import { SweetalertService } from '../../../../shared/sweetalert.service';
 
 @Component({
   selector: 'ngx-management-list',
@@ -17,8 +18,9 @@ export class ManagementListComponent extends BasePage {
   
   searchForm: FormGroup;
   constructor(private service: ManagementService, public toastrService: NbToastrService,
-    private windowService: NbWindowService, private paginator: MatPaginatorIntl) {
-    super(toastrService);
+    private windowService: NbWindowService, private paginator: MatPaginatorIntl,
+    public sweetalertService: SweetalertService) {
+    super(toastrService,sweetalertService);
     this.paginator.itemsPerPageLabel = "Registros por página";
     this.searchForm = new FormGroup({
       text: new FormControl()
@@ -118,21 +120,25 @@ export class ManagementListComponent extends BasePage {
     this.read(event.pageIndex * event.pageSize, event.pageSize)
   }
 
-  onDeleteConfirm(event): void {
-    if (window.confirm('Are you sure you want to delete?')) {
-      this.service.delete(event.data.id).subscribe(data => {
-        console.log(data);
-        if (data.statusCode == 200) {
-          this.onLoadFailed('success', 'Eliminado', data.message);
-        } else {
-          this.onLoadFailed('danger', 'Error', data.message);
+  public onDeleteConfirm(event): void {
+    this.sweetalertQuestion('warning', 'Eliminar', 'Desea eliminar este registro?').then(
+      question => {
+        if (question.isConfirmed) {
+          this.service.delete(event.data.id).subscribe(
+            data => {
+              this.onLoadFailed('success', 'Eliminado', data.message);
+            }, err => {
+              this.onLoadFailed('danger', 'Error', 'Ocurrio un error');
+            }, () => {
+              this.read(this.pageEvent.pageIndex, this.pageEvent.pageSize);
+            });
         }
-        this.read(this.pageEvent.pageIndex, this.pageEvent.pageSize);
-      }, err => {
-      })
-    } else {
-      event.confirm.reject();
-    }
+      }
+    ).catch(
+      e => {
+        console.error(e);
+      }
+    );
   }
 
   editRow(event) {

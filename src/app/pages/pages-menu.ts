@@ -591,8 +591,16 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link:'/pages/admin/zone-geographic'
       },
       {
+        title: 'Racks',
+        link: '/pages/admin/rack'
+      },
+      {
         title: 'Respuestas',
         link: '/pages/admin/response'
+      },
+      {
+        title: 'Respuestas REPUVE',
+        link: '/pages/admin/response-repuve'
       },
       {
         title: 'Servicios',
@@ -638,6 +646,14 @@ export const MENU_ITEMS: NbMenuItem[] = [
         title: 'Documentos resarcimiento sat xml',
         link: '/pages/admin/doc-resarcimiento-sat-xml'
       },
+       {
+        title: 'Estatus sinisestros',
+        link: '/pages/admin/claims-status'
+      },
+      {
+        title: 'Gavetas',
+        link: '/pages/admin/drawers'
+      }
 
     ],
   },

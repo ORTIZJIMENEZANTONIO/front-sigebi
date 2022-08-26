@@ -38,8 +38,8 @@ export class LoginComponent implements OnInit {
     const datos = this.formLogins.value;
     const token = await this.service.getToken(datos.username, datos.password);
     let infoUser : any = [];
-
     if(!token.access_token){
+      localStorage.clear();
       Swal.fire({
         title: 'Credenciales incorrectas!',
         icon: 'error',
@@ -51,47 +51,13 @@ export class LoginComponent implements OnInit {
       this.loading = false;
     }else{
       infoUser = await this.service.getInfo(token.access_token);
+      localStorage.clear();
       localStorage.setItem("token",token.access_token);
       localStorage.setItem("uid",infoUser.sub);
       localStorage.setItem("token_expires",`${new Date().getTime()+(token.expires_in*1000)}`)
       localStorage.setItem("name",infoUser.name);
-      const data = await this.service.getType();
-      if(data){
-        if(data[0].type==1){
-          localStorage.clear();
-          Swal.fire({
-            title: 'Acceso no permitido',
-            icon: 'error',
-            timer: 3000,
-            timerProgressBar: true,
-            showConfirmButton: false,
-            showCloseButton: true,
-          });
-          this.loading = false;
-        } else if(data[0].type==2 || data[0].type==0){
-          localStorage.setItem("type",data[0].type);
-          Swal.fire({
-            title: 'Inicio correcto!',
-            icon: 'success',
-            timer: 3000,
-            timerProgressBar: true,
-            showConfirmButton: false,
-            showCloseButton: true,
-          });
-          this.router.navigate(['../pages']);
-          this.loading = false;
-        }
-      }else{
-        Swal.fire({
-          title: 'Ha ocurrido un error!',
-          icon: 'error',
-          timer: 3000,
-          timerProgressBar: true,
-          showConfirmButton: false,
-          showCloseButton: true,
-        });
-        this.loading = true;
-      }
+        this.router.navigate(['../pages']);
+        this.loading = false;
     }
   }
 }
