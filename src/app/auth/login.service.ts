@@ -51,22 +51,6 @@ export class LoginService {
     });
   }
 
-  getType(){
-    return fetch(this.userType+localStorage.getItem("uid"), {
-      method: 'GET', 
-      headers:{
-        'Content-Type' : 'application/json',
-      }
-    })
-    .then(res => res.json())
-    .catch(error => {
-      return error;
-    })
-    .then(response => {
-        return response;
-    });
-  }
-
   isAuth(): boolean{
     const token = localStorage.getItem('token');
     if (!token){
