@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'; 
+import { Component, OnInit } from '@angular/core';   
 import { FormControl, FormGroup, } from '@angular/forms';
 import { MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { NbToastrService, NbWindowControlButtonsConfig, NbWindowService,  } from '@nebular/theme';
@@ -7,11 +7,12 @@ import { BasePage } from '../../../../@core/shared/base-page';
 import { SweetalertService } from '../../../../shared/sweetalert.service';
 import { SweetAlertConstants, SweetalertModel } from '../../../../@core/interfaces/auction/sweetalert-model';
 
-import { NbComponentShape, NbComponentSize, NbComponentStatus } from '@nebular/theme'; //Botones
-
 import { QAccumulatedGoodsDetailComponent } from '../q-accumulated-goods-detail/q-accumulated-goods-detail.component';
-import { QAccumulatedGoodsInterface } from '../../../../@core/interfaces/auction/q-accumulated-goods.model';
-import { QAccumulatedGoodsService } from '../../../../@core/backend/common/services/q-accumulated-goods.service'; 
+/*import { QAccumulatedGoodsInterface } from '../../../../@core/interfaces/auction/q-accumulated-goods.model';
+import { QAccumulatedGoodsService } from '../../../../@core/backend/common/services/q-accumulated-goods.service'; */
+
+import { Delegation } from '../../../../@core/interfaces/auction/Delegation.model';
+import { DelegationService } from '../../../../@core/backend/common/services/delegation.service';
 
 @Component({
   selector: 'ngx-q-accumulated-goods-list',
@@ -19,6 +20,7 @@ import { QAccumulatedGoodsService } from '../../../../@core/backend/common/servi
   styleUrls: ['./q-accumulated-goods-list.component.scss']
 })
 export class QAccumulatedGoodsListComponent extends BasePage implements OnInit {
+
   public searchForm: FormGroup;
   public list: any;
   public length = 100;
@@ -32,7 +34,7 @@ export class QAccumulatedGoodsListComponent extends BasePage implements OnInit {
   };
   public settings = {
     actions: {
-      columnTitle: 'Acciones',
+      columnTitle: 'Detalles',
       add: true,
       edit: true,
       delete: false,
@@ -56,37 +58,42 @@ export class QAccumulatedGoodsListComponent extends BasePage implements OnInit {
       deleteButtonContent: '<i class="nb-trash"></i>',
       confirmDelete: true,
     },
-    columns: { //Nombre de las columnas, cambiar nombre según el caso
-      numDelegacion: {
+    columns: {
+
+      id: {
+        title: 'id',
+        type: 'number',
+        //editable: false,
+        width: '25px'
+      },
+      description: {
         title: 'Delegación',
         type: 'string',
       },
-      desDelegacion: {
-        title: 'Descripción Delegación',
-        type: 'string',
+      idSubDelegacion: { //cambio
+        title: 'ids',
+        type: 'number',
+        width: '25px'
       },
-      numSubdelegacion: {
+      descripcionSubDelegacion: {
         title: 'Sub Delegación',
-        type: 'string',
+        type: 'number',
       },
-      desSubDelegacion: {
-        title: 'Descripción Delegación',
-        type: 'string',
+      fechaInicial: {
+        title: 'Fecha del',
+        type: 'number',
       },
-      delFecha: {
-        title: 'Del',
-        type: 'string',
-      },
-      alFecha: {
+      fechaFinal: {
         title: 'Al',
-        type: 'string',
+        type: 'number',
       },
+      
     },
     noDataMessage: "No se encontrarón registros"
   };
 
   constructor(
-    private service: QAccumulatedGoodsService,
+    private service: DelegationService,
     public toastrService: NbToastrService,
     private windowService: NbWindowService,
     private paginator: MatPaginatorIntl,
@@ -96,10 +103,11 @@ export class QAccumulatedGoodsListComponent extends BasePage implements OnInit {
     this.paginator.itemsPerPageLabel = "Registros por página";
     this.searchForm = new FormGroup({
       text: new FormControl()
-    }); //Aquí trata de llamar a la interfaz y sus datos
+    });
+    //Llama a la interfaz con sus datos
     this.searchForm.controls['text'].valueChanges.subscribe((value: string) => {
       if (value.length > 0) {
-        this.service.search(value).subscribe((rows: QAccumulatedGoodsInterface[]) => {
+        this.service.search(value).subscribe((rows: Delegation[]) => {
           this.length = rows.length;
           this.list = rows;
         })
@@ -166,25 +174,13 @@ export class QAccumulatedGoodsListComponent extends BasePage implements OnInit {
       maximize: false,
       fullScreen: false,
     };
-    const modalRef = this.windowService.open(QAccumulatedGoodsDetailComponent, { title: `Editar`, context: { data: event.data }, buttons: buttonsConfig }).onClose.subscribe(() => {
+    const modalRef = this.windowService.open(QAccumulatedGoodsDetailComponent, { title: `Detalles`, context: { data: event.data }, buttons: buttonsConfig }).onClose.subscribe(() => {
       this.read(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
 
   }
 
-  public openWindow() {
-    const buttonsConfig: NbWindowControlButtonsConfig = {
-      minimize: false,
-      maximize: false,
-      fullScreen: false,
-    };
-    const modalRef = this.windowService.open(QAccumulatedGoodsDetailComponent, { title: `Nuevo`, buttons: buttonsConfig }).onClose.subscribe(() => {
-      this.read(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
-    });
-
-  }
-
-  public openWindow2() {
+  public openWindow() { //Botón oculto
     const buttonsConfig: NbWindowControlButtonsConfig = {
       minimize: false,
       maximize: false,

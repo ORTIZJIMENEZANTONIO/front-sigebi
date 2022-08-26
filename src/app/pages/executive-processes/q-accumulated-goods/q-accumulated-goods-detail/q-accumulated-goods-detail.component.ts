@@ -7,96 +7,104 @@ import { BasePage } from '../../../../@core/shared/base-page';
 
 import { NUMBERS_PATTERN, STRING_PATTERN } from '../../../../@components/constants';
 
-import { QAccumulatedGoodsInterface } from '../../../../@core/interfaces/auction/q-accumulated-goods.model'; 
-import { QAccumulatedGoodsService } from '../../../../@core/backend/common/services/q-accumulated-goods.service';
+import { DelegationService } from '../../../../@core/backend/common/services/delegation.service';
+import { Delegation } from '../../../../@core/interfaces/auction/delegation.model';
 
 @Component({
   selector: 'ngx-q-accumulated-goods-detail',
   templateUrl: './q-accumulated-goods-detail.component.html',
   styleUrls: ['./q-accumulated-goods-detail.component.scss']
 })
-export class QAccumulatedGoodsDetailComponent extends BasePage {
+export class QAccumulatedGoodsDetailComponent extends BasePage {public form: FormGroup; //modificar form según la categoria
+private data: Delegation;
+public actionBtn: string = "Guardar";
 
-  public form: FormGroup;
-  private data: QAccumulatedGoodsInterface;
-  public actionBtn: string = "Guardar";
+constructor(
+  private fb: FormBuilder,
+  protected cd: ChangeDetectorRef,
+  protected router: Router,
+  private service: DelegationService,
+  public windowRef: NbWindowRef,
+  public toastrService: NbToastrService,
+  @Inject(NB_WINDOW_CONTEXT) context) {
+  super(toastrService);
+  if (null != context.data) {
+    this.data = context.data;
+  }    
+}
 
-  constructor(
-    private fb: FormBuilder,
-    protected cd: ChangeDetectorRef,
-    protected router: Router,
-    private service: QAccumulatedGoodsService,
-    public windowRef: NbWindowRef,
-    public toastrService: NbToastrService,
-    @Inject(NB_WINDOW_CONTEXT) context) {
-    super(toastrService);
-    if (null != context.data) {
-      this.data = context.data;
-    }    
+ngOnInit(): void {
+  this.prepareForm();
+}
+
+private prepareForm() {
+  this.form = this.fb.group({
+    id: [''],
+
+    description: ['', Validators.required],
+
+    zoneContractCVE: ['', Validators.required],
+
+    diffHours: ['', [Validators.required]],
+
+    phaseEdo: ['', [Validators.required]],
+
+    zoneVigilanceCVE: ['', [Validators.required]],
+
+    numRegister: ['', Validators.required],
+
+  }); //Control de los campos en modal
+  if (this.data) {
+    this.actionBtn = "Actualizar";
+    this.form.patchValue(this.data);
+    this.form.controls['id'].disable();
+    this.form.controls['description'].disable();
+    this.form.controls['zoneContractCVE'].disable();
+    this.form.controls['phaseEdo'].disable();
+    this.form.controls['zoneVigilanceCVE'].disable();
+    this.form.controls['diffHours'].disable();
   }
+  
+  
+}
 
-  ngOnInit(): void {
-    this.prepareForm();
-  }
+public get description() { return this.form.get('description'); }
+public get zoneContractCVE() { return this.form.get('zoneContractCVE'); }
+public get diffHours() { return this.form.get('diffHours'); }
+public get phaseEdo() { return this.form.get('phaseEdo'); }
+public get zoneVigilanceCVE() { return this.form.get('zoneVigilanceCVE'); }
+public get numRegister() { return this.form.get('numRegister'); }
 
-  private prepareForm(): void { //Validaciones de los datos, EN MODAL
-    this.form = this.fb.group({
+public register(): void { //Actualizar, imprimir, PENDIENTE
+  const data = this.form.getRawValue();
+  this.actionBtn == "Guardar" ? this.createRegister(data) : this.updateRegister(data);
+}
 
-    numDelegacion: [null, Validators.compose([Validators.required, Validators.pattern(STRING_PATTERN), Validators.maxLength(2),  Validators.minLength(1) ])],
-    desDelegacion: [null, Validators.compose([Validators.required, Validators.pattern(STRING_PATTERN), Validators.maxLength(2),  Validators.minLength(1) ])],
-    numSubdelegacion: [null, Validators.compose([Validators.required, Validators.pattern(STRING_PATTERN), Validators.maxLength(2),  Validators.minLength(1) ])],
-    desSubDelegacion: [null, Validators.compose([Validators.required, Validators.pattern(STRING_PATTERN), Validators.maxLength(2),  Validators.minLength(1) ])],
-    delFecha: [null, Validators.compose([Validators.required, Validators.pattern(STRING_PATTERN), Validators.maxLength(2),  Validators.minLength(1) ])],
-    alFecha: [null, Validators.compose([Validators.required, Validators.pattern(STRING_PATTERN), Validators.maxLength(2),  Validators.minLength(1) ])],
-      
-      
+private createRegister(data): void {
+  this.service.register(data).subscribe(
+    (res) => {
+      this.onLoadFailed('success', 'Serie', 'Registrado Correctamente');
+    }, err => {
+      const error = err.status === 0
+        ? SweetAlertConstants.noConexion
+        : err.message;
+      this.onLoadFailed('danger', 'Error', error);
+    }, () => {
+      this.windowRef.close();
     });
-    if (this.data) {
-      this.actionBtn = "Actualizar";
-      this.form.patchValue(this.data);
-    }
-  }
+}
 
-  //Aqui manda a llamar a los datos de interface ya guardados,en MODAL
-  public get numDelegacion() { return this.form.get('numDelegacion'); }
-  public get desDelegacion() { return this.form.get('desDelegacion'); }
-  public get numSubdelegacion() { return this.form.get('numSubdelegacion'); }
-  public get esSubDelegacion() { return this.form.get('esSubDelegacion'); }
-  public get elFecha() { return this.form.get('delFecha'); }
-  public get alFecha() { return this.form.get('alFecha'); }
-
-  public register(): void {
-    const data = this.form.getRawValue();
-    this.actionBtn == "Guardar" ? this.createRegister(data) : this.updateRegister(data);
-  }
-
-  private createRegister(data): void {
-    this.service.register(data).subscribe(
-      (res) => {
-        this.onLoadFailed('success', 'Serie', 'Registrado Correctamente');
-      }, err => {
-        const error = err.status === 0
-          ? SweetAlertConstants.noConexion
-          : err.message;
-        this.onLoadFailed('danger', 'Error', error);
-      }, () => {
-        this.windowRef.close();
-      });
-  }
-
-  private updateRegister(data): void {
-    this.service.update(this.data.numDelegacion, data).subscribe(
-      (response) => {
-        this.onLoadFailed('success', 'Serie', 'Actualizado Correctamente');
-      }, err => {
-        const error = err.status === 0
-          ? SweetAlertConstants.noConexion
-          : err.message;
-        this.onLoadFailed('danger', 'Error', error);
-      }, () => {
-        this.windowRef.close();
-      });
-  }
-
-
+private updateRegister(data): void {
+  this.service.update(this.data.id, data).subscribe(
+    (response) => {
+      this.onLoadFailed('success', 'Serie', 'Actualizado Correctamente');
+    }, err => {
+      const error = err.status === 0
+        ? SweetAlertConstants.noConexion
+        : err.message;
+      this.onLoadFailed('danger', 'Error', error);
+    }, () => {
+      this.windowRef.close();
+    });
+}
 }

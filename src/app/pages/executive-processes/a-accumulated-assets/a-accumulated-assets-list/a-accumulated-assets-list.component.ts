@@ -79,11 +79,11 @@ export class AAccumulatedAssetsListComponent extends BasePage implements OnInit 
         type: 'number',
       },
       fechaInicial: {
-        title: 'Fecha de recepción inicial',
+        title: 'Año inicial',
         type: 'number',
       },
       fechaFinal: {
-        title: 'Fecha final',
+        title: 'Año final',
         type: 'number',
       },
       
