@@ -25,14 +25,16 @@ export class StatusCodeService {
     return this.api.register( data, this.url );
   }
 
-  update(id:number, data: StatusCode): Observable<StatusCode>{
+  update(id:number | string , data: StatusCode): Observable<StatusCode>{
     return this.api.update( id, data, this.url );
   }
 
-  delete(id:number){
+  delete(id:number | string ){
     return this.api.delete( id, this.url );
   }
+
   search(text:string){
-        return this.api.search(text,this.url);
-    }
+    return this.api.search(text,this.url);
+  }
+
 }

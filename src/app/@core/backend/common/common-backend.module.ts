@@ -111,6 +111,8 @@ import { SiseProcessService } from './services/sise-process.service';
 import { IfaiSerieService } from './services/ifai-serie.service';
 import { ServiceCatService } from './services/service-cat.service';
 import { ResponseService } from './services/response.service';
+import { AAccumulatedAssetsService } from './services/a-accumulated-assets.service'; 
+import { QAccumulatedGoodsService } from './services/q-accumulated-goods.service';
 
 import { ResponseRepuveService } from './services/reponse-repuve..service';
 import { RackService } from './services/rack.service';
@@ -239,6 +241,8 @@ const SERVICES = [
   TypeServicesService,
   IfaiSerieService,
   ResponseService,
+  AAccumulatedAssetsService,
+  QAccumulatedGoodsService,
   ResponseRepuveService,
   RackService,
   ServicesModule,

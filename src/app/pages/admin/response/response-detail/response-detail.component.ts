@@ -17,7 +17,7 @@ import { QuestionService } from '../../../../@core/backend/common/services/quest
   templateUrl: './response-detail.component.html',
   styleUrls: ['./response-detail.component.scss']
 })
-export class ResponseDetailComponent extends BasePage {
+export class ResponseDetailComponent extends BasePage implements OnInit {
 
   public form: FormGroup;
   private data: ResponseInterface;
@@ -25,14 +25,15 @@ export class ResponseDetailComponent extends BasePage {
   public filteredOptions$: BehaviorSubject<any[]> = new BehaviorSubject([]);
 
   constructor(
+    @Inject(NB_WINDOW_CONTEXT) context,
+    private service: ResponseService,
     private fb: FormBuilder,
     protected cd: ChangeDetectorRef,
     protected router: Router,
-    private service: ResponseService,
     private questionService: QuestionService,
     public windowRef: NbWindowRef,
     public toastrService: NbToastrService,
-    @Inject(NB_WINDOW_CONTEXT) context) {
+    ) {
     super(toastrService);
     if (null != context.data) {
       this.data = context.data;
