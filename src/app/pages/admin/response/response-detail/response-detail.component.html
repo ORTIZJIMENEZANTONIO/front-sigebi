@@ -1,7 +1,7 @@
 <nb-card>
   <nb-card-body>
     <form [formGroup]="form">
-      <div class="form-group row">
+      <div class="form-group">
         <input type="number" nbInput fullWidth formControlName="id"
           placeholder="Id de respuesta ej. 1"
           [status]="(id?.errors?.required || id?.hasError('pattern') ) && id.touched ? 'danger' : ''"
@@ -12,7 +12,7 @@
         </ngx-validation-message>
       </div>
       
-      <div class="form-group row">
+      <div class="form-group">
         <input type="text" nbInput fullWidth formControlName="question"
           placeholder="Pregunta"
           [nbAutocomplete]="auto"
@@ -29,7 +29,7 @@
         </ngx-validation-message>
       </div>
     
-      <div class="form-group row">
+      <div class="form-group">
         <input type="string" nbInput fullWidth formControlName="text"
           placeholder="Respuesta"
           [status]="(text?.errors?.required || text?.hasError('minlength') || text?.hasError('maxlength') || text?.hasError('pattern')) && text.touched ? 'danger' : ''"
@@ -42,7 +42,7 @@
         </ngx-validation-message>
       </div>
 
-      <div class="form-group row">
+      <div class="form-group">
         <input type="number" nbInput fullWidth formControlName="startValue"
           placeholder="Valor inicial ej. 1"
           [status]="(startValue?.errors?.required || startValue?.hasError('pattern') ) && startValue.touched ? 'danger' : ''"
@@ -53,7 +53,7 @@
         </ngx-validation-message>
       </div>
 
-      <div class="form-group row">
+      <div class="form-group">
         <input type="number" nbInput fullWidth formControlName="endValue"
           placeholder="Valor final ej. 1"
           [status]="(endValue?.errors?.required || endValue?.hasError('pattern') ) && endValue.touched ? 'danger' : ''"
@@ -64,7 +64,7 @@
         </ngx-validation-message>
       </div>
 
-      <div class="form-group row">
+      <div class="form-group">
         <input type="number" nbInput fullWidth formControlName="registryNumber"
           placeholder="No. de registro"
           [status]="(registryNumber?.errors?.required || registryNumber?.hasError('pattern') ) && registryNumber.touched ? 'danger' : ''"
