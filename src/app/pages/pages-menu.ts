@@ -653,6 +653,10 @@ export const MENU_ITEMS: NbMenuItem[] = [
       {
         title: 'Gavetas',
         link: '/pages/admin/drawers'
+      },
+      {
+        title: 'Estantes',
+        link: '/pages/admin/shelves'
       }
 
     ],

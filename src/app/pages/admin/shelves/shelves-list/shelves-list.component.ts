@@ -1,23 +1,52 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
-import { MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
-import { NbToastrService, NbWindowControlButtonsConfig, NbWindowService } from '@nebular/theme';
-import { SweetAlertResult } from 'sweetalert2';
-import { SweetAlertConstants, SweetalertModel } from '../../../../@core/interfaces/auction/sweetalert-model';
-import { BaseApp } from '../../../../@core/shared/base-app';
-import { BasePage } from '../../../../@core/shared/base-page';
-import { SweetalertService } from '../../../../shared/sweetalert.service';
+import {
+  Component,
+  OnInit
+} from '@angular/core';
+import {
+  FormControl,
+  FormGroup
+} from '@angular/forms';
+import {
+  MatPaginatorIntl,
+  PageEvent
+} from '@angular/material/paginator';
+import {
+  NbToastrService,
+  NbWindowControlButtonsConfig,
+  NbWindowService
+} from '@nebular/theme';
+import {
+  SweetAlertResult
+} from 'sweetalert2';
+import {
+  OfficesService
+} from '../../../../@core/backend/common/services/offices.service';
+import { ShelvesService } from '../../../../@core/backend/common/services/shelves.service';
+import {
+  OfficesModel
+} from '../../../../@core/interfaces/auction/offices.model';
+import {
+  SweetAlertConstants,
+  SweetalertModel
+} from '../../../../@core/interfaces/auction/sweetalert-model';
+import {
+  BaseApp
+} from '../../../../@core/shared/base-app';
+import {
+  BasePage
+} from '../../../../@core/shared/base-page';
+import {
+  SweetalertService
+} from '../../../../shared/sweetalert.service';
+import { ShelvesDetailComponent } from '../shelves-detail/shelves-detail.component';
 
-import { ResponseService } from '../../../../@core/backend/common/services/response.service';
-import { ResponseDetailComponent } from '../response-detail/response-detail.component';
-import { ResponseInterface } from '../../../../@core/interfaces/auction/response.model';
 
 @Component({
-  selector: 'ngx-response-list',
-  templateUrl: './response-list.component.html',
-  styleUrls: ['./response-list.component.scss']
+  selector: 'ngx-shelves-list',
+  templateUrl: './shelves-list.component.html',
+  styleUrls: ['./shelves-list.component.scss']
 })
-export class ResponseListComponent extends BasePage implements OnInit {
+export class ShelvesListComponent extends BasePage {
 
   public searchForm: FormGroup;
   public list: any;
@@ -40,7 +69,7 @@ export class ResponseListComponent extends BasePage implements OnInit {
     pager: {
       display: false,
     },
-    hideSubHeader: true,//oculta subheaader de filtro
+    hideSubHeader: true, //oculta subheaader de filtro
     mode: 'external', // ventana externa
     add: {
       addButtonContent: '<i class="nb-plus"></i>',
@@ -61,36 +90,35 @@ export class ResponseListComponent extends BasePage implements OnInit {
         title: 'Registro',
         type: 'number',
       },
-      idQuestion: {
-        title: 'Pregunta',
+      noBatery: {
+        title: 'Bateria',
         type: 'string',
         valuePrepareFunction:(value) =>{
-          return value.text
+          value.description
         }
       },
-      text: {
-        title: 'Respuesta',
+    
+      cve: {
+        title: 'Guarda valores',
+        type: 'string',
+        valuePrepareFunction:(value) =>{
+          value.description
+        }
+      },
+      status: {
+        title: 'Estado',
         type: 'string',
       },
-      startValue: {
-        title: 'Valor inicial',
-        type: 'number',
-      },
-      endValue: {
-        title: 'Valor final',
-        type: 'number',
-      },
-      registryNumber: {
-        title: 'No. de registro',
+      noRegistration: {
+        title: 'Numero registro',
         type: 'number',
       }
 
     },
     noDataMessage: "No se encontrarón registros"
   };
-
   constructor(
-    private service: ResponseService,
+    private service: ShelvesService,
     public toastrService: NbToastrService,
     private windowService: NbWindowService,
     private paginator: MatPaginatorIntl,
@@ -103,7 +131,7 @@ export class ResponseListComponent extends BasePage implements OnInit {
     });
     this.searchForm.controls['text'].valueChanges.subscribe((value: string) => {
       if (value.length > 0) {
-        this.service.search(value).subscribe((rows: ResponseInterface[]) => {
+        this.service.search(value).subscribe((rows: OfficesModel[]) => {
           this.length = rows.length;
           this.list = rows;
         })
@@ -180,7 +208,13 @@ export class ResponseListComponent extends BasePage implements OnInit {
       maximize: false,
       fullScreen: false,
     };
-    const modalRef = this.windowService.open(ResponseDetailComponent, { title: `Editar`, context: { data: event.data }, buttons: buttonsConfig }).onClose.subscribe(() => {
+    const modalRef = this.windowService.open(ShelvesDetailComponent, {
+      title: `Editar`,
+      context: {
+        data: event.data
+      },
+      buttons: buttonsConfig
+    }).onClose.subscribe(() => {
       this.read(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
 
@@ -192,7 +226,7 @@ export class ResponseListComponent extends BasePage implements OnInit {
       maximize: false,
       fullScreen: false,
     };
-    const modalRef = this.windowService.open(ResponseDetailComponent, { title: `Nuevo`, buttons: buttonsConfig }).onClose.subscribe(() => {
+    const modalRef = this.windowService.open(ShelvesDetailComponent, { title: `Nuevo`, buttons: buttonsConfig }).onClose.subscribe(() => {
       this.read(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
 

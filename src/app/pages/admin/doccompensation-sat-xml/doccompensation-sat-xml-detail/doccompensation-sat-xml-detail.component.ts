@@ -74,8 +74,14 @@ export class DoccompensationSatXmlDetailComponent extends BasePage {
         this.windowRef.close();
       });
   }
+
+
   private updateRegister(data): void {
-    this.service.update(this.data.id, data).subscribe(
+    let params = {
+      idOficioSat:data.idOficioSat,
+      typeDocSatXml:data.typeDocSatXml
+    }
+    this.service.update(this.data.id, params).subscribe(
       () => {
         this.onLoadFailed('success', 'Despacho', 'Actualizado Correctamente');
       }, err => {
