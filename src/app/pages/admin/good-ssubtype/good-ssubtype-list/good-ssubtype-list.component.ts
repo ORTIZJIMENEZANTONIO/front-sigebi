@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { NbToastrService, NbWindowService, NbWindowControlButtonsConfig } from '@nebular/theme';
-import { GoodsSubtypeService } from '../../../../@core/backend/common/services/goods-subtype.service';
-import { GoodsSubtype } from '../../../../@core/interfaces/auction/goods-subtype.model';
+import { GoodSsubtypeService } from '../../../../@core/backend/common/services/good-ssubtype.service';
+import { GoodSsubtype } from '../../../../@core/interfaces/auction/good-ssubtype.model';
 import { SweetAlertConstants } from '../../../../@core/interfaces/auction/sweetalert-model';
 import { BasePage } from '../../../../@core/shared/base-page';
 import { SweetalertService } from '../../../../shared/sweetalert.service';
@@ -87,7 +87,7 @@ export class GoodSsubtypeListComponent extends BasePage {
   };
 
   constructor(
-    private service: GoodsSubtypeService,
+    private service: GoodSsubtypeService,
     public toastrService: NbToastrService,
     private windowService: NbWindowService,
     private paginator: MatPaginatorIntl,
@@ -100,7 +100,7 @@ export class GoodSsubtypeListComponent extends BasePage {
     });
     this.searchForm.controls['text'].valueChanges.subscribe((value: string) => {
       if (value.length > 0) {
-        this.service.search(value).subscribe((rows: GoodsSubtype[]) => {
+        this.service.search(value).subscribe((rows: GoodSsubtype[]) => {
           this.length = rows.length;
           this.list = rows;
         });
@@ -120,6 +120,7 @@ export class GoodSsubtypeListComponent extends BasePage {
       (dt: any) => {
         this.list = dt.data;
         this.length = dt.count;
+        console.log(dt);
       },
       err => {
         let error = '';

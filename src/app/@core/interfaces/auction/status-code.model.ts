@@ -1,9 +1,7 @@
 export interface StatusCode {
-    
-    id?: number;
 
-    orden: number;
-
-    desc_code: string;
+  id?: string;
+  descCode: string;
+  order: number;
 
 }

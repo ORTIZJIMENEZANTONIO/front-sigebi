@@ -591,8 +591,16 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link:'/pages/admin/zone-geographic'
       },
       {
+        title: 'Racks',
+        link: '/pages/admin/rack'
+      },
+      {
         title: 'Respuestas',
         link: '/pages/admin/response'
+      },
+      {
+        title: 'Respuestas REPUVE',
+        link: '/pages/admin/response-repuve'
       },
       {
         title: 'Servicios',
@@ -638,6 +646,14 @@ export const MENU_ITEMS: NbMenuItem[] = [
         title: 'Documentos resarcimiento sat xml',
         link: '/pages/admin/doc-resarcimiento-sat-xml'
       },
+       {
+        title: 'Estatus sinisestros',
+        link: '/pages/admin/claims-status'
+      },
+      {
+        title: 'Gavetas',
+        link: '/pages/admin/drawers'
+      }
 
     ],
   },
@@ -663,6 +679,97 @@ export const MENU_ITEMS: NbMenuItem[] = [
 
     ],
   },
+
+  //Procesos ejecutivos
+  {
+    title: 'Procesos Ejecutivos',
+    icon: 'grid-outline',
+    children: [
+      {
+        title: 'Acumulado anual de bienes',
+        //link: '/pages/ejecutivos/acumulado', Versión sin modal
+        link: '/pages/executive-processes/a-accumulated-assets'
+      },
+
+      {
+        title: 'Acumulado trimestral de bienes',
+        link: '/pages/executive-processes/q-accumulated-goods',
+      },
+
+      {
+        title: 'Gestión de Autorización de Destrucción',
+        link: '/pages/executive-processes/destruction-auth-management',
+      },
+
+      {
+        title: 'Autorización de Destrucción',
+        link: '/pages/executive-processes/destruction-authorization',
+      },
+
+      {
+        title: 'Aprobación donación',
+        link: '/pages/executive-processes/donation-approval',
+      },
+
+      {
+        title: 'Aprobación Destino',
+        link: '/pages/executive-processes/approval-destination',
+      },
+
+      {
+        title: 'Información Bienes Asegurados/Decomisos/Abandonos',
+        link: '/pages/executive-processes/inf-A-Insured-Seizures-aband',
+      },
+
+      {
+        title: 'Información de Bienes por Tipo y Subtipo',
+        link: '/pages/executive-processes/info-goods-type-subtype',
+      },
+
+      {
+        title: 'Integración Simplificada de Recepción Documental',
+        link: '/pages/executive-processes/sim-doc-Recep-Int',
+      },
+
+      {
+        title: 'Recepción de Doctos. x Destino en el SERA',
+        link: '/pages/executive-processes/re-docs-x-sera',
+      },
+
+      {
+        title: 'Recepción de Doctos. por Autoridad Emisora',
+        link: '/pages/executive-processes/re-doc-iss-auth',
+      },
+
+      {
+        title: 'Recepción Diaria de Expedientes',
+        link: '/pages/executive-processes/daily-rec-files',
+      },
+
+      {
+        title: 'Documentación recibida x Área Destino',
+        link: '/pages/executive-processes/doc-re-des-area',
+      },
+
+      {
+        title: 'Total de Documentación Recibida',
+        link: '/pages/executive-processes/total-doc-received',
+      },
+
+      {
+        title: 'Bienes recibidos en Administración',
+        link: '/pages/executive-processes/assets-rec-admin',
+      },
+
+      {
+        title: 'Actualización Masiva de Valor de Avaluo',
+        link: '/pages/executive-processes/mass-app-val-upd',
+      },
+      
+
+    ],
+  },
+
   // {
   //   title: 'Auth',
   //   icon: 'lock-outline',

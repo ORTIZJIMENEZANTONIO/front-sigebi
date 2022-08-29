@@ -6,17 +6,17 @@ export interface GoodSssubtype {
  
     id?: number;
 
-    descripcion:string;
+    description:string;
 
-    no_ssubtipo : number | GoodSsubtype;
+    numSsubType : number | GoodSsubtype;
 
-    no_subtipo : number | GoodSubtype;
+    numSubType : number | GoodSubtype;
     
-    no_tipo : number | GoodType;
+    numType : number | GoodType;
 
-    no_registro: number;
+    numRegister: number;
     
-    no_clasificacion_alterna: number;
+    numClasifAlterna: number;
 
-    no_clasif_bien: number;
+    numClasifGoods: number;
 }

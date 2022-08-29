@@ -128,12 +128,9 @@ export class SiseProcessListComponent extends BasePage implements OnInit {
             data => {
               this.onLoadFailed('success', 'Eliminado', data.message);
             }, err => {
-              let error = '';
-              if (err.status === 0) {
-                error = SweetAlertConstants.noConexion;
-              } else {
-                error = err.message;
-              }
+              const error = err.status === 0
+                ? SweetAlertConstants.noConexion
+                : err.message;
               this.onLoadFailed('danger', 'Error', error);
             }, () => {
               this.read(this.pageEvent.pageIndex, this.pageEvent.pageSize);

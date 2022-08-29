@@ -3,13 +3,14 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { NbToastrService, NbWindowControlButtonsConfig, NbWindowService } from '@nebular/theme';
 import { SweetAlertResult } from 'sweetalert2';
-import { ResponseService } from '../../../../@core/backend/common/services/response.service';
-import { ResponseInterface } from '../../../../@core/interfaces/auction/response.model';
 import { SweetAlertConstants, SweetalertModel } from '../../../../@core/interfaces/auction/sweetalert-model';
 import { BaseApp } from '../../../../@core/shared/base-app';
 import { BasePage } from '../../../../@core/shared/base-page';
 import { SweetalertService } from '../../../../shared/sweetalert.service';
+
+import { ResponseService } from '../../../../@core/backend/common/services/response.service';
 import { ResponseDetailComponent } from '../response-detail/response-detail.component';
+import { ResponseInterface } from '../../../../@core/interfaces/auction/response.model';
 
 @Component({
   selector: 'ngx-response-list',

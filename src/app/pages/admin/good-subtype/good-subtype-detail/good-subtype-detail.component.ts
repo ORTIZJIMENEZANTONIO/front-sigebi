@@ -1,10 +1,12 @@
 import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { NbWindowRef, NB_WINDOW_CONTEXT, NbWindowService } from '@nebular/theme';
+import { NbWindowRef, NB_WINDOW_CONTEXT, NbWindowService, NbToastrService } from '@nebular/theme';
 import { GoodSubtypeService } from '../../../../@core/backend/common/services/good-subtype.service';
+import { GoodsSubtypeService } from '../../../../@core/backend/common/services/goods-subtype.service';
 import { GoodSubtype } from '../../../../@core/interfaces/auction/good-subtype.model';
+import { SweetAlertConstants } from '../../../../@core/interfaces/auction/sweetalert-model';
 import { BasePage } from '../../../../@core/shared/base-page';
 
 @Component({
@@ -13,57 +15,79 @@ import { BasePage } from '../../../../@core/shared/base-page';
   styleUrls: ['./good-subtype-detail.component.scss']
 })
 export class GoodSubtypeDetailComponent extends BasePage {
+  public form: FormGroup;
+  private goodSubtype: GoodSubtype;
+  public actionBtn: string = "Guardar";
 
-  
-  goodSubtype: GoodSubtype;
-
-  constructor(private fb: FormBuilder, protected cd: ChangeDetectorRef, protected router: Router, private service: GoodSubtypeService,
-    public windowRef: NbWindowRef, @Inject(NB_WINDOW_CONTEXT) context, private dom: DomSanitizer,  private windowService: NbWindowService) { 
-      super();
-      if (null != context.goodSubtype){
-        this.goodSubtype = context.goodSubtype;
-      }
+  constructor(
+    private fb: FormBuilder,
+    protected cd: ChangeDetectorRef,
+    protected router: Router,
+    private service: GoodsSubtypeService,
+    public windowRef: NbWindowRef,
+    public toastrService: NbToastrService,
+    @Inject(NB_WINDOW_CONTEXT) context) {
+    super(toastrService);
+    if (null != context.goodSubtype) {
+      this.goodSubtype = context.goodSubtype;
     }
-    actionBtn : string = "Guardar";
-
-    form = this.fb.group({
-    id:[''],
-
-    description: ['', Validators.required],
-    
-    numType: ['', Validators.required],
-
-    numRegister: ['', Validators.required]
-
-    });
-  
-  get validate(){
-    return this.form.controls;
   }
-    
+
   ngOnInit(): void {
-    
-    if(this.goodSubtype){
+    this.prepareForm();
+  }
+  private prepareForm() {
+    this.form = this.fb.group({
+      id: [null],
+      description: [null, Validators.required],
+      numType: [null, Validators.required],
+      numRegister: [null, Validators.required]
+    });
+    if (this.goodSubtype) {
       this.actionBtn = "Actualizar";
       this.form.patchValue(this.goodSubtype)
-     
+
     }
   }
 
-  register(): void {
-    const data = this.form.value;
-    if( this.actionBtn == "Guardar"){
-      this.service.register(data).subscribe(data =>{
+  public get description() { return this.form.get('description'); }
+  public get numType() { return this.form.get('numType'); }
+  public get numRegister() { return this.form.get('numRegister'); }
+
+  public register(): void {
+    const data = this.form.getRawValue();
+    this.actionBtn == "Guardar" ? this.createRegister(data) : this.updateRegister(data);
+  }
+  private createRegister(data): void {
+    this.service.register(data).subscribe(
+      () => {
+        this.onLoadFailed('success', 'Subtipo bien', 'Registrado Correctamente');
+      }, err => {
+        let error = '';
+        if (err.status === 0) {
+          error = SweetAlertConstants.noConexion;
+        } else {
+          error = err.message;
+        }
+        this.onLoadFailed('danger', 'Error', error);
+      }, () => {
         this.windowRef.close();
-      },err =>{
-        console.log(err);
-      })
-    }else{
-      this.service.update(this.goodSubtype.id,data).subscribe(data =>{
+      });
+  }
+  private updateRegister(data): void {
+    this.service.update(this.goodSubtype.id, data).subscribe(
+      () => {
+        this.onLoadFailed('success', 'Subtipo bien', 'Actualizado Correctamente');
+      }, err => {
+        let error = '';
+        if (err.status === 0) {
+          error = SweetAlertConstants.noConexion;
+        } else {
+          error = err.message;
+        }
+        this.onLoadFailed('danger', 'Error', error);
+      }, () => {
         this.windowRef.close();
-      },err =>{
-        console.log(err);
-      })
-    }
+      });
   }
 }
