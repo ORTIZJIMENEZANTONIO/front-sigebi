@@ -1,27 +1,38 @@
 <nb-card>
-    <nb-card-body>
-        <form [formGroup]="formInstitutionClassification">
-            
-            <div class="form-group row">
-                <input type="text" nbInput fullWidth formControlName="description" matInput maxlength="100" placeholder="Descripción"
-                [status]="formInstitutionClassification.controls['description']?.errors?.required  && formInstitutionClassification.controls['description'].touched ? 'danger' : ''">
+  <nb-card-body>
+    <form [formGroup]="form">
 
-                <label class="text-danger" *ngIf="validateInstitutionClassification['description'].hasError('required') && formInstitutionClassification.controls['description'].touched"><small>Ingrese una descripción valida!!</small></label>
-            </div>
+      <div class="form-group">
+        <input type="text" nbInput fullWidth class="form-control" formControlName="description" matInput maxlength="100"
+          placeholder="Descripción"
+          [status]="(description?.errors?.required || description?.hasError('pattern') || description?.hasError('minlength') || description?.hasError('maxlength') ) && description.touched ? 'danger' : ''"
+        />
+        <ngx-validation-message label="Descripción" 
+          [showMinLength]="description?.hasError('minlength')"
+          [showMaxLength]="description?.hasError('maxlength')"
+          [showRequired]="description?.errors?.required && description.touched"
+          [showPattern]="description?.hasError('pattern') && description.touched" minLength=1 maxLength=100>
+        </ngx-validation-message>
+      </div>
 
-            <div class="form-group row">
-                <input type="number" nbInput  fullWidth formControlName="numRegister" matInput placeholder="Número registro"
-                [status]="formInstitutionClassification.controls['numRegister']?.errors?.required  && formInstitutionClassification.controls['numRegister'].touched ? 'danger' : ''">
+      <div class="form-group">
+        <input type="text" nbInput fullWidth formControlName="numRegister" class="form-control"
+          placeholder="Número registro"
+          [status]="( numRegister?.hasError('pattern') || numRegister?.hasError('minlength') ) && numRegister.touched ? 'danger' : ''"
+        />
+        <ngx-validation-message label="Número registro" 
+          [showMinLength]="numRegister?.hasError('minlength')"
+          [showPattern]="numRegister?.hasError('pattern') && numRegister.touched">
+        </ngx-validation-message>
+      </div>
 
-                <label class="text-danger" *ngIf="validateInstitutionClassification['numRegister'].hasError('required') && formInstitutionClassification.controls['numRegister'].touched"><small>Ingrese un número de registro!</small></label>
-            </div>
 
-       
-            <div class="form-group row">
-                <div class="offset-sm-3 col-sm-9">
-                    <button type="submit" nbButton status="primary" [disabled]="!formInstitutionClassification.valid" (click)="register()">{{actionBtn}}</button>
-                </div>
-            </div>
-        </form>
-    </nb-card-body>
+      <div class="form-group row">
+        <div class="offset-sm-3 col-sm-9">
+          <button type="submit" nbButton status="primary" [disabled]="!form.valid"
+            (click)="register()">{{actionBtn}}</button>
+        </div>
+      </div>
+    </form>
+  </nb-card-body>
 </nb-card>
