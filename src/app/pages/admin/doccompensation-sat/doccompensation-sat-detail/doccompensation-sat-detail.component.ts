@@ -61,7 +61,7 @@ export class DoccompensationSatDetailComponent extends BasePage {
   private createRegister(data): void {
     this.service.register(data).subscribe(
       () => {
-        this.onLoadFailed('success', 'Despacho', 'Registrado Correctamente');
+        this.onLoadFailed('success', 'Resarcimientos', 'Registrado Correctamente');
       }, err => {
         let error = '';
         if (err.status === 0) {
@@ -77,7 +77,7 @@ export class DoccompensationSatDetailComponent extends BasePage {
   private updateRegister(data): void {
     this.service.update(this.data.id, data).subscribe(
       () => {
-        this.onLoadFailed('success', 'Despacho', 'Actualizado Correctamente');
+        this.onLoadFailed('success', 'Resarcimientos', 'Actualizado Correctamente');
       }, err => {
         let error = '';
         if (err.status === 0) {

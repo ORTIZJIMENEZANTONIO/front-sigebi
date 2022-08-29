@@ -1,20 +1,53 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
-import { MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
-import { NbToastrService, NbWindowService, NbWindowControlButtonsConfig } from '@nebular/theme';
-import { GoodSubtypeService } from '../../../../@core/backend/common/services/good-subtype.service';
-import { GoodSubtype } from '../../../../@core/interfaces/auction/good-subtype.model';
-import { SweetAlertConstants } from '../../../../@core/interfaces/auction/sweetalert-model';
-import { BasePage } from '../../../../@core/shared/base-page';
-import { SweetalertService } from '../../../../shared/sweetalert.service';
-import { GoodSubtypeDetailComponent } from '../good-subtype-detail/good-subtype-detail.component';
+import {
+  Component,
+  OnInit
+} from '@angular/core';
+import {
+  FormControl,
+  FormGroup
+} from '@angular/forms';
+import {
+  MatPaginatorIntl,
+  PageEvent
+} from '@angular/material/paginator';
+import {
+  NbToastrService,
+  NbWindowControlButtonsConfig,
+  NbWindowService
+} from '@nebular/theme';
+import {
+  SweetAlertResult
+} from 'sweetalert2';
+import {
+  OfficesService
+} from '../../../../@core/backend/common/services/offices.service';
+import { ShelvesService } from '../../../../@core/backend/common/services/shelves.service';
+import {
+  OfficesModel
+} from '../../../../@core/interfaces/auction/offices.model';
+import {
+  SweetAlertConstants,
+  SweetalertModel
+} from '../../../../@core/interfaces/auction/sweetalert-model';
+import {
+  BaseApp
+} from '../../../../@core/shared/base-app';
+import {
+  BasePage
+} from '../../../../@core/shared/base-page';
+import {
+  SweetalertService
+} from '../../../../shared/sweetalert.service';
+import { ShelvesDetailComponent } from '../shelves-detail/shelves-detail.component';
+
 
 @Component({
-  selector: 'ngx-good-subtype-list',
-  templateUrl: './good-subtype-list.component.html',
-  styleUrls: ['./good-subtype-list.component.scss']
+  selector: 'ngx-shelves-list',
+  templateUrl: './shelves-list.component.html',
+  styleUrls: ['./shelves-list.component.scss']
 })
-export class GoodSubtypeListComponent extends BasePage implements OnInit{
+export class ShelvesListComponent extends BasePage {
+
   public searchForm: FormGroup;
   public list: any;
   public length = 100;
@@ -36,7 +69,7 @@ export class GoodSubtypeListComponent extends BasePage implements OnInit{
     pager: {
       display: false,
     },
-    hideSubHeader: true,//oculta subheaader de filtro
+    hideSubHeader: true, //oculta subheaader de filtro
     mode: 'external', // ventana externa
     add: {
       addButtonContent: '<i class="nb-plus"></i>',
@@ -54,33 +87,38 @@ export class GoodSubtypeListComponent extends BasePage implements OnInit{
     },
     columns: {
       id: {
-        title: 'Id',
+        title: 'Registro',
         type: 'number',
-        //editable: false,
-        // width: '25px'
       },
-      description: {
-        title: 'Descripcion',
+      noBatery: {
+        title: 'Bateria',
         type: 'string',
-      },
-      numType: {
-        title: 'Tipo bien',
-        type: 'string',
-        valuePrepareFunction: (value) => {
-          return value.description
+        valuePrepareFunction:(value) =>{
+          value.description
         }
       },
-
-      numRegister: {
-        title: 'N registro',
+    
+      cve: {
+        title: 'Guarda valores',
+        type: 'string',
+        valuePrepareFunction:(value) =>{
+          value.description
+        }
+      },
+      status: {
+        title: 'Estado',
+        type: 'string',
+      },
+      noRegistration: {
+        title: 'Numero registro',
         type: 'number',
       }
+
     },
     noDataMessage: "No se encontrarón registros"
   };
-
   constructor(
-    private service: GoodSubtypeService,
+    private service: ShelvesService,
     public toastrService: NbToastrService,
     private windowService: NbWindowService,
     private paginator: MatPaginatorIntl,
@@ -93,10 +131,10 @@ export class GoodSubtypeListComponent extends BasePage implements OnInit{
     });
     this.searchForm.controls['text'].valueChanges.subscribe((value: string) => {
       if (value.length > 0) {
-        this.service.search(value).subscribe((rows: GoodSubtype[]) => {
+        this.service.search(value).subscribe((rows: OfficesModel[]) => {
           this.length = rows.length;
           this.list = rows;
-        });
+        })
       } else {
         this.read(0, 10);
       }
@@ -111,6 +149,7 @@ export class GoodSubtypeListComponent extends BasePage implements OnInit{
     this.list = null;
     this.service.list(pageIndex, pageSize).subscribe(
       (dt: any) => {
+        console.log(dt.data)
         this.list = dt.data;
         this.length = dt.count;
       },
@@ -142,11 +181,7 @@ export class GoodSubtypeListComponent extends BasePage implements OnInit{
         if (question.isConfirmed) {
           this.service.delete(event.data.id).subscribe(
             data => {
-              // if (data.statusCode == 200) {
               this.onLoadFailed('success', 'Eliminado', data.message);
-              // } else {
-              //   this.onLoadFailed('danger', 'Error', data.message);
-              // }
             }, err => {
               let error = '';
               if (err.status === 0) {
@@ -173,7 +208,13 @@ export class GoodSubtypeListComponent extends BasePage implements OnInit{
       maximize: false,
       fullScreen: false,
     };
-    const modalRef = this.windowService.open(GoodSubtypeDetailComponent, { title: `Editar`, context: { data: event.data }, buttons: buttonsConfig }).onClose.subscribe(() => {
+    const modalRef = this.windowService.open(ShelvesDetailComponent, {
+      title: `Editar`,
+      context: {
+        data: event.data
+      },
+      buttons: buttonsConfig
+    }).onClose.subscribe(() => {
       this.read(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
 
@@ -185,8 +226,10 @@ export class GoodSubtypeListComponent extends BasePage implements OnInit{
       maximize: false,
       fullScreen: false,
     };
-    const modalRef = this.windowService.open(GoodSubtypeDetailComponent, { title: `Nuevo`, buttons: buttonsConfig }).onClose.subscribe(() => {
+    const modalRef = this.windowService.open(ShelvesDetailComponent, { title: `Nuevo`, buttons: buttonsConfig }).onClose.subscribe(() => {
       this.read(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
+
   }
+
 }
