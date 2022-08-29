@@ -3,6 +3,6 @@ export interface Doccompensation {
     satTypeJob?: number;
     idTypeDocSat?: number;
     idTypeDocSatXml:number;
-    typeDocSae?: number;
+    typeDocSae?: string;
     type:number;
 }

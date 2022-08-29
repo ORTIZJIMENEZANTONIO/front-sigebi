@@ -80,7 +80,7 @@ export class DrawerDetailComponent extends BasePage {
   }
   private updateRegister(data): void {
     let params ={
-      noBobeda:data.noBobeda,
+      // noBobeda:data.noBobeda,
       status:data.status,
       noRegistration:data.noRegistration
     }
