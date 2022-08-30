@@ -433,8 +433,12 @@ const routes: Routes = [
           .then(m => m.RackModule)
       },
        {
-        path: 'drawer', loadChildren: () => import('./drawers/drawers.module')
+        path: 'drawers', loadChildren: () => import('./drawers/drawers.module')
           .then(m => m.DrawersModule)
+      },
+      {
+        path: 'shelves', loadChildren: () => import('./shelves/shelves.module')
+          .then(m => m.ShelvesModule)
       },
       //{ path: 'home', component: CategoriesComponent },//ok
     ]
