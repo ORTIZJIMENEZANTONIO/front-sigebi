@@ -21,16 +21,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     IssuingInstitutionRoutingModule,
-    ReactiveFormsModule,
-    ComponentsModule,
-    ThemeModule,
-    NbCardModule,
-    Ng2SmartTableModule,
-    NbSelectModule,
-    NbButtonModule,
-    NbInputModule,
-    NbWindowModule.forChild(),
-    MatPaginatorModule
+    AdminModule
   ]
 })
 export class IssuingInstitutionModule { }

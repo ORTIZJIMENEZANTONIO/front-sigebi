@@ -251,20 +251,7 @@
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <label for="inputLastName" class="label">Nivel 3</label>
-                                <!-- <select2 [customSearchEnabled]="true" [data]="filterData" 
-                                [templates]="{option : option, group: group}"
-                                (search)="blur('search1', $event)"
-                                >
-                                    <ng-template #option let-data="data">{{data?.name}}</ng-template>
-                                    <ng-template #group let-label="label">Group: {{label}}</ng-template>
-                                </select2> -->
-
-                                <select2 nbSelect
-                                    [data]="data"
-                                    (search)="blur('search1', $event)"
-                                    
-                                    id="selec2-6"
-                                ></select2>
+                               
                                 <nb-select  placeholder="Seleccione..." fullWidth>
                                 </nb-select>
                             </div>

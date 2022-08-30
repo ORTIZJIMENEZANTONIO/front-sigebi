@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { NbWindowControlButtonsConfig, NbWindowService } from '@nebular/theme';
-import { Select2Data } from 'ng-select2-component';
 import { GoodSubtypeService } from '../../../@core/backend/common/services/good-subtype.service';
 import { GoodTypeService } from '../../../@core/backend/common/services/good-type.service';
 import { RegulatoryService } from '../../../@core/backend/common/services/regulatory.service';
@@ -19,7 +18,7 @@ import { RealStateOfTheTransferorComponent } from '../real-state-of-the-transfer
 export class CreateRequestComponent implements OnInit {
 
 
-  data: Select2Data = [];
+ 
 
   filterData = []
 
@@ -112,33 +111,11 @@ export class CreateRequestComponent implements OnInit {
     private windowService: NbWindowService,
     private regulatoryService: GoodSubtypeService
   ) { 
-    this.regulatoryService.search("").subscribe((rows:GoodType[]) => {
-      this.data = []
-      rows.forEach(item =>{
-        this.data.push({
-          label:item.description,
-          value:item.id
-        })
-      })
-    })
+  
   }
 
 
-  blur(a:any, event:any){
-   
-    if(`${event.search}`.length == 0) this.filterData = this.data
-    
-    this.regulatoryService.search(event.search).subscribe((rows:GoodSubtype[]) => {
-      this.data = []
-      rows.forEach(item =>{
-        this.data.push({
-          label:item.description,
-          value:item.id
-        })
-      })
-    })
-
-  }
+ 
 
 
   ngOnInit(): void {
