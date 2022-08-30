@@ -115,7 +115,7 @@ export class ResponseDetailComponent extends BasePage implements OnInit {
     delete data.idQuestion;
     this.service.update( {id:this.data.id, idQuestion: this.data.idQuestion.id}, data).subscribe(
       () => {
-        this.onLoadFailed('success', 'Serie', 'Actualizado Correctamente');
+        this.onLoadFailed('success', 'Respuesta', 'Actualizado Correctamente');
       }, err => {
         const error = err.status === 0
           ? SweetAlertConstants.noConexion

@@ -3,7 +3,7 @@ import { Batch } from "./batch.model";
 
 export class RackInterface {
   
-  id: number | null;
+  id: number;
   idWarehouse: WarehouseInterface;
   idBatch: Batch;
   description: string;
