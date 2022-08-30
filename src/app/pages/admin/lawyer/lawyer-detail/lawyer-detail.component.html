@@ -1,1 +1,122 @@
-<p>lawyer-detail works!</p>
+<nb-card>
+    <nb-card-body>
+        <form [formGroup]="form">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type="text" nbInput fullWidth class="form-control" formControlName="name"
+                            placeholder="Nombre"
+                            [status]="(name?.errors?.required || name?.hasError('minlength') || name?.hasError('maxlength') || name?.hasError('pattern')) && name.touched ? 'danger' : ''">
+                        <ngx-validation-message label="Nombre" [showMinLength]="name?.hasError('minlength')"
+                            [showMaxLength]="name?.hasError('maxlength')"
+                            [showRequired]="name?.errors?.required && name.touched"
+                            [showPattern]="name?.hasError('pattern') && name.touched" minLength=1 maxLength=80>
+                        </ngx-validation-message>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type="text" nbInput fullWidth class="form-control" formControlName="street"
+                            placeholder="Calle"
+                            [status]="(street?.errors?.required || street?.hasError('minlength') || street?.hasError('maxlength') || street?.hasError('pattern')) && street.touched ? 'danger' : ''">
+                        <ngx-validation-message label="Calle" [showMinLength]="street?.hasError('minlength')"
+                            [showMaxLength]="street?.hasError('maxlength')"
+                            [showRequired]="street?.errors?.required && street.touched"
+                            [showPattern]="street?.hasError('pattern') && street.touched" minLength=1 maxLength=60>
+                        </ngx-validation-message>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type="text" nbInput fullWidth class="form-control" formControlName="streetNumber"
+                            placeholder="No. exterior"
+                            [status]="(streetNumber?.errors?.required || streetNumber?.hasError('minlength') || streetNumber?.hasError('maxlength') || streetNumber?.hasError('pattern')) && streetNumber.touched ? 'danger' : ''">
+                        <ngx-validation-message label="No. exterior" [showMinLength]="streetNumber?.hasError('minlength')"
+                            [showMaxLength]="streetNumber?.hasError('maxlength')"
+                            [showRequired]="streetNumber?.errors?.required && streetNumber.touched"
+                            [showPattern]="streetNumber?.hasError('pattern') && streetNumber.touched" minLength=1 maxLength=10>
+                        </ngx-validation-message>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type="text" nbInput fullWidth class="form-control" formControlName="apartmentNumber"
+                            placeholder="No. interior"
+                            [status]="(apartmentNumber?.errors?.required || apartmentNumber?.hasError('minlength') || apartmentNumber?.hasError('maxlength') || apartmentNumber?.hasError('pattern')) && apartmentNumber.touched ? 'danger' : ''">
+                        <ngx-validation-message label="No. interior" [showMinLength]="apartmentNumber?.hasError('minlength')"
+                            [showMaxLength]="apartmentNumber?.hasError('maxlength')"
+                            [showRequired]="apartmentNumber?.errors?.required && apartmentNumber.touched"
+                            [showPattern]="apartmentNumber?.hasError('pattern') && apartmentNumber.touched" minLength=1 maxLength=10>
+                        </ngx-validation-message>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type="text" nbInput fullWidth class="form-control" formControlName="suburb"
+                            placeholder="Colonia"
+                            [status]="(suburb?.errors?.required || suburb?.hasError('minlength') || suburb?.hasError('maxlength') || suburb?.hasError('pattern')) && suburb.touched ? 'danger' : ''">
+                        <ngx-validation-message label="Colonia" [showMinLength]="suburb?.hasError('minlength')"
+                            [showMaxLength]="suburb?.hasError('maxlength')"
+                            [showRequired]="suburb?.errors?.required && suburb.touched"
+                            [showPattern]="suburb?.hasError('pattern') && suburb.touched" minLength=1 maxLength=100>
+                        </ngx-validation-message>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type="text" nbInput fullWidth class="form-control" formControlName="zipCode"
+                            placeholder="Delegación o Municipio"
+                            [status]="(zipCode?.errors?.required || zipCode?.hasError('minlength') || zipCode?.hasError('maxlength') || zipCode?.hasError('pattern')) && zipCode.touched ? 'danger' : ''">
+                        <ngx-validation-message label="Delegación o Municipio" [showMinLength]="zipCode?.hasError('minlength')"
+                            [showMaxLength]="zipCode?.hasError('maxlength')"
+                            [showRequired]="zipCode?.errors?.required && zipCode.touched"
+                            [showPattern]="zipCode?.hasError('pattern') && zipCode.touched" minLength=1 maxLength=10>
+                        </ngx-validation-message>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type="text" nbInput fullWidth class="form-control" formControlName="rfc"
+                            placeholder="RFC"
+                            [status]="(rfc?.errors?.required || rfc?.hasError('minlength') || rfc?.hasError('maxlength') || rfc?.hasError('pattern')) && rfc.touched ? 'danger' : ''">
+                        <ngx-validation-message label="RFC" [showMinLength]="rfc?.hasError('minlength')"
+                            [showMaxLength]="rfc?.hasError('maxlength')"
+                            [showRequired]="rfc?.errors?.required && rfc.touched"
+                            [showPattern]="rfc?.hasError('pattern') && rfc.touched" minLength=1 maxLength=20>
+                        </ngx-validation-message>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type="text" nbInput fullWidth class="form-control" formControlName="phone"
+                            placeholder="Teléfono"
+                            [status]="(phone?.errors?.required || phone?.hasError('minlength') || phone?.hasError('maxlength') || phone?.hasError('pattern')) && phone.touched ? 'danger' : ''">
+                        <ngx-validation-message label="Teléfono" [showMinLength]="phone?.hasError('minlength')"
+                            [showMaxLength]="phone?.hasError('maxlength')"
+                            [showRequired]="phone?.errors?.required && phone.touched"
+                            [showPattern]="phone?.hasError('pattern') && phone.touched" minLength=1 maxLength=20>
+                        </ngx-validation-message>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type="number" nbInput fullWidth class="form-control" formControlName="registerNumber"
+                            placeholder="No. despacho"
+                            [status]="(registerNumber?.errors?.required || registerNumber?.hasError('minlength') || registerNumber?.hasError('maxlength') || registerNumber?.hasError('pattern')) && registerNumber.touched ? 'danger' : ''">
+                        <ngx-validation-message label="No. despacho" [showMinLength]="registerNumber?.hasError('minlength')"
+                            [showMaxLength]="registerNumber?.hasError('maxlength')"
+                            [showRequired]="registerNumber?.errors?.required && registerNumber.touched"
+                            [showPattern]="registerNumber?.hasError('pattern') && registerNumber.touched" minLength=1 maxLength=20>
+                        </ngx-validation-message>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="d-flex justify-content-center">
+                    <button type="submit" nbButton status="primary" [disabled]="!form.valid"
+                        (click)="register()">{{actionBtn}}</button>
+                </div>
+            </div>
+        </form>
+    </nb-card-body>
+</nb-card>

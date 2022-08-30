@@ -1,7 +1,9 @@
+import { OfficesModel } from "./offices.model";
+
 export interface LawyerInterface {
 
-  idLawyer: number | null;
-  idOffice: number;
+  id: number | null;
+  idOffice: OfficesModel;
   name: string;
   street: string | null;
   streetNumber: string | null;

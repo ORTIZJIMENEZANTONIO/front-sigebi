@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { DataSource } from 'ng2-smart-table/lib/lib/data-source/data-source';
 
+import { DataSource } from 'ng2-smart-table/lib/lib/data-source/data-source';
 import { CatalogApi } from '../api/catalog-api'; 
 import { WarehouseInterface } from '../../../interfaces/auction/warehouse.model';
 

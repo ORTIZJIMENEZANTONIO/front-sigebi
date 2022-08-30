@@ -1,23 +1,53 @@
-import { Component } from '@angular/core';
-import { MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
-import { NbToastrService, NbWindowControlButtonsConfig, NbWindowService } from '@nebular/theme';
-import { BasePage } from '../../../../@core/shared/base-page';
-
-import { WarehouseDetailComponent } from '../warehouse-detail/warehouse-detail.component';
+import {
+  Component,
+  OnInit
+} from '@angular/core';
+import {
+  FormControl,
+  FormGroup
+} from '@angular/forms';
+import {
+  MatPaginatorIntl,
+  PageEvent
+} from '@angular/material/paginator';
+import {
+  NbToastrService,
+  NbWindowControlButtonsConfig,
+  NbWindowService
+} from '@nebular/theme';
+import {
+  SweetAlertResult
+} from 'sweetalert2';
+import {
+  OfficesService
+} from '../../../../@core/backend/common/services/offices.service';
 import { WarehouseService } from '../../../../@core/backend/common/services/warehouse.service';
-import { SweetAlertConstants } from '../../../../@core/interfaces/auction/sweetalert-model';
+import {
+  OfficesModel
+} from '../../../../@core/interfaces/auction/offices.model';
+import {
+  SweetAlertConstants,
+  SweetalertModel
+} from '../../../../@core/interfaces/auction/sweetalert-model';
 import { WarehouseInterface } from '../../../../@core/interfaces/auction/warehouse.model';
-import { SweetalertService } from '../../../../shared/sweetalert.service';
-import { FormControl, FormGroup } from '@angular/forms';
+import {
+  BaseApp
+} from '../../../../@core/shared/base-app';
+import {
+  BasePage
+} from '../../../../@core/shared/base-page';
+import {
+  SweetalertService
+} from '../../../../shared/sweetalert.service';
 
 @Component({
   selector: 'ngx-warehouse-list',
   templateUrl: './warehouse-list.component.html',
   styleUrls: ['./warehouse-list.component.scss']
 })
-export class WarehouseListComponent extends BasePage {
+export class WarehouseListComponent extends BasePage implements OnInit {
   public searchForm: FormGroup;
-  public warehouses: any;
+  public list: any;
   public length = 100;
   public pageSize = 10;
   public pageSizeOptions: number[] = [5, 10, 25, 100];
@@ -34,10 +64,10 @@ export class WarehouseListComponent extends BasePage {
       edit: true,
       delete: false,
     },
-    pager : {
-      display : false,
-    },      
-    hideSubHeader: true,//oculta subheaader de filtro
+    pager: {
+      display: false,
+    },
+    hideSubHeader: true, //oculta subheaader de filtro
     mode: 'external', // ventana externa
     add: {
       addButtonContent: '<i class="nb-plus"></i>',
@@ -101,11 +131,11 @@ export class WarehouseListComponent extends BasePage {
       responsibleDelegation: {
         title: 'Delegación reponsable',
         type: 'string',
-      },
+      }
+
     },
     noDataMessage: "No se encontrarón registros"
   };
-
   constructor(
     private service: WarehouseService,
     public toastrService: NbToastrService,
@@ -120,10 +150,10 @@ export class WarehouseListComponent extends BasePage {
     });
     this.searchForm.controls['text'].valueChanges.subscribe((value: string) => {
       if (value.length > 0) {
-        // this.service.search(value).subscribe((rows: WarehouseInterface[]) => {
-        //   this.length = rows.length;
-        //   this.warehouses = rows;
-        // });
+        this.service.search(value).subscribe((rows: WarehouseInterface[]) => {
+          this.length = rows.length;
+          this.list = rows;
+        })
       } else {
         this.read(0, 10);
       }
@@ -135,10 +165,10 @@ export class WarehouseListComponent extends BasePage {
   }
 
   private read(pageIndex: number, pageSize: number) {
-    this.warehouses = null;
+    this.list = null;
     this.service.list(pageIndex, pageSize).subscribe(
       (dt: any) => {
-        this.warehouses = dt.data;
+        this.list = dt.data;
         this.length = dt.count;
       },
       err => {
@@ -169,11 +199,7 @@ export class WarehouseListComponent extends BasePage {
         if (question.isConfirmed) {
           this.service.delete(event.data.id).subscribe(
             data => {
-              // if (data.statusCode == 200) {
               this.onLoadFailed('success', 'Eliminado', data.message);
-              // } else {
-              //   this.onLoadFailed('danger', 'Error', data.message);
-              // }
             }, err => {
               let error = '';
               if (err.status === 0) {
@@ -200,7 +226,13 @@ export class WarehouseListComponent extends BasePage {
       maximize: false,
       fullScreen: false,
     };
-    const modalRef = this.windowService.open(WarehouseDetailComponent, { title: `Editar`, context: { data: event.data }, buttons: buttonsConfig }).onClose.subscribe(() => {
+    const modalRef = this.windowService.open(WarehouseListComponent, {
+      title: `Editar`,
+      context: {
+        data: event.data
+      },
+      buttons: buttonsConfig
+    }).onClose.subscribe(() => {
       this.read(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
 
@@ -212,7 +244,7 @@ export class WarehouseListComponent extends BasePage {
       maximize: false,
       fullScreen: false,
     };
-    const modalRef = this.windowService.open(WarehouseDetailComponent, { title: `Nuevo`, buttons: buttonsConfig }).onClose.subscribe(() => {
+    const modalRef = this.windowService.open(WarehouseListComponent, { title: `Nuevo`, buttons: buttonsConfig }).onClose.subscribe(() => {
       this.read(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
 

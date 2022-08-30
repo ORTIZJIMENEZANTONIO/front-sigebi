@@ -56,7 +56,7 @@ export class EstRepuveListComponent extends BasePage {
       columnTitle: 'Acciones',
       add: true,
       edit: true,
-      delete: true,
+      delete: false,
     },
     pager: {
       display: false,

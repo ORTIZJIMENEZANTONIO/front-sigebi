@@ -1,0 +1,106 @@
+<nb-card>
+    <nb-card-body>
+        <form [formGroup]="form">
+            <div class="row">
+                <div class="form-group">
+                    <input type="text" nbInput fullWidth class="form-control" formControlName="description"
+                        placeholder="Descripción"
+                        [status]="(description?.errors?.required || description?.hasError('minlength') || description?.hasError('maxlength') || description?.hasError('pattern')) && description.touched ? 'danger' : ''">
+                    <ngx-validation-message label="Descripción" [showMinLength]="description?.hasError('minlength')"
+                        [showMaxLength]="description?.hasError('maxlength')"
+                        [showRequired]="description?.errors?.required && description.touched"
+                        [showPattern]="description?.hasError('pattern') && description.touched" minLength=1 maxLength=60>
+                    </ngx-validation-message>
+                </div>
+                <div class="form-group">
+                    <input type="text" nbInput fullWidth class="form-control" formControlName="relationPropertyKey"
+                        placeholder="Clave"
+                        [status]="(relationPropertyKey?.errors?.required || relationPropertyKey?.hasError('minlength') || relationPropertyKey?.hasError('maxlength') || relationPropertyKey?.hasError('pattern')) && relationPropertyKey.touched ? 'danger' : ''">
+                    <ngx-validation-message label="Clave" [showMinLength]="relationPropertyKey?.hasError('minlength')"
+                        [showMaxLength]="relationPropertyKey?.hasError('maxlength')"
+                        [showRequired]="relationPropertyKey?.errors?.required && relationPropertyKey.touched"
+                        [showPattern]="relationPropertyKey?.hasError('pattern') && relationPropertyKey.touched" minLength=1 maxLength=1>
+                    </ngx-validation-message>
+                </div>
+                <div class="form-group">
+                    <input type="text" nbInput fullWidth class="form-control" formControlName="referralNoteType"
+                        placeholder="Tipo volante"
+                        [status]="(referralNoteType?.errors?.required || referralNoteType?.hasError('minlength') || referralNoteType?.hasError('maxlength') || referralNoteType?.hasError('pattern')) && referralNoteType.touched ? 'danger' : ''">
+                    <ngx-validation-message label="Tipo volante" [showMinLength]="referralNoteType?.hasError('minlength')"
+                        [showMaxLength]="referralNoteType?.hasError('maxlength')"
+                        [showRequired]="referralNoteType?.errors?.required && referralNoteType.touched"
+                        [showPattern]="referralNoteType?.hasError('pattern') && referralNoteType.touched" minLength=1 maxLength=2>
+                    </ngx-validation-message>
+                </div>
+                <div class="form-group">
+                    <input type="text" nbInput fullWidth class="form-control" formControlName="versionUser"
+                        placeholder="Versión Usuario"
+                        [status]="(versionUser?.errors?.required || versionUser?.hasError('minlength') || versionUser?.hasError('maxlength') || versionUser?.hasError('pattern')) && versionUser.touched ? 'danger' : ''">
+                    <ngx-validation-message label="Versión Usuario" [showMinLength]="versionUser?.hasError('minlength')"
+                        [showMaxLength]="versionUser?.hasError('maxlength')"
+                        [showRequired]="versionUser?.errors?.required && versionUser.touched"
+                        [showPattern]="versionUser?.hasError('pattern') && versionUser.touched" minLength=1 maxLength=2>
+                    </ngx-validation-message>
+                </div>    
+                <div class="form-group">
+                    <input type="text" nbInput fullWidth class="form-control" formControlName="creationUser"
+                        placeholder="Usuario"
+                        [status]="(creationUser?.errors?.required || creationUser?.hasError('minlength') || creationUser?.hasError('maxlength') || creationUser?.hasError('pattern')) && creationUser.touched ? 'danger' : ''">
+                    <ngx-validation-message label="Usuario" [showMinLength]="creationUser?.hasError('minlength')"
+                        [showMaxLength]="creationUser?.hasError('maxlength')"
+                        [showRequired]="creationUser?.errors?.required && creationUser.touched"
+                        [showPattern]="creationUser?.hasError('pattern') && creationUser.touched" minLength=1 maxLength=60>
+                    </ngx-validation-message>
+                </div>
+                <div class="form-group">
+                    <input type="text" nbInput fullWidth class="form-control" formControlName="creationDate"
+                        placeholder="Fecha creación"
+                        [status]="(creationDate?.errors?.required || creationDate?.hasError('minlength') || creationDate?.hasError('maxlength') || creationDate?.hasError('pattern')) && creationDate.touched ? 'danger' : ''">
+                    <ngx-validation-message label="Fecha creación" [showMinLength]="creationDate?.hasError('minlength')"
+                        [showMaxLength]="creationDate?.hasError('maxlength')"
+                        [showRequired]="creationDate?.errors?.required && creationDate.touched"
+                        [showPattern]="creationDate?.hasError('pattern') && creationDate.touched" minLength=1 maxLength=60>
+                    </ngx-validation-message>
+                </div>
+                <div class="form-group">
+                    <input type="text" nbInput fullWidth class="form-control" formControlName="editionUser"
+                        placeholder="Usuario modifica"
+                        [status]="(editionUser?.errors?.required || editionUser?.hasError('minlength') || editionUser?.hasError('maxlength') || editionUser?.hasError('pattern')) && editionUser.touched ? 'danger' : ''">
+                    <ngx-validation-message label="Usuario modifica" [showMinLength]="editionUser?.hasError('minlength')"
+                        [showMaxLength]="editionUser?.hasError('maxlength')"
+                        [showRequired]="editionUser?.errors?.required && editionUser.touched"
+                        [showPattern]="editionUser?.hasError('pattern') && editionUser.touched" minLength=1 maxLength=60>
+                    </ngx-validation-message>
+                </div>
+                <div class="form-group">
+                    <input type="text" nbInput fullWidth class="form-control" formControlName="modificationDate"
+                        placeholder="Fecha modifica"
+                        [status]="(modificationDate?.errors?.required || modificationDate?.hasError('minlength') || modificationDate?.hasError('maxlength') || modificationDate?.hasError('pattern')) && modificationDate.touched ? 'danger' : ''">
+                    <ngx-validation-message label="Fecha modifica" [showMinLength]="modificationDate?.hasError('minlength')"
+                        [showMaxLength]="modificationDate?.hasError('maxlength')"
+                        [showRequired]="modificationDate?.errors?.required && modificationDate.touched"
+                        [showPattern]="modificationDate?.hasError('pattern') && modificationDate.touched" minLength=1 maxLength=60>
+                    </ngx-validation-message>
+                </div>
+                <div class="form-group">
+                    <input type="number" nbInput fullWidth class="form-control" formControlName="idRegister"
+                        placeholder="No. registro"
+                        [status]="(idRegister?.errors?.required || idRegister?.hasError('minlength') || idRegister?.hasError('maxlength') || idRegister?.hasError('pattern')) && idRegister.touched ? 'danger' : ''">
+                    <ngx-validation-message label="No. registro" [showMinLength]="idRegister?.hasError('minlength')"
+                        [showMaxLength]="idRegister?.hasError('maxlength')"
+                        [showRequired]="idRegister?.errors?.required && idRegister.touched"
+                        [showPattern]="idRegister?.hasError('pattern') && idRegister.touched" minLength=1 maxLength=100>
+                    </ngx-validation-message>
+                </div>
+
+
+            </div>
+            <div class="form-group">
+                <div class="d-flex justify-content-center">
+                    <button type="submit" nbButton status="primary" [disabled]="!form.valid"
+                        (click)="register()">{{actionBtn}}</button>
+                </div>
+            </div>
+        </form>
+    </nb-card-body>
+</nb-card>
