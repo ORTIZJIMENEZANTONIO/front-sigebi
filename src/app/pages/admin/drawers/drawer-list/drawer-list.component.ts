@@ -1,27 +1,10 @@
-import {
-  Component,
-  OnInit
-} from '@angular/core';
-import {
-  FormControl,
-  FormGroup
-} from '@angular/forms';
-import {
-  MatPaginatorIntl,
-  PageEvent
-} from '@angular/material/paginator';
-import {
-  NbToastrService,
-  NbWindowControlButtonsConfig,
-  NbWindowService
-} from '@nebular/theme';
-import {
-  SweetAlertResult
-} from 'sweetalert2';
+import {Component,OnInit} from '@angular/core';
+import { FormControl,FormGroup } from '@angular/forms';
+import { MatPaginatorIntl,PageEvent} from '@angular/material/paginator';
+import { NbToastrService,NbWindowControlButtonsConfig,NbWindowService } from '@nebular/theme';
+import { SweetAlertResult } from 'sweetalert2';
 import { DrawerService } from '../../../../@core/backend/common/services/drawer.service';
-import {
-  OfficesService
-} from '../../../../@core/backend/common/services/offices.service';
+import { OfficesService } from '../../../../@core/backend/common/services/offices.service';
 import {
   OfficesModel
 } from '../../../../@core/interfaces/auction/offices.model';
@@ -86,63 +69,23 @@ export class DrawerListComponent extends BasePage {
       confirmDelete: true,
     },
     columns: {
-      id: {
+      noDrawer: {
         title: 'Registro',
         type: 'number',
       },
-      name: {
-        title: 'Nombre',
-        type: 'string',
-      },
-      street: {
-        title: 'Calle',
-        type: 'string',
-      },
-      noExt: {
-        title: 'No. Exterior',
-        type: 'string',
-      },
-      noInt: {
-        title: 'No. Interior',
-        type: 'string',
-      },
-      colony: {
-        title: 'Colonia',
-        type: 'string',
-      },
-      municipalDelegate: {
-        title: 'Delegado Municipal',
-        type: 'string',
-      },
-      postalCode: {
-        title: 'Código Postal',
+      noBobeda: {
+        title: 'Numero boveda',
         type: 'number',
       },
-      rfc: {
-        title: 'RFC',
-        type: 'string',
-      },
-      phone: {
-        title: 'Teléfono',
-        type: 'string',
-      },
-      phoneTwo: {
-        title: 'Segundo Teléfono',
-        type: 'string',
-      },
-      fax: {
-        title: 'Segundo Teléfono',
-        type: 'string',
-      },
-      typeOffice: {
-        title: 'Tipo',
+      status: {
+        title: 'Estado',
         type: 'string',
       },
       noRegistration: {
-        title: 'Numero registro',
+        title: 'No. Registro',
         type: 'number',
       }
-
+  
     },
     noDataMessage: "No se encontrarón registros"
   };

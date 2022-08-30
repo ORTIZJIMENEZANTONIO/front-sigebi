@@ -31,7 +31,7 @@ export class GoodSubtypeListComponent extends BasePage implements OnInit{
       columnTitle: 'Acciones',
       add: true,
       edit: true,
-      delete: true,
+      delete: false,
     },
     pager: {
       display: false,

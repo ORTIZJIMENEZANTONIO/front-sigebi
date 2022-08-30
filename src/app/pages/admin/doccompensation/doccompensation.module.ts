@@ -7,7 +7,7 @@ import { DoccompensationListComponent } from './doccompensation-list/doccompensa
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ComponentsModule } from '../../../@components/components.module';
 import { ThemeModule } from '../../../@theme/theme.module';
-import { NbButtonModule, NbCardModule, NbInputModule, NbSelectModule, NbWindowModule } from '@nebular/theme';
+import { NbAutocompleteModule, NbButtonModule, NbCardModule, NbInputModule, NbSelectModule, NbWindowModule } from '@nebular/theme';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatInputModule } from '@angular/material/input';
@@ -25,6 +25,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     ThemeModule,
     NbCardModule,
     Ng2SmartTableModule,
+    NbAutocompleteModule,
     NbSelectModule,
     NbButtonModule,
     NbInputModule,
