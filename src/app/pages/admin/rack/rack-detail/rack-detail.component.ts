@@ -24,6 +24,7 @@ export class RackDetailComponent extends BasePage implements OnInit {
   private data: RackInterface;
   public actionBtn: string = "Guardar";
   public filteredOptions$: BehaviorSubject<any[]> = new BehaviorSubject([]);
+  public filteredWarehouseOptions$: BehaviorSubject<any[]> = new BehaviorSubject([]);
 
   constructor(
     @Inject(NB_WINDOW_CONTEXT) context,
@@ -74,13 +75,11 @@ export class RackDetailComponent extends BasePage implements OnInit {
     this.form.controls['warehouse'].valueChanges.subscribe((value: string) => {
       if (value) {
         this.warehouseService.search(value).subscribe(data => {
-          this.filteredOptions$.next(data);
+          this.filteredWarehouseOptions$.next(data);
         })
       }
     })
     this.form.controls['batch'].valueChanges.subscribe((value: string) => {
-      console.log( value )
-      
       if (value) {
         this.batchService.search(value).subscribe(data => {
           this.filteredOptions$.next(data);
@@ -97,17 +96,18 @@ export class RackDetailComponent extends BasePage implements OnInit {
   public get registerNumber() { return this.form.get('registerNumber'); }
 
   public onSelectionChangeWarehouse(event){
-    if(event.id){
-      console.log( event )
+    if(event.idWarehouse){
       this.form.controls['idWarehouse'].setValue(event.idWarehouse);
-      this.form.controls['warehouse'].setValue(event.description);
+      this.form.controls['warehouse'].setValue(`${event.registerNumber} - ${event.description}`);
     }  
   }
 
   public onSelectionChangeBatch(event){
+    console.log( event )
     if(event.id){
+      
       this.form.controls['idBatch'].setValue(event.id);
-      this.form.controls['warehouse'].setValue(event.description);
+      this.form.controls['batch'].setValue(`${event.numRegister} - ${event.description}`);
     }   
   }
 

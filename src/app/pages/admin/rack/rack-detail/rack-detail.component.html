@@ -13,26 +13,32 @@
           [showPattern]="id?.hasError('pattern') && id.touched">
         </ngx-validation-message>
       </div>
-          <!--
+          
       <div class="form-group">
-        <input type="text" nbInput fullWidth formControlName="warehouse"
+        <input type="text" nbInput fullWidth formControlName="warehouse" class="form-control"
           placeholder="Almacén"
           [nbAutocomplete]="auto"
           [status]="(warehouse?.hasError('pattern') ) ? 'danger' : ''"
         />
         <nb-autocomplete #auto [activeFirst]="false"
           (selectedChange)="onSelectionChangeWarehouse($event)">
-          <nb-option *ngFor="let option of filteredOptions$ | async" [value]="option">
-            {{ option.description }}
+          <nb-option *ngFor="let ware of filteredWarehouseOptions$ | async" [value]="ware">
+            {{ ware.registerNumber }} - {{ ware.description }}
           </nb-option>
         </nb-autocomplete>
         <ngx-validation-message label="Almacén" 
+          [showRequired]="warehouse?.errors?.required && warehouse.touched"  
           [showPattern]="warehouse?.hasError('pattern')">
         </ngx-validation-message>
       </div>
-    -->
+      
       <div class="form-group">
-        <input type="text" nbInput fullWidth formControlName="batch" class="form-control"
+        <input 
+          type="text" 
+          nbInput 
+          fullWidth 
+          formControlName="batch" 
+          class="form-control"
           placeholder="Lote"
           [nbAutocomplete]="auto"
           [status]="(batch?.hasError('pattern') ) ? 'danger' : ''"
@@ -40,7 +46,7 @@
         <nb-autocomplete #auto [activeFirst]="false"
           (selectedChange)="onSelectionChangeBatch($event)">
           <nb-option *ngFor="let option of filteredOptions$ | async" [value]="option">
-            {{ option.description}}
+            {{ option.numRegister }} - {{ option.description }}
           </nb-option>
         </nb-autocomplete>
         <ngx-validation-message label="Lote" 
