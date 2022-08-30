@@ -1,38 +1,132 @@
 <nb-card class="cat-card"> 
-    
     <nb-card-header>
-        <span class="title">
-          REPORTE PARA IMPRIMIR
-        </span>
-    </nb-card-header>
-
-    <nb-card-body>
-   
-            <div class="row">
   
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="label">Delegación</label>
-                    
-               
-                            <ng-select nbinput=""  class=" ng-dropdown-panel-items scroll-host input-full-width size-medium status-basic shape-rectangle nb-transition" 
-                                [items]="cities" 
-                                bindLabel="name"
-                                bindValue="id" 
-                                placeholder="" 
-                                [(ngModel)]="selectedCityIds"> 
-                            </ng-select>
-                    </div>
-                </div>
+        <span class="title">
+            REPORTE DE BIENES RECIBIDOS EN ADMON
+        </span>
+  
+  <!-- Botón para agregar nuevo desactivado por que no lo requiere
+        <div class="add-select">
+            <button (click)="openWindow()" nbButton status="primary">Nueva</button>
+        </div>
+  -->
+  
+    </nb-card-header>
+  
+    <nb-card-body>
+  
+     <!--Modificar nombre para identificar y en el boton-->
+     <div class="row">
+  
+        <div class="col-md-2">
+            <div class="form-group">
+                <label class="label">Acumulado del:</label>
+                
+                  <input nbInput
+                         placeholder="Selección de fecha"
+                         [nbDatepicker]="formpicker">
+                  <nb-datepicker #formpicker></nb-datepicker>
+                
+            </div>
+        </div>
 
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="label">ID Seleccionado</label>
-                        <input disabled nbInput fullWidth  placeholder="{{selectedCityIds}}">
-                    </div>
-                </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <label class="label">Al</label>
+                
+                  <input nbInput
+                         placeholder="Selección de fecha"
+                         [nbDatepicker]="formpicker2">
+                  <nb-datepicker #formpicker2></nb-datepicker>
+                
+            </div>
+        </div>
+        
+            
+    </div>
 
+      <div class="row">
+  
+          <div class="col-md-1">
+              <div class="form-group">
+                  <label class="label">no.</label>
+                  <input disabled nbInput fullWidth  placeholder="{{selectedDelegationID}}">
+              </div>
+          </div>
+          
+              <div class="col-md-4">
+                  <div class="form-group">
+                      <label class="label">Delegación</label>
+                          <ng-select nbinput=""  class="ng-dropdown-panel-items scroll-host input-full-width size-medium status-basic shape-rectangle nb-transition" 
+                              [items]="delegacionesList" 
+                              bindLabel="delegation"
+                              bindValue="noDelegation" 
+                              placeholder="" 
+                              [(ngModel)]="selectedDelegationID"> 
+                          </ng-select>
+                  </div>
+              </div>
+  
+      </div>
+  
+      <div class="row">
+  
+          <div class="col-md-1">
+              <div class="form-group">
+                  <label class="label">no.</label>
+                  <input disabled nbInput fullWidth  placeholder="{{selectedSubDelegationID}}">
+              </div>
+          </div>
+          
+              <div class="col-md-4">
+                  <div class="form-group">
+                      <label class="label">SubDelegaciones</label>
+                          <ng-select nbinput=""  class="ng-dropdown-panel-items scroll-host input-full-width size-medium status-basic shape-rectangle nb-transition" 
+                              [items]="subDelegacionesList" 
+                              bindLabel="subDelegation"
+                              bindValue="noSubDelegation" 
+                              placeholder="" 
+                              [(ngModel)]="selectedSubDelegationID"> 
+                          </ng-select>
+                  </div>
+              </div>
+  
+      </div>
+  
+      
+      <div class="row">
+  
+        <div class="col-md-1">
+            <div class="form-group">
+                <label class="label">Estatus</label>
+                <input disabled nbInput fullWidth  placeholder="{{noStatus}}">
+            </div>
+        </div>
+        
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label class="label">&nbsp;</label>
+                        <ng-select nbinput=""  class="ng-dropdown-panel-items scroll-host input-full-width size-medium status-basic shape-rectangle nb-transition" 
+                            [items]="statusList" 
+                            bindLabel="status"
+                            bindValue="cveStatus" 
+                            placeholder="" 
+                            [(ngModel)]="noStatus"> 
+                        </ng-select>
+                </div>
             </div>
 
-    </nb-card-body>
-</nb-card>
+    </div>
+  
+      <div class="form-group">
+          <div class="d-flex justify-content-center">
+              <!--<button type="submit" nbButton status="primary" [disabled]="!form.valid"
+                  (click)="register()">{{actionBtn}}</button>  Boton con función--> 
+                  <button type="submit" nbButton status="primary" >Imprimir Reporte</button>
+          </div>
+      </div>
+  
+  
+  </nb-card-body>
+  
+  </nb-card>

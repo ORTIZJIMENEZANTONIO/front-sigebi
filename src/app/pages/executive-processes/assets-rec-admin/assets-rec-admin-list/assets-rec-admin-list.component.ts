@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';  
 
 
 @Component({
@@ -8,20 +8,29 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AssetsRecAdminListComponent  {
 
-  cities = [
-    {id: 1, name: 'Tijuana'},
-    {id: 2, name: 'Vallarta'},
-    {id: 3, name: 'Oaxaca', disabled: true},
-    {id: 4, name: 'Veracruz'},
-    {id: 5, name: 'Sinaloa'}
-];
+  delegacionesList = [
+    {noDelegation: 1, delegation: 'Delegación Tijuana', },
+    {noDelegation: 2, delegation: 'Delegación Vallarta', },
+    {noDelegation: 3, delegation: 'Delegación Oaxaca',  },
+    {noDelegation: 4, delegation: 'Delegación Veracruz', },
+    {noDelegation: 5, delegation: 'Delegación Sinaloa', }
+  ];
+    selectedDelegationID: number;
+  
+  
+  
+    subDelegacionesList = [
+      {noSubDelegation: 1, subDelegation: "Tijuana" },
+      {noSubDelegation: 2, subDelegation: "Vallarta" },
+      {noSubDelegation: 3, subDelegation: "Tijuana" },
+      {noSubDelegation: 4, subDelegation: "Oaxaca" },
+      {noSubDelegation: 5, subDelegation: "Sinaloa" }
+    ];
+      selectedSubDelegationID: number; 
 
-
-    selectedCity: any;
-    selectedCityIds: string[];
-    selectedCityName = 'Vilnius';
-    selectedCityId: number;
-    selectedUserIds: number[];
-
-
+    statusList = [
+        {cveStatus: "ASEGU", status: "ASEGURADO" },
+        {cveStatus: "NOASEGU", status: "NO ASEGURADO" },
+            ]
+    noStatus: string;
 }
