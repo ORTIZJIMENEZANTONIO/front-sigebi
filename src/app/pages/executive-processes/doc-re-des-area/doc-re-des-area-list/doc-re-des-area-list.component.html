@@ -1,1 +1,137 @@
-<p>doc-re-des-area-list works!</p>
+<nb-card class="cat-card"> 
+    <nb-card-header>
+  
+        <span class="title">
+            TOTAL DE DOCUMENTOS RECIBIDOS VS ÁREA DESTINO
+        </span>
+  
+  <!-- Botón para agregar nuevo desactivado por que no lo requiere
+        <div class="add-select">
+            <button (click)="openWindow()" nbButton status="primary">Nueva</button>
+        </div>
+  -->
+  
+    </nb-card-header>
+  
+    <nb-card-body>
+  
+     <!--Modificar nombre para identificar y en el boton-->
+
+     <div class="row">
+  
+        <div class="col-md-2">
+            <div class="form-group">
+                <label class="label">Fecha recepción del:</label>
+                
+                  <input nbInput
+                         placeholder="Form Picker"
+                         [nbDatepicker]="formpicker">
+                  <nb-datepicker #formpicker></nb-datepicker>
+                
+            </div>
+        </div>
+
+        <div class="col-md-2">
+            <div class="form-group">
+                <label class="label">Al</label>
+                
+                  <input nbInput
+                         placeholder="Form Picker"
+                         [nbDatepicker]="formpicker2">
+                  <nb-datepicker #formpicker2></nb-datepicker>
+                
+            </div>
+        </div>
+        
+            
+    </div>
+
+    <div class="row">
+  
+        <div class="col-md-1">
+            <div class="form-group">
+                <label class="label">Área Destino</label>
+                <input disabled nbInput fullWidth  placeholder="{{areaID}}">
+            </div>
+        </div>
+        
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label class="label">Selecciona Área:</label>
+                        <ng-select nbinput=""  class="ng-dropdown-panel-items scroll-host input-full-width size-medium status-basic shape-rectangle nb-transition" 
+                            [items]="areaList" 
+                            bindLabel="areaClave"
+                            bindValue="noArea" 
+                            placeholder="" 
+                            [(ngModel)]="areaID"> 
+                        </ng-select>
+                </div>
+            </div>
+
+    </div>
+
+
+      <div class="row">
+  
+              <div class="col-md-2">
+                  <div class="form-group">
+                      <label class="label">Delegación</label>
+                          <ng-select nbinput=""  class="ng-dropdown-panel-items scroll-host input-full-width size-medium status-basic shape-rectangle nb-transition" 
+                              [items]="delegacionesList" 
+                              bindLabel="delegation"
+                              bindValue="noDelegation" 
+                              placeholder="" 
+                              [(ngModel)]="selectedDelegationID"> 
+                          </ng-select>
+                  </div>
+              </div>
+
+              <div class="col-md-2">
+                <div class="form-group">
+                    <label class="label">SubDelegaciones</label>
+                        <ng-select nbinput=""  class="ng-dropdown-panel-items scroll-host input-full-width size-medium status-basic shape-rectangle nb-transition" 
+                            [items]="subDelegacionesList" 
+                            bindLabel="subDelegation"
+                            bindValue="noSubDelegation" 
+                            placeholder="" 
+                            [(ngModel)]="selectedSubDelegationID"> 
+                        </ng-select>
+                </div>
+            </div>
+  
+      </div>
+  
+      <div class="row">
+
+          
+              
+  
+      </div>
+  
+      <div class="row">
+  
+        <div class="col-lg-2">
+            <div class="form-group">
+                <label class="label">¿Reporte Detallado?</label> &nbsp; 
+                
+                  <nb-select fullWidth selected="No">
+                    <nb-option value="No">No</nb-option>
+                    <nb-option value="Si">Si</nb-option>
+                </nb-select>
+                
+            </div>
+        </div>
+      </div>
+  
+      <div class="form-group">
+          <div class="d-flex justify-content-center">
+              <!--<button type="submit" nbButton status="primary" [disabled]="!form.valid"
+                  (click)="register()">{{actionBtn}}</button>  Boton con función--> 
+                  <button type="submit" nbButton status="primary" >Imprimir Reporte</button>
+          </div>
+      </div>
+  
+  
+  </nb-card-body>
+  
+  </nb-card>

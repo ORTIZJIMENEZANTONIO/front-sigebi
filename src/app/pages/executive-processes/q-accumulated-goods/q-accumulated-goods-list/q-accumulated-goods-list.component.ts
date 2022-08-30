@@ -8,16 +8,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class QAccumulatedGoodsListComponent  {
   
-  listado = [
-  {noDelegation: 1, delegation: 'Delegación Tijuana', noSubDelegation: 1, subDelegation: "Tijuana"},
-  {noDelegation: 2, delegation: 'Delegación Vallarta', noSubDelegation: 2, subDelegation: "Vallarta"},
-  {noDelegation: 3, delegation: 'Delegación Oaxaca', noSubDelegation: 3, subDelegation: "Tijuana" },
-  {noDelegation: 4, delegation: 'Delegación Veracruz', noSubDelegation: 4, subDelegation: "Oaxaca"},
-  {noDelegation: 5, delegation: 'Delegación Sinaloa', noSubDelegation: 5, subDelegation: "Sinaloa"}
+  delegacionesList = [
+  {noDelegation: 1, delegation: 'Delegación Tijuana', },
+  {noDelegation: 2, delegation: 'Delegación Vallarta', },
+  {noDelegation: 3, delegation: 'Delegación Oaxaca',  },
+  {noDelegation: 4, delegation: 'Delegación Veracruz', },
+  {noDelegation: 5, delegation: 'Delegación Sinaloa', }
 ];
-
-
   selectedDelegationID: number;
+
+
+
+  subDelegacionesList = [
+    {noSubDelegation: 1, subDelegation: "Tijuana" },
+    {noSubDelegation: 2, subDelegation: "Vallarta" },
+    {noSubDelegation: 3, subDelegation: "Tijuana" },
+    {noSubDelegation: 4, subDelegation: "Oaxaca" },
+    {noSubDelegation: 5, subDelegation: "Sinaloa" }
+  ];
+    selectedSubDelegationID: number;
   
 
 

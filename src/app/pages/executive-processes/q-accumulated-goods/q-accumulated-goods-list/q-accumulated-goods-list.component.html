@@ -2,7 +2,7 @@
   <nb-card-header>
 
       <span class="title">
-        Reporte Acumulado de Bienes Trimestral
+        REPORTE ACUMULADO DE BIENES TRIMESTRAL
       </span>
 
 <!-- Botón para agregar nuevo desactivado por que no lo requiere
@@ -14,31 +14,82 @@
   </nb-card-header>
 
   <nb-card-body>
-   
+
+   <!--Modificar nombre para identificar y en el boton-->
     <div class="row">
 
-        <div class="col-md-4">
+        <div class="col-md-1">
             <div class="form-group">
-                <label class="label">no. Delegación</label>
+                <label class="label">no.</label>
                 <input disabled nbInput fullWidth  placeholder="{{selectedDelegationID}}">
             </div>
         </div>
-
-        <div class="col-md-4">
-            <div class="form-group">
-                <label class="label">Descripción</label>
-                    <ng-select nbinput=""  class=" ng-dropdown-panel-items scroll-host input-full-width size-medium status-basic shape-rectangle nb-transition" 
-                        [items]="listado" 
-                        bindLabel="delegation"
-                        bindValue="noDelegation" 
-                        placeholder="" 
-                        [(ngModel)]="selectedDelegationID"> 
-                    </ng-select>
+        
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="label">Delegación</label>
+                        <ng-select nbinput=""  class="ng-dropdown-panel-items scroll-host input-full-width size-medium status-basic shape-rectangle nb-transition" 
+                            [items]="delegacionesList" 
+                            bindLabel="delegation"
+                            bindValue="noDelegation" 
+                            placeholder="" 
+                            [(ngModel)]="selectedDelegationID"> 
+                        </ng-select>
+                </div>
             </div>
-        </div>
 
     </div>
 
+    <div class="row">
+
+        <div class="col-md-1">
+            <div class="form-group">
+                <label class="label">no.</label>
+                <input disabled nbInput fullWidth  placeholder="{{selectedSubDelegationID}}">
+            </div>
+        </div>
+        
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="label">SubDelegaciones</label>
+                        <ng-select nbinput=""  class="ng-dropdown-panel-items scroll-host input-full-width size-medium status-basic shape-rectangle nb-transition" 
+                            [items]="subDelegacionesList" 
+                            bindLabel="subDelegation"
+                            bindValue="noSubDelegation" 
+                            placeholder="" 
+                            [(ngModel)]="selectedSubDelegationID"> 
+                        </ng-select>
+                </div>
+            </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-2">
+            <div class="form-group">
+                <label class="label">Del</label>
+                <input nbInput fullWidth>
+            </div>
+        </div>
+
+        <div class="col-md-2">
+            <div class="form-group">
+                <label class="label">Al</label>
+                <input nbInput fullWidth>
+            </div>
+        </div>
+        
+            
+    </div>
+
+    <div class="form-group">
+        <div class="d-flex justify-content-center">
+            <!--<button type="submit" nbButton status="primary" [disabled]="!form.valid"
+                (click)="register()">{{actionBtn}}</button>  Boton con función--> 
+                <button type="submit" nbButton status="primary" >Imprimir Reporte</button>
+        </div>
+    </div>
 
 
 </nb-card-body>
