@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NbMenuService } from '@nebular/theme';
+
 
 @Component({
   selector: 'ngx-assets-rec-admin-list',
@@ -8,11 +8,20 @@ import { NbMenuService } from '@nebular/theme';
 })
 export class AssetsRecAdminListComponent  {
 
-  constructor(private menuService: NbMenuService) {
-  }
+  cities = [
+    {id: 1, name: 'Tijuana'},
+    {id: 2, name: 'Vallarta'},
+    {id: 3, name: 'Oaxaca', disabled: true},
+    {id: 4, name: 'Veracruz'},
+    {id: 5, name: 'Sinaloa'}
+];
 
-  goToHome() {
-    this.menuService.navigateHome();
-  }
+
+    selectedCity: any;
+    selectedCityIds: string[];
+    selectedCityName = 'Vilnius';
+    selectedCityId: number;
+    selectedUserIds: number[];
+
 
 }

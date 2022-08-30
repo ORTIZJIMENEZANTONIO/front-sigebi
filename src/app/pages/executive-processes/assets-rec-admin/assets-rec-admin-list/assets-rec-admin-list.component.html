@@ -1,1 +1,38 @@
-<p>assets-rec-admin-list works!</p>
+<nb-card class="cat-card"> 
+    
+    <nb-card-header>
+        <span class="title">
+          REPORTE PARA IMPRIMIR
+        </span>
+    </nb-card-header>
+
+    <nb-card-body>
+   
+            <div class="row">
+  
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="label">Delegación</label>
+                    
+               
+                            <ng-select nbinput=""  class=" ng-dropdown-panel-items scroll-host input-full-width size-medium status-basic shape-rectangle nb-transition" 
+                                [items]="cities" 
+                                bindLabel="name"
+                                bindValue="id" 
+                                placeholder="" 
+                                [(ngModel)]="selectedCityIds"> 
+                            </ng-select>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="label">ID Seleccionado</label>
+                        <input disabled nbInput fullWidth  placeholder="{{selectedCityIds}}">
+                    </div>
+                </div>
+
+            </div>
+
+    </nb-card-body>
+</nb-card>

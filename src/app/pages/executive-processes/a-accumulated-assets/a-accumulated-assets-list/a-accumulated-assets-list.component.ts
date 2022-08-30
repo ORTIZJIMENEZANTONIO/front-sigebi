@@ -24,7 +24,7 @@ export class AAccumulatedAssetsListComponent extends BasePage implements OnInit 
   public searchForm: FormGroup;
   public list: any;
   public length = 100;
-  public pageSize = 10;
+  public pageSize = 1;
   public pageSizeOptions: number[] = [5, 10, 25, 100];
   // MatPaginator Output
   public pageEvent: PageEvent = {

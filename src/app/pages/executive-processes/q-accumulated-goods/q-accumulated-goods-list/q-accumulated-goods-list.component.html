@@ -1,4 +1,4 @@
-<nb-card class="cat-card">
+<nb-card class="cat-card"> 
   <nb-card-header>
 
       <span class="title">
@@ -14,24 +14,33 @@
   </nb-card-header>
 
   <nb-card-body>
+   
+    <div class="row">
 
-      <div [formGroup]="searchForm" class="form-group row">
-          <div class="col-md-1 mt-2">
-              <label class="control-label">Buscar: </label>
-          </div>
-          <div class="col-md-4">
-              <input type="text" formControlName="text" class="form-control" autofocus />
-          </div>
-      </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="label">no. Delegación</label>
+                <input disabled nbInput fullWidth  placeholder="{{selectedDelegationID}}">
+            </div>
+        </div>
 
-      <ng2-smart-table [settings]="settings" [source]="list" (delete)="onDeleteConfirm($event)"
-          (edit)="editRow($event)">
-      </ng2-smart-table>
-      
-      <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
-          (page)="changesPage($event)" [pageIndex]="pageEvent.pageIndex">
-      </mat-paginator>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="label">Descripción</label>
+                    <ng-select nbinput=""  class=" ng-dropdown-panel-items scroll-host input-full-width size-medium status-basic shape-rectangle nb-transition" 
+                        [items]="listado" 
+                        bindLabel="delegation"
+                        bindValue="noDelegation" 
+                        placeholder="" 
+                        [(ngModel)]="selectedDelegationID"> 
+                    </ng-select>
+            </div>
+        </div>
 
-  </nb-card-body>
+    </div>
+
+
+
+</nb-card-body>
 
 </nb-card>
