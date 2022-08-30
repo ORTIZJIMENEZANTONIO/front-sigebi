@@ -4,7 +4,7 @@ import { Observable, of } from 'rxjs';
 import { DataSource } from 'ng2-smart-table/lib/lib/data-source/data-source';
 import { CatalogApi } from '../api/catalog-api'; 
 
-import { ResponseInterface } from '../../../interfaces/auction/response.model';
+import { RackInterface } from '../../../interfaces/auction/rack.model';
 
 @Injectable()
 export class RackService {
@@ -26,11 +26,11 @@ export class RackService {
     return this.api.search(text,this.url);
   }
 
-  register( data: ResponseInterface ): Observable<ResponseInterface>{
+  register( data: RackInterface ): Observable<RackInterface>{
     return this.api.register( data, this.url );
   }
 
-  update( id:Object, data: ResponseInterface ): Observable<ResponseInterface>{
+  update( id: Object, data: RackInterface  ): Observable<RackInterface>{
     return this.api.updateCompose( id, data, this.url );
   }
 
