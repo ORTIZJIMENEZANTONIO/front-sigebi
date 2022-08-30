@@ -17,6 +17,7 @@ import { CreateRequestComponent } from './create-request/create-request.componen
 import { RealStateOfTheTransferorComponent } from './real-state-of-the-transferor/real-state-of-the-transferor.component';
 import { AddressesOfTheRequestComponent } from './addresses-of-the-request/addresses-of-the-request.component';
 import { MassiveClassificationComponent } from './massive-classification/massive-classification.component';
+import { Select2Module } from 'ng-select2-component';
 @NgModule({
   declarations: [
     RequestToTurnComponent,
@@ -52,7 +53,8 @@ import { MassiveClassificationComponent } from './massive-classification/massive
     NbCheckboxModule,
     NbTabsetModule,
     NbActionsModule,
-    NbButtonGroupModule
+    NbButtonGroupModule,
+    Select2Module
   ],
   exports: [
    

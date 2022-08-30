@@ -3,7 +3,7 @@ export interface GoodType {
      
     id?: number;
 
-    descripcion:string;
+    description:string;
 
     tiempo_max_aseguramiento: number; 
 
