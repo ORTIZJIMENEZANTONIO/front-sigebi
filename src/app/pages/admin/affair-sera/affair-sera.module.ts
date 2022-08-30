@@ -1,6 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { AffairSeraRoutingModule } from './affair-sera-routing.module';
+import { AffairSeraListComponent } from './affair-sera-list/affair-sera-list.component';
+import { AffairSeraDetailComponent } from './affair-sera-detail/affair-sera-detail.component';
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ComponentsModule } from '../../../@components/components.module';
 import { ThemeModule } from '../../../@theme/theme.module';
@@ -9,23 +13,15 @@ import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { AdminModule } from '../admin.module';
-
-import { LawyerRoutingModule } from './lawyer-routing.module';
-import { LawyerDetailComponent } from './lawyer-detail/lawyer-detail.component';
-import { LawyerListComponent } from './lawyer-list/lawyer-list.component';
-
 
 @NgModule({
   declarations: [
-    LawyerDetailComponent,
-    LawyerListComponent
+    AffairSeraListComponent,
+    AffairSeraDetailComponent
   ],
   imports: [
     CommonModule,
-    LawyerRoutingModule,
-    AdminModule,
-    FormsModule,
+    AffairSeraRoutingModule,
     ReactiveFormsModule,
     ComponentsModule,
     ThemeModule,
@@ -35,9 +31,7 @@ import { LawyerListComponent } from './lawyer-list/lawyer-list.component';
     NbButtonModule,
     NbInputModule,
     NbWindowModule.forChild(),
-    MatPaginatorModule,
-    MatInputModule,
-    MatFormFieldModule
+    MatPaginatorModule
   ]
 })
-export class LawyerModule { }
+export class AffairSeraModule { }

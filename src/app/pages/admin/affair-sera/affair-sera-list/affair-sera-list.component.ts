@@ -1,27 +1,48 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
-import { MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
-import { NbToastrService, NbWindowControlButtonsConfig, NbWindowService } from '@nebular/theme';
-import { SweetAlertResult } from 'sweetalert2';
-
-import { SweetAlertConstants, SweetalertModel } from '../../../../@core/interfaces/auction/sweetalert-model';
-import { BaseApp } from '../../../../@core/shared/base-app';
-import { BasePage } from '../../../../@core/shared/base-page';
-import { SweetalertService } from '../../../../shared/sweetalert.service';
-
-import { LawyerService } from '../../../../@core/backend/common/services/lawyer.service';
-import { LawyerInterface } from '../../../../@core/interfaces/auction/lawyer.model';
-import { LawyerDetailComponent } from '../lawyer-detail/lawyer-detail.component';
+import {
+  Component,
+  OnInit
+} from '@angular/core';
+import {
+  FormControl,
+  FormGroup
+} from '@angular/forms';
+import {
+  MatPaginatorIntl,
+  PageEvent
+} from '@angular/material/paginator';
+import {
+  NbToastrService,
+  NbWindowControlButtonsConfig,
+  NbWindowService
+} from '@nebular/theme';
+import {
+  SweetAlertResult
+} from 'sweetalert2';
+import { AffairSeraService } from '../../../../@core/backend/common/services/affair-sera.service';
+import { AffairSeraInterface } from '../../../../@core/interfaces/auction/affair-sera.model';
+import {
+  SweetAlertConstants,
+  SweetalertModel
+} from '../../../../@core/interfaces/auction/sweetalert-model';
+import {
+  BaseApp
+} from '../../../../@core/shared/base-app';
+import {
+  BasePage
+} from '../../../../@core/shared/base-page';
+import {
+  SweetalertService
+} from '../../../../shared/sweetalert.service';
+import { AffairSeraDetailComponent } from '../affair-sera-detail/affair-sera-detail.component';
 
 
 
 @Component({
-  selector: 'ngx-lawyer-list',
-  templateUrl: './lawyer-list.component.html',
-  styleUrls: ['./lawyer-list.component.scss']
+  selector: 'ngx-affair-sera-list',
+  templateUrl: './affair-sera-list.component.html',
+  styleUrls: ['./affair-sera-list.component.scss']
 })
-export class LawyerListComponent extends BasePage implements OnInit {
-
+export class AffairSeraListComponent extends BasePage implements OnInit {
   public searchForm: FormGroup;
   public list: any;
   public length = 100;
@@ -43,7 +64,7 @@ export class LawyerListComponent extends BasePage implements OnInit {
     pager: {
       display: false,
     },
-    hideSubHeader: true,//oculta subheaader de filtro
+    hideSubHeader: true, //oculta subheaader de filtro
     mode: 'external', // ventana externa
     add: {
       addButtonContent: '<i class="nb-plus"></i>',
@@ -60,59 +81,52 @@ export class LawyerListComponent extends BasePage implements OnInit {
       confirmDelete: true,
     },
     columns: {
-      id: {
-        title: 'Registro',
+      code: {
+        title: 'Código',
         type: 'number',
       },
-      idOffice: {
-        title: 'Despacho',
-        type: 'number',
-        valuePrepareFunction:(value) =>{
-          return value.text
-        }
-      },
-      name: {
-        title: 'Nombre',
-        type: 'string'
-      },
-      street: {
-        title: 'Calle',
+      description: {
+        title: 'Descripción',
         type: 'string',
       },
-      streetNumber: {
-        title: 'No. exterior',
+      relationPropertyKey: {
+        title: 'Clave',
         type: 'string',
       },
-      apartmentNumber: {
-        title: 'No. interior',
+      referralNoteType: {
+        title: 'Tipo de volante',
+        type: 'string',
+      },	  
+      versionUser: {
+        title: 'Versión usuario',
+        type: 'string',
+      },	
+      creationUser: {
+        title: 'Usuario',
         type: 'string',
       },
-      suburb: {
-        title: 'Colonia',
+      creationDate: {
+        title: 'Fecha',
         type: 'string',
       },
-      delegation: {
-        title: 'Delegación',
+      editionUser: {
+        title: 'Usuario modificación',
         type: 'string',
       },
-      zipCode: {
-        title: 'Código postal',
-        type: 'number',
-      },
-      rfc: {
-        title: 'RFC',
+      modificationDate: {
+        title: 'Fecha modificación',
         type: 'string',
       },
-      phone: {
-        title: 'Teléfono',
+      idRegister: {
+        title: 'No. registro ',
         type: 'string',
-      }
+      },
+
     },
     noDataMessage: "No se encontrarón registros"
   };
-
   constructor(
-    private service: LawyerService,
+    private service: AffairSeraService,
     public toastrService: NbToastrService,
     private windowService: NbWindowService,
     private paginator: MatPaginatorIntl,
@@ -125,7 +139,7 @@ export class LawyerListComponent extends BasePage implements OnInit {
     });
     this.searchForm.controls['text'].valueChanges.subscribe((value: string) => {
       if (value.length > 0) {
-        this.service.search(value).subscribe((rows: LawyerInterface[]) => {
+        this.service.search(value).subscribe((rows: AffairSeraInterface[]) => {
           this.length = rows.length;
           this.list = rows;
         })
@@ -201,7 +215,13 @@ export class LawyerListComponent extends BasePage implements OnInit {
       maximize: false,
       fullScreen: false,
     };
-    const modalRef = this.windowService.open(LawyerDetailComponent, { title: `Editar`, context: { data: event.data }, buttons: buttonsConfig }).onClose.subscribe(() => {
+    const modalRef = this.windowService.open(AffairSeraDetailComponent, {
+      title: `Editar`,
+      context: {
+        data: event.data
+      },
+      buttons: buttonsConfig
+    }).onClose.subscribe(() => {
       this.read(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
 
@@ -213,10 +233,9 @@ export class LawyerListComponent extends BasePage implements OnInit {
       maximize: false,
       fullScreen: false,
     };
-    const modalRef = this.windowService.open(LawyerDetailComponent, { title: `Nuevo`, buttons: buttonsConfig }).onClose.subscribe(() => {
+    const modalRef = this.windowService.open(AffairSeraDetailComponent, { title: `Nuevo`, buttons: buttonsConfig }).onClose.subscribe(() => {
       this.read(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
 
   }
-
 }

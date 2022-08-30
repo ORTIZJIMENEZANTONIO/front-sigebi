@@ -1,16 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-
 import { DataSource } from 'ng2-smart-table/lib/lib/data-source/data-source';
 import { CatalogApi } from '../api/catalog-api'; 
-import { WarehouseInterface } from '../../../interfaces/auction/warehouse.model';
+
+import { AffairSeraInterface } from '../../../interfaces/auction/affair-sera.model';
+
+
 
 @Injectable()
-export class WarehouseService {
+export class AffairSeraService {
   
   constructor( private api: CatalogApi ) { }
 
-  protected url = "warehouse";
+  url = "affair-sera";
   
   get gridDataSource(): DataSource {
     return this.api.dataSource;
@@ -21,11 +23,15 @@ export class WarehouseService {
     return data;
   }
 
-  register( data: WarehouseInterface ): Observable<WarehouseInterface>{
+  search(text:string){
+    return this.api.search(text,this.url);
+  }
+
+  register( data: AffairSeraInterface ): Observable<AffairSeraInterface>{
     return this.api.register( data, this.url );
   }
 
-  update(id:number, data: WarehouseInterface): Observable<WarehouseInterface>{
+  update(id:number, data: AffairSeraInterface): Observable<AffairSeraInterface>{
     return this.api.update( id, data, this.url );
   }
 
@@ -33,7 +39,4 @@ export class WarehouseService {
     return this.api.delete( id, this.url );
   }
 
-  search(text:string){
-    return this.api.search(text,this.url);
-}
 }
