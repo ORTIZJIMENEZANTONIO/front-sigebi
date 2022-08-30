@@ -6,7 +6,6 @@ import { ScoreInterface } from '../../../../@core/interfaces/auction/score.model
 import { FormGroup, FormControl } from '@angular/forms';
 import { MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { NbToastrService, NbWindowService, NbWindowControlButtonsConfig } from '@nebular/theme';
-import Swal from 'sweetalert2';
 import { SweetAlertConstants } from '../../../../@core/interfaces/auction/sweetalert-model';
 import { SweetalertService } from '../../../../shared/sweetalert.service';
 
@@ -17,12 +16,12 @@ import { SweetalertService } from '../../../../shared/sweetalert.service';
   styleUrls: ['./score-list.component.scss']
 })
 export class ScoreListComponent extends BasePage {
+
   public searchForm: FormGroup;
-  public rows: any;
+  public list: any;
   public length = 100;
   public pageSize = 10;
   public pageSizeOptions: number[] = [5, 10, 25, 100];
-  // MatPaginator Output
   public pageEvent: PageEvent = {
     pageIndex: 0,
     pageSize: 10,
@@ -95,7 +94,7 @@ export class ScoreListComponent extends BasePage {
       if (value.length > 0) {
         this.service.search(value).subscribe((rows: ScoreInterface[]) => {
           this.length = rows.length;
-          this.rows = rows;
+          this.list = rows;
         });
       } else {
         this.read(0, 10);
@@ -108,10 +107,10 @@ export class ScoreListComponent extends BasePage {
   }
 
   private read(pageIndex: number, pageSize: number) {
-    this.rows = null;
+    this.list = null;
     this.service.list(pageIndex, pageSize).subscribe(
       (dt: any) => {
-        this.rows = dt.data;
+        this.list = dt.data;
         this.length = dt.count;
       },
       err => {
@@ -123,7 +122,6 @@ export class ScoreListComponent extends BasePage {
         }
         this.onLoadFailed('danger', 'Error', error);
       }, () => {
-
       }
     );
   };
@@ -147,6 +145,8 @@ export class ScoreListComponent extends BasePage {
               // } else {
               //   this.onLoadFailed('danger', 'Error', data.message);
               // }
+              this.onLoadFailed('success', 'Eliminado', data.message);
+              this.read(this.pageEvent.pageIndex, this.pageEvent.pageSize);
             }, err => {
               let error = '';
               if (err.status === 0) {

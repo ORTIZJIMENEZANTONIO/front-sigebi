@@ -1,13 +1,9 @@
-import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { NbWindowRef, NB_WINDOW_CONTEXT, NbWindowService } from '@nebular/theme';
-import { BehaviorSubject } from 'rxjs';
-import { DelegationService } from '../../../../@core/backend/common/services/delegation.service';
+import { NbWindowRef, NB_WINDOW_CONTEXT, NbToastrService } from '@nebular/theme';
 import { PaymentsConceptService } from '../../../../@core/backend/common/services/payments-concept.service';
-import { SubdelegationService } from '../../../../@core/backend/common/services/subdelegation.service';
-import { PaymentsConcept } from '../../../../@core/interfaces/auction/payments-concept.model';
+import { SweetAlertConstants } from '../../../../@core/interfaces/auction/sweetalert-model';
 import { BasePage } from '../../../../@core/shared/base-page';
 
 @Component({
@@ -17,66 +13,78 @@ import { BasePage } from '../../../../@core/shared/base-page';
 })
 export class PaymentsConceptDetailComponent extends BasePage {
 
-  paymentsConcept: PaymentsConcept;
-  formPaymentsConcept: FormGroup;
+  public form: FormGroup;
+  private data: any = {};
+  public actionBtn: string = "Guardar";
 
-  filteredOptions$: BehaviorSubject<any[]> = new BehaviorSubject([]);
-  filteredsubdelegations$: BehaviorSubject<any[]> = new BehaviorSubject([]);
-  
-  constructor(private fb: FormBuilder, protected cd: ChangeDetectorRef, protected router: Router, private service: PaymentsConceptService,
-    public windowRef: NbWindowRef, @Inject(NB_WINDOW_CONTEXT) context, private dom: DomSanitizer, private windowService: NbWindowService,
-
+  constructor(
+    private fb: FormBuilder,
+    protected cd: ChangeDetectorRef,
+    protected router: Router,
+    private service: PaymentsConceptService,
+    public windowRef: NbWindowRef,
+    public toastrService: NbToastrService,
+    @Inject(NB_WINDOW_CONTEXT) context
   ) {
-    super();
-    if (null != context.paymentsConcept) {
-      this.paymentsConcept = context.paymentsConcept;
+    super(toastrService);
+    if (null != context.data) {
+      this.data = context.data;
     }
-
-
-    this.formPaymentsConcept = this.fb.group({
-      id: [''],
-      description: [null,  Validators.required],
-      numRegister: [null, [Validators.min(1)]],
-    });
-  
   }
-  actionBtn: string = "Guardar";
-
-
-
-  get validatePaymentsConcept() {
-    return this.formPaymentsConcept.controls;
-  }
-
   ngOnInit(): void {
+    this.prepareForm();
+  }
+  private prepareForm(): void {
+    this.form = this.fb.group({
+      id: [null],
+      description: [null, Validators.compose([Validators.pattern(""), Validators.required, Validators.maxLength(100)])],
+      numRegister: [null, Validators.compose([Validators.pattern(""), Validators.required, Validators.maxLength(100)])]
 
-    if (this.paymentsConcept) {
+    });
+    if (this.data.id != null) {
       this.actionBtn = "Actualizar";
-      this.formPaymentsConcept.patchValue(this.paymentsConcept)
-
+      this.form.patchValue(this.data);
     }
   }
-  
-  register(): void {
-    const data = this.formPaymentsConcept.value;
-    data.modificationDate = Date();
-    if (this.actionBtn == "Guardar") {
 
-      data.userCreation = "Rafael";
-      data.userModification = "Antonio";
-      data.creationDate = Date();
+  public get description() { return this.form.get('description'); }
+  public get numRegister() { return this.form.get('numRegister'); }
 
-      this.service.register(data).subscribe(data => {
-        this.windowRef.close();
+
+  public register(): void {
+    const data = this.form.getRawValue();
+    this.actionBtn == "Guardar" ? this.createRegister(data) : this.updateRegister(data);
+  }
+  private createRegister(data): void {
+    this.service.register(data).subscribe(
+      data => {
+        this.onLoadFailed('success', 'Concepto pagos', 'Registrado Correctamente');
       }, err => {
-        console.log(err);
-      })
-    } else {
-      this.service.update(this.paymentsConcept.id, data).subscribe(data => {
+        let error = '';
+        if (err.status === 0) {
+          error = SweetAlertConstants.noConexion;
+        } else {
+          error = err.message;
+        }
+        this.onLoadFailed('danger', 'Error', error);
+      }, () => {
         this.windowRef.close();
+      });
+  }
+  private updateRegister(data): void {
+    this.service.update(this.data.id, data).subscribe(
+      data => {
+        this.onLoadFailed('success', 'Concepto pagos', 'Actualizado Correctamente');
       }, err => {
-        console.log(err);
-      })
-    }
+        let error = '';
+        if (err.status === 0) {
+          error = SweetAlertConstants.noConexion;
+        } else {
+          error = err.message;
+        }
+        this.onLoadFailed('danger', 'Error', error);
+      }, () => {
+        this.windowRef.close();
+      });
   }
 }
