@@ -34,10 +34,10 @@ export class ClaimConclusionListComponent extends BasePage {
       edit: true,
       delete: false,
     },
-    pager : {
-      display : false,
-    },      
-    hideSubHeader: true,//oculta subheaader de filtro
+    pager: {
+      display: false,
+    },
+    hideSubHeader: true, //oculta subheaader de filtro
     mode: 'external', // ventana externa
     add: {
       addButtonContent: '<i class="nb-plus"></i>',

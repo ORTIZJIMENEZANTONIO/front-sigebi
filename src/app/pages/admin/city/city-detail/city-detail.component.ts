@@ -92,7 +92,9 @@ export class CityDetailComponent extends BasePage {
   public get legendOffice() { return this.formCity.get('legendOffice'); }
   public get numRegister() { return this.formCity.get('numRegister'); }
 
+
   public onSelectionChangeDelegation(event){
+
     if(event.id){
       this.formCity.controls['numDelegation'].setValue(event.id);
       this.formCity.controls['detailDelegation'].setValue(event.description);
