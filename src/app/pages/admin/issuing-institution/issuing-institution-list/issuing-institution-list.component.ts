@@ -136,7 +136,7 @@ export class IssuingInstitutionListComponent extends BasePage{
         title: 'N ciudad',
         type: 'string',
         valuePrepareFunction:(value) =>{
-          return value.name
+          return value?.name || ""
         }
       },
       numRegister: {
@@ -147,12 +147,13 @@ export class IssuingInstitutionListComponent extends BasePage{
         title: 'N transfible',
         type: 'string',
         valuePrepareFunction:(value) =>{
-          return value.description
+          return value?.description || ""
         }
       },
     },
     noDataMessage: "No se encontrarón registros"
   };
+
 
   ngOnInit(): void {
     this.readIssuingInstitution();
@@ -206,7 +207,7 @@ export class IssuingInstitutionListComponent extends BasePage{
       maximize: false,
       fullScreen: false,
     };
-    this.windowService.open(IssuingInstitutionDetailComponent, { title: `Editar institución`, context: { IssuingInstitution: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
+    this.windowService.open(IssuingInstitutionDetailComponent, { title: `Editar institución`, context: { issuingInstitution: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
       this.readIssuingInstitution();
     });
   

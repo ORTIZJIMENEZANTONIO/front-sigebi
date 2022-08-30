@@ -1,0 +1,27 @@
+<nb-card size="medium">
+    <nb-card-header>
+        Seleccione el tipo de usuario y el usuario al que sera turnada la solicitud
+        <div class="form-group row">
+            <label for="inputEmail1" class="label col-sm-3 col-form-label">Tipo Usuario</label>
+            <div class="col-sm-9 form-inline">
+                <nb-radio-group>
+                    <nb-radio checked value="TE">T.E.</nb-radio>
+                    <nb-radio value="SAE">SAE</nb-radio>
+                </nb-radio-group>
+            </div>
+        </div>
+    </nb-card-header>
+    <nb-card-body>
+        <ng2-smart-table [settings]="settings" [source]="rows">
+        </ng2-smart-table>
+
+    </nb-card-body>
+    <nb-card-footer>
+        <button nbButton status="primary" class="mr-1" size="small">
+            <nb-icon icon="save"></nb-icon>Turnar
+        </button>
+        <button nbButton status="danger" size="small">
+            <nb-icon icon="close"></nb-icon>Cancelar
+        </button>
+    </nb-card-footer>
+</nb-card>

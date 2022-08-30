@@ -3,33 +3,39 @@ import { InstitutionClassification } from "./institution-classification.model";
 import { TransferentesInterface } from "./transferentes.model";
 
 export interface IssuingInstitution {
+
+    no_clasificacion:number ;
+
+    numCity:number | City;
+
+
+    numTransference:number | TransferentesInterface;
+
     id?: number;
     
-    nombre : string
+
+    name : string
     
-    descripcion:string;
+    description:string;
 
-    responsable : string;
+    manager : string;
 
-    calle: string;
+    street: string;
 
-    no_interior : string
+    numInside : string
 
-    no_exterior: string; 
+    numExterior: string; 
 
-    colonia : string;
+    cologne : string;
 
-    codigo_postal:number;
+    zipCode:number;
 
-    deleg_munic:string;
+    delegMunic:string;
 
-    telefono:string;
+    phone:string;
 
-    no_clasificacion:number | InstitutionClassification;
+    numClasif:number;
 
-    no_ciudad:number | City;
+    numRegister:number;
 
-    no_registro:number;
-
-    no_transferente:number | TransferentesInterface;
 }

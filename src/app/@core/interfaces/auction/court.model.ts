@@ -2,26 +2,27 @@ export interface Court{
           
     id?: number;
 
-    descripcion:string;
+    description:string;
 
-    responsable: string;
+    manager: string;
 
-    calle: string;
+    street: string;
 
-    no_exterior: string;
+    numExterior: string;
 
-    no_interior: string;
+    numInside: string;
 
-    colonia: string;
+    cologne: string;
 
-    deleg_munic: string;
+    delegationMun: string;
 
-    codigo_postal : number;
+    zipCode : number;
 
-    telefono : string
+    numPhone : string
 
-    cve_circuito : string
+    circuitCVE : string
 
-    no_registro: number; 
+    numRegister: number; 
+    
     
 }
