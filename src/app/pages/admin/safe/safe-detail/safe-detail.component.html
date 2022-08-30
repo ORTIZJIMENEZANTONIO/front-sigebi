@@ -40,60 +40,55 @@
               </div>
               <div class="col-md-6">
                   <div class="form-group">
-                      <input type="number" nbInput fullWidth class="form-control" formControlName="type"
+                      <input type="number" nbInput fullWidth class="form-control" formControlName="registerNumber"
                           placeholder="Número de registro ej. 1"
                           [status]="(registerNumber?.errors?.required || registerNumber?.hasError('minlength') || registerNumber?.hasError('maxlength') || registerNumber?.hasError('pattern')) && registerNumber.touched ? 'danger' : ''">
                       <ngx-validation-message label="Número de registro ej. 1" [showMinLength]="registerNumber?.hasError('minlength')"
                           [showMaxLength]="registerNumber?.hasError('maxlength')"
-                          [showRequired]="registerNumber?.errors?.required && registerNumber.touched"
                           [showPattern]="registerNumber?.hasError('pattern') && registerNumber.touched" minLength=1 maxLength=255>
                       </ngx-validation-message>
                   </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
-                    <input type="number" nbInput fullWidth class="form-control" formControlName="type"
+                    <input type="number" nbInput fullWidth class="form-control" formControlName="stateCode"
                         placeholder="Código de estado de bóveda ej. 1"
                         [status]="(stateCode?.errors?.required || stateCode?.hasError('minlength') || stateCode?.hasError('maxlength') || stateCode?.hasError('pattern')) && stateCode.touched ? 'danger' : ''">
                     <ngx-validation-message label="Código estado bóveda" [showMinLength]="stateCode?.hasError('minlength')"
                         [showMaxLength]="stateCode?.hasError('maxlength')"
-                        [showRequired]="stateCode?.errors?.required && stateCode.touched"
                         [showPattern]="stateCode?.hasError('pattern') && stateCode.touched" minLength=1 maxLength=255>
                     </ngx-validation-message>
                 </div>
             </div>
             <div class="col-md-6">
               <div class="form-group">
-                  <input type="number" nbInput fullWidth class="form-control" formControlName="type"
+                  <input type="number" nbInput fullWidth class="form-control" formControlName="cityCode"
                       placeholder="Código de ciudad de boveda ej. 1"
                       [status]="(cityCode?.errors?.required || cityCode?.hasError('minlength') || cityCode?.hasError('maxlength') || cityCode?.hasError('pattern')) && cityCode.touched ? 'danger' : ''">
                   <ngx-validation-message label="Código ciudad bóveda" [showMinLength]="cityCode?.hasError('minlength')"
                       [showMaxLength]="cityCode?.hasError('maxlength')"
-                      [showRequired]="cityCode?.errors?.required && cityCode.touched"
                       [showPattern]="cityCode?.hasError('pattern') && cityCode.touched" minLength=1 maxLength=255>
                   </ngx-validation-message>
               </div>
           </div>
           <div class="col-md-6">
             <div class="form-group">
-                <input type="number" nbInput fullWidth class="form-control" formControlName="type"
+                <input type="number" nbInput fullWidth class="form-control" formControlName="municipalityCode"
                     placeholder="Código de municipio de bóveda ej. 1"
                     [status]="(municipalityCode?.errors?.required || municipalityCode?.hasError('minlength') || municipalityCode?.hasError('maxlength') || municipalityCode?.hasError('pattern')) && municipalityCode.touched ? 'danger' : ''">
                 <ngx-validation-message label="Código municipio bóveda" [showMinLength]="municipalityCode?.hasError('minlength')"
                     [showMaxLength]="municipalityCode?.hasError('maxlength')"
-                    [showRequired]="municipalityCode?.errors?.required && municipalityCode.touched"
                     [showPattern]="municipalityCode?.hasError('pattern') && municipalityCode.touched" minLength=1 maxLength=255>
                 </ngx-validation-message>
             </div>
         </div>
         <div class="col-md-6">
           <div class="form-group">
-              <input type="number" nbInput fullWidth class="form-control" formControlName="type"
+              <input type="number" nbInput fullWidth class="form-control" formControlName="localityCode"
                   placeholder="Código de localidad de boveda ej. 1"
                   [status]="(localityCode?.errors?.required || localityCode?.hasError('minlength') || localityCode?.hasError('maxlength') || localityCode?.hasError('pattern')) && localityCode.touched ? 'danger' : ''">
               <ngx-validation-message label="Código de localidad de boveda ej. 1" [showMinLength]="localityCode?.hasError('minlength')"
                   [showMaxLength]="localityCode?.hasError('maxlength')"
-                  [showRequired]="localityCode?.errors?.required && localityCode.touched"
                   [showPattern]="localityCode?.hasError('pattern') && localityCode.touched" minLength=1 maxLength=255>
               </ngx-validation-message>
           </div>

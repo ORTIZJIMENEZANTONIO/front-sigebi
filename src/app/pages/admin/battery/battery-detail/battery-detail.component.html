@@ -2,14 +2,20 @@
     <nb-card-body>
         <form [formGroup]="form">
 
-            <div class="form-group row">
-                <input type="text" nbInput maxlength="5" fullWidth formControlName="storeCode"
-                    placeholder="Número de almacen ej. 1"
-                    [status]="(storeCode?.errors?.required || storeCode?.hasError('minlength') || storeCode?.hasError('maxlength') || storeCode?.hasError('pattern')) && storeCode.touched ? 'danger' : ''">
-                <ngx-validation-message label="Número de almacen ej. 1" [showMinLength]="storeCode?.hasError('minlength')"
-                    [showMaxLength]="storeCode?.hasError('maxlength')"
-                    [showRequired]="storeCode?.errors?.required && storeCode.touched"
-                    [showPattern]="storeCode?.hasError('pattern') && storeCode.touched" minLength=1 maxLength=255>
+            <div class="form-group">
+                <input type="text" nbInput fullWidth formControlName="storeCode"
+                  placeholder="CVE"
+                  [nbAutocomplete]="auto"
+                  [status]="(storeCode?.hasError('pattern') ) ? 'danger' : ''"
+                />
+                <nb-autocomplete #auto [activeFirst]="false"
+                  (selectedChange)="onSelectionChange($event)">
+                  <nb-option *ngFor="let option of filteredOptions$ | async" [value]="option">
+                    {{ option.storeDesc }}
+                  </nb-option>
+                </nb-autocomplete>
+                <ngx-validation-message label="CVE" 
+                  [showPattern]="storeCode?.hasError('pattern')">
                 </ngx-validation-message>
             </div>
 

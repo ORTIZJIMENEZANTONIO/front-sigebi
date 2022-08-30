@@ -70,7 +70,7 @@ export class QuestionDetailComponent extends BasePage {
   private createRegister(data): void {
     this.service.register(data).subscribe(
       data => {
-        this.onLoadFailed('success', 'Despacho', 'Registrado Correctamente');
+        this.onLoadFailed('success', 'Preguntas', 'Registrado Correctamente');
       }, err => {
         let error = '';
         if (err.status === 0) {
@@ -84,9 +84,10 @@ export class QuestionDetailComponent extends BasePage {
       });
   }
   private updateRegister(data): void {
+    delete data.id;
     this.service.update(this.data.id, data).subscribe(
       data => {
-        this.onLoadFailed('success', 'Despacho', 'Actualizado Correctamente');
+        this.onLoadFailed('success', 'Preguntas', 'Actualizado Correctamente');
       }, err => {
         let error = '';
         if (err.status === 0) {

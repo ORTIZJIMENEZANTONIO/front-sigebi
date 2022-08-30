@@ -39,13 +39,18 @@ export class OriginDetailComponent extends BasePage {
       id: [null],
       idTransferer: [null, Validators.compose([Validators.pattern("[0-9]{1,255}"),Validators.required])],
       keyTransferer: [null, Validators.compose([Validators.required, Validators.pattern("^[a-zA-Z0-9@.-_-]{1,255}")])],
-      description: [null, Validators.compose([Validators.required, Validators.pattern("^[a-zA-Z0-9@.-_-]{1,255}")])],
+      description: [null, Validators.compose([Validators.pattern("^[a-zA-Z0-9@.-_-]{1,255}")])],
       type: [null, Validators.compose([Validators.required, Validators.pattern("^[a-zA-Z0-9@.-_-]{1,255}")])],
       address: [null, Validators.compose([Validators.required, Validators.pattern("^[a-zA-Z0-9@.-_-]{1,255}")])],
       city: [null, Validators.compose([Validators.required, Validators.pattern("^[a-zA-Z0-9@.-_-]{1,255}")])],
-      idCity: [null, Validators.compose([Validators.pattern("[0-9]{1,255}"),Validators.required])],
+      idCity: [null, Validators.compose([Validators.pattern("[0-9]{1,255}")])],
       keyEntityFederative: [null, Validators.compose([Validators.required, Validators.pattern("^[a-zA-Z0-9@.-_-]{1,15}")])],
     });
+
+    if (this.data.id != null) {
+      this.actionBtn = "Actualizar";
+      this.form.patchValue(this.data);
+    }
     
     }
 
@@ -65,7 +70,7 @@ export class OriginDetailComponent extends BasePage {
     private createRegister(data): void {
       this.service.register(data).subscribe(
         data => {
-          this.onLoadFailed('success', 'Despacho', 'Registrado Correctamente');
+          this.onLoadFailed('success', 'Procedencias', 'Registrado Correctamente');
         }, err => {
           let error = '';
           if (err.status === 0) {
@@ -79,9 +84,10 @@ export class OriginDetailComponent extends BasePage {
         });
     }
     private updateRegister(data): void {
+      delete data.id;
       this.service.update(this.data.id, data).subscribe(
         data => {
-          this.onLoadFailed('success', 'Despacho', 'Actualizado Correctamente');
+          this.onLoadFailed('success', 'Procedencias', 'Actualizado Correctamente');
         }, err => {
           let error = '';
           if (err.status === 0) {

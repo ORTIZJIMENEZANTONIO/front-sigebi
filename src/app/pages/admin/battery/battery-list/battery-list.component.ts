@@ -60,6 +60,9 @@ export class BatteryListComponent extends BasePage {
       storeCode: {
         title: 'Código de almacenamiento',
         type: 'string',
+        valuePrepareFunction:(value) =>{
+          return value.cve
+        }
       },
       description: {
         title: 'Descripción',

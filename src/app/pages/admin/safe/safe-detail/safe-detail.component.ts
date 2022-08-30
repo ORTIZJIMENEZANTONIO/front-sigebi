@@ -45,13 +45,19 @@ export class SafeDetailComponent extends BasePage {
       manager: [null, Validators.compose([Validators.pattern(""), Validators.required])],
       description: [null, Validators.compose([Validators.pattern(""), Validators.required])],
       ubication: [null, Validators.compose([Validators.pattern(""), Validators.required])],
-      registerNumber: [null, Validators.compose([Validators.pattern(""), Validators.required])],
-      municipalityCode: [null, Validators.compose([Validators.pattern(""), Validators.required])],
-      localityCode: [null, Validators.compose([Validators.pattern(""), Validators.required])],
-      stateCode: [null, Validators.compose([Validators.pattern(""), Validators.required])],
-      cityCode: [null, Validators.compose([Validators.pattern(""), Validators.required])]
+      registerNumber: [null, Validators.compose([Validators.pattern("")])],
+      municipalityCode: [null, Validators.compose([Validators.pattern("")])],
+      localityCode: [null, Validators.compose([Validators.pattern("")])],
+      stateCode: [null, Validators.compose([Validators.pattern("")])],
+      cityCode: [null, Validators.compose([Validators.pattern("")])]
 
     });
+
+    if (this.data.idSafe != null) {
+      this.actionBtn = "Actualizar";
+      this.form.patchValue(this.data);
+    }
+
   }
   
   public get manager() { return this.form.get('manager'); }
@@ -70,7 +76,7 @@ export class SafeDetailComponent extends BasePage {
     private createRegister(data): void {
       this.service.register(data).subscribe(
         data => {
-          this.onLoadFailed('success', 'Despacho', 'Registrado Correctamente');
+          this.onLoadFailed('success', 'Bóveda', 'Registrado Correctamente');
         }, err => {
           let error = '';
           if (err.status === 0) {
@@ -84,9 +90,11 @@ export class SafeDetailComponent extends BasePage {
         });
     }
     private updateRegister(data): void {
-      this.service.update(this.data.id, data).subscribe(
+      delete data.idSafe;
+
+      this.service.update(this.data.idSafe, data).subscribe(
         data => {
-          this.onLoadFailed('success', 'Despacho', 'Actualizado Correctamente');
+          this.onLoadFailed('success', 'Bóveda', 'Actualizado Correctamente');
         }, err => {
           let error = '';
           if (err.status === 0) {
@@ -98,10 +106,7 @@ export class SafeDetailComponent extends BasePage {
         }, () => {
           this.windowRef.close();
         });
-        if (this.data.id != null) {
-          this.actionBtn = "Actualizar";
-          this.form.patchValue(this.data);
-        }
+     
       }
 
 }

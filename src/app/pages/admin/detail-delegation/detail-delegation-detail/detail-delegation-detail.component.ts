@@ -4,9 +4,9 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { NbWindowRef, NB_WINDOW_CONTEXT, NbWindowService, NbToastrService } from '@nebular/theme';
 import { BehaviorSubject } from 'rxjs';
+import { NUMBERS_PATTERN, STRING_PATTERN } from '../../../../@components/constants';
 import { DelegationService } from '../../../../@core/backend/common/services/delegation.service';
 import { DetailDelegationService } from '../../../../@core/backend/common/services/detail-delegation.service';
-import { SubdelegationService } from '../../../../@core/backend/common/services/subdelegation.service';
 import { DetailDelegation } from '../../../../@core/interfaces/auction/detail-delegation.model';
 import { SweetAlertConstants } from '../../../../@core/interfaces/auction/sweetalert-model';
 import { BasePage } from '../../../../@core/shared/base-page';
@@ -21,7 +21,6 @@ export class DetailDelegationDetailComponent extends BasePage {
   private data: DetailDelegation;
   public actionBtn: string = "Guardar";
   public filteredOptions$: BehaviorSubject<any[]> = new BehaviorSubject([]);
-  public filteredsubdelegations$: BehaviorSubject<any[]> = new BehaviorSubject([]);
   constructor(
     private fb: FormBuilder,
     protected cd: ChangeDetectorRef,
@@ -29,6 +28,7 @@ export class DetailDelegationDetailComponent extends BasePage {
     private service: DetailDelegationService,
     public windowRef: NbWindowRef,
     public toastrService: NbToastrService,
+    private delService: DelegationService,
     @Inject(NB_WINDOW_CONTEXT) context) {
     super(toastrService);
     if (null != context.data) {
@@ -48,19 +48,30 @@ export class DetailDelegationDetailComponent extends BasePage {
       position: ['', Validators.required],
       area: ['', Validators.required],
       mail: [null, Validators.compose([Validators.email, Validators.required])],
-
+      description: [ '', Validators.compose([ Validators.pattern(STRING_PATTERN)])],
       numP1: ['', Validators.required],
       numP2: ['', Validators.required],
       numP3: ['', Validators.required],
-
-      detailDelegation: [null, Validators.required],
-      numDelegation: [null, [Validators.min(1)]],
+      numDelegation: ['', Validators.compose([Validators.required, Validators.pattern(NUMBERS_PATTERN) ])],
     });
-    if (this.data) {
+    if (this.data) { 
+      const dataUpdt = {
+        ...this.data,
+        numDelegation: this.data.numDelegation.id,
+        description: this.data.numDelegation.description,
+      } 
       this.actionBtn = "Actualizar";
-      this.formDetailDelegation.patchValue(this.data)
-
+      this.formDetailDelegation.patchValue(dataUpdt);
+      this.formDetailDelegation.controls['id'].disable();
+      this.formDetailDelegation.controls['description'].disable();
     }
+    this.formDetailDelegation.controls['description'].valueChanges.subscribe((value: string) => {
+      if (value) {
+        this.delService.search(value).subscribe(data => {
+          this.filteredOptions$.next(data);
+        })
+      }
+    })
   }
 
   public get name() { return this.formDetailDelegation.get('name'); }
@@ -72,13 +83,13 @@ export class DetailDelegationDetailComponent extends BasePage {
   public get numP1() { return this.formDetailDelegation.get('numP1'); }
   public get numP2() { return this.formDetailDelegation.get('numP2'); }
   public get numP3() { return this.formDetailDelegation.get('numP3'); }
-  public get detailDelegation() { return this.formDetailDelegation.get('detailDelegation'); }
+  public get description() { return this.formDetailDelegation.get('description'); }
   public get numDelegation() { return this.formDetailDelegation.get('numDelegation'); }
 
   public onSelectionChangeDelegation(event) {
     if (event.id) {
       this.numDelegation.patchValue(event.id);
-      this.detailDelegation.patchValue(event.descripion);
+      this.description.patchValue(event.description);
     }
   }
   public register(): void {
@@ -102,6 +113,9 @@ export class DetailDelegationDetailComponent extends BasePage {
       });
   }
   private updateRegister(data): void {
+delete data.id;
+delete data.numDelegation;
+
     this.service.update(this.data.id, data).subscribe(
       () => {
         this.onLoadFailed('success', 'Detalle delegación', 'Actualizado Correctamente');

@@ -31,9 +31,8 @@
                       <input type="text" nbInput fullWidth class="form-control" formControlName="description"
                           placeholder="Descripción"
                           [status]="(description?.errors?.required || description?.hasError('minlength') || description?.hasError('maxlength') || description?.hasError('pattern')) && description.touched ? 'danger' : ''">
-                      <ngx-validation-message label="No exterior" [showMinLength]="description?.hasError('minlength')"
+                      <ngx-validation-message label="Descripción" [showMinLength]="description?.hasError('minlength')"
                           [showMaxLength]="description?.hasError('maxlength')"
-                          [showRequired]="description?.errors?.required && description.touched"
                           [showPattern]="description?.hasError('pattern') && description.touched" minLength=1 maxLength=255>
                       </ngx-validation-message>
                   </div>
@@ -84,7 +83,6 @@
                       <ngx-validation-message label="No. ciudad ej. 1"
                           [showMinLength]="idCity?.hasError('minlength')"
                           [showMaxLength]="idCity?.hasError('maxlength')"
-                          [showRequired]="idCity?.errors?.required && idCity.touched"
                           [showPattern]="idCity?.hasError('pattern') && idCity.touched" minLength=1
                           maxLength=255>
                       </ngx-validation-message>

@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { NbWindowRef, NB_WINDOW_CONTEXT, NbWindowService } from '@nebular/theme';
+import { NbWindowRef, NB_WINDOW_CONTEXT, NbWindowService, NbToastrService } from '@nebular/theme';
 import { ScoreService } from '../../../../@core/backend/common/services/score.service';
 import { SweetAlertConstants } from '../../../../@core/interfaces/auction/sweetalert-model';
 import { BasePage } from '../../../../@core/shared/base-page';
@@ -24,8 +24,9 @@ export class ScoreDetailComponent extends BasePage {
     public windowRef: NbWindowRef, 
     @Inject(NB_WINDOW_CONTEXT) context, 
     private dom: DomSanitizer,  
+    public toastrService: NbToastrService,
     private windowService: NbWindowService) { 
-      super();
+      super(toastrService);
       if (null != context.data){
         this.data = context.data;
       }
@@ -40,9 +41,10 @@ export class ScoreDetailComponent extends BasePage {
 
     });
 
-    if (this.data.id != null) {
+    if (this.data.code != null) {
       this.actionBtn = "Actualizar";
       this.form.patchValue(this.data);
+      this.form.controls['code'].disable();
     }
 
    } 
@@ -74,6 +76,7 @@ export class ScoreDetailComponent extends BasePage {
       });
   }
   private updateRegister(data): void {
+    delete data.code;
     this.service.update(this.data.id, data).subscribe(
       data => {
         this.onLoadFailed('success', 'Despacho', 'Actualizado Correctamente');

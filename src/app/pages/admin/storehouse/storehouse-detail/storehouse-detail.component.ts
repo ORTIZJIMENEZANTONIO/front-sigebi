@@ -6,6 +6,7 @@ import { NbWindowRef, NB_WINDOW_CONTEXT, NbWindowService, NbToastrService } from
 import { BasePage } from '../../../../@core/shared/base-page';
 import { StorehouseService } from '../../../../@core/backend/common/services/storehouse.service';
 import { SweetAlertConstants } from '../../../../@core/interfaces/auction/sweetalert-model';
+import { NUMBERS_PATTERN, STRING_PATTERN } from '../../../../@components/constants';
 
 @Component({
   selector: 'ngx-storehouse-detail',
@@ -39,24 +40,24 @@ export class StorehouseDetailComponent extends BasePage {
       private prepareForm(): void {
     this.form = this.fb.group({
 
-      idStorehouse:[''],
-      manager: [null, Validators.compose([Validators.pattern("[0-9]{1,255}"),Validators.required])],
-      description: [null, Validators.compose([Validators.pattern("[0-9]{1,255}"),Validators.required])],
-      municipality: [null, Validators.compose([Validators.pattern("[0-9]{1,255}"),Validators.required])],
-      locality: [null, Validators.compose([Validators.pattern("[0-9]{1,255}"),Validators.required])],
-      ubication: [null, Validators.compose([Validators.pattern("[0-9]{1,255}"),Validators.required])],
-      idEntity: [null, Validators.compose([Validators.pattern("[0-9]{1,255}"),Validators.required])]
-
-
+      idStorehouse:[null, Validators.compose([Validators.required, Validators.pattern(STRING_PATTERN), Validators.maxLength(255)])],
+      manager: [null, Validators.compose([Validators.pattern(STRING_PATTERN), Validators.maxLength(255)])],
+      description: [null, Validators.compose([Validators.pattern(STRING_PATTERN), Validators.maxLength(255)])],
+      municipality: [null, Validators.compose([Validators.pattern(STRING_PATTERN), Validators.maxLength(255)])],
+      locality: [null, Validators.compose([Validators.pattern(STRING_PATTERN), Validators.maxLength(255)])],
+      ubication: [null, Validators.compose([Validators.pattern(STRING_PATTERN), Validators.maxLength(255)])],
+      idEntity: [null, Validators.compose([Validators.pattern(NUMBERS_PATTERN), Validators.maxLength(255)])]
       
     });
-    if (this.data.id != null) {
+    if (this.data.idStorehouse != null) {
       this.actionBtn = "Actualizar";
       this.form.patchValue(this.data);
+      this.form.controls["idStorehouse"].disable();
     }
     
   }  
 
+  public get idStorehouse() { return this.form.get('idStorehouse'); }
   public get manager() { return this.form.get('manager'); }
   public get description() { return this.form.get('description'); }
   public get municipality() { return this.form.get('municipality'); }
@@ -71,7 +72,7 @@ export class StorehouseDetailComponent extends BasePage {
   private createRegister(data): void {
     this.service.register(data).subscribe(
       data => {
-        this.onLoadFailed('success', 'Despacho', 'Registrado Correctamente');
+        this.onLoadFailed('success', 'Bodega', 'Registrado Correctamente');
       }, err => {
         let error = '';
         if (err.status === 0) {
@@ -85,9 +86,10 @@ export class StorehouseDetailComponent extends BasePage {
       });
   }
   private updateRegister(data): void {
-    this.service.update(this.data.id, data).subscribe(
+    delete data.idStorehouse;
+    this.service.update(this.data.idStorehouse, data).subscribe(
       data => {
-        this.onLoadFailed('success', 'Despacho', 'Actualizado Correctamente');
+        this.onLoadFailed('success', 'Bodega', 'Actualizado Correctamente');
       }, err => {
         let error = '';
         if (err.status === 0) {

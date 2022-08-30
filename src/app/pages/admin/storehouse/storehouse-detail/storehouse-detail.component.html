@@ -2,6 +2,18 @@
   <nb-card-body>
       <form [formGroup]="form">
           <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <input type="text" nbInput fullWidth class="form-control" formControlName="idStorehouse"
+                        placeholder="ID Bodega"
+                        [status]="(idStorehouse?.errors?.required || idStorehouse?.hasError('minlength') || idStorehouse?.hasError('maxlength') || idStorehouse?.hasError('pattern')) && idStorehouse.touched ? 'danger' : ''">
+                    <ngx-validation-message label="ID Bodega" [showMinLength]="idStorehouse?.hasError('minlength')"
+                        [showMaxLength]="idStorehouse?.hasError('maxlength')"
+                    
+                        [showPattern]="idStorehouse?.hasError('pattern') && idStorehouse.touched" minLength=1 maxLength=255>
+                    </ngx-validation-message>
+                </div>
+            </div>
               <div class="col-md-6">
                   <div class="form-group">
                       <input type="text" nbInput fullWidth class="form-control" formControlName="manager"
@@ -9,7 +21,7 @@
                           [status]="(manager?.errors?.required || manager?.hasError('minlength') || manager?.hasError('maxlength') || manager?.hasError('pattern')) && manager.touched ? 'danger' : ''">
                       <ngx-validation-message label="Responsable de la bodega" [showMinLength]="manager?.hasError('minlength')"
                           [showMaxLength]="manager?.hasError('maxlength')"
-                          [showRequired]="manager?.errors?.required && manager.touched"
+                      
                           [showPattern]="manager?.hasError('pattern') && manager.touched" minLength=1 maxLength=255>
                       </ngx-validation-message>
                   </div>
@@ -21,7 +33,6 @@
                           [status]="(description?.errors?.required || description?.hasError('minlength') || description?.hasError('maxlength') || description?.hasError('pattern')) && description.touched ? 'danger' : ''">
                       <ngx-validation-message label="Descripción" [showMinLength]="description?.hasError('minlength')"
                           [showMaxLength]="description?.hasError('maxlength')"
-                          [showRequired]="description?.errors?.required && description.touched"
                           [showPattern]="description?.hasError('pattern') && description.touched" minLength=1 maxLength=255>
                       </ngx-validation-message>
                   </div>
@@ -33,7 +44,7 @@
                           [status]="(municipality?.errors?.required || municipality?.hasError('minlength') || municipality?.hasError('maxlength') || municipality?.hasError('pattern')) && municipality.touched ? 'danger' : ''">
                       <ngx-validation-message label="Código de municicpio de bodega ej. 1" [showMinLength]="municipality?.hasError('minlength')"
                           [showMaxLength]="municipality?.hasError('maxlength')"
-                          [showRequired]="municipality?.errors?.required && municipality.touched"
+                      
                           [showPattern]="municipality?.hasError('pattern') && municipality.touched" minLength=1 maxLength=255>
                       </ngx-validation-message>
                   </div>
@@ -45,7 +56,7 @@
                           [status]="(locality?.errors?.required || locality?.hasError('minlength') || locality?.hasError('maxlength') || locality?.hasError('pattern')) && locality.touched ? 'danger' : ''">
                       <ngx-validation-message label="Código de localidad de bodega ej. 1" [showMinLength]="locality?.hasError('minlength')"
                           [showMaxLength]="locality?.hasError('maxlength')"
-                          [showRequired]="locality?.errors?.required && locality.touched"
+                       
                           [showPattern]="locality?.hasError('pattern') && locality.touched" minLength=1 maxLength=255>
                       </ngx-validation-message>
                   </div>
@@ -57,7 +68,7 @@
                           [status]="(ubication?.errors?.required || ubication?.hasError('minlength') || ubication?.hasError('maxlength') || ubication?.hasError('pattern')) && ubication.touched ? 'danger' : ''">
                       <ngx-validation-message label="Ubicación de la bodega" [showMinLength]="ubication?.hasError('minlength')"
                           [showMaxLength]="ubication?.hasError('maxlength')"
-                          [showRequired]="ubication?.errors?.required && ubication.touched"
+                       
                           [showPattern]="ubication?.hasError('pattern') && ubication.touched" minLength=1 maxLength=255>
                       </ngx-validation-message>
                   </div>
@@ -70,7 +81,7 @@
                       <ngx-validation-message label="Código de entidad"
                           [showMinLength]="idEntity?.hasError('minlength')"
                           [showMaxLength]="idEntity?.hasError('maxlength')"
-                          [showRequired]="idEntity?.errors?.required && idEntity.touched"
+                       
                           [showPattern]="idEntity?.hasError('pattern') && idEntity.touched"
                           minLength=1 maxLength=255>
                       </ngx-validation-message>

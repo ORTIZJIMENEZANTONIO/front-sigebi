@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { NbWindowRef, NB_WINDOW_CONTEXT, NbWindowService, NbToastrService } from '@nebular/theme';
+import { STRING_PATTERN } from '../../../../@components/constants';
 import { OriginCisiService } from '../../../../@core/backend/common/services/origin-cisi.service';
 import { SweetAlertConstants, SweetalertModel } from '../../../../@core/interfaces/auction/sweetalert-model';
 import { BasePage } from '../../../../@core/shared/base-page';
@@ -37,11 +38,12 @@ export class OriginCisiDetailComponent extends BasePage {
   private prepareForm(): void {
 
     this.form = this.fb.group({
-      detail:  [null, Validators.compose([Validators.required, Validators.pattern("^[a-zA-Z0-9@.-_-]{1,40}")])],
+      id: [null],
+      detail:  [null, Validators.compose([Validators.required, Validators.maxLength(40), Validators.pattern(STRING_PATTERN)])],
     });
 
   
-        if (this.data.id != null) {
+    if (this.data.id != null) {
       this.actionBtn = "Actualizar";
       this.form.patchValue(this.data);
     }
@@ -56,7 +58,7 @@ export class OriginCisiDetailComponent extends BasePage {
     private createRegister(data): void {
       this.service.register(data).subscribe(
         data => {
-          this.onLoadFailed('success', 'Despacho', 'Registrado Correctamente');
+          this.onLoadFailed('success', 'Procedencia CISI', 'Registrado Correctamente');
         }, err => {
           let error = '';
           if (err.status === 0) {
@@ -70,9 +72,10 @@ export class OriginCisiDetailComponent extends BasePage {
         });
     }
     private updateRegister(data): void {
+      delete data.id;
       this.service.update(this.data.id, data).subscribe(
         data => {
-          this.onLoadFailed('success', 'Despacho', 'Actualizado Correctamente');
+          this.onLoadFailed('success', 'Procedencia CISI', 'Actualizado Correctamente');
         }, err => {
           let error = '';
           if (err.status === 0) {

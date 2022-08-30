@@ -40,7 +40,7 @@
               </div>
               <div class="col-md-6">
                   <div class="form-group">
-                      <input type="number" nbInput fullWidth class="form-control" formControlName="type"
+                      <input type="number" nbInput fullWidth class="form-control" formControlName="registerNumber"
                           placeholder="Número de registro ej. 1"
                           [status]="(registerNumber?.errors?.required || registerNumber?.hasError('minlength') || registerNumber?.hasError('maxlength') || registerNumber?.hasError('pattern')) && registerNumber.touched ? 'danger' : ''">
                       <ngx-validation-message label="Número de registro ej. 1" [showMinLength]="registerNumber?.hasError('minlength')"
