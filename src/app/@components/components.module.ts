@@ -31,7 +31,6 @@ const COMPONENTS = [
     NbFormFieldModule,
     NbDialogModule,
     NbInputModule,
-    NbInputModule,
     NbButtonModule
   ],
   exports: [...COMPONENTS],
