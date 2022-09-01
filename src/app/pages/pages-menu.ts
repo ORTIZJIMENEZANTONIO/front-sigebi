@@ -662,6 +662,20 @@ export const MENU_ITEMS: NbMenuItem[] = [
     ],
   },
   {
+    title:'Solicitudes',
+    icon:'file',
+    children:[
+      {
+        title:'Solicitudes a turnar',
+        link:'/pages/request/request-to-turn'
+      },
+      {
+        title:'Crear solicitud',
+        link:'/pages/request/create'
+      }
+    ]
+  },
+  {
     title: 'Main',
     icon: 'grid-outline',
     children: [

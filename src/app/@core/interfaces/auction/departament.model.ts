@@ -4,24 +4,24 @@ import { Subdelegation } from "./subdelegation.model";
 export interface Departament{
     id?: number;
 
-    no_delegacion : Delegation|number;
+    numDelegation : Delegation|number;
 
-    no_subdelegacion: Subdelegation|number;
+    numSubDelegation: Subdelegation|number;
 
     dsarea : string
 
-    descripcion : string
+    description : string
     
-    ultimo_oficio:number;
+    lastOffice:number;
 
-    no_registro : number;
+    numRegister : number;
 
-    nivel : number;
-
+    level : number;
+    
     depend : number;
 
-    dep_delegacion : number;
+    depDelegation : number;
 
-    etapa_edo : number;
+    phaseEdo : number;
 
 }

@@ -61,7 +61,7 @@ export class InstitutionClassificationListComponent extends BasePage {
         // width: '25px'
       },
       description: {
-        title: 'DescripciÓn',
+        title: 'Descripción',
         type: 'string',
       },
       numRegister: {

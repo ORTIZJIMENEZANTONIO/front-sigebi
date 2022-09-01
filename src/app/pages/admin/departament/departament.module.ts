@@ -6,7 +6,7 @@ import { DepartamentListComponent } from './departament-list/departament-list.co
 import { DepartamentDetailComponent } from './departament-detail/departament-detail.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { NbCardModule, NbSelectModule, NbButtonModule, NbInputModule, NbWindowModule } from '@nebular/theme';
+import { NbCardModule, NbSelectModule, NbButtonModule, NbInputModule, NbWindowModule, NbAutocompleteModule } from '@nebular/theme';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { ComponentsModule } from '../../../@components/components.module';
 import { ThemeModule } from '../../../@theme/theme.module';
@@ -30,6 +30,7 @@ import { ThemeModule } from '../../../@theme/theme.module';
     NbInputModule,
     NbWindowModule.forChild(),
     MatPaginatorModule,
+    NbAutocompleteModule
   ]
 })
 export class DepartamentModule { }

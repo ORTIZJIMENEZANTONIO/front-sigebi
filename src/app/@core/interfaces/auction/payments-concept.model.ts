@@ -1,8 +1,8 @@
 export interface PaymentsConcept{
     id?: number;
     
-    descripcion : string
+    description : string
 
-    no_registro: number; 
+    numRegister: number; 
 
 }

@@ -1,0 +1,43 @@
+<nb-card size="large">
+    <nb-card-header>
+        <h6>Búsqueda avanzada</h6>
+        <div class="form-group row">
+            <label for="inputEmail1" class="label col-sm-3 col-form-label">Código</label>
+            <div class="col-sm-7">
+                <input type="text" nbInput fullWidth >
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="inputEmail1" class="label col-sm-3 col-form-label">Descripción</label>
+            <div class="col-sm-7">
+              <input type="text" nbInput fullWidth >
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="inputEmail1" class="label col-sm-3 col-form-label">Tipo Relevante</label>
+            <div class="col-sm-7">
+                <input type="text" nbInput fullWidth >
+            </div>
+        </div>
+        <button nbButton status="primary" class="mr-1" size="tiny">
+            <nb-icon icon="search"></nb-icon>Buscar
+        </button>
+        <button nbButton status="danger" size="tiny">
+            <nb-icon icon="trash"></nb-icon>Limpiar
+        </button>
+    </nb-card-header>
+    <nb-card-body>
+        <ng2-smart-table [settings]="settings" [source]="rows">
+        </ng2-smart-table>
+        <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
+        (page)="changesPage($event)" [pageIndex]="pageEvent.pageIndex"></mat-paginator>
+    </nb-card-body>
+    <nb-card-footer>
+        <button nbButton status="primary" class="mr-1" size="small">
+            <nb-icon icon="save"></nb-icon>Seleccionar
+        </button>
+        <button nbButton status="danger" size="small">
+            <nb-icon icon="close"></nb-icon>Cancelar
+        </button>
+    </nb-card-footer>
+</nb-card>

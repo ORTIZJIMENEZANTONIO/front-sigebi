@@ -60,7 +60,12 @@ export class CityDetailComponent extends BasePage {
     if (this.data) {
       this.actionBtn = "Actualizar";
       this.formCity.patchValue(this.data)
-
+      
+      this.formCity.controls['numDelegation'].setValue(this.data.numDelegation['id'])
+      this.formCity.controls['detailDelegation'].setValue(this.data.numDelegation['descripcion'])
+      this.formCity.controls['numSubDelegation'].setValue(this.data.numSubDelegation['id'])
+      this.formCity.controls['detailSubDelegation'].setValue(this.data.numSubDelegation['descripcion'])
+      
     }
     this.formCity.controls['detailDelegation'].valueChanges.subscribe((value: string) => {
       if (value) {
@@ -87,7 +92,9 @@ export class CityDetailComponent extends BasePage {
   public get legendOffice() { return this.formCity.get('legendOffice'); }
   public get numRegister() { return this.formCity.get('numRegister'); }
 
+
   public onSelectionChangeDelegation(event){
+
     if(event.id){
       this.formCity.controls['numDelegation'].setValue(event.id);
       this.formCity.controls['detailDelegation'].setValue(event.description);

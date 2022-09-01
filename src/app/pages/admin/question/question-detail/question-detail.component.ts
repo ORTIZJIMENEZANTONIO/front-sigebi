@@ -1,12 +1,15 @@
 import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { NbWindowRef, NB_WINDOW_CONTEXT, NbWindowService } from '@nebular/theme';
+import { NbWindowRef, NB_WINDOW_CONTEXT, NbWindowService, NbToastrService } from '@nebular/theme';
 import { BasePage } from '../../../../@core/shared/base-page';
 
 import { QuestionInterface } from '../../../../@core/interfaces/auction/question.model';
 import { QuestionService } from '../../../../@core/backend/common/services/question.service';
+import { SweetalertService } from '../../../../shared/sweetalert.service';
+import { SweetAlertConstants } from '../../../../@core/interfaces/auction/sweetalert-model';
+
 
 
 @Component({
@@ -16,68 +19,85 @@ import { QuestionService } from '../../../../@core/backend/common/services/quest
 })
 export class QuestionDetailComponent extends BasePage {
 
-  question: QuestionInterface;
+  public form: FormGroup;
+  private data: any = {};
+  public actionBtn: string = "Guardar";
 
   constructor(
-    @Inject(NB_WINDOW_CONTEXT) context, 
-    private fb: FormBuilder, 
-    protected cd: ChangeDetectorRef, 
-    protected router: Router, 
+    private fb: FormBuilder,
+    protected cd: ChangeDetectorRef,
+    protected router: Router,
     private service: QuestionService,
-    public windowRef: NbWindowRef, 
-    private dom: DomSanitizer, 
-    private windowService: NbWindowService) { 
-      super();
-      if (null != context.questions)
-        this.question = context.questions;  
+    public windowRef: NbWindowRef,
+    public toastrService: NbToastrService,
+    @Inject(NB_WINDOW_CONTEXT) context
+  ) {
+    super(toastrService);
+    if (null != context.data) {
+      this.data = context.data;
     }
-
-    actionBtn : string = "Guardar";
-
-    form = this.fb.group({
+  }
+  ngOnInit(): void {
+    this.prepareForm();
+  }
+  private prepareForm(): void {
+    this.form = this.fb.group({
 
       id:[''],
-      text: ['',Validators.required],
-      type: ['', Validators.required],
-      maximumScore: ['',[Validators.required]],
-      registerNumber: ['',[Validators.required]],
+      text: [null, Validators.compose([Validators.pattern(""), Validators.required])],
+      type: [null, Validators.compose([Validators.pattern(""), Validators.required])],
+      maximumScore: [null, Validators.compose([Validators.pattern(""), Validators.required])],
+      registerNumber: [null, Validators.compose([Validators.pattern(""), Validators.required])],
       
     });
   
-  get validateQuestion(){
-    return this.form.controls;
-  }
-    
-  ngOnInit(): void {
-    if(this.question){
+    if (this.data.id != null) {
       this.actionBtn = "Actualizar";
-      this.form.patchValue(this.question);
+      this.form.patchValue(this.data);
     }
   }
 
-  register(): void {
-    const data = this.form.value;
-    this.actionBtn == "Guardar" ? this.createRegister( data ) : this.updateRegister( data );
-  }
+  public get text() { return this.form.get('text'); }
+  public get type() { return this.form.get('type'); }
+  public get maximumScore() { return this.form.get('maximumScore'); }
+  public get registerNumber() { return this.form.get('registerNumber'); }
 
-  createRegister( data ): void {
-    console.log({...data,id:1});
-    this.service.register({...data,id:1}).subscribe( () => {
-      
-      this.windowRef.close();
-    },
-    err =>{
-      console.log(err);
-    })
+  
+  public register(): void {
+    const data = this.form.getRawValue();
+    this.actionBtn == "Guardar" ? this.createRegister(data) : this.updateRegister(data);
   }
-
-  updateRegister( data ): void {
-    this.service.update(this.question.id, data).subscribe( () => {
-      this.windowRef.close();
-    },
-    err => {
-      console.error(err);
-    })
+  private createRegister(data): void {
+    this.service.register(data).subscribe(
+      data => {
+        this.onLoadFailed('success', 'Preguntas', 'Registrado Correctamente');
+      }, err => {
+        let error = '';
+        if (err.status === 0) {
+          error = SweetAlertConstants.noConexion;
+        } else {
+          error = err.message;
+        }
+        this.onLoadFailed('danger', 'Error', error);
+      }, () => {
+        this.windowRef.close();
+      });
   }
-
+  private updateRegister(data): void {
+    delete data.id;
+    this.service.update(this.data.id, data).subscribe(
+      data => {
+        this.onLoadFailed('success', 'Preguntas', 'Actualizado Correctamente');
+      }, err => {
+        let error = '';
+        if (err.status === 0) {
+          error = SweetAlertConstants.noConexion;
+        } else {
+          error = err.message;
+        }
+        this.onLoadFailed('danger', 'Error', error);
+      }, () => {
+        this.windowRef.close();
+      });
+  }
 }

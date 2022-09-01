@@ -15,7 +15,6 @@ import { SweetAlertConstants } from '../../../../@core/interfaces/auction/sweeta
   styleUrls: ['./battery-list.component.scss']
 })
 export class BatteryListComponent extends BasePage {
-
   public searchForm: FormGroup;
   public list: any;
   public length = 100;
@@ -28,7 +27,6 @@ export class BatteryListComponent extends BasePage {
     length: 100
   };
   public settings = {
-
     actions: {
       columnTitle: 'Acciones',
       add: true,
@@ -38,7 +36,7 @@ export class BatteryListComponent extends BasePage {
     pager: {
       display: false,
     },
-    hideSubHeader: true,//oculta subheaader de filtro
+    hideSubHeader: true, //oculta subheaader de filtro
     mode: 'external', // ventana externa
     add: {
       addButtonContent: '<i class="nb-plus"></i>',
@@ -62,6 +60,9 @@ export class BatteryListComponent extends BasePage {
       storeCode: {
         title: 'Código de almacenamiento',
         type: 'string',
+        valuePrepareFunction:(value) =>{
+          return value.cve
+        }
       },
       description: {
         title: 'Descripción',
@@ -95,7 +96,7 @@ export class BatteryListComponent extends BasePage {
         this.service.search(value).subscribe((rows: BatteryInterface[]) => {
           this.length = rows.length;
           this.list = rows;
-        });
+        })
       } else {
         this.read(0, 10);
       }
@@ -141,11 +142,7 @@ export class BatteryListComponent extends BasePage {
         if (question.isConfirmed) {
           this.service.delete(event.data.id).subscribe(
             data => {
-              // if (data.statusCode == 200) {
               this.onLoadFailed('success', 'Eliminado', data.message);
-              // } else {
-              //   this.onLoadFailed('danger', 'Error', data.message);
-              // }
             }, err => {
               let error = '';
               if (err.status === 0) {
@@ -172,7 +169,13 @@ export class BatteryListComponent extends BasePage {
       maximize: false,
       fullScreen: false,
     };
-    const modalRef = this.windowService.open(BatteryDetailComponent, { title: `Editar`, context: { data: event.data }, buttons: buttonsConfig }).onClose.subscribe(() => {
+    const modalRef = this.windowService.open(BatteryDetailComponent, {
+      title: `Editar`,
+      context: {
+        data: event.data
+      },
+      buttons: buttonsConfig
+    }).onClose.subscribe(() => {
       this.read(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
 

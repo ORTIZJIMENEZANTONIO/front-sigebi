@@ -1,23 +1,15 @@
+import { Delegation } from './delegation.model';
+
 export interface DetailDelegation{
     id?: number;
-    
-    nombre : string
-
-    no_delegacion:number;
-
+    name : string
+    numDelegation: Delegation;
     area : string;
-
-    puesto : string;
-
-    ubicacion : string;
-    
-    direccion : string;
-
-    correo: string;
-
-    tel1 : number
-
-    tel2 : number
-
-    tel3 : number
+    position : string;
+    location : string;
+    address : string;
+    mail: string;
+    numP1 : number
+    numP2 : number
+    numP3 : number
 }
