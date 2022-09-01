@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { NbMenuService } from '@nebular/theme';
+
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'ngx-re-docs-x-sera-list',
@@ -8,41 +9,30 @@ import { NbMenuService } from '@nebular/theme';
 })
 export class ReDocsXSeraListComponent  {
 
-  delegacionesList = [
-    {noDelegation: 1, delegation: 'Delegación Tijuana', },
-    {noDelegation: 2, delegation: 'Delegación Vallarta', },
-    {noDelegation: 3, delegation: 'Delegación Oaxaca',  },
-    {noDelegation: 4, delegation: 'Delegación Veracruz', },
-    {noDelegation: 5, delegation: 'Delegación Sinaloa', }
-  ];
-    selectedDelegationID: number;
-  
-  
-  
-    subDelegacionesList = [
-      {noSubDelegation: 1, subDelegation: "Tijuana" },
-      {noSubDelegation: 2, subDelegation: "Vallarta" },
-      {noSubDelegation: 3, subDelegation: "Tijuana" },
-      {noSubDelegation: 4, subDelegation: "Oaxaca" },
-      {noSubDelegation: 5, subDelegation: "Sinaloa" }
-    ];
-      selectedSubDelegationID: number; 
+  public formDelegation: FormGroup;
 
-    areaList = [
-        {noArea: 1, areaClave: "DGAAAYS" },
-        {noArea: 2, areaClave: "SDVNYOA" },
-        {noArea: 3, areaClave: "DAB" },
-        {noArea: 4, areaClave: "RED" },
-        {noArea: 5, areaClave: "JUR" }
-      ];
-      areaID: number;
+  constructor(
+    private fb: FormBuilder) {  
+  }
 
-    coordinacionList = [
-        {noCoordinacion: "Cancun", coordinacion: "COORD. DE Cancun " },
-        {noCoordinacion: "Puebla", coordinacion: "COORD. DE Puebla " },
-        {noCoordinacion: "CDMX", coordinacion: "COORD. DE CDMX " },
-        {noCoordinacion: "Tlaxcala", coordinacion: "COORD. DE Tlaxcala " },
-        {noCoordinacion: "Guerrero", coordinacion: "COORD. DE Guerrero " }
-    ]
-    noCoor: string;
+  ngOnInit(): void {
+    this.prepareForm();
+  }
+  private prepareForm() {
+    this.formDelegation = this.fb.group({
+      fechaInicial: ['', [Validators.required]],
+      fechaFinal: ['', [Validators.required]],
+      nomDeleg: ['', [Validators.required]],
+      nomSubDel: ['', [Validators.required]],
+    });}
+
+  public get fechaInicial() { return this.formDelegation.get('fechaInicial'); }
+  public get fechaFinal() { return this.formDelegation.get('fechaFinal'); }
+  public get nomDeleg() { return this.formDelegation.get('nomDeleg'); }
+  public get nomSubDel() { return this.formDelegation.get('nomSubDel'); }
+
+mostrarInfo(): any{
+  console.log(this.formDelegation.value)
+}
+
 }

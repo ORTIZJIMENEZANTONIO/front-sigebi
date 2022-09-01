@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';   
+import { Component, OnInit } from '@angular/core';    
 
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'ngx-q-accumulated-goods-list',
@@ -7,27 +8,32 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./q-accumulated-goods-list.component.scss']
 })
 export class QAccumulatedGoodsListComponent  {
-  
-  delegacionesList = [
-  {noDelegation: 1, delegation: 'Delegación Tijuana', },
-  {noDelegation: 2, delegation: 'Delegación Vallarta', },
-  {noDelegation: 3, delegation: 'Delegación Oaxaca',  },
-  {noDelegation: 4, delegation: 'Delegación Veracruz', },
-  {noDelegation: 5, delegation: 'Delegación Sinaloa', }
-];
-  selectedDelegationID: number;
 
+  public formDelegation: FormGroup;
 
+  constructor(
+    private fb: FormBuilder) {  
+  }
 
-  subDelegacionesList = [
-    {noSubDelegation: 1, subDelegation: "Tijuana" },
-    {noSubDelegation: 2, subDelegation: "Vallarta" },
-    {noSubDelegation: 3, subDelegation: "Tijuana" },
-    {noSubDelegation: 4, subDelegation: "Oaxaca" },
-    {noSubDelegation: 5, subDelegation: "Sinaloa" }
-  ];
-    selectedSubDelegationID: number;
-  
+  ngOnInit(): void {
+    this.prepareForm();
+  }
+  private prepareForm() {
+    this.formDelegation = this.fb.group({
+      fechaInicial: ['', [Validators.required]],
+      fechaFinal: ['', [Validators.required]],
+      nomDeleg: ['', [Validators.required]],
+      nomSubDel: ['', [Validators.required]],
+    });}
+
+  public get fechaInicial() { return this.formDelegation.get('fechaInicial'); }
+  public get fechaFinal() { return this.formDelegation.get('fechaFinal'); }
+  public get nomDeleg() { return this.formDelegation.get('nomDeleg'); }
+  public get nomSubDel() { return this.formDelegation.get('nomSubDel'); }
+
+mostrarInfo(): any{
+  console.log(this.formDelegation.value)
+}
 
 
 }

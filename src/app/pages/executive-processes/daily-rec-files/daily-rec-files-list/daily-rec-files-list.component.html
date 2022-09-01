@@ -5,109 +5,62 @@
             CONTROL DIARIO DE RECEPCIÓN DE EXPEDIENTES 
         </span>
   
-  <!-- Botón para agregar nuevo desactivado por que no lo requiere
-        <div class="add-select">
-            <button (click)="openWindow()" nbButton status="primary">Nueva</button>
-        </div>
-  -->
-  
     </nb-card-header>
   
     <nb-card-body>
-  
-     <!--Modificar nombre para identificar y en el boton-->
-      <div class="row">
-  
-          <div class="col-md-1">
-              <div class="form-group">
-                  <label class="label">no.</label>
-                  <input disabled nbInput fullWidth  placeholder="{{selectedDelegationID}}">
-              </div>
-          </div>
-          
-              <div class="col-md-4">
-                  <div class="form-group">
-                      <label class="label">Delegación</label>
-                          <ng-select nbinput=""  class="ng-dropdown-panel-items scroll-host input-full-width size-medium status-basic shape-rectangle nb-transition" 
-                              [items]="delegacionesList" 
-                              bindLabel="delegation"
-                              bindValue="noDelegation" 
-                              placeholder="" 
-                              [(ngModel)]="selectedDelegationID"> 
-                          </ng-select>
-                  </div>
-              </div>
-  
-      </div>
-  
-      <div class="row">
-  
-          <div class="col-md-1">
-              <div class="form-group">
-                  <label class="label">no.</label>
-                  <input disabled nbInput fullWidth  placeholder="{{selectedSubDelegationID}}">
-              </div>
-          </div>
-          
-              <div class="col-md-4">
-                  <div class="form-group">
-                      <label class="label">SubDelegaciones</label>
-                          <ng-select nbinput=""  class="ng-dropdown-panel-items scroll-host input-full-width size-medium status-basic shape-rectangle nb-transition" 
-                              [items]="subDelegacionesList" 
-                              bindLabel="subDelegation"
-                              bindValue="noSubDelegation" 
-                              placeholder="" 
-                              [(ngModel)]="selectedSubDelegationID"> 
-                          </ng-select>
-                  </div>
-              </div>
-  
-      </div>
-  
-      <div class="row">
-  
-          <div class="col-md-2">
-              <div class="form-group">
-                  <label class="label">Recepciones del año:</label>
-                  <input nbInput fullWidth> 
-              </div>
-          </div>
-  
-          <div class="col-lg-2">
-              <div class="form-group">
-                  <label class="label">Al</label> &nbsp; 
-                  
-                    <nb-select fullWidth selected="Enero">
-                      <nb-option value="Enero">Enero</nb-option>
-                      <nb-option value="Febrero">Febrero</nb-option>
-                      <nb-option value="Marzo">Marzo</nb-option>
-                      <nb-option value="Abril">Abril</nb-option>
-                      <nb-option value="Mayo">Mayo</nb-option>
-                      <nb-option value="Junio">Junio</nb-option>
-                      <nb-option value="Julio">Julio</nb-option>
-                      <nb-option value="Agosto">Agosto</nb-option>
-                      <nb-option value="Septiembre">Septiembre</nb-option>
-                      <nb-option value="Octubre">Octubre</nb-option>
-                      <nb-option value="Noviembre">Noviembre</nb-option>
-                      <nb-option value="Diciembre">Diciembre</nb-option>
-                    </nb-select>
-                  
-              </div>
-          </div>
 
-          
-          
-              
-      </div>
+        <form [formGroup]="formDelegation" (submit)="mostrarInfo()">
+            
+            <ngx-deleg-subdeleg-shared [form]="formDelegation"></ngx-deleg-subdeleg-shared>
+        
+            <div class="row">
+        
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="label">Recepciones del año:</label>
+                        <input nbInput fullWidth> 
+                    </div>
+                </div>
+        
+                <div class="col-lg-2">
+                    <div class="form-group">
+                        <label class="label">Al</label> &nbsp; 
+                        
+                          <nb-select fullWidth selected="Enero">
+                            <nb-option value="Enero">Enero</nb-option>
+                            <nb-option value="Febrero">Febrero</nb-option>
+                            <nb-option value="Marzo">Marzo</nb-option>
+                            <nb-option value="Abril">Abril</nb-option>
+                            <nb-option value="Mayo">Mayo</nb-option>
+                            <nb-option value="Junio">Junio</nb-option>
+                            <nb-option value="Julio">Julio</nb-option>
+                            <nb-option value="Agosto">Agosto</nb-option>
+                            <nb-option value="Septiembre">Septiembre</nb-option>
+                            <nb-option value="Octubre">Octubre</nb-option>
+                            <nb-option value="Noviembre">Noviembre</nb-option>
+                            <nb-option value="Diciembre">Diciembre</nb-option>
+                          </nb-select>
+                        
+                    </div>
+                </div>
+      
+                
+                
+                    
+            </div>
+        
+            <div class="form-group">
+                <div class="d-flex justify-content-center">
+                    <!--<button type="submit" nbButton status="primary" [disabled]="!form.valid"
+                        (click)="register()">{{actionBtn}}</button>  Boton con función--> 
+                        <button type="submit" nbButton status="primary" >Imprimir Reporte</button>
+                </div>
+            </div>
+        
+
+        </form>
   
-      <div class="form-group">
-          <div class="d-flex justify-content-center">
-              <!--<button type="submit" nbButton status="primary" [disabled]="!form.valid"
-                  (click)="register()">{{actionBtn}}</button>  Boton con función--> 
-                  <button type="submit" nbButton status="primary" >Imprimir Reporte</button>
-          </div>
-      </div>
-  
+      
   
   </nb-card-body>
   

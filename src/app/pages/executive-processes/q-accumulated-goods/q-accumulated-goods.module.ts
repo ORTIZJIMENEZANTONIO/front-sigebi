@@ -5,7 +5,7 @@ import { ComponentsModule } from '../../../@components/components.module';
 
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
-import { NbAutocompleteModule, NbButtonModule, NbCardModule, NbInputModule } from '@nebular/theme';
+import { NbAutocompleteModule, NbButtonModule, NbCardModule, NbInputModule, NbDatepickerModule } from '@nebular/theme';
 import { NgSelectModule } from '@ng-select/ng-select';
 
 
@@ -29,7 +29,7 @@ import { QAccumulatedGoodsListComponent } from './q-accumulated-goods-list/q-acc
     NbInputModule,
     FormsModule, 
     ReactiveFormsModule,
-    NgSelectModule, ComponentsModule
+    NgSelectModule, ComponentsModule, NbDatepickerModule
     
   ]
 })
