@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core'; 
 import { NbMenuService } from '@nebular/theme';
 
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { validateHorizontalPosition } from '@angular/cdk/overlay';
+
 @Component({
   selector: 'ngx-info-goods-type-subtype-list',
   templateUrl: './info-goods-type-subtype-list.component.html',
@@ -8,11 +11,27 @@ import { NbMenuService } from '@nebular/theme';
 })
 export class InfoGoodsTypeSubtypeListComponent  {
 
-  constructor(private menuService: NbMenuService) {
+  public formDelegation: FormGroup;
+
+  constructor(
+    private fb: FormBuilder) {  
   }
 
-  goToHome() {
-    this.menuService.navigateHome();
+  ngOnInit(): void {
+    this.prepareForm();
   }
+  private prepareForm() {
+    this.formDelegation = this.fb.group({
+      fechaInicial: ['', [Validators.required]],
+      fechaFinal: ['', [Validators.required]],
+    });}
+
+  public get fechaInicial() { return this.formDelegation.get('fechaInicial'); }
+  public get fechaFinal() { return this.formDelegation.get('fechaFinal'); }
+
+
+mostrarInfo(): any{
+  console.log(this.formDelegation.value)
+}
 
 }

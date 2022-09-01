@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';  
 import { CommonModule } from '@angular/common';
 
+import { ComponentsModule } from '../../../@components/components.module';
+
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import { NbAutocompleteModule, NbButtonModule, NbCardModule, NbInputModule } from '@nebular/theme';
@@ -27,7 +29,7 @@ import { QAccumulatedGoodsListComponent } from './q-accumulated-goods-list/q-acc
     NbInputModule,
     FormsModule, 
     ReactiveFormsModule,
-    NgSelectModule
+    NgSelectModule, ComponentsModule
     
   ]
 })

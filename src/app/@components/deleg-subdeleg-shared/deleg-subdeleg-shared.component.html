@@ -1,0 +1,47 @@
+<div class="row">
+
+    <div class="col-md-1">
+        <div class="form-group">
+            <label class="label">no.</label>
+            <input disabled nbInput fullWidth  placeholder="{{selectedDelegationID}}">
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="form-group">
+                <label class="label">Delegación</label>
+                <ng-select nbinput=""  class="ng-dropdown-panel-items scroll-host input-full-width size-medium status-basic shape-rectangle nb-transition" 
+                            [items]="delegacionesList" 
+                            bindLabel="delegation"
+                            bindValue="noDelegation" 
+                            placeholder="" 
+                            [(ngModel)]="selectedDelegationID"> 
+                </ng-select>   
+        </div>
+    </div>
+
+</div>
+
+<div class="row">
+
+    <div class="col-md-1">
+        <div class="form-group">
+            <label class="label">no.</label>
+            <input disabled nbInput fullWidth  placeholder="{{selectedSubDelegationID}}">
+        </div>
+    </div>
+    
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="label">SubDelegaciones</label>
+                    <ng-select nbinput=""  class="ng-dropdown-panel-items scroll-host input-full-width size-medium status-basic shape-rectangle nb-transition" 
+                        [items]="subDelegacionesList" 
+                        bindLabel="subDelegation"
+                        bindValue="noSubDelegation" 
+                        placeholder="" 
+                        [(ngModel)]="selectedSubDelegationID"> 
+                    </ng-select>
+            </div>
+        </div>
+
+</div>

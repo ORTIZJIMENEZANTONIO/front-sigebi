@@ -1,1 +1,49 @@
-<p>info-goods-type-subtype-list works!</p>
+<nb-card class="cat-card"> 
+
+    <nb-card-header>
+        Prueba de Delegaciones y SubDelegaciones
+    </nb-card-header>
+
+  
+    <nb-card-body>
+
+        <form [formGroup]="formDelegation" (submit)="mostrarInfo()">
+             
+            <div class="row">
+
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="label">Fecha inicial</label>
+                        <input nbInput fullWidth required formControlName="fechaInicial" >
+                    </div>
+                    <ngx-validation-message label="fechaInicial" 
+                         [showRequired]="fechaInicial?.errors?.required && fechaInicial.touched">
+                    </ngx-validation-message>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="label">Fecha Final</label>
+                        <input nbInput fullWidth required formControlName="fechaFinal"  >
+                    </div>
+                    <ngx-validation-message label="fechaFinal" 
+                         [showRequired]="fechaFinal?.errors?.required && fechaFinal.touched">
+                    </ngx-validation-message>
+                </div>
+
+    
+            </div>
+
+                <div class="form-group">
+                    <div class="d-flex justify-content-center">
+                        <button type="submit" nbButton status="primary" [disabled]="!formDelegation.valid" >Mostrar datos</button>
+                    </div>
+                </div>
+
+        </form>
+
+    </nb-card-body>
+
+</nb-card>
+
+    
