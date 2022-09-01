@@ -369,10 +369,10 @@ export const MENU_ITEMS: NbMenuItem[] = [
         title: 'Tipo de Almacenes',
         link: '/pages/admin/typewarehouses',
       },
-      {
-        title: 'Tipo Asentamiento',
-        link: '/pages/admin/typesettelement',
-      },
+      // {
+      //   title: 'Tipo Asentamiento',
+      //   link: '/pages/admin/typesettelement',
+      // },
       {
         title: 'Tipo Bienes',
         link: '/pages/admin/typegood',
@@ -385,18 +385,18 @@ export const MENU_ITEMS: NbMenuItem[] = [
         title: 'Estado Transferencia',
         link: '/pages/admin/statustransfer',
       },
-      {
-        title: 'Estatus Buzon',
-        link: '/pages/admin/statusmailbox',
-      },
+      // {
+      //   title: 'Estatus Buzon',
+      //   link: '/pages/admin/statusmailbox',
+      // },
       {
         title: 'Tipo relevante',
         link: '/pages/admin/typerelevant',
       },
-      {
-        title: 'Transferentes',
-        link: '/pages/admin/transferentes',
-      },
+      // {
+      //   title: 'Transferentes',
+      //   link: '/pages/admin/transferentes',
+      // },
       {
         title: 'Tipo orden servicio',
         link: '/pages/admin/typeorderservices',
@@ -653,9 +653,27 @@ export const MENU_ITEMS: NbMenuItem[] = [
       {
         title: 'Gavetas',
         link: '/pages/admin/drawers'
-      }
+      },
+      // {
+      //   title: 'Estantes',
+      //   link: '/pages/admin/shelves'
+      // }
 
     ],
+  },
+  {
+    title:'Solicitudes',
+    icon:'file',
+    children:[
+      {
+        title:'Solicitudes a turnar',
+        link:'/pages/request/request-to-turn'
+      },
+      {
+        title:'Crear solicitud',
+        link:'/pages/request/create'
+      }
+    ]
   },
   {
     title: 'Main',

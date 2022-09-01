@@ -1,0 +1,16 @@
+<nb-card size="medium">
+   
+    <nb-card-body>
+        <ng2-smart-table [settings]="settings" [source]="rows">
+        </ng2-smart-table>
+
+    </nb-card-body>
+    <nb-card-footer>
+        <button nbButton status="primary" class="mr-1" size="small">
+            <nb-icon icon="save"></nb-icon>Seleccionar
+        </button>
+        <button nbButton status="danger" size="small">
+            <nb-icon icon="close"></nb-icon>Cancelar
+        </button>
+    </nb-card-footer>
+</nb-card>

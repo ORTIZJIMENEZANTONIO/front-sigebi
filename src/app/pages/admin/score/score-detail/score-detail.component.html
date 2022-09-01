@@ -1,41 +1,74 @@
 <nb-card>
   <nb-card-body>
-    <form [formGroup]="form">
-
-      <div class="form-group row">
-        <input type="text" formControlName="code" placeholder="Puntuacion" nbInput fullWidth matInput 
-          [status]="form.controls['code']?.errors?.required && form.controls['code'].touched ? 'danger' : ''">
-          <label class="text-danger" *ngIf="validateScore['code'].hasError('required')  && form.controls['code'].touched "><small>Puntuacion</small></label>
-      </div>
-
-      <div class="form-group row">
-        <input type="text" formControlName="initialRank" placeholder="Rango Inicial" nbInput fullWidth matInput 
-          [status]="form.controls['initialRank']?.errors?.required && form.controls['initialRank'].touched ? 'danger' : ''">
-          <label class="text-danger" *ngIf="validateScore['initialRank'].hasError('required')  && form.controls['initialRank'].touched "><small>Rango Inicial</small></label>
-      </div>
-
-      <div class="form-group row">
-        <input type="text" formControlName="endRank" placeholder="Rango Final" nbInput fullWidth matInput 
-          [status]="form.controls['endRank']?.errors?.required && form.controls['endRank'].touched ? 'danger' : ''">
-          <label class="text-danger" *ngIf="validateScore['endRank'].hasError('required')  && form.controls['endRank'].touched "><small>Rango Final</small></label>
-      </div>
-
-      <div class="form-group row">
-        <input type="text" formControlName="clasification" placeholder="Clasificacion" nbInput fullWidth matInput 
-          [status]="form.controls['clasification']?.errors?.required && form.controls['clasification'].touched ? 'danger' : ''">
-          <label class="text-danger" *ngIf="validateScore['clasification'].hasError('required')  && form.controls['clasification'].touched "><small>Clasificacion</small></label>
-      </div>
-      <div class="form-group row">
-          <input type="text" formControlName="registryNumber" placeholder="No Registro" nbInput fullWidth matInput 
-            [status]="form.controls['registryNumber']?.errors?.required && form.controls['registryNumber'].touched ? 'danger' : ''">
-            <label class="text-danger" *ngIf="validateScore['registryNumber'].hasError('required')  && form.controls['registryNumber'].touched "><small>Numero de Registro</small></label>
+      <form [formGroup]="form">
+          <div class="row">
+              <div class="col-md-6">
+                  <div class="form-group">
+                      <input type="text" nbInput fullWidth class="form-control" formControlName="code"
+                          placeholder="Identificador de puntaje"
+                          [status]="(code?.errors?.required || code?.hasError('minlength') || code?.hasError('maxlength') || code?.hasError('pattern')) && code.touched ? 'danger' : ''">
+                      <ngx-validation-message label="Identificador de puntaje" [showMinLength]="code?.hasError('minlength')"
+                          [showMaxLength]="code?.hasError('maxlength')"
+                          [showRequired]="code?.errors?.required && code.touched"
+                          [showPattern]="code?.hasError('pattern') && code.touched" minLength=1 maxLength=255>
+                      </ngx-validation-message>
+                  </div>
+              </div>
+              <div class="col-md-6">
+                  <div class="form-group">
+                      <input type="number" nbInput fullWidth class="form-control" formControlName="initialRank"
+                          placeholder="Rango inicial del puntaje ej. 1"
+                          [status]="(initialRank?.errors?.required || initialRank?.hasError('minlength') || initialRank?.hasError('maxlength') || initialRank?.hasError('pattern')) && initialRank.touched ? 'danger' : ''">
+                      <ngx-validation-message label="Rango inicial del puntaje ej. 1" [showMinLength]="initialRank?.hasError('minlength')"
+                          [showMaxLength]="initialRank?.hasError('maxlength')"
+                          [showRequired]="initialRank?.errors?.required && initialRank.touched"
+                          [showPattern]="initialRank?.hasError('pattern') && initialRank.touched" minLength=1 maxLength=255>
+                      </ngx-validation-message>
+                  </div>
+              </div>
+              <div class="col-md-6">
+                  <div class="form-group">
+                      <input type="number" nbInput fullWidth class="form-control" formControlName="endRank"
+                          placeholder="Rango final del puntaje ej. 1"
+                          [status]="(endRank?.errors?.required || endRank?.hasError('minlength') || endRank?.hasError('maxlength') || endRank?.hasError('pattern')) && endRank.touched ? 'danger' : ''">
+                      <ngx-validation-message label="Rango final del puntaje ej. 1" [showMinLength]="endRank?.hasError('minlength')"
+                          [showMaxLength]="endRank?.hasError('maxlength')"
+                          [showRequired]="endRank?.errors?.required && endRank.touched"
+                          [showPattern]="endRank?.hasError('pattern') && endRank.touched" minLength=1 maxLength=255>
+                      </ngx-validation-message>
+                  </div>
+              </div>
+              <div class="col-md-6">
+                  <div class="form-group">
+                      <input type="text" nbInput fullWidth class="form-control" formControlName="clasification"
+                          placeholder="Clasificación del puntaje"
+                          [status]="(clasification?.errors?.required || clasification?.hasError('minlength') || clasification?.hasError('maxlength') || clasification?.hasError('pattern')) && clasification.touched ? 'danger' : ''">
+                      <ngx-validation-message label="Clasificación del puntaje" [showMinLength]="clasification?.hasError('minlength')"
+                          [showMaxLength]="clasification?.hasError('maxlength')"
+                          [showRequired]="clasification?.errors?.required && clasification.touched"
+                          [showPattern]="clasification?.hasError('pattern') && clasification.touched" minLength=1 maxLength=255>
+                      </ngx-validation-message>
+                  </div>
+              </div>
+              <div class="col-md-6">
+                  <div class="form-group">
+                      <input type="number" nbInput fullWidth class="form-control" formControlName="registryNumber"
+                          placeholder="No. de registro ej. 1"
+                          [status]="(registryNumber?.errors?.required || registryNumber?.hasError('minlength') || registryNumber?.hasError('maxlength') || registryNumber?.hasError('pattern')) && registryNumber.touched ? 'danger' : ''">
+                      <ngx-validation-message label="No. de registro ej. 1" [showMinLength]="registryNumber?.hasError('minlength')"
+                          [showMaxLength]="registryNumber?.hasError('maxlength')"
+                          [showRequired]="registryNumber?.errors?.required && registryNumber.touched"
+                          [showPattern]="registryNumber?.hasError('pattern') && registryNumber.touched" minLength=1 maxLength=255>
+                      </ngx-validation-message>
+                  </div>
+              </div>
+          </div>
+          <div class="form-group">
+            <div class="d-flex justify-content-center">
+                <button type="submit" nbButton status="primary" [disabled]="!form.valid"
+                    (click)="register()">{{actionBtn}}</button>
+            </div>
         </div>
-     
-      <div class="form-group row">
-        <div class="offset-sm-3 col-sm-9">
-          <button type="submit" nbButton status="primary" [disabled]="!form.valid" (click)="register()">{{actionBtn}}</button>
-        </div>
-      </div>
-    </form>
+      </form>
   </nb-card-body>
 </nb-card>

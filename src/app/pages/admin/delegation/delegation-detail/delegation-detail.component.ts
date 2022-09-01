@@ -37,17 +37,12 @@ export class DelegationDetailComponent extends BasePage implements OnInit{
   private prepareForm() {
     this.formDelegation = this.fb.group({
       id: [''],
-      description: ['', Validators.required],
-
-      zoneContractCVE: ['', Validators.required],
-
-      diffHours: ['', [Validators.required]],
-
-      phaseEdo: ['', [Validators.required]],
-
-      zoneVigilanceCVE: ['', [Validators.required]],
-
-      numRegister: ['', Validators.required],
+      description: [null, Validators.compose([Validators.pattern(""), Validators.required, Validators.maxLength(80)])],
+      zoneContractCVE: [null, Validators.compose([Validators.pattern(""), Validators.required, Validators.maxLength(80)])],
+      diffHours: [null, Validators.compose([Validators.pattern(""), Validators.required, Validators.maxLength(80)])],
+      phaseEdo: [null, Validators.compose([Validators.pattern(""), Validators.required, Validators.maxLength(80)])],
+      zoneVigilanceCVE: [null, Validators.compose([Validators.pattern(""), Validators.required, Validators.maxLength(80)])],
+      numRegister: [null, Validators.compose([Validators.pattern(""), Validators.required, Validators.maxLength(80)])]
 
     });
     if (this.data) {
@@ -71,7 +66,7 @@ export class DelegationDetailComponent extends BasePage implements OnInit{
   private createRegister(data): void {
     this.service.register(data).subscribe(
       () => {
-        this.onLoadFailed('success', 'Despacho', 'Registrado Correctamente');
+        this.onLoadFailed('success', 'Delegación', 'Registrado Correctamente');
       }, err => {
         let error = '';
         if (err.status === 0) {
@@ -87,7 +82,7 @@ export class DelegationDetailComponent extends BasePage implements OnInit{
   private updateRegister(data): void {
     this.service.update(this.data.id, data).subscribe(
       () => {
-        this.onLoadFailed('success', 'Despacho', 'Actualizado Correctamente');
+        this.onLoadFailed('success', 'Delegación detalles', 'Actualizado Correctamente');
       }, err => {
         let error = '';
         if (err.status === 0) {

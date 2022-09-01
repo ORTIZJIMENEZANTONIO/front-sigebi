@@ -10,14 +10,16 @@ import { StorehouseDetailComponent } from '../storehouse-detail/storehouse-detai
 import { SweetAlertConstants } from '../../../../@core/interfaces/auction/sweetalert-model';
 import { SweetalertService } from '../../../../shared/sweetalert.service';
 
+
 @Component({
   selector: 'ngx-storehouse-list',
   templateUrl: './storehouse-list.component.html',
   styleUrls: ['./storehouse-list.component.scss']
 })
 export class StorehouseListComponent extends BasePage {
+
   public searchForm: FormGroup;
-  public storehouses: any;
+  public list: any;
   public length = 100;
   public pageSize = 10;
   public pageSizeOptions: number[] = [5, 10, 25, 100];
@@ -102,8 +104,8 @@ export class StorehouseListComponent extends BasePage {
       if (value.length > 0) {
         this.service.search(value).subscribe((rows: StorehouseInterface[]) => {
           this.length = rows.length;
-          this.storehouses = rows;
-        });
+          this.list = rows;
+        })
       } else {
         this.read(0, 10);
       }
@@ -115,10 +117,10 @@ export class StorehouseListComponent extends BasePage {
   }
 
   private read(pageIndex: number, pageSize: number) {
-    this.storehouses = null;
+    this.list = null;
     this.service.list(pageIndex, pageSize).subscribe(
       (dt: any) => {
-        this.storehouses = dt.data;
+        this.list = dt.data;
         this.length = dt.count;
       },
       err => {
@@ -142,6 +144,7 @@ export class StorehouseListComponent extends BasePage {
     this.pageEvent = event;
     this.read(event.pageIndex, event.pageSize)
   }
+
 
   public onDeleteConfirm(event): void {
     this.sweetalertQuestion('warning', 'Eliminar', 'Desea eliminar este registro?').then(
@@ -174,7 +177,7 @@ export class StorehouseListComponent extends BasePage {
     );
   }
 
-  public editRow(event) {
+  editRow(event) {
     const buttonsConfig: NbWindowControlButtonsConfig = {
       minimize: false,
       maximize: false,
@@ -185,6 +188,7 @@ export class StorehouseListComponent extends BasePage {
     });
 
   }
+
 
   public openWindow() {
     const buttonsConfig: NbWindowControlButtonsConfig = {

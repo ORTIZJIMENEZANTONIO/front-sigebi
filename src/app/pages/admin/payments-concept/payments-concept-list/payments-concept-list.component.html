@@ -1,14 +1,11 @@
 <nb-card class="cat-card">
     <nb-card-header>
-
         <span class="title">
-            Lista concepto pagos
+            Lista de concepto pagos
         </span>
-
         <div class="add-select">
-            <button (click)="openWindowPaymentsConcept()" nbButton status="primary">Nueva</button>
+            <button (click)="openWindow()" nbButton status="primary">Nueva</button>
         </div>
-
     </nb-card-header>
 
     <nb-card-body>
@@ -20,7 +17,8 @@
                 <input type="text" formControlName="text" class="form-control" autofocus />
             </div>
         </div>
-        <ng2-smart-table [settings]="settings" [source]="rows" (delete)="onDeleteConfirm($event)"
+
+        <ng2-smart-table [settings]="settings" [source]="list" (delete)="onDeleteConfirm($event)"
             (edit)="editRow($event)">
         </ng2-smart-table>
         <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"

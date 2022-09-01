@@ -121,6 +121,7 @@ import { IfaiSerieModule } from '../../../pages/admin/ifai-serie/ifai-serie.modu
 import { ClaimsStatusModule } from '../../../pages/admin/claims-status/claims-status.module';
 import { ClaimsStatusService } from './services/claims-status.service';
 import { DrawerService } from './services/drawer.service';
+import { ShelvesService } from './services/shelves.service';
 
 
 
@@ -248,7 +249,8 @@ const SERVICES = [
   ServicesModule,
   IfaiSerieModule,
   ClaimsStatusService,
-  DrawerService
+  DrawerService,
+  ShelvesService
 ];
 
 @NgModule({

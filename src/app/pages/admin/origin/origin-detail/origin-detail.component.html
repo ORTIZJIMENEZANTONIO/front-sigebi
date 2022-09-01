@@ -1,55 +1,112 @@
 <nb-card>
-    <nb-card-body>
-        <form [formGroup]="form" >
-          <div class="form-group row">
-            <input type="text" formControlName="idTransferer" placeholder="ID" nbInput fullWidth matInput 
-              [status]="form.controls['idTransferer']?.errors?.required && form.controls['idTransferer'].touched ? 'danger' : ''">
-              <label class="text-danger" *ngIf="validate['idTransferer'].hasError('required')  && form.controls['idTransferer'].touched "><small>ID</small></label>
+  <nb-card-body>
+      <form [formGroup]="form">
+          <div class="row">
+              <div class="col-md-6">
+                  <div class="form-group">
+                      <input type="number" nbInput fullWidth class="form-control" formControlName="idTransferer"
+                          placeholder="Número de transferente ej. 1"
+                          [status]="(idTransferer?.errors?.required || idTransferer?.hasError('minlength') || idTransferer?.hasError('maxlength') || idTransferer?.hasError('pattern')) && idTransferer.touched ? 'danger' : ''">
+                      <ngx-validation-message label="Transferente" [showMinLength]="idTransferer?.hasError('minlength')"
+                          [showMaxLength]="idTransferer?.hasError('maxlength')"
+                          [showRequired]="idTransferer?.errors?.required && idTransferer.touched"
+                          [showPattern]="idTransferer?.hasError('pattern') && idTransferer.touched" minLength=1 maxLength=255>
+                      </ngx-validation-message>
+                  </div>
+              </div>
+              <div class="col-md-6">
+                  <div class="form-group">
+                      <input type="text" nbInput fullWidth class="form-control" formControlName="keyTransferer"
+                          placeholder="Clave del transferente"
+                          [status]="(keyTransferer?.errors?.required || keyTransferer?.hasError('minlength') || keyTransferer?.hasError('maxlength') || keyTransferer?.hasError('pattern')) && keyTransferer.touched ? 'danger' : ''">
+                      <ngx-validation-message label="Clave transferente" [showMinLength]="keyTransferer?.hasError('minlength')"
+                          [showMaxLength]="keyTransferer?.hasError('maxlength')"
+                          [showRequired]="keyTransferer?.errors?.required && keyTransferer.touched"
+                          [showPattern]="keyTransferer?.hasError('pattern') && keyTransferer.touched" minLength=1 maxLength=255>
+                      </ngx-validation-message>
+                  </div>
+              </div>
+              <div class="col-md-6">
+                  <div class="form-group">
+                      <input type="text" nbInput fullWidth class="form-control" formControlName="description"
+                          placeholder="Descripción"
+                          [status]="(description?.errors?.required || description?.hasError('minlength') || description?.hasError('maxlength') || description?.hasError('pattern')) && description.touched ? 'danger' : ''">
+                      <ngx-validation-message label="Descripción" [showMinLength]="description?.hasError('minlength')"
+                          [showMaxLength]="description?.hasError('maxlength')"
+                          [showPattern]="description?.hasError('pattern') && description.touched" minLength=1 maxLength=255>
+                      </ngx-validation-message>
+                  </div>
+              </div>
+              <div class="col-md-6">
+                  <div class="form-group">
+                      <input type="text" nbInput fullWidth class="form-control" formControlName="type"
+                          placeholder="Tipo"
+                          [status]="(type?.errors?.required || type?.hasError('minlength') || type?.hasError('maxlength') || type?.hasError('pattern')) && type.touched ? 'danger' : ''">
+                      <ngx-validation-message label="Tipo" [showMinLength]="type?.hasError('minlength')"
+                          [showMaxLength]="type?.hasError('maxlength')"
+                          [showRequired]="type?.errors?.required && type.touched"
+                          [showPattern]="type?.hasError('pattern') && type.touched" minLength=1 maxLength=255>
+                      </ngx-validation-message>
+                  </div>
+              </div>
+              <div class="col-md-6">
+                  <div class="form-group">
+                      <input type="text" nbInput fullWidth class="form-control" formControlName="address"
+                          placeholder="Dirección"
+                          [status]="(address?.errors?.required || address?.hasError('minlength') || address?.hasError('maxlength') || address?.hasError('pattern')) && address.touched ? 'danger' : ''">
+                      <ngx-validation-message label="Dirección" [showMinLength]="address?.hasError('minlength')"
+                          [showMaxLength]="address?.hasError('maxlength')"
+                          [showRequired]="address?.errors?.required && address.touched"
+                          [showPattern]="address?.hasError('pattern') && address.touched" minLength=1 maxLength=255>
+                      </ngx-validation-message>
+                  </div>
+              </div>
+              <div class="col-md-6">
+                  <div class="form-group">
+                      <input type="text" nbInput fullWidth class="form-control" formControlName="city"
+                          placeholder="Ciudad"
+                          [status]="(city?.errors?.required || city?.hasError('minlength') || city?.hasError('maxlength') || city?.hasError('pattern')) && city.touched ? 'danger' : ''">
+                      <ngx-validation-message label="Ciudad"
+                          [showMinLength]="city?.hasError('minlength')"
+                          [showMaxLength]="city?.hasError('maxlength')"
+                          [showRequired]="city?.errors?.required && city.touched"
+                          [showPattern]="city?.hasError('pattern') && city.touched"
+                          minLength=1 maxLength=255>
+                      </ngx-validation-message>
+                  </div>
+              </div>
+              <div class="col-md-6">
+                  <div class="form-group">
+                      <input type="number" nbInput fullWidth class="form-control" formControlName="idCity"
+                          placeholder="No. ciudad ej. 1"
+                          [status]="(idCity?.errors?.required || idCity?.hasError('minlength') || idCity?.hasError('maxlength') || idCity?.hasError('pattern')) && idCity.touched ? 'danger' : ''">
+                      <ngx-validation-message label="No. ciudad ej. 1"
+                          [showMinLength]="idCity?.hasError('minlength')"
+                          [showMaxLength]="idCity?.hasError('maxlength')"
+                          [showPattern]="idCity?.hasError('pattern') && idCity.touched" minLength=1
+                          maxLength=255>
+                      </ngx-validation-message>
+                  </div>
+              </div>
+              <div class="col-md-6">
+                  <div class="form-group">
+                      <input type="text" nbInput fullWidth class="form-control" formControlName="keyEntityFederative"
+                          placeholder="Clave Entidad"
+                          [status]="(keyEntityFederative?.errors?.required || keyEntityFederative?.hasError('minlength') || keyEntityFederative?.hasError('maxlength') || keyEntityFederative?.hasError('pattern')) && keyEntityFederative.touched ? 'danger' : ''">
+                      <ngx-validation-message label="Clave Entidad" [showMinLength]="keyEntityFederative?.hasError('minlength')"
+                          [showMaxLength]="keyEntityFederative?.hasError('maxlength')"
+                          [showRequired]="keyEntityFederative?.errors?.required && keyEntityFederative.touched"
+                          [showPattern]="keyEntityFederative?.hasError('pattern') && keyEntityFederative.touched" minLength=1 maxLength=255>
+                      </ngx-validation-message>
+                  </div>
+              </div>
+          <div class="form-group">
+              <div class="d-flex justify-content-center">
+                  <button type="submit" nbButton status="primary" [disabled]="!form.valid"
+                      (click)="register()">{{actionBtn}}</button>
+              </div>
           </div>
-          <div class="form-group row">
-            <input type="text" formControlName="keyTransferer" placeholder="Detalle" nbInput fullWidth matInput 
-              [status]="form.controls['keyTransferer']?.errors?.required && form.controls['keyTransferer'].touched ? 'danger' : ''">
-              <label class="text-danger" *ngIf="validate['keyTransferer'].hasError('required')  && form.controls['keyTransferer'].touched "><small>ID Transferencia</small></label>
           </div>
-          <div class="form-group row">
-            <input type="text" formControlName="description" placeholder="Descripcion" nbInput fullWidth matInput 
-              [status]="form.controls['description']?.errors?.required && form.controls['description'].touched ? 'danger' : ''">
-              <label class="text-danger" *ngIf="validate['description'].hasError('required')  && form.controls['description'].touched "><small>Descripcion</small></label>
-          </div>
-          <div class="form-group row">
-            <input type="text" formControlName="type" placeholder="Tipo" nbInput fullWidth matInput 
-              [status]="form.controls['type']?.errors?.required && form.controls['type'].touched ? 'danger' : ''">
-              <label class="text-danger" *ngIf="validate['type'].hasError('required')  && form.controls['type'].touched "><small>Tipo</small></label>
-          </div>
-          <div class="form-group row">
-            <input type="text" formControlName="address" placeholder="Direccion" nbInput fullWidth matInput 
-              [status]="form.controls['address']?.errors?.required && form.controls['address'].touched ? 'danger' : ''">
-              <label class="text-danger" *ngIf="validate['address'].hasError('required')  && form.controls['address'].touched "><small>Direccion</small></label>
-          </div>
-          <div class="form-group row">
-            <input type="text" formControlName="city" placeholder="Ciudad" nbInput fullWidth matInput 
-              [status]="form.controls['city']?.errors?.required && form.controls['city'].touched ? 'danger' : ''">
-              <label class="text-danger" *ngIf="validate['city'].hasError('required')  && form.controls['city'].touched "><small>Ciudad</small></label>
-          </div>
-          <div class="form-group row">
-            <input type="text" formControlName="idCity" placeholder="ID Ciudad" nbInput fullWidth matInput 
-              [status]="form.controls['idCity']?.errors?.required && form.controls['idCity'].touched ? 'danger' : ''">
-              <label class="text-danger" *ngIf="validate['idCity'].hasError('required')  && form.controls['idCity'].touched "><small>ID Ciudad</small></label>
-          </div>
-          <div class="form-group row">
-            <input type="text" formControlName="keyEntityFederative" placeholder="Entidad Federativa" nbInput fullWidth matInput 
-              [status]="form.controls['keyEntityFederative']?.errors?.required && form.controls['keyEntityFederative'].touched ? 'danger' : ''">
-              <label class="text-danger" *ngIf="validate['keyEntityFederative'].hasError('required')  && form.controls['keyEntityFederative'].touched "><small>Entidad Federativa</small></label>
-          </div>
-
-
-
-        <div class="form-group row">
-          <div class="offset-sm-3 col-sm-9">
-            <button type="submit" nbButton status="primary" [disabled]="!form.valid" (click)="register()">{{actionBtn}}</button>
-          </div>
-        </div>
-
-        </form>
-    </nb-card-body>
+      </form>
+  </nb-card-body>
 </nb-card>

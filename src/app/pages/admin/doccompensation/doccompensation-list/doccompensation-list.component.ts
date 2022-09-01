@@ -56,7 +56,7 @@ export class DoccompensationListComponent extends BasePage{
       columnTitle: 'Acciones',
       add: true,
       edit: true,
-      delete: true,
+      delete: false,
     },
     pager: {
       display: false,
@@ -82,59 +82,33 @@ export class DoccompensationListComponent extends BasePage{
         title: 'Registro',
         type: 'number',
       },
-      name: {
-        title: 'Nombre',
+      satTypeJob: {
+        title: 'Tipo oficio',
         type: 'string',
       },
-      street: {
-        title: 'Calle',
+      idTypeDocSat: {
+        title: 'Tipo doc sat',
+        type: 'string',
+        valuePrepareFunction:(value) =>{
+          value.typeDocSat
+        }
+      },
+      idTypeDocSatXml: {
+        title: 'Tipo doc sat xml',
+        type: 'string',
+        valuePrepareFunction:(value) =>{
+          value.typeDocSae
+        }
+      },
+      typeDocSae: {
+        title: 'Tipo doc sae',
         type: 'string',
       },
-      noExt: {
-        title: 'No. Exterior',
-        type: 'string',
-      },
-      noInt: {
-        title: 'No. Interior',
-        type: 'string',
-      },
-      colony: {
-        title: 'Colonia',
-        type: 'string',
-      },
-      municipalDelegate: {
-        title: 'Delegado Municipal',
-        type: 'string',
-      },
-      postalCode: {
-        title: 'Código Postal',
-        type: 'number',
-      },
-      rfc: {
-        title: 'RFC',
-        type: 'string',
-      },
-      phone: {
-        title: 'Teléfono',
-        type: 'string',
-      },
-      phoneTwo: {
-        title: 'Segundo Teléfono',
-        type: 'string',
-      },
-      fax: {
-        title: 'Segundo Teléfono',
-        type: 'string',
-      },
-      typeOffice: {
+      type: {
         title: 'Tipo',
         type: 'string',
       },
-      noRegistration: {
-        title: 'Numero registro',
-        type: 'number',
-      }
-
+    
     },
     noDataMessage: "No se encontrarón registros"
   };
@@ -146,6 +120,7 @@ export class DoccompensationListComponent extends BasePage{
   read = ((pageIndex: number, pageSize: number) => {
     this.list = null;
     this.service.list(pageIndex, pageSize).subscribe((dt: any) => {
+      console.log(dt.data)
       this.list = dt.data;
       this.length = dt.count;
     },

@@ -1,18 +1,36 @@
 <nb-card>
     <nb-card-body>
-        <form [formGroup]="formPaymentsConcept">
-            <div class="form-group row">
-                <input nbInput fullWidth type="text" formControlName="description" matInput placeholder="Descripción">
-                <label class="text-danger" *ngIf="validatePaymentsConcept['description'].hasError('required')"><small>Ingrese una descripción!</small></label>
+        <form [formGroup]="form">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type="text" nbInput fullWidth class="form-control" formControlName="description"
+                            placeholder="Descripción"
+                            [status]="(description?.errors?.required || description?.hasError('minlength') || description?.hasError('maxlength') || description?.hasError('pattern')) && description.touched ? 'danger' : ''">
+                        <ngx-validation-message label="Descripción" [showMinLength]="description?.hasError('minlength')"
+                            [showMaxLength]="description?.hasError('maxlength')"
+                            [showRequired]="description?.errors?.required && description.touched"
+                            [showPattern]="description?.hasError('pattern') && description.touched" minLength=1 maxLength=255>
+                        </ngx-validation-message>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type="number" nbInput fullWidth class="form-control" formControlName="numRegister"
+                            placeholder="Número de registro"
+                            [status]="(numRegister?.errors?.required || numRegister?.hasError('minlength') || numRegister?.hasError('maxlength') || numRegister?.hasError('pattern')) && numRegister.touched ? 'danger' : ''">
+                        <ngx-validation-message label="Número de registro" [showMinLength]="numRegister?.hasError('minlength')"
+                            [showMaxLength]="numRegister?.hasError('maxlength')"
+                            [showRequired]="numRegister?.errors?.required && numRegister.touched"
+                            [showPattern]="numRegister?.hasError('pattern') && numRegister.touched" minLength=1 maxLength=255>
+                        </ngx-validation-message>
+                    </div>
+                </div>
             </div>
-            <div class="form-group row">
-                <input nbInput fullWidth type="number" formControlName="numRegister" matInput placeholder="Número de registro">
-                <label class="text-danger" *ngIf="validatePaymentsConcept['numRegister'].hasError('min')"><small>Ingrese el numero de registro!</small></label>
-            </div>
-       
-            <div class="form-group row">
-                <div class="offset-sm-3 col-sm-9">
-                    <button type="submit" nbButton status="primary" [disabled]="!formPaymentsConcept.valid" (click)="register()">{{actionBtn}}</button>
+            <div class="form-group">
+                <div class="d-flex justify-content-center">
+                    <button type="submit" nbButton status="primary" [disabled]="!form.valid"
+                        (click)="register()">{{actionBtn}}</button>
                 </div>
             </div>
         </form>

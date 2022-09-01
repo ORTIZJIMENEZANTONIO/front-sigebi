@@ -17,7 +17,7 @@ import { RackDetailComponent } from '../rack-detail/rack-detail.component';
   templateUrl: './rack-list.component.html',
   styleUrls: ['./rack-list.component.scss']
 })
-export class RackListComponent  extends BasePage implements OnInit {
+export class RackListComponent extends BasePage implements OnInit {
 
   public searchForm: FormGroup;
   public list: any;
@@ -62,25 +62,28 @@ export class RackListComponent  extends BasePage implements OnInit {
         type: 'number',
       },
       idWarehouse: {
-        title: 'Pregunta',
+        title: 'Almacén',
         type: 'string',
-        valuePrepareFunction:(value) =>{
-          return value.text
+        valuePrepareFunction: (value) => {
+          return value.description
         }
       },
-      text: {
-        title: 'Respuesta',
+      idBatch: {
+        title: 'Lote',
+        type: 'string',
+        valuePrepareFunction: (value) => {
+          return value.description
+        }
+      },
+      description: {
+        title: 'Descripción',
         type: 'string',
       },
-      startValue: {
-        title: 'Valor inicial',
+      status: {
+        title: 'Estatus',
         type: 'number',
       },
-      endValue: {
-        title: 'Valor final',
-        type: 'number',
-      },
-      registryNumber: {
+      registerNumber: {
         title: 'No. de registro',
         type: 'number',
       }
@@ -154,12 +157,9 @@ export class RackListComponent  extends BasePage implements OnInit {
             data => {
               this.onLoadFailed('success', 'Eliminado', data.message);
             }, err => {
-              let error = '';
-              if (err.status === 0) {
-                error = SweetAlertConstants.noConexion;
-              } else {
-                error = err.message;
-              }
+              const error =  err.status === 0
+                ? SweetAlertConstants.noConexion
+                : err.message;
               this.onLoadFailed('danger', 'Error', error);
             }, () => {
               this.read(this.pageEvent.pageIndex, this.pageEvent.pageSize);

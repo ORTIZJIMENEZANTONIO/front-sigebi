@@ -1,50 +1,99 @@
 <nb-card>
   <nb-card-body>
-    <form [formGroup]="form">
-
-      <div class="form-group row">
-        <input nbInput fullWidth formControlName="manager" matInput placeholder="Encargado"
-          [status]="form.controls['manager']?.errors?.required  && form.controls['manager'].touched ? 'danger' : ''">
-        <label class="text-danger" *ngIf="validateStorehouse['manager'].hasError('required') && form.controls['manager'].touched"><small>Campo requerido!</small></label>
-      </div>
-
-      <div class="form-group row">
-        <input nbInput fullWidth formControlName="descripcion" matInput placeholder="Descripcion" 
-          [status]="form.controls['descripcion']?.errors?.required  && form.controls['descripcion'].touched ? 'danger' : ''">
-        <label class="text-danger"
-          *ngIf="validateStorehouse['descripcion'].hasError('required') && form.controls['descripcion'].touched"><small>Ingrese una descripcion!</small>
-        </label>
-      </div>
-
-      <div class="form-group row">
-        <input type="text" formControlName="municipality" placeholder="Municipio" nbInput fullWidth matInput 
-          [status]="form.controls['municipality']?.errors?.required && form.controls['municipality'].touched ? 'danger' : ''">
-          <label class="text-danger" *ngIf="validateStorehouse['municipality'].hasError('required')  && form.controls['municipality'].touched "><small>Ingrese municipio</small></label>
-      </div>
-
-      <div class="form-group row">
-        <input type="text" formControlName="locality" placeholder="Localidad" nbInput fullWidth matInput 
-          [status]="form.controls['locality']?.errors?.required && form.controls['locality'].touched ? 'danger' : ''">
-          <label class="text-danger" *ngIf="validateStorehouse['locality'].hasError('required')  && form.controls['locality'].touched "><small>Ingrese localidad</small></label>
-      </div>
-
-      <div class="form-group row">
-        <input type="text" formControlName="ubication" placeholder="Ubicación" nbInput fullWidth matInput 
-          [status]="form.controls['ubication']?.errors?.required && form.controls['ubication'].touched ? 'danger' : ''">
-          <label class="text-danger" *ngIf="validateStorehouse['ubication'].hasError('required')  && form.controls['ubication'].touched "><small>Ingrese ubicación!</small></label>
-      </div>
-
-      <div class="form-group row">
-        <input type="text" formControlName="idEntity" placeholder="Entidad" nbInput fullWidth matInput 
-          [status]="form.controls['idEntity']?.errors?.required && form.controls['idEntity'].touched ? 'danger' : ''">
-          <label class="text-danger" *ngIf="validateStorehouse['idEntity'].hasError('required')  && form.controls['idEntity'].touched "><small>Ingrese entidad!</small></label>
-      </div>
-     
-      <div class="form-group row">
-        <div class="offset-sm-3 col-sm-9">
-          <button type="submit" nbButton status="primary" [disabled]="!form.valid" (click)="register()">{{actionBtn}}</button>
-        </div>
-      </div>
+      <form [formGroup]="form">
+          <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <input type="text" nbInput fullWidth class="form-control" formControlName="idStorehouse"
+                        placeholder="ID Bodega"
+                        [status]="(idStorehouse?.errors?.required || idStorehouse?.hasError('minlength') || idStorehouse?.hasError('maxlength') || idStorehouse?.hasError('pattern')) && idStorehouse.touched ? 'danger' : ''">
+                    <ngx-validation-message label="ID Bodega" [showMinLength]="idStorehouse?.hasError('minlength')"
+                        [showMaxLength]="idStorehouse?.hasError('maxlength')"
+                    
+                        [showPattern]="idStorehouse?.hasError('pattern') && idStorehouse.touched" minLength=1 maxLength=255>
+                    </ngx-validation-message>
+                </div>
+            </div>
+              <div class="col-md-6">
+                  <div class="form-group">
+                      <input type="text" nbInput fullWidth class="form-control" formControlName="manager"
+                          placeholder="Responsable de la bodega"
+                          [status]="(manager?.errors?.required || manager?.hasError('minlength') || manager?.hasError('maxlength') || manager?.hasError('pattern')) && manager.touched ? 'danger' : ''">
+                      <ngx-validation-message label="Responsable de la bodega" [showMinLength]="manager?.hasError('minlength')"
+                          [showMaxLength]="manager?.hasError('maxlength')"
+                      
+                          [showPattern]="manager?.hasError('pattern') && manager.touched" minLength=1 maxLength=255>
+                      </ngx-validation-message>
+                  </div>
+              </div>
+              <div class="col-md-6">
+                  <div class="form-group">
+                      <input type="text" nbInput fullWidth class="form-control" formControlName="description"
+                          placeholder="Descripción"
+                          [status]="(description?.errors?.required || description?.hasError('minlength') || description?.hasError('maxlength') || description?.hasError('pattern')) && description.touched ? 'danger' : ''">
+                      <ngx-validation-message label="Descripción" [showMinLength]="description?.hasError('minlength')"
+                          [showMaxLength]="description?.hasError('maxlength')"
+                          [showPattern]="description?.hasError('pattern') && description.touched" minLength=1 maxLength=255>
+                      </ngx-validation-message>
+                  </div>
+              </div>
+              <div class="col-md-6">
+                  <div class="form-group">
+                      <input type="text" nbInput fullWidth class="form-control" formControlName="municipality"
+                          placeholder="Código de municicpio de bodega ej. 1"
+                          [status]="(municipality?.errors?.required || municipality?.hasError('minlength') || municipality?.hasError('maxlength') || municipality?.hasError('pattern')) && municipality.touched ? 'danger' : ''">
+                      <ngx-validation-message label="Código de municicpio de bodega ej. 1" [showMinLength]="municipality?.hasError('minlength')"
+                          [showMaxLength]="municipality?.hasError('maxlength')"
+                      
+                          [showPattern]="municipality?.hasError('pattern') && municipality.touched" minLength=1 maxLength=255>
+                      </ngx-validation-message>
+                  </div>
+              </div>
+              <div class="col-md-6">
+                  <div class="form-group">
+                      <input type="text" nbInput fullWidth class="form-control" formControlName="locality"
+                          placeholder="Código de localidad de bodega ej. 1"
+                          [status]="(locality?.errors?.required || locality?.hasError('minlength') || locality?.hasError('maxlength') || locality?.hasError('pattern')) && locality.touched ? 'danger' : ''">
+                      <ngx-validation-message label="Código de localidad de bodega ej. 1" [showMinLength]="locality?.hasError('minlength')"
+                          [showMaxLength]="locality?.hasError('maxlength')"
+                       
+                          [showPattern]="locality?.hasError('pattern') && locality.touched" minLength=1 maxLength=255>
+                      </ngx-validation-message>
+                  </div>
+              </div>
+              <div class="col-md-6">
+                  <div class="form-group">
+                      <input type="text" nbInput fullWidth class="form-control" formControlName="ubication"
+                          placeholder="Ubicación de la bodega"
+                          [status]="(ubication?.errors?.required || ubication?.hasError('minlength') || ubication?.hasError('maxlength') || ubication?.hasError('pattern')) && ubication.touched ? 'danger' : ''">
+                      <ngx-validation-message label="Ubicación de la bodega" [showMinLength]="ubication?.hasError('minlength')"
+                          [showMaxLength]="ubication?.hasError('maxlength')"
+                       
+                          [showPattern]="ubication?.hasError('pattern') && ubication.touched" minLength=1 maxLength=255>
+                      </ngx-validation-message>
+                  </div>
+              </div>
+              <div class="col-md-6">
+                  <div class="form-group">
+                      <input type="number" nbInput fullWidth class="form-control" formControlName="idEntity"
+                          placeholder="Código de entidad"
+                          [status]="(idEntity?.errors?.required || idEntity?.hasError('minlength') || idEntity?.hasError('maxlength') || idEntity?.hasError('pattern')) && idEntity.touched ? 'danger' : ''">
+                      <ngx-validation-message label="Código de entidad"
+                          [showMinLength]="idEntity?.hasError('minlength')"
+                          [showMaxLength]="idEntity?.hasError('maxlength')"
+                       
+                          [showPattern]="idEntity?.hasError('pattern') && idEntity.touched"
+                          minLength=1 maxLength=255>
+                      </ngx-validation-message>
+                  </div>
+              </div>
+          </div>
+          <div class="form-group">
+              <div class="d-flex justify-content-center">
+                  <button type="submit" nbButton status="primary" [disabled]="!form.valid"
+                      (click)="register()">{{actionBtn}}</button>
+              </div>
+          </div>
       </form>
   </nb-card-body>
 </nb-card>

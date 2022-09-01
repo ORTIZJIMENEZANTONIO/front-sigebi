@@ -5,7 +5,7 @@ export interface GoodSubtype {
      
   id?: number;
 
-  descripcion: string;
+  description: string;
 
   no_tipo: number | GoodType;
 

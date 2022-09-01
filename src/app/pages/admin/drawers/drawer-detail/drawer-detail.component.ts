@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NbToastrService, NbWindowRef, NB_WINDOW_CONTEXT } from '@nebular/theme';
+import { DrawerService } from '../../../../@core/backend/common/services/drawer.service';
 import { OfficesService } from '../../../../@core/backend/common/services/offices.service';
 import { SweetAlertConstants } from '../../../../@core/interfaces/auction/sweetalert-model';
 import { BasePage } from '../../../../@core/shared/base-page';
@@ -22,7 +23,7 @@ export class DrawerDetailComponent extends BasePage {
     private fb: FormBuilder,
     protected cd: ChangeDetectorRef,
     protected router: Router,
-    private service: OfficesService,
+    private service: DrawerService,
     public windowRef: NbWindowRef,
     public toastrService: NbToastrService,
     @Inject(NB_WINDOW_CONTEXT) context
@@ -37,40 +38,25 @@ export class DrawerDetailComponent extends BasePage {
   }
   private prepareForm(): void {
     this.form = this.fb.group({
-      id: [null],
-      name: [null, Validators.compose([Validators.pattern(""), Validators.required, Validators.maxLength(80)])],
-      street: [null, Validators.compose([Validators.pattern(""), Validators.required, Validators.maxLength(60)])],
-      noExt: [null, Validators.compose([Validators.pattern(""), Validators.required, Validators.maxLength(10)])],
-      noInt: [null, Validators.compose([Validators.pattern(""), Validators.required, Validators.maxLength(10)])],
-      colony: [null, Validators.compose([Validators.pattern(""), Validators.required, Validators.maxLength(100)])],
-      municipalDelegate: [null, Validators.compose([Validators.pattern(""), Validators.required, Validators.maxLength(60)])],
-      postalCode: [null, Validators.compose([Validators.pattern(""), Validators.required, Validators.maxLength(50)])],
-      rfc: [null, Validators.compose([Validators.pattern(""), Validators.required, Validators.maxLength(20)])],
-      phone: [null, Validators.compose([Validators.pattern(""), Validators.required, Validators.maxLength(20)])],
-      phoneTwo: [null, Validators.compose([Validators.pattern(""), Validators.required, Validators.maxLength(20)])],
-      fax: [null, Validators.compose([Validators.pattern(""), Validators.required, Validators.maxLength(20)])],
-      typeOffice: [null, Validators.compose([Validators.pattern(""), Validators.required, Validators.maxLength(1)])],
-      noRegistration: [null, Validators.compose([Validators.pattern(""), Validators.required])],
+      noDrawer: [null,Validators.compose([Validators.pattern(""), Validators.required, Validators.maxLength(10)])],
+      noBobeda: [null, Validators.compose([Validators.pattern(""), Validators.required, Validators.maxLength(10)])],
+      status: [null, Validators.compose([Validators.pattern(""), Validators.required, Validators.maxLength(2)])],
+      noRegistration: [null, Validators.compose([Validators.pattern(""), Validators.required, Validators.maxLength(10)])],
     });
-    if (this.data.id != null) {
+
+    if (this.data.noDrawer != null) {
       this.actionBtn = "Actualizar";
+      this.form.controls['noDrawer'].disable();
+      this.form.controls['noBobeda'].disable();
       this.form.patchValue(this.data);
     }
   }
 
-  public get name() { return this.form.get('name'); }
-  public get street() { return this.form.get('street'); }
-  public get noExt() { return this.form.get('noExt'); }
-  public get noInt() { return this.form.get('noInt'); }
-  public get colony() { return this.form.get('colony'); }
-  public get municipalDelegate() { return this.form.get('municipalDelegate'); }
-  public get postalCode() { return this.form.get('postalCode'); }
-  public get rfc() { return this.form.get('rfc'); }
-  public get phone() { return this.form.get('phone'); }
-  public get phoneTwo() { return this.form.get('phoneTwo'); }
-  public get fax() { return this.form.get('fax'); }
-  public get typeOffice() { return this.form.get('typeOffice'); }
+  public get noBobeda() { return this.form.get('noBobeda'); }
+  public get noDrawer() { return this.form.get('noDrawer');             }
+  public get statuss() { return this.form.get('status');                }
   public get noRegistration() { return this.form.get('noRegistration'); }
+  
 
   public register(): void {
     const data = this.form.getRawValue();
@@ -93,7 +79,12 @@ export class DrawerDetailComponent extends BasePage {
       });
   }
   private updateRegister(data): void {
-    this.service.update(this.data.id, data).subscribe(
+    let params ={
+      // noBobeda:data.noBobeda,
+      status:data.status,
+      noRegistration:data.noRegistration
+    }
+    this.service.update(this.data.noDrawer, params).subscribe(
       data => {
         this.onLoadFailed('success', 'Gavetas', 'Actualizado Correctamente');
       }, err => {

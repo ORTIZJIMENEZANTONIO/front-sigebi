@@ -4,6 +4,7 @@ import { Observable, of } from 'rxjs';
 import { DataSource } from 'ng2-smart-table/lib/lib/data-source/data-source';
 import { City } from '../../../interfaces/auction/City.model';
 import { CatalogApi } from '../api/catalog-api';
+import { Departament } from '../../../interfaces/auction/departament.model';
 
 @Injectable()
 export class DepartamentService {
@@ -22,12 +23,12 @@ export class DepartamentService {
         return this.api.search(text,this.url);
     }
 
-    register(legendData: City): Observable<City>{
+    register(legendData: Departament): Observable<Departament>{
         return this.api.register(legendData, this.url);
     }
 
-    update(id:number, legendData: City): Observable<City>{
-        return this.api.update(id, legendData,this.url);
+    update(id:number, data: Departament): Observable<Departament>{
+        return this.api.update(`${id}/${data.numDelegation}/${data.numSubDelegation}/${data.phaseEdo}`, data,this.url);
     }
 
     delete(id:number){

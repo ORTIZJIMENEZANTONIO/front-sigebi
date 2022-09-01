@@ -15,20 +15,20 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <input formControlName="detailDelegation" placeholder="Nro delegacion" [nbAutocomplete]="auto"
+                        <input formControlName="description" placeholder="Nro delegacion" [nbAutocomplete]="auto"
                             nbInput fullWidth
-                            [status]="(detailDelegation?.errors?.required || detailDelegation?.hasError('minlength') || detailDelegation?.hasError('maxlength') || detailDelegation?.hasError('pattern')) && detailDelegation.touched ? 'danger' : ''">
+                            [status]="(description?.errors?.required || description?.hasError('minlength') || description?.hasError('maxlength') || description?.hasError('pattern')) && description.touched ? 'danger' : ''">
                         <nb-autocomplete #auto [activeFirst]="true"
                             (selectedChange)="onSelectionChangeDelegation($event)">
                             <nb-option *ngFor="let option of filteredOptions$ | async" [value]="option">
-                                {{ option.detailDelegation }}
+                                {{ option.description }}
                             </nb-option>
                         </nb-autocomplete>
                         <ngx-validation-message label="Nro delegacion"
-                            [showMinLength]="detailDelegation?.hasError('minlength')"
-                            [showMaxLength]="detailDelegation?.hasError('maxlength')"
-                            [showRequired]="detailDelegation?.errors?.required && detailDelegation.touched"
-                            [showPattern]="detailDelegation?.hasError('pattern') && detailDelegation.touched"
+                            [showMinLength]="description?.hasError('minlength')"
+                            [showMaxLength]="description?.hasError('maxlength')"
+                            [showRequired]="description?.errors?.required && description.touched"
+                            [showPattern]="description?.hasError('pattern') && description.touched"
                             minLength=1 maxLength=255>
                         </ngx-validation-message>
                     </div>

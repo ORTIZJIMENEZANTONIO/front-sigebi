@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NbToastrService, NbWindowRef, NB_WINDOW_CONTEXT } from '@nebular/theme';
+import { NUMBERS_PATTERN, PHONE_PATTERN, STRING_PATTERN } from '../../../../@components/constants';
 import { CourtService } from '../../../../@core/backend/common/services/court.service';
 import { Court } from '../../../../@core/interfaces/auction/court.model';
 import { SweetAlertConstants } from '../../../../@core/interfaces/auction/sweetalert-model';
@@ -38,28 +39,17 @@ export class CourtDetailComponent extends BasePage implements OnInit{
     this.formCourt = this.fb.group({
       id:[''],
   
-      description: ['', Validators.required],
-  
-      manager: ['', Validators.required],
-      
-      street: ['', Validators.required],
-  
-      numExterior: ['', Validators.required],
-  
-      numInside: ['', Validators.required],
-  
-      cologne: ['', Validators.required],
-  
-      delegationMun: ['', Validators.required],
-  
-      zipCode: ['', Validators.required],
-  
-      numPhone: ['', Validators.required],
-  
-      circuitCVE: ['', Validators.required],
-  
-      numRegister: ['', Validators.required]
-  
+      description: ['', [Validators.required,Validators.maxLength(100),Validators.pattern(STRING_PATTERN)]],
+      manager: ['', [Validators.maxLength(100),Validators.pattern(STRING_PATTERN)]],
+      street: ['', [Validators.maxLength(60)]],
+      numExterior: ['', [Validators.maxLength(10)]],
+      numInside: ['', [Validators.maxLength(10)]],
+      cologne: ['', [Validators.maxLength(100),Validators.pattern(STRING_PATTERN)]],
+      delegationMun: ['', [Validators.maxLength(60),Validators.pattern(STRING_PATTERN)]],
+      zipCode: ['', [Validators.maxLength(5),Validators.pattern(NUMBERS_PATTERN)]],
+      numPhone: ['', [Validators.maxLength(20),Validators.pattern(PHONE_PATTERN)]],
+      circuitCVE: ['', [Validators.maxLength(15)]],
+      numRegister: ['', [Validators.required,Validators.pattern(NUMBERS_PATTERN)]]
       });
     if (this.data) {
       this.actionBtn = "Actualizar";
