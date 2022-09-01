@@ -8,13 +8,17 @@
     <nb-card-body>
 
         <form [formGroup]="formDelegation" (submit)="mostrarInfo()">
+
+
+            <ngx-deleg-subdeleg-shared [form]="formDelegation"></ngx-deleg-subdeleg-shared>
+            
              
             <div class="row">
 
                 <div class="col-md-2">
                     <div class="form-group">
                         <label class="label">Fecha inicial</label>
-                        <input nbInput fullWidth required formControlName="fechaInicial" >
+                        <input nbInput fullWidth formControlName="fechaInicial" >
                     </div>
                     <ngx-validation-message label="fechaInicial" 
                          [showRequired]="fechaInicial?.errors?.required && fechaInicial.touched">
@@ -24,7 +28,7 @@
                 <div class="col-md-2">
                     <div class="form-group">
                         <label class="label">Fecha Final</label>
-                        <input nbInput fullWidth required formControlName="fechaFinal"  >
+                        <input nbInput fullWidth formControlName="fechaFinal"  >
                     </div>
                     <ngx-validation-message label="fechaFinal" 
                          [showRequired]="fechaFinal?.errors?.required && fechaFinal.touched">
@@ -37,6 +41,7 @@
                 <div class="form-group">
                     <div class="d-flex justify-content-center">
                         <button type="submit" nbButton status="primary" [disabled]="!formDelegation.valid" >Mostrar datos</button>
+                        <!--[disabled]="!formDelegation.valid"-->
                     </div>
                 </div>
 

@@ -1,47 +1,58 @@
-<div class="row">
+<ng-container [formGroup]="form">
 
-    <div class="col-md-1">
-        <div class="form-group">
-            <label class="label">no.</label>
-            <input disabled nbInput fullWidth  placeholder="{{selectedDelegationID}}">
-        </div>
-    </div>
-    
-    <div class="col-md-4">
-        <div class="form-group">
-                <label class="label">Delegación</label>
-                <ng-select nbinput=""  class="ng-dropdown-panel-items scroll-host input-full-width size-medium status-basic shape-rectangle nb-transition" 
-                            [items]="delegacionesList" 
-                            bindLabel="delegation"
-                            bindValue="noDelegation" 
-                            placeholder="" 
-                            [(ngModel)]="selectedDelegationID"> 
-                </ng-select>   
-        </div>
-    </div>
-
-</div>
-
-<div class="row">
-
-    <div class="col-md-1">
-        <div class="form-group">
-            <label class="label">no.</label>
-            <input disabled nbInput fullWidth  placeholder="{{selectedSubDelegationID}}">
-        </div>
-    </div>
-    
+    <div class="row" >
         <div class="col-md-4">
-            <div class="form-group">
-                <label class="label">SubDelegaciones</label>
-                    <ng-select nbinput=""  class="ng-dropdown-panel-items scroll-host input-full-width size-medium status-basic shape-rectangle nb-transition" 
-                        [items]="subDelegacionesList" 
-                        bindLabel="subDelegation"
-                        bindValue="noSubDelegation" 
-                        placeholder="" 
-                        [(ngModel)]="selectedSubDelegationID"> 
+            <div class="form-group"> 
+                    <label class="label">Delegación</label>
+                    <ng-select  nbinput=""  
+                                class="ng-dropdown-panel-items scroll-host input-full-width size-medium status-basic shape-rectangle nb-transition" 
+                                [items]="delegations$ | async" 
+                                bindValue="id"
+                                [loading]="delegationsLoading"
+                                [typeahead]="delegationInput$"
+                                typeToSearchText="Escriba 3 o mas caracteres"
+                                placeholder="" 
+                                [formControlName]="nomDeleg"
+                                notFoundText="No se encontraron elementos">
+                                <ng-template ng-label-tmp let-item="item">
+                                    {{item.id}} | {{item.name}}
+                                </ng-template>
+                                <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                                    <div>{{item.id}} | {{item.name}} </div>
+                                    
+                                </ng-template> 
+
                     </ng-select>
             </div>
         </div>
+    </div>
 
-</div>
+    <div class="row" >
+        <div class="col-md-4">
+            <div class="form-group"> 
+                    <label class="label">SubDelegación</label>
+                    <ng-select  nbinput=""  
+                                class="ng-dropdown-panel-items scroll-host input-full-width size-medium status-basic shape-rectangle nb-transition" 
+                                [items]="subDelegations$ | async" 
+                                bindValue="id"
+                                [loading]="subDelegationsLoading"
+                                [typeahead]="subDelegationInput$"
+                                typeToSearchText="Escriba 3 o mas caracteres"
+                                placeholder="" 
+                                [formControlName]="nomSubDel"
+                                notFoundText="No se encontraron elementos">
+                                <ng-template ng-label-tmp let-item="item">
+                                    {{item.id}}  {{item.name}}
+                                </ng-template>
+                                <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                                    <div>{{item.id}}  {{item.name}} </div>
+                                    
+                                </ng-template> 
+
+                    </ng-select>
+            </div>
+        </div>
+    </div>
+    
+</ng-container>
+

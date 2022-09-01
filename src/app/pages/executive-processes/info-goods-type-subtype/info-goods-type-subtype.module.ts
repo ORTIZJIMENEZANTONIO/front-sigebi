@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { ComponentsModule } from '../../../@components/components.module';
 
+import { NgSelectModule } from '@ng-select/ng-select';
+
 import { NbAutocompleteModule, 
   NbButtonModule, 
   NbCardModule, 
@@ -16,7 +18,6 @@ import { NbAutocompleteModule,
   NbUserModule,
   NbIconModule,  } from '@nebular/theme';
 
-import { NgSelectModule } from '@ng-select/ng-select';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router'; 
@@ -37,7 +38,6 @@ import { InfoGoodsTypeSubtypeListComponent } from './info-goods-type-subtype-lis
     CommonModule,
     InfoGoodsTypeSubtypeRoutingModule,
     ComponentsModule,
-    NgSelectModule,
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
@@ -53,7 +53,10 @@ import { InfoGoodsTypeSubtypeListComponent } from './info-goods-type-subtype-lis
     NbActionsModule,
     NbUserModule,
     NbIconModule,
-    Ng2SmartTableModule
+    Ng2SmartTableModule, NgSelectModule
+  ],
+  exports:[
+    NgSelectModule
   ]
 })
 export class InfoGoodsTypeSubtypeModule { }
