@@ -9,22 +9,28 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { CommonModule } from '@angular/common';
 
-import { NbAutocompleteModule, NbButtonModule, NbCardModule, NbInputModule } from '@nebular/theme';
-import { NgSelectModule } from '@ng-select/ng-select';
-
-
 import { NgxValidationMessageComponent } from './validation-message/validation-message.component';
-import { NgxFilterByNumberComponent,} from './custom-smart-table-components/filter-by-number/filter-by-number.component';
-
 
 import { DelegSubdelegSharedComponent } from './deleg-subdeleg-shared/deleg-subdeleg-shared.component';
 import { FileNumberSharedComponent } from './file-number-shared/file-number-shared.component';
 
+import { NgxFilterByNumberComponent } from './custom-smart-table-components/filter-by-number/filter-by-number.component';
+import { SelectorComponent } from './selector/selector.component';
+import { NbButtonModule, NbCardModule, NbCheckboxModule, NbDialogModule, NbFormFieldModule, NbIconModule, NbInputModule, NbSelectModule, NbAutocompleteModule } from '@nebular/theme';
+import { Ng2SmartTableModule } from 'ng2-smart-table';
+import { SelectComponent } from './select/select.component';
+import { ColumnsSelectComponent } from './columns-select/columns-select.component';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { GoodsTypesFormComponent } from './goods-types-form/goods-types-form.component';
+
 
 const COMPONENTS = [
   NgxValidationMessageComponent,
-  NgxFilterByNumberComponent, 
-
+  NgxFilterByNumberComponent,
+  SelectorComponent, 
+  SelectComponent, 
+  ColumnsSelectComponent,
+  GoodsTypesFormComponent,
   DelegSubdelegSharedComponent,
   FileNumberSharedComponent
 ];
@@ -34,7 +40,18 @@ const COMPONENTS = [
     ReactiveFormsModule,
     FormsModule,
     CommonModule, NbAutocompleteModule, NbButtonModule, NbCardModule, NbInputModule,
-    NgSelectModule
+    NgSelectModule,
+    CommonModule,
+    NbCardModule,
+    Ng2SmartTableModule,
+    NbFormFieldModule,
+    NbDialogModule,
+    NbInputModule,
+    NbButtonModule,
+    NgSelectModule,
+    NbIconModule,
+    NbSelectModule,
+    NbCheckboxModule
   ],
   exports: [...COMPONENTS, NgSelectModule],
   declarations: [...COMPONENTS, ],
