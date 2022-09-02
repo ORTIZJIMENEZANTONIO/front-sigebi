@@ -16,12 +16,20 @@ import { FileNumberSharedComponent } from './file-number-shared/file-number-shar
 
 import { NgxFilterByNumberComponent } from './custom-smart-table-components/filter-by-number/filter-by-number.component';
 import { SelectorComponent } from './selector/selector.component';
-import { NbButtonModule, NbCardModule, NbCheckboxModule, NbDialogModule, NbFormFieldModule, NbIconModule, NbInputModule, NbSelectModule, NbAutocompleteModule } from '@nebular/theme';
+import { NbButtonModule, NbCardModule, 
+  NbCheckboxModule, NbDialogModule, 
+  NbFormFieldModule, NbIconModule, 
+  NbInputModule, NbSelectModule, 
+  NbAutocompleteModule, NbDatepickerModule } from '@nebular/theme';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { SelectComponent } from './select/select.component';
 import { ColumnsSelectComponent } from './columns-select/columns-select.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { GoodsTypesFormComponent } from './goods-types-form/goods-types-form.component';
+import { DestinationAreaSharedComponent } from './destination-area-shared/destination-area-shared.component';
+import { NoBienSharedComponent } from './no-bien-shared/no-bien-shared.component';
+import { StateCoordinationSharedComponent } from './state-coordination-shared/state-coordination-shared.component';
+
 
 
 const COMPONENTS = [
@@ -32,7 +40,11 @@ const COMPONENTS = [
   ColumnsSelectComponent,
   GoodsTypesFormComponent,
   DelegSubdelegSharedComponent,
-  FileNumberSharedComponent
+  FileNumberSharedComponent,
+  DestinationAreaSharedComponent,
+  NoBienSharedComponent,
+  StateCoordinationSharedComponent
+  
 ];
 
 @NgModule({
@@ -51,10 +63,11 @@ const COMPONENTS = [
     NgSelectModule,
     NbIconModule,
     NbSelectModule,
-    NbCheckboxModule
+    NbCheckboxModule, 
+    NbDatepickerModule
   ],
   exports: [...COMPONENTS, NgSelectModule],
-  declarations: [...COMPONENTS, ],
+  declarations: [...COMPONENTS],
   entryComponents: [
     NgxFilterByNumberComponent,
   ],

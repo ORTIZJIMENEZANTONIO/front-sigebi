@@ -57,10 +57,10 @@ export class DelegSubdelegSharedComponent implements OnInit{
 
   subdelegations(search: string) {
     return of([
-      { id: 1, name: "Subdelegacion 1 del 1", delId: 1 },
-      { id: 2, name: "Subdelegacion 2 del 1", delId: 1 },
-      { id: 3, name: "Subdelegacion 3 del 2", delId: 2 },
-      { id: 4, name: "Subdelegacion 4 del 2", delId: 2 },
+      { id: 1, name: "Subdelegacion 1 ", delId: 1 },
+      { id: 2, name: "Subdelegacion 2 ", delId: 1 },
+      { id: 3, name: "Subdelegacion 3 ", delId: 2 },
+      { id: 4, name: "Subdelegacion 4 ", delId: 2 },
     ]).pipe(
       map((e) =>
         e.filter(
