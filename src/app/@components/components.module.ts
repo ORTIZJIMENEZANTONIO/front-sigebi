@@ -12,13 +12,20 @@ import {
   NgxFilterByNumberComponent,
 } from './custom-smart-table-components/filter-by-number/filter-by-number.component';
 import { SelectorComponent } from './selector/selector.component';
-import { NbButtonModule, NbCardModule, NbDialogModule, NbFormFieldModule, NbInputModule } from '@nebular/theme';
+import { NbButtonModule, NbCardModule, NbCheckboxModule, NbDialogModule, NbFormFieldModule, NbIconModule, NbInputModule, NbSelectModule } from '@nebular/theme';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
+import { SelectComponent } from './select/select.component';
+import { ColumnsSelectComponent } from './columns-select/columns-select.component';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { GoodsTypesFormComponent } from './goods-types-form/goods-types-form.component';
 
 const COMPONENTS = [
   NgxValidationMessageComponent,
   NgxFilterByNumberComponent,
-  SelectorComponent
+  SelectorComponent, 
+  SelectComponent, 
+  ColumnsSelectComponent,
+  GoodsTypesFormComponent
 ];
 
 @NgModule({
@@ -31,7 +38,11 @@ const COMPONENTS = [
     NbFormFieldModule,
     NbDialogModule,
     NbInputModule,
-    NbButtonModule
+    NbButtonModule,
+    NgSelectModule,
+    NbIconModule,
+    NbSelectModule,
+    NbCheckboxModule
   ],
   exports: [...COMPONENTS],
   declarations: [...COMPONENTS],
