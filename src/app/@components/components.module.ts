@@ -18,12 +18,15 @@ import { NgxFilterByNumberComponent,} from './custom-smart-table-components/filt
 
 
 import { DelegSubdelegSharedComponent } from './deleg-subdeleg-shared/deleg-subdeleg-shared.component';
+import { FileNumberSharedComponent } from './file-number-shared/file-number-shared.component';
 
 
 const COMPONENTS = [
   NgxValidationMessageComponent,
   NgxFilterByNumberComponent, 
-  DelegSubdelegSharedComponent
+
+  DelegSubdelegSharedComponent,
+  FileNumberSharedComponent
 ];
 
 @NgModule({
@@ -34,7 +37,7 @@ const COMPONENTS = [
     NgSelectModule
   ],
   exports: [...COMPONENTS, NgSelectModule],
-  declarations: [...COMPONENTS,],
+  declarations: [...COMPONENTS, ],
   entryComponents: [
     NgxFilterByNumberComponent,
   ],
