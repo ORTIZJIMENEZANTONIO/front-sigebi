@@ -22,12 +22,3 @@
 .ng-select.custom.ng-invalid.ng-touched .ng-select-container {
   border-color: #ff3d71 !important;
 }
-
-nb-card-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-top: nb-theme(card-header-with-select-padding-top);
-  padding-bottom: nb-theme(card-header-with-select-padding-bottom);
-  margin-bottom: -1px;
-}
