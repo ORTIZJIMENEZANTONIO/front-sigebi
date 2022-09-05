@@ -740,7 +740,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
       },
 
       {
-        title: 'Información de Bienes por Tipo y Subtipo',
+        title: '**Información de Bienes por Tipo y Subtipo',
         link: '/pages/executive-processes/info-goods-type-subtype',
       },
 
