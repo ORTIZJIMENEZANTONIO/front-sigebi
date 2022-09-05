@@ -3,7 +3,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { NbToastrService, NbWindowService, NbWindowControlButtonsConfig } from '@nebular/theme';
 import { SweetAlertResult } from 'sweetalert2';
-import { TypeServicesService } from '../../../../@core/backend/common/services/typeServices.service';
+import { TypeServicesService } from '../../../../@core/backend/common/services/type-services.service';
 import { ZoneGeographicService } from '../../../../@core/backend/common/services/zone-geographic.service';
 import { SweetAlertConstants, SweetalertModel } from '../../../../@core/interfaces/auction/sweetalert-model';
 import { ZoneGeographicInterface } from '../../../../@core/interfaces/auction/zone-geographic.model';
