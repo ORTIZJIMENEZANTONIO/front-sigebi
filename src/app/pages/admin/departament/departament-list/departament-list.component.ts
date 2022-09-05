@@ -61,10 +61,7 @@ export class DepartamentListComponent extends BasePage {
         //editable: false,
         // width: '25px'
       },
-      name: {
-        title: 'Nombre',
-        type: 'string',
-      },
+      
       dsarea: {
         title: 'DsArea',
         type: 'string',
@@ -73,14 +70,14 @@ export class DepartamentListComponent extends BasePage {
         title: 'Delegación',
         type: 'string',
         valuePrepareFunction: (value) => {
-          return value.descripcion
+          return value.description
         }
       },
       numSubDelegation: {
         title: 'Subdelegación',
         type: 'string',
         valuePrepareFunction: (value) => {
-          return value.descripcion
+          return value.description
         }
       },
       description: {

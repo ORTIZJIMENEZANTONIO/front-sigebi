@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';  
 import { CommonModule } from '@angular/common';
 
-import { ExecutiveProcessesRoutingModule, routedComponents } from './executive-processes-routing.module';
-
 import { ComponentsModule } from '../../@components/components.module';
+
+import { NgSelectModule } from '@ng-select/ng-select';
+
+import { ExecutiveProcessesRoutingModule, routedComponents } from './executive-processes-routing.module';
 
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { ThemeModule } from '../../@theme/theme.module';
@@ -34,7 +36,6 @@ import { MatSelectModule } from '@angular/material/select';
     Ng2SmartTableModule,
     FormsModule,
     ReactiveFormsModule,
-    ComponentsModule,
     ThemeModule,
     NbCardModule,
     Ng2SmartTableModule,
@@ -44,11 +45,11 @@ import { MatSelectModule } from '@angular/material/select';
     NbWindowModule.forChild(),
     MatPaginatorModule,
     MatInputModule,
-    MatFormFieldModule
+    MatFormFieldModule, NgSelectModule
   ],
   exports:[
     
-    ComponentsModule,
+    ComponentsModule, NgSelectModule
     
   ]
 })

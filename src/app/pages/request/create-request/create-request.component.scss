@@ -1,0 +1,58 @@
+@mixin box-shadow($value) {
+    box-shadow: $value;
+  }
+  
+  body {
+    font-family: Arial;
+  }
+  
+  $shadow-card: 0 1px 3px 0 rgba(0, 0, 0, .2),
+  0 1px 1px 0 rgba(0, 0, 0, .14),
+  0 2px 1px -1px rgba(0, 0, 0, .12);
+  $bg-accent: #26A69A;
+  
+  .select2-dropdown {
+    border: 0;
+    outline: none;
+    border: 0;
+    @include box-shadow($shadow-card);
+    .select2-search--dropdown {
+      border: 1px solid #D2CDCD;
+      background-color: #D6D6D6;
+      input {
+        border: 0 !important;
+        outline: 0 !important;
+        background-color: transparent;
+      }
+    }
+  }
+  
+  .select2-container {
+    .select2-selection {
+      border: 0;
+      border-radius: 0;
+      border-bottom: 1px solid #A2A2A2;
+      outline: 0;
+    }
+    &.select2-container--open,
+    select2-container--focus {
+      .select2-selection {
+        border-bottom: 2px solid $bg-accent;
+      }
+    }
+    
+    &.select2-container--open{
+      @include box-shadow($shadow-card)
+    }
+    
+    .select2-results__option {
+      &.select2-results__option--highlighted {
+        background-color: #EEEEEE;
+        color: #000000;
+      }
+      &[aria-selected="true"] {
+        background-color: $bg-accent !important;
+        color: white;
+      }
+    }
+  }

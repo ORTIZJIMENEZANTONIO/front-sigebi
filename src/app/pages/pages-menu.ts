@@ -402,6 +402,20 @@ export const MENU_ITEMS: NbMenuItem[] = [
     ]
   },
   {
+    title:'Solicitudes',
+    icon:'file',
+    children:[
+      {
+        title:'Solicitudes a turnar',
+        link:'/pages/request/request-to-turn'
+      },
+      {
+        title:'Crear solicitud',
+        link:'/pages/request/create'
+      }
+    ]
+  },
+  {
     title: 'Main',
     icon: 'grid-outline',
     children: [
@@ -466,7 +480,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
       },
 
       {
-        title: 'Información de Bienes por Tipo y Subtipo',
+        title: '**Información de Bienes por Tipo y Subtipo',
         link: '/pages/executive-processes/info-goods-type-subtype',
       },
 
