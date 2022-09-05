@@ -25,24 +25,29 @@
               <div class="form-group">
                   <label class="label">Fecha recepción del:</label>
                   
-                    <input nbInput
+                    <input formControlName="fechaInicial" nbInput
                            placeholder="Selección de fecha"
                            [nbDatepicker]="formpicker">
                     <nb-datepicker #formpicker></nb-datepicker>
-                  
               </div>
+              <ngx-validation-message label="fechaInicial" 
+                         [showRequired]="fechaInicial?.errors?.required && fechaInicial.touched">
+                    </ngx-validation-message>
           </div>
   
           <div class="col-md-2">
               <div class="form-group">
                   <label class="label">Al</label>
                   
-                    <input nbInput
+                    <input formControlName="fechaFinal" nbInput
                            placeholder="Selección de fecha"
                            [nbDatepicker]="formpicker2">
                     <nb-datepicker #formpicker2></nb-datepicker>
                   
               </div>
+              <ngx-validation-message label="fechaFinal" 
+                         [showRequired]="fechaFinal?.errors?.required && fechaFinal.touched">
+            </ngx-validation-message>
           </div>
           
               
