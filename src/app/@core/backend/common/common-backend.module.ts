@@ -97,7 +97,7 @@ import { SatClassificationService } from './services/sat-classification.service'
 import { OriginCisiService } from './services/origin-cisi.service';
 import { ScoreService } from './services/score.service';
 import { ZoneGeographicService } from './services/zone-geographic.service';
-import { IndicatorReportService } from './services/IndicatorReport.service';
+import { IndicatorReportService } from './services/Indicator-report.service';
 import { DoccompensationService } from './services/doccompensation.service';
 import { DoccompensationsatService } from './services/doccompesationsat.service';
 import { DoccompensationsatxmlService } from './services/doccompensationsatxml.service';
