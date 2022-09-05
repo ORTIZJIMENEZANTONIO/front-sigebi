@@ -2,9 +2,12 @@ import { Component } from '@angular/core';
 import { MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { NbToastrService, NbWindowControlButtonsConfig, NbWindowService } from '@nebular/theme';
 import { BasePage } from '../../../../@core/shared/base-page';
-
+import { FormControl, FormGroup } from '@angular/forms';
 import { SafeService } from '../../../../@core/backend/common/services/safe.service';
 import { SafeDetailComponent } from '../safe-detail/safe-detail.component';
+import { SafeInterface } from '../../../../@core/interfaces/auction/safe.model';
+import { SweetAlertConstants } from '../../../../@core/interfaces/auction/sweetalert-model';
+import { SweetalertService } from '../../../../shared/sweetalert.service';
 
 @Component({
   selector: 'ngx-safe-list',
@@ -13,40 +16,28 @@ import { SafeDetailComponent } from '../safe-detail/safe-detail.component';
 })
 export class SafeListComponent extends BasePage {
 
-  constructor(
-    private service: SafeService, 
-    public  toastrService: NbToastrService,
-    private windowService: NbWindowService, 
-    private paginator: MatPaginatorIntl
-  ) {
-    super(toastrService);
-    this.paginator.itemsPerPageLabel = "Registros por página";
-  }
-
-  length = 100;
-  pageSize = 10;
-  pageSizeOptions: number[] = [5, 10, 25, 100];
-
+  public searchForm: FormGroup;
+  public list: any;
+  public length = 100;
+  public pageSize = 10;
+  public pageSizeOptions: number[] = [5, 10, 25, 100];
   // MatPaginator Output
-  pageEvent: PageEvent = {
-    pageIndex:0,
-    pageSize:10,
-    length:100
+  public pageEvent: PageEvent = {
+    pageIndex: 0,
+    pageSize: 10,
+    length: 100
   };
-
-  safes: any;
-
-  settings = {
+  public settings = {
     actions: {
       columnTitle: 'Acciones',
       add: true,
       edit: true,
       delete: false,
     },
-    pager : {
-      display : false,
-    },      
-    hideSubHeader: true,//oculta subheaader de filtro
+    pager: {
+      display: false,
+    },
+    hideSubHeader: true, //oculta subheaader de filtro
     mode: 'external', // ventana externa
     add: {
       addButtonContent: '<i class="nb-plus"></i>',
@@ -103,60 +94,118 @@ export class SafeListComponent extends BasePage {
     noDataMessage: "No se encontrarón registros"
   };
 
+
+  constructor(
+    private service: SafeService,
+    public toastrService: NbToastrService,
+    private windowService: NbWindowService,
+    private paginator: MatPaginatorIntl,
+    public sweetalertService: SweetalertService
+  ) {
+    super(toastrService, sweetalertService);
+    this.paginator.itemsPerPageLabel = "Registros por página";
+    this.searchForm = new FormGroup({
+      text: new FormControl()
+    });
+    this.searchForm.controls['text'].valueChanges.subscribe((value: string) => {
+      if (value.length > 0) {
+        this.service.search(value).subscribe((rows: SafeInterface[]) => {
+          this.length = rows.length;
+          this.list = rows;
+        })
+      } else {
+        this.read(0, 10);
+      }
+    });
+  }
+
   ngOnInit(): void {
-    this.readData(0,10);
-  }
-  
-  setPageSizeOptions(setPageSizeOptionsInput: string) {
-    if (setPageSizeOptionsInput)
-      this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
+    this.read(0, 10);
   }
 
-  readData = ((pageIndex:number, pageSize:number) => {
-    this.safes = null;
-    this.service.list(pageIndex, pageSize).subscribe((safes:any) => {
-      this.safes = safes.data;
-      this.length = safes.count;
-    }, error => this.onLoadFailed('danger','Error conexión',error.message) );
-  });
+  private read(pageIndex: number, pageSize: number) {
+    this.list = null;
+    this.service.list(pageIndex, pageSize).subscribe(
+      (dt: any) => {
+        this.list = dt.data;
+        this.length = dt.count;
+      },
+      err => {
+        let error = '';
+        if (err.status === 0) {
+          error = SweetAlertConstants.noConexion;
+        } else {
+          error = err.message;
+        }
+        this.onLoadFailed('danger', 'Error', error);
+      }, () => {
 
-  changesPage (event){
-    if(event.pageSize!=this.pageSize){
+      }
+    );
+  };
+
+  public changesPage(event) {
+    if (event.pageSize != this.pageSize) {
 
     }
     this.pageEvent = event;
-    this.readData(event.pageIndex, event.pageSize)
+    this.read(event.pageIndex, event.pageSize)
   }
 
-  onDeleteConfirm(event): void {
-    if (window.confirm('Are you sure you want to delete?')) {
-      this.service.delete(event.data.id).subscribe( () => {
-        this.readData(this.pageEvent.pageIndex, this.pageEvent.pageSize);
-      },err =>{
-        console.error(err);
-      })
-    } else {
-      event.confirm.reject();
-    }
+  public onDeleteConfirm(event): void {
+    this.sweetalertQuestion('warning', 'Eliminar', 'Desea eliminar este registro?').then(
+      question => {
+        if (question.isConfirmed) {
+          this.service.delete(event.data.id).subscribe(
+            data => {
+              this.onLoadFailed('success', 'Eliminado', data.message);
+            }, err => {
+              let error = '';
+              if (err.status === 0) {
+                error = SweetAlertConstants.noConexion;
+              } else {
+                error = err.message;
+              }
+              this.onLoadFailed('danger', 'Error', error);
+            }, () => {
+              this.read(this.pageEvent.pageIndex, this.pageEvent.pageSize);
+            });
+        }
+      }
+    ).catch(
+      e => {
+        console.error(e);
+      }
+    );
   }
 
-  editRow(event) {
+  public editRow(event) {
     const buttonsConfig: NbWindowControlButtonsConfig = {
       minimize: false,
       maximize: false,
       fullScreen: false,
     };
-    const modalRef = this.windowService.open(SafeDetailComponent, { title: `Editar bóveda`, context: { safes: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
-      this.readData(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
+    const modalRef = this.windowService.open(SafeDetailComponent, {
+      title: `Editar`,
+      context: {
+        data: event.data
+      },
+      buttons: buttonsConfig
+    }).onClose.subscribe(() => {
+      this.read(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
-  
+
   }
 
-  openWindow() {
-    const modalRef = this.windowService.open(SafeDetailComponent, { title: `Nueva bóveda` }).onClose.subscribe(() => {
-      this.readData(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
+  public openWindow() {
+    const buttonsConfig: NbWindowControlButtonsConfig = {
+      minimize: false,
+      maximize: false,
+      fullScreen: false,
+    };
+    const modalRef = this.windowService.open(SafeDetailComponent, { title: `Nuevo`, buttons: buttonsConfig }).onClose.subscribe(() => {
+      this.read(this.pageEvent.pageIndex = 0, this.pageEvent.pageSize);
     });
-    
-  }
 
+  }
 }

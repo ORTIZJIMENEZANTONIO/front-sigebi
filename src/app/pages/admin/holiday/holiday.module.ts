@@ -22,7 +22,6 @@ import { HolidayDetailComponent } from './holiday-detail/holiday-detail.componen
   imports: [
     CommonModule,
     HolidayRoutingModule,
-    FormsModule,
     ReactiveFormsModule,
     ComponentsModule,
     ThemeModule,
@@ -32,9 +31,7 @@ import { HolidayDetailComponent } from './holiday-detail/holiday-detail.componen
     NbButtonModule,
     NbInputModule,
     NbWindowModule.forChild(),
-    MatPaginatorModule,
-    MatInputModule,
-    MatFormFieldModule
+    MatPaginatorModule
   ]
 })
 export class HolidayModule { }

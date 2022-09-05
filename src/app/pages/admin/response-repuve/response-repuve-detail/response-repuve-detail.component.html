@@ -1,0 +1,27 @@
+<nb-card>
+  <nb-card-body>
+    <form [formGroup]="form">
+      
+      <div class="form-group row">
+        <input type="text" nbInput fullWidth maxlength="40" formControlName="description"
+          placeholder="Descripción"
+          [status]="( description?.errors?.required || description?.hasError('minlength') || description?.hasError('maxlength') || description?.hasError('pattern')) && description.touched ? 'danger' : ''"
+        />
+        <ngx-validation-message label="Descripción" 
+          [showMinLength]="description?.hasError('minlength')"
+          [showMaxLength]="description?.hasError('maxlength')"
+          [showRequired]="description?.errors?.required && description.touched"
+          [showPattern]="description?.hasError('pattern') && description.touched" minLength=1 maxLength=40>
+        </ngx-validation-message>
+      </div>
+      
+      <div class="form-group">
+        <div class="d-flex justify-content-center">
+          <button type="submit" nbButton status="primary" [disabled]="!form.valid"
+            (click)="register()">{{actionBtn}}</button>
+        </div>
+      </div>
+      
+    </form>
+  </nb-card-body>
+</nb-card>

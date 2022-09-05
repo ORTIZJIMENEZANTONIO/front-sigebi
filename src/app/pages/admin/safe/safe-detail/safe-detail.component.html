@@ -1,62 +1,106 @@
 <nb-card>
   <nb-card-body>
-    <form [formGroup]="form">
-
-      <div class="form-group row">
-        <input nbInput fullWidth formControlName="manager" matInput placeholder="Encargado"
-          [status]="form.controls['manager']?.errors?.required  && form.controls['manager'].touched ? 'danger' : ''">
-        <label class="text-danger" *ngIf="validateDelegation['manager'].hasError('required') && form.controls['manager'].touched"><small>Campo requerido!</small></label>
-      </div>
-
-      <div class="form-group row">
-        <input nbInput fullWidth formControlName="descripcion" matInput placeholder="Descripcion" 
-          [status]="form.controls['descripcion']?.errors?.required  && form.controls['descripcion'].touched ? 'danger' : ''">
-        <label class="text-danger"
-          *ngIf="validateDelegation['descripcion'].hasError('required') && form.controls['descripcion'].touched"><small>Ingrese una descripcion!</small>
-        </label>
-      </div>
-
-      <div class="form-group row">
-        <input type="text" formControlName="ubication" placeholder="Ubicación" nbInput fullWidth matInput 
-          [status]="form.controls['ubication']?.errors?.required && form.controls['ubication'].touched ? 'danger' : ''">
-          <label class="text-danger" *ngIf="validateDelegation['ubication'].hasError('required')  && form.controls['ubication'].touched "><small>Ingrese municipio</small></label>
-      </div>
-
-      <div class="form-group row">
-        <input type="text" formControlName="registerNumber" placeholder="No. de registro" nbInput fullWidth matInput 
-          [status]="form.controls['registerNumber']?.errors?.required && form.controls['registerNumber'].touched ? 'danger' : ''">
-          <label class="text-danger" *ngIf="validateDelegation['registerNumber'].hasError('required')  && form.controls['registerNumber'].touched "><small>Ingrese municipio</small></label>
-      </div>
-
-      <div class="form-group row">
-        <input type="text" formControlName="municipalityCode" placeholder="Municipio" nbInput fullWidth matInput 
-          [status]="form.controls['municipalityCode']?.errors?.required && form.controls['municipalityCode'].touched ? 'danger' : ''">
-          <label class="text-danger" *ngIf="validateDelegation['municipalityCode'].hasError('required')  && form.controls['municipalityCode'].touched "><small>Ingrese localidad</small></label>
-      </div>
-
-      <div class="form-group row">
-        <input type="text" formControlName="localityCode" placeholder="Localidad" nbInput fullWidth matInput 
-          [status]="form.controls['localityCode']?.errors?.required && form.controls['localityCode'].touched ? 'danger' : ''">
-          <label class="text-danger" *ngIf="validateDelegation['localityCode'].hasError('required')  && form.controls['localityCode'].touched "><small>Ingrese ubicación!</small></label>
-      </div>
-
-      <div class="form-group row">
-        <input type="text" formControlName="stateCode" placeholder="Entidad" nbInput fullWidth matInput 
-          [status]="form.controls['stateCode']?.errors?.required && form.controls['stateCode'].touched ? 'danger' : ''">
-          <label class="text-danger" *ngIf="validateDelegation['stateCode'].hasError('required')  && form.controls['stateCode'].touched "><small>Ingrese entidad!</small></label>
-      </div>
-
-      <div class="form-group row">
-        <input type="text" formControlName="cityCode" placeholder="Ciudad" nbInput fullWidth matInput 
-          [status]="form.controls['cityCode']?.errors?.required && form.controls['cityCode'].touched ? 'danger' : ''">
-          <label class="text-danger" *ngIf="validateDelegation['cityCode'].hasError('required')  && form.controls['cityCode'].touched "><small>Ingrese entidad!</small></label>
-      </div>
-     
-      <div class="form-group row">
-        <div class="offset-sm-3 col-sm-9">
-          <button type="submit" nbButton status="primary" [disabled]="!form.valid" (click)="register()">{{actionBtn}}</button>
+      <form [formGroup]="form">
+          <div class="row">
+              <div class="col-md-6">
+                  <div class="form-group">
+                      <input type="text" nbInput fullWidth class="form-control" formControlName="description"
+                          placeholder="Descripción"
+                          [status]="(description?.errors?.required || description?.hasError('minlength') || description?.hasError('maxlength') || description?.hasError('pattern')) && description.touched ? 'danger' : ''">
+                      <ngx-validation-message label="Descripción" [showMinLength]="description?.hasError('minlength')"
+                          [showMaxLength]="description?.hasError('maxlength')"
+                          [showRequired]="description?.errors?.required && description.touched"
+                          [showPattern]="description?.hasError('pattern') && description.touched" minLength=1 maxLength=255>
+                      </ngx-validation-message>
+                  </div>
+              </div>
+              <div class="col-md-6">
+                  <div class="form-group">
+                      <input type="text" nbInput fullWidth class="form-control" formControlName="ubication"
+                          placeholder="Ubicación"
+                          [status]="(ubication?.errors?.required || ubication?.hasError('minlength') || ubication?.hasError('maxlength') || ubication?.hasError('pattern')) && ubication.touched ? 'danger' : ''">
+                      <ngx-validation-message label="Ubicación" [showMinLength]="ubication?.hasError('minlength')"
+                          [showMaxLength]="ubication?.hasError('maxlength')"
+                          [showRequired]="ubication?.errors?.required && ubication.touched"
+                          [showPattern]="ubication?.hasError('pattern') && ubication.touched" minLength=1 maxLength=255>
+                      </ngx-validation-message>
+                  </div>
+              </div>
+              <div class="col-md-6">
+                  <div class="form-group">
+                      <input type="text" nbInput fullWidth class="form-control" formControlName="manager"
+                          placeholder="Responsable de la bóveda"
+                          [status]="(manager?.errors?.required || manager?.hasError('minlength') || manager?.hasError('maxlength') || manager?.hasError('pattern')) && manager.touched ? 'danger' : ''">
+                      <ngx-validation-message label="Responsable" [showMinLength]="manager?.hasError('minlength')"
+                          [showMaxLength]="manager?.hasError('maxlength')"
+                          [showRequired]="manager?.errors?.required && manager.touched"
+                          [showPattern]="manager?.hasError('pattern') && manager.touched" minLength=1 maxLength=255>
+                      </ngx-validation-message>
+                  </div>
+              </div>
+              <div class="col-md-6">
+                  <div class="form-group">
+                      <input type="number" nbInput fullWidth class="form-control" formControlName="registerNumber"
+                          placeholder="Número de registro ej. 1"
+                          [status]="(registerNumber?.errors?.required || registerNumber?.hasError('minlength') || registerNumber?.hasError('maxlength') || registerNumber?.hasError('pattern')) && registerNumber.touched ? 'danger' : ''">
+                      <ngx-validation-message label="Número de registro ej. 1" [showMinLength]="registerNumber?.hasError('minlength')"
+                          [showMaxLength]="registerNumber?.hasError('maxlength')"
+                          [showPattern]="registerNumber?.hasError('pattern') && registerNumber.touched" minLength=1 maxLength=255>
+                      </ngx-validation-message>
+                  </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                    <input type="number" nbInput fullWidth class="form-control" formControlName="stateCode"
+                        placeholder="Código de estado de bóveda ej. 1"
+                        [status]="(stateCode?.errors?.required || stateCode?.hasError('minlength') || stateCode?.hasError('maxlength') || stateCode?.hasError('pattern')) && stateCode.touched ? 'danger' : ''">
+                    <ngx-validation-message label="Código estado bóveda" [showMinLength]="stateCode?.hasError('minlength')"
+                        [showMaxLength]="stateCode?.hasError('maxlength')"
+                        [showPattern]="stateCode?.hasError('pattern') && stateCode.touched" minLength=1 maxLength=255>
+                    </ngx-validation-message>
+                </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                  <input type="number" nbInput fullWidth class="form-control" formControlName="cityCode"
+                      placeholder="Código de ciudad de boveda ej. 1"
+                      [status]="(cityCode?.errors?.required || cityCode?.hasError('minlength') || cityCode?.hasError('maxlength') || cityCode?.hasError('pattern')) && cityCode.touched ? 'danger' : ''">
+                  <ngx-validation-message label="Código ciudad bóveda" [showMinLength]="cityCode?.hasError('minlength')"
+                      [showMaxLength]="cityCode?.hasError('maxlength')"
+                      [showPattern]="cityCode?.hasError('pattern') && cityCode.touched" minLength=1 maxLength=255>
+                  </ngx-validation-message>
+              </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+                <input type="number" nbInput fullWidth class="form-control" formControlName="municipalityCode"
+                    placeholder="Código de municipio de bóveda ej. 1"
+                    [status]="(municipalityCode?.errors?.required || municipalityCode?.hasError('minlength') || municipalityCode?.hasError('maxlength') || municipalityCode?.hasError('pattern')) && municipalityCode.touched ? 'danger' : ''">
+                <ngx-validation-message label="Código municipio bóveda" [showMinLength]="municipalityCode?.hasError('minlength')"
+                    [showMaxLength]="municipalityCode?.hasError('maxlength')"
+                    [showPattern]="municipalityCode?.hasError('pattern') && municipalityCode.touched" minLength=1 maxLength=255>
+                </ngx-validation-message>
+            </div>
         </div>
+        <div class="col-md-6">
+          <div class="form-group">
+              <input type="number" nbInput fullWidth class="form-control" formControlName="localityCode"
+                  placeholder="Código de localidad de boveda ej. 1"
+                  [status]="(localityCode?.errors?.required || localityCode?.hasError('minlength') || localityCode?.hasError('maxlength') || localityCode?.hasError('pattern')) && localityCode.touched ? 'danger' : ''">
+              <ngx-validation-message label="Código de localidad de boveda ej. 1" [showMinLength]="localityCode?.hasError('minlength')"
+                  [showMaxLength]="localityCode?.hasError('maxlength')"
+                  [showPattern]="localityCode?.hasError('pattern') && localityCode.touched" minLength=1 maxLength=255>
+              </ngx-validation-message>
+          </div>
       </div>
-    </form>
+    
+          <div class="form-group">
+              <div class="d-flex justify-content-center">
+                  <button type="submit" nbButton status="primary" [disabled]="!form.valid"
+                      (click)="register()">{{actionBtn}}</button>
+              </div>
+          </div>
+  </div>
+      </form>
   </nb-card-body>
 </nb-card>

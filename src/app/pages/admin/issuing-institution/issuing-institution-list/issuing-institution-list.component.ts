@@ -57,7 +57,7 @@ export class IssuingInstitutionListComponent extends BasePage{
       columnTitle: 'Acciones',
       add: true,
       edit: true,
-      delete: true,
+      delete: false,
     },
     pager : {
       display : false,
@@ -85,51 +85,75 @@ export class IssuingInstitutionListComponent extends BasePage{
         //editable: false,
         // width: '25px'
       },
-      nombre: {
+      name: {
         title: 'Nombre',
         type: 'string',
       },
-      dsarea: {
-        title: 'DsArea',
+      description: {
+        title: 'Descripción',
         type: 'string',
       },
-      no_delegacion: {
-        title: 'Delegación',
+      manager: {
+        title: 'Responsable',
         type: 'string',
+      },
+      street: {
+        title: 'Calle',
+        type: 'string',
+      },
+      numInside: {
+        title: 'N interior',
+        type: 'string',
+      },
+      numExterior: {
+        title: 'N exterior',
+        type: 'string',
+      },
+      cologne: {
+        title: 'Colonia',
+        type: 'string',
+      },
+      zipCode: {
+        title: 'Código postal',
+        type: 'string',
+      },
+      delegMunic: {
+        title: 'Delegación m',
+        type: 'string',
+      },
+      phone: {
+        title: 'Teléfono',
+        type: 'string',
+      },
+      numClasif: {
+        title: 'N clasificación',
+        type: 'number',
         valuePrepareFunction:(value) =>{
-          return value.descripcion
+          return value.id
         }
       },
-      no_subdelegacion: {
-        title: 'Subdelegación',
+      numCity: {
+        title: 'N ciudad',
         type: 'string',
         valuePrepareFunction:(value) =>{
-          return value.descripcion
+          return value?.name || ""
         }
       },
-      descripcion: {
-        title: 'Descripcion',
-        type: 'string',
-      },
-      no_registro: {
+      numRegister: {
         title: 'N registro',
         type: 'number',
       },
-      ultimo_oficio: {
-        title: 'Oficio',
-        type: 'number',
-      },
-      nivel: {
-        title: 'Nivel',
-        type: 'number',
-      },
-      etapa_edo: {
-        title: 'Etapa EDO',
-        type: 'number',
+      numTransference: {
+        title: 'N transfible',
+        type: 'string',
+        valuePrepareFunction:(value) =>{
+          return value?.description || ""
+        }
       },
     },
     noDataMessage: "No se encontrarón registros"
   };
+
 
   ngOnInit(): void {
     this.readIssuingInstitution();
@@ -183,14 +207,14 @@ export class IssuingInstitutionListComponent extends BasePage{
       maximize: false,
       fullScreen: false,
     };
-    this.windowService.open(IssuingInstitutionDetailComponent, { title: `Editar ciudad`, context: { IssuingInstitution: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
+    this.windowService.open(IssuingInstitutionDetailComponent, { title: `Editar institución`, context: { issuingInstitution: event.data }, buttons: buttonsConfig  }).onClose.subscribe(() => {
       this.readIssuingInstitution();
     });
   
   }
 
   openWindow() {
-    this.windowService.open(IssuingInstitutionDetailComponent, { title: `Nueva ciudad` }).onClose.subscribe(() => {
+    this.windowService.open(IssuingInstitutionDetailComponent, { title: `Nueva institución` }).onClose.subscribe(() => {
       this.readIssuingInstitution();
     });
     

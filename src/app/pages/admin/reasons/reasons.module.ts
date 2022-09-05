@@ -23,10 +23,10 @@ import { NonDeliveryReasonsListComponent } from './non-delivery-reasons-list/non
 @NgModule({
   declarations: [...routedComponents, NonDeliveryReasonsDetailComponent],
   imports: [
-    FormsModule,
+    CommonModule,
+    ReasonsRoutingModule,
     ReactiveFormsModule,
     ComponentsModule,
-    CommonModule,
     ThemeModule,
     NbCardModule,
     Ng2SmartTableModule,
@@ -34,10 +34,7 @@ import { NonDeliveryReasonsListComponent } from './non-delivery-reasons-list/non
     NbButtonModule,
     NbInputModule,
     NbWindowModule.forChild(),
-    ReasonsRoutingModule,
-    MatPaginatorModule,
-    MatInputModule,
-    MatFormFieldModule
+    MatPaginatorModule
   ]
 })
 export class ReasonsModule { }

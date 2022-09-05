@@ -9,6 +9,7 @@ import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { AdminModule } from '../admin.module';
 
 import { LawyerRoutingModule } from './lawyer-routing.module';
 import { LawyerDetailComponent } from './lawyer-detail/lawyer-detail.component';
@@ -23,6 +24,7 @@ import { LawyerListComponent } from './lawyer-list/lawyer-list.component';
   imports: [
     CommonModule,
     LawyerRoutingModule,
+    AdminModule,
     FormsModule,
     ReactiveFormsModule,
     ComponentsModule,

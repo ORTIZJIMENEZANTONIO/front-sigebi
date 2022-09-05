@@ -5,6 +5,7 @@ import { PagesComponent } from './pages.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ECommerceComponent } from './e-commerce/e-commerce.component';
 import { NotFoundComponent } from './miscellaneous/not-found/not-found.component';
+import { AuthGuard } from '../shared/guards/auth.guard';
 
 const routes: Routes = [{
   path: '',
@@ -65,7 +66,7 @@ const routes: Routes = [{
     },
     //my pages
     {
-      path: 'admin',
+      path: 'admin', canActivate: [AuthGuard],
       loadChildren: () => import('./admin/admin.module')
         .then(m => m.AdminModule),
     },
@@ -75,10 +76,22 @@ const routes: Routes = [{
         .then(m => m.MainModule),
     },
     {
+      path:'request',
+      loadChildren: () => import('./request/request.module')
+      .then(m=>m.RequestModule)
+    },
+    {
       path: 'programming',
       loadChildren: () => import('./programming/programming.module')
         .then(m => m.ProgrammingModule),
-    },    
+    },
+    
+    {
+      path: 'executive-processes',
+      loadChildren: () => import('./executive-processes/executive-processes.module')
+        .then(m => m.ExecutiveProcessesModule),
+    },
+    
     {
       path: '',
       redirectTo: 'dashboard',

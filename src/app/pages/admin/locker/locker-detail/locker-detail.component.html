@@ -1,1 +1,56 @@
-<p>locker-detail works!</p>
+<nb-card>
+    <nb-card-body>
+        <form [formGroup]="formLocker">
+            
+            <div class="form-group row">
+                <input type="number" nbInput fullWidth formControlName="numBattery" matInput placeholder="ID Batería"
+                [status]="formLocker.controls['numBattery']?.errors?.required  && formLocker.controls['numBattery'].touched ? 'danger' : ''">
+
+                <label class="text-danger" *ngIf="validateLocker['numBattery'].hasError('required') && formLocker.controls['numBattery'].touched"><small>Ingrese una batería valida!</small></label>
+            </div>
+
+            <div class="form-group row">
+                <input type="number" nbInput  fullWidth formControlName="numShelf" matInput placeholder="ID Casillero"
+                [status]="formLocker.controls['numShelf']?.errors?.required  && formLocker.controls['numShelf'].touched ? 'danger' : ''">
+
+                <label class="text-danger" *ngIf="validateLocker['numShelf'].hasError('required') && formLocker.controls['numShelf'].touched"><small>Ingrese un estante valido!</small></label>
+            </div>
+
+            <div class="form-group row">
+                <input type="number" nbInput fullWidth formControlName="numLocker" matInput placeholder="ID Casillero"
+                [status]="formLocker.controls['numLocker']?.errors?.required  && formLocker.controls['numLocker'].touched ? 'danger' : ''">
+
+                <label class="text-danger" *ngIf="validateLocker['numLocker'].hasError('required') && formLocker.controls['numLocker'].touched"><small>Ingrese un número de casillero valido!</small></label>
+            </div>
+
+            <div class="form-group row">
+                <input type="text" nbInput fullWidth maxlength="30" formControlName="description" matInput placeholder="Descripción"
+                [status]="formLocker.controls['description']?.errors?.required  && formLocker.controls['description'].touched ? 'danger' : ''">
+
+                <label class="text-danger" *ngIf="validateLocker['description'].hasError('required') && formLocker.controls['description'].touched"><small>Ingrese una descripción valida!</small></label>
+            </div>
+
+            <div class="form-group row">
+                <input type="text" nbInput fullWidth maxlength="1" formControlName="status" matInput placeholder="Estado"
+                [status]="formLocker.controls['status']?.errors?.required  && formLocker.controls['status'].touched ? 'danger' : ''">
+
+                <label class="text-danger" *ngIf="validateLocker['status'].hasError('required') && formLocker.controls['status'].touched"><small>Ingrese un estado valido!</small></label>
+            </div>
+
+            <div class="form-group row">
+                <input type="text" nbInput fullWidth formControlName="numRegister" matInput placeholder="ID Registro"
+                [status]="formLocker.controls['numRegister']?.errors?.required  && formLocker.controls['numRegister'].touched ? 'danger' : ''">
+
+                <label class="text-danger" *ngIf="validateLocker['numRegister'].hasError('required') && formLocker.controls['numRegister'].touched"><small>Ingrese un número de registro valido!</small></label>
+            </div>
+
+
+       
+            <div class="form-group row">
+                <div class="offset-sm-3 col-sm-9">
+                    <button type="submit" nbButton status="primary" [disabled]="!formLocker.valid" (click)="register()">{{actionBtn}}</button>
+                </div>
+            </div>
+        </form>
+    </nb-card-body>
+</nb-card>

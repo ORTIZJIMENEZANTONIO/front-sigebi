@@ -1,0 +1,53 @@
+<nb-card>
+    <nb-card-body>
+        <form [formGroup]="form">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <input class="styles" nbInput fullWidth formControlName="code" placeholder="Código"
+                        >
+                        <label class="text-danger"
+                        *ngIf="validate['code'].hasError('required') && form.controls['code'].touched"><small>Ingrese un código!</small></label>
+                    </div>
+                </div>
+                
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <input nbInput fullWidth formControlName="description" placeholder="Descripción"
+                        >
+                        <label class="text-danger"
+                        *ngIf="validate['description'].hasError('required') && form.controls['description'].touched"><small>Ingrese una descripción!</small></label>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <input nbInput fullWidth formControlName="keyview" placeholder="Vista clave"
+                        >
+                        <label class="text-danger"
+                        *ngIf="validate['keyview'].hasError('required') && form.controls['keyview'].touched"><small>Ingrese una vista clave!</small></label>
+                        <label class="text-danger"
+                        *ngIf="validate['keyview'].hasError('minLength') "><small>Digite máximo un caracter</small></label>
+                    </div>
+                </div>
+                
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <input nbInput fullWidth formControlName="noRegistration" placeholder="Número de registro"
+                        >
+                        <label class="text-danger"
+                        *ngIf="validate['noRegistration'].hasError('required') && form.controls['noRegistration'].touched"><small>Ingrese un número de registro!</small></label>
+                    </div>
+                </div>
+            </div>
+       
+            <div class="form-group">
+                <div class="d-flex justify-content-center">
+                    <button type="submit" nbButton status="primary" [disabled]="!form.valid"
+                        (click)="register()">{{actionBtn}}</button>
+                </div>
+            </div>
+        </form>
+    </nb-card-body>
+</nb-card>

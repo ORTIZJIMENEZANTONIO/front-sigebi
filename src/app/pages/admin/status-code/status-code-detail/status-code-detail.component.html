@@ -1,1 +1,50 @@
-<p>status-code-detail works!</p>
+<nb-card>
+  <nb-card-body>
+    <form [formGroup]="form">
+      <div class="form-group">
+        <input type="text" nbInput fullWidth class="form-control" formControlName="id"
+          placeholder="Clave del código ej. 1"
+          [status]="(id?.errors?.required || id?.hasError('pattern') || id?.hasError('minlength') || id?.hasError('maxlength') ) && id.touched ? 'danger' : ''"
+        />
+        <ngx-validation-message label="Clave" 
+          [showMinLength]="id?.hasError('minlength')"
+          [showMaxLength]="id?.hasError('maxlength')"
+          [showRequired]="id?.errors?.required && id.touched"
+          [showPattern]="id?.hasError('pattern') && id.touched" minLength=1 maxLength=5>
+        </ngx-validation-message>
+      </div>
+
+      <div class="form-group">
+        <input type="text" nbInput fullWidth class="form-control" formControlName="descCode"
+          placeholder="Descripción"
+          [status]="( descCode?.hasError('pattern') || descCode?.hasError('minlength') || descCode?.hasError('maxlength')) && descCode.touched ? 'danger' : ''"
+        />
+        <ngx-validation-message label="Descripción" 
+          [showMinLength]="descCode?.hasError('minlength')"
+          [showMaxLength]="descCode?.hasError('maxlength')"
+          [showPattern]="descCode?.hasError('pattern') && descCode.touched" minLength=1 maxLength=50>
+        </ngx-validation-message>
+      </div>
+      
+      <div class="form-group">
+        <input type="text" nbInput fullWidth class="form-control" formControlName="order"
+          placeholder="Orden ej. 123"
+          [status]="( order?.hasError('pattern') || order?.hasError('minlength') || order?.hasError('maxlength')) && order.touched ? 'danger' : ''"
+        />
+        <ngx-validation-message label="Orden" 
+          [showMinLength]="order?.hasError('minlength')"
+          [showMaxLength]="order?.hasError('maxlength')"
+          [showPattern]="order?.hasError('pattern') && order.touched" minLength=1 maxLength=3>
+        </ngx-validation-message>
+      </div>
+
+      <div class="form-group">
+        <div class="d-flex justify-content-center">
+          <button type="submit" nbButton status="primary" [disabled]="!form.valid"
+            (click)="register()">{{actionBtn}}</button>
+        </div>
+      </div>
+
+    </form>
+  </nb-card-body>
+</nb-card>

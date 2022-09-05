@@ -2,12 +2,13 @@ import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { NbWindowRef, NB_WINDOW_CONTEXT, NbWindowService } from '@nebular/theme';
+import { NbWindowRef, NB_WINDOW_CONTEXT, NbWindowService, NbToastrService } from '@nebular/theme';
 import { BehaviorSubject } from 'rxjs';
+import { NUMBERS_PATTERN, STRING_PATTERN } from '../../../../@components/constants';
 import { DelegationService } from '../../../../@core/backend/common/services/delegation.service';
 import { DetailDelegationService } from '../../../../@core/backend/common/services/detail-delegation.service';
-import { SubdelegationService } from '../../../../@core/backend/common/services/subdelegation.service';
 import { DetailDelegation } from '../../../../@core/interfaces/auction/detail-delegation.model';
+import { SweetAlertConstants } from '../../../../@core/interfaces/auction/sweetalert-model';
 import { BasePage } from '../../../../@core/shared/base-page';
 
 @Component({
@@ -16,92 +17,118 @@ import { BasePage } from '../../../../@core/shared/base-page';
   styleUrls: ['./detail-delegation-detail.component.scss']
 })
 export class DetailDelegationDetailComponent extends BasePage {
-
-  detailDelegation: DetailDelegation;
-  formDetailDelegation: FormGroup;
-
-  filteredOptions$: BehaviorSubject<any[]> = new BehaviorSubject([]);
-  filteredsubdelegations$: BehaviorSubject<any[]> = new BehaviorSubject([]);
-  
-  constructor(private fb: FormBuilder, protected cd: ChangeDetectorRef, protected router: Router, private service: DetailDelegationService,
-    public windowRef: NbWindowRef, @Inject(NB_WINDOW_CONTEXT) context, private dom: DomSanitizer, private windowService: NbWindowService,
-    private delegationService: DelegationService,
-
-  ) {
-    super();
-    if (null != context.detailDelegation) {
-      
-      this.detailDelegation = context.detailDelegation;
+  public formDetailDelegation: FormGroup;
+  private data: DetailDelegation;
+  public actionBtn: string = "Guardar";
+  public filteredOptions$: BehaviorSubject<any[]> = new BehaviorSubject([]);
+  constructor(
+    private fb: FormBuilder,
+    protected cd: ChangeDetectorRef,
+    protected router: Router,
+    private service: DetailDelegationService,
+    public windowRef: NbWindowRef,
+    public toastrService: NbToastrService,
+    private delService: DelegationService,
+    @Inject(NB_WINDOW_CONTEXT) context) {
+    super(toastrService);
+    if (null != context.data) {
+      this.data = context.data;
     }
+  }
 
-
+  ngOnInit(): void {
+    this.prepareForm();
+  }
+  private prepareForm() {
     this.formDetailDelegation = this.fb.group({
       id: [''],
-      nombre: [null, Validators.compose([Validators.pattern("[a-zA-Z]((\.|_|-)?[a-zA-ZáéíóúÁÉÍÓÚ\u0020]+){0,255}"), Validators.required])],
-      ubicacion: ['', Validators.required],
-      direccion: ['', Validators.required],
-      puesto: ['', Validators.required],
+      name: [null, Validators.compose([Validators.pattern("[a-zA-Z]((\.|_|-)?[a-zA-ZáéíóúÁÉÍÓÚ\u0020]+){0,255}"), Validators.required])],
+      location: ['', Validators.required],
+      address: ['', Validators.required],
+      position: ['', Validators.required],
       area: ['', Validators.required],
-      correo: ['', Validators.email],
-
-      tel1: ['', Validators.required],
-      tel2: ['', Validators.required],
-      tel3: ['', Validators.required],
-
-      detalle_delegacion:[null,Validators.required],
-      no_delegacion: [null, [Validators.min(1)]],
+      mail: [null, Validators.compose([Validators.email, Validators.required])],
+      description: [ '', Validators.compose([ Validators.pattern(STRING_PATTERN)])],
+      numP1: ['', Validators.required],
+      numP2: ['', Validators.required],
+      numP3: ['', Validators.required],
+      numDelegation: ['', Validators.compose([Validators.required, Validators.pattern(NUMBERS_PATTERN) ])],
     });
-    this.formDetailDelegation.controls['detalle_delegacion'].valueChanges.subscribe((value: string) => {
+    if (this.data) { 
+      const dataUpdt = {
+        ...this.data,
+        numDelegation: this.data.numDelegation.id,
+        description: this.data.numDelegation.description,
+      } 
+      this.actionBtn = "Actualizar";
+      this.formDetailDelegation.patchValue(dataUpdt);
+      this.formDetailDelegation.controls['id'].disable();
+      this.formDetailDelegation.controls['description'].disable();
+    }
+    this.formDetailDelegation.controls['description'].valueChanges.subscribe((value: string) => {
       if (value) {
-        this.delegationService.search(value).subscribe(data => {
+        this.delService.search(value).subscribe(data => {
           this.filteredOptions$.next(data);
         })
       }
     })
   }
-  actionBtn: string = "Guardar";
 
+  public get name() { return this.formDetailDelegation.get('name'); }
+  public get location() { return this.formDetailDelegation.get('location'); }
+  public get address() { return this.formDetailDelegation.get('address'); }
+  public get positionF() { return this.formDetailDelegation.get('position'); }
+  public get area() { return this.formDetailDelegation.get('area'); }
+  public get mail() { return this.formDetailDelegation.get('mail'); }
+  public get numP1() { return this.formDetailDelegation.get('numP1'); }
+  public get numP2() { return this.formDetailDelegation.get('numP2'); }
+  public get numP3() { return this.formDetailDelegation.get('numP3'); }
+  public get description() { return this.formDetailDelegation.get('description'); }
+  public get numDelegation() { return this.formDetailDelegation.get('numDelegation'); }
 
-
-  get validateDetailDelegation() {
-    return this.formDetailDelegation.controls;
-  }
-
-  ngOnInit(): void {
-
-    if (this.detailDelegation) {
-      this.actionBtn = "Actualizar";
-      this.formDetailDelegation.patchValue(this.detailDelegation)
-
+  public onSelectionChangeDelegation(event) {
+    if (event.id) {
+      this.numDelegation.patchValue(event.id);
+      this.description.patchValue(event.description);
     }
   }
-
-  onSelectionChangeDelegation(event){
-    if(event.id){
-      this.formDetailDelegation.controls['no_delegacion'].setValue(event.id);
-      this.formDetailDelegation.controls['detalle_delegacion'].setValue(event.descripcion);
-    }
-        
+  public register(): void {
+    const data = this.formDetailDelegation.getRawValue();
+    this.actionBtn == "Guardar" ? this.createRegister(data) : this.updateRegister(data);
   }
-
-  
-
-
-  
-  register(): void {
-    const data = this.formDetailDelegation.value;
-    if (this.actionBtn == "Guardar") {
-      this.service.register(data).subscribe(data => {
-        this.windowRef.close();
+  private createRegister(data): void {
+    this.service.register(data).subscribe(
+      () => {
+        this.onLoadFailed('success', 'Detalle delegación', 'Registrado Correctamente');
       }, err => {
-        console.log(err);
-      })
-    } else {
-      this.service.update(this.detailDelegation.id, data).subscribe(data => {
+        let error = '';
+        if (err.status === 0) {
+          error = SweetAlertConstants.noConexion;
+        } else {
+          error = err.message;
+        }
+        this.onLoadFailed('danger', 'Error', error);
+      }, () => {
         this.windowRef.close();
+      });
+  }
+  private updateRegister(data): void {
+delete data.id;
+delete data.numDelegation;
+
+    this.service.update(this.data.id, data).subscribe(
+      () => {
+        this.onLoadFailed('success', 'Detalle delegación', 'Actualizado Correctamente');
       }, err => {
-        console.log(err);
-      })
-    }
+        let error = '';
+        if (err.status === 0) {
+          error = SweetAlertConstants.noConexion;
+        } else {
+          error = err.message;
+        }
+        this.onLoadFailed('danger', 'Error', error);
+      }, () => {
+        this.windowRef.close();
+      });
   }
 }

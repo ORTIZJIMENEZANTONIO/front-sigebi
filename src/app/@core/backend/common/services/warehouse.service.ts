@@ -21,6 +21,10 @@ export class WarehouseService {
     return data;
   }
 
+  search( text:string ){
+    return this.api.search(text,this.url);
+  }
+
   register( data: WarehouseInterface ): Observable<WarehouseInterface>{
     return this.api.register( data, this.url );
   }
@@ -32,4 +36,5 @@ export class WarehouseService {
   delete(id:number){
     return this.api.delete( id, this.url );
   }
+
 }

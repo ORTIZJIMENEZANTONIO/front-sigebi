@@ -26,7 +26,7 @@ export class LockerService {
         return this.api.register(legendData, this.url);
     }
 
-    update(id:number, legendData: Locker): Observable<Locker>{
+    update(id:string, legendData: Locker): Observable<Locker>{
         return this.api.update(id, legendData,this.url);
     }
 

@@ -33,4 +33,8 @@ export class StorehouseService {
   delete(id:number){
     return this.api.delete( id, this.url );
   }
+
+  search(text:string){
+    return this.api.search(text,this.url);
+}
 }

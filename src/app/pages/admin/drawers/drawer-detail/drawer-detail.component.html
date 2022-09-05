@@ -1,0 +1,67 @@
+<nb-card>
+    <nb-card-body>
+        <form [formGroup]="form">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <input type="text" nbInput fullWidth class="form-control" formControlName="noDrawer"
+                            placeholder="Número de gaveta"
+                            [status]="(noDrawer?.errors?.required || noDrawer?.hasError('minlength') || noDrawer?.hasError('maxlength') || noDrawer?.hasError('pattern')) && noDrawer.touched ? 'danger' : ''">
+                        <ngx-validation-message label="Número de gaveta" [showMinLength]="noDrawer?.hasError('minlength')"
+                            [showMaxLength]="noDrawer?.hasError('maxlength')"
+                            [showRequired]="noDrawer?.errors?.required && noDrawer.touched"
+                            [showPattern]="noDrawer?.hasError('pattern') && noDrawer.touched" minLength=1 maxLength=255>
+                        </ngx-validation-message>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <input type="text" nbInput fullWidth class="form-control" formControlName="noBobeda"
+                            placeholder="Número de boveda"
+                            [status]="(noBobeda?.errors?.required || noBobeda?.hasError('minlength') || noBobeda?.hasError('maxlength') || noBobeda?.hasError('pattern')) && noBobeda.touched ? 'danger' : ''">
+                        <ngx-validation-message label="Número de boveda" [showMinLength]="noBobeda?.hasError('minlength')"
+                            [showMaxLength]="noBobeda?.hasError('maxlength')"
+                            [showRequired]="noBobeda?.errors?.required && noBobeda.touched"
+                            [showPattern]="noBobeda?.hasError('pattern') && noBobeda.touched" minLength=1 maxLength=255>
+                        </ngx-validation-message>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <input type="text" nbInput fullWidth class="form-control" formControlName="status"
+                            placeholder="Estatus"
+                            [status]="(statuss?.errors?.required || statuss?.hasError('minlength') || statuss?.hasError('maxlength') || statuss?.hasError('pattern')) && statuss.touched ? 'danger' : ''">
+                        <ngx-validation-message label="Estatus" [showMinLength]="statuss?.hasError('minlength')"
+                            [showMaxLength]="statuss?.hasError('maxlength')"
+                            [showRequired]="statuss?.errors?.required && statuss.touched"
+                            [showPattern]="statuss?.hasError('pattern') && statuss.touched" minLength=1 maxLength=255>
+                        </ngx-validation-message>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <input type="text" nbInput fullWidth class="form-control" formControlName="noRegistration"
+                            placeholder="Número registro"
+                            [status]="(noRegistration?.errors?.required || noRegistration?.hasError('minlength') || noRegistration?.hasError('maxlength') || noRegistration?.hasError('pattern')) && noRegistration.touched ? 'danger' : ''">
+                        <ngx-validation-message label="Número registro" [showMinLength]="noRegistration?.hasError('minlength')"
+                            [showMaxLength]="noRegistration?.hasError('maxlength')"
+                            [showRequired]="noRegistration?.errors?.required && noRegistration.touched"
+                            [showPattern]="noRegistration?.hasError('pattern') && noRegistration.touched" minLength=1 maxLength=255>
+                        </ngx-validation-message>
+                    </div>
+                </div>
+              
+             
+              
+              
+            
+            </div>
+            <div class="form-group">
+                <div class="d-flex justify-content-center">
+                    <button type="submit" nbButton status="primary" [disabled]="!form.valid"
+                        (click)="register()">{{actionBtn}}</button>
+                </div>
+            </div>
+        </form>
+    </nb-card-body>
+</nb-card>

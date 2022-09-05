@@ -1,0 +1,102 @@
+<nb-card>
+    <nb-card-body>
+        <form [formGroup]="form">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <input nbInput fullWidth formControlName="satTypeJob" placeholder="Id tipo oficio"
+                            [status]="(satTypeJob?.errors?.required || satTypeJob?.hasError('minlength') || satTypeJob?.hasError('maxlength') || satTypeJob?.hasError('pattern')) && satTypeJob.touched ? 'danger' : ''">
+                        <ngx-validation-message label="Id tipo oficio"
+                            [showMinLength]="satTypeJob?.hasError('minlength')"
+                            [showMaxLength]="satTypeJob?.hasError('maxlength')"
+                            [showRequired]="satTypeJob?.errors?.required && satTypeJob.touched"
+                            [showPattern]="satTypeJob?.hasError('pattern') && satTypeJob.touched" minLength=1
+                            maxLength=255>
+                        </ngx-validation-message>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <input formControlName="detailsat" type="text"
+                            placeholder="Doc resarcimiento sat" [nbAutocomplete]="auto" nbInput fullWidth
+                            [status]="(detailsat?.errors?.required || detailsat?.hasError('minlength') || detailsat?.hasError('maxlength') || detailsat?.hasError('pattern')) && detailsat.touched ? 'danger' : ''">
+
+                        <nb-autocomplete #auto [activeFirst]="true"
+                            (selectedChange)="onSelectionChangeDoc($event)">
+
+                            <nb-option *ngFor="let option of doc$ | async" [value]="option">
+                                {{ option.typeDocSat }}
+                            </nb-option>
+
+                        </nb-autocomplete>
+                        <ngx-validation-message label="Doc resarcimiento sat"
+                            [showMinLength]="detailsat?.hasError('minlength')"
+                            [showMaxLength]="detailsat?.hasError('maxlength')"
+                            [showRequired]="detailsat?.errors?.required && detailsat.touched"
+                            [showPattern]="detailsat?.hasError('pattern') && detailsat.touched"
+                            minLength=1 maxLength=255>
+                        </ngx-validation-message>
+
+                    </div>
+                </div> 
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <input formControlName="detailsatxml" type="text"
+                            placeholder="Doc resarcimiento sat xml" [nbAutocomplete]="autoo" nbInput fullWidth
+                            [status]="(detailsatxml?.errors?.required || detailsatxml?.hasError('minlength')
+                             || detailsatxml?.hasError('maxlength') ||
+                              detailsatxml?.hasError('pattern')) && detailsatxml.touched ? 'danger' : ''">
+
+                        <nb-autocomplete #autoo [activeFirst]="true"
+                            (selectedChange)="onSelectionChangeDocsat($event)">
+
+                            <nb-option *ngFor="let option of docsat$ | async" [value]="option">
+                                {{ option.typeDocSatXml }}
+                            </nb-option>
+
+                        </nb-autocomplete>
+                        <ngx-validation-message label="Doc resarcimiento sat xml"
+                            [showMinLength]="detailsatxml?.hasError('minlength')"
+                            [showMaxLength]="detailsatxml?.hasError('maxlength')"
+                            [showRequired]="detailsatxml?.errors?.required && detailsatxml.touched"
+                            [showPattern]="detailsatxml?.hasError('pattern') && detailsatxml.touched"
+                            minLength=1 maxLength=255>
+                        </ngx-validation-message>
+
+                    </div>
+                </div>
+                 <div class="col-md-12">
+                    <div class="form-group">
+                        <input nbInput fullWidth formControlName="typeDocSae" placeholder="Tipo documento"
+                            [status]="(typeDocSae?.errors?.required || typeDocSae?.hasError('minlength') || typeDocSae?.hasError('maxlength') || typeDocSae?.hasError('pattern')) && typeDocSae.touched ? 'danger' : ''">
+                        <ngx-validation-message label="Tipo documento" [showMinLength]="typeDocSae?.hasError('minlength')"
+                            [showMaxLength]="typeDocSae?.hasError('maxlength')"
+                            [showRequired]="typeDocSae?.errors?.required && typeDocSae.touched"
+                            [showPattern]="typeDocSae?.hasError('pattern') && typeDocSae.touched" minLength=1
+                            maxLength=255>
+                        </ngx-validation-message>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <input nbInput fullWidth formControlName="type" placeholder="Tipo"
+                            [status]="(type?.errors?.required || type?.hasError('minlength') || type?.hasError('maxlength') || type?.hasError('pattern')) && type.touched ? 'danger' : ''">
+                        <ngx-validation-message label="Asunto código"
+                            [showMinLength]="type?.hasError('minlength')"
+                            [showMaxLength]="type?.hasError('maxlength')"
+                            [showRequired]="type?.errors?.required && type.touched"
+                            [showPattern]="type?.hasError('pattern') && type.touched" minLength=1
+                            maxLength=255>
+                        </ngx-validation-message>
+                    </div>
+                </div> 
+            </div>
+            <div class="form-group">
+                <div class="d-flex justify-content-center">
+                    <button type="submit" nbButton status="primary" [disabled]="!form.valid"
+                        (click)="register()">{{actionBtn}}</button>
+                </div>
+            </div>
+        </form>
+    </nb-card-body>
+</nb-card>

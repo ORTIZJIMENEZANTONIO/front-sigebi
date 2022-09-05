@@ -1,1 +1,43 @@
-<p>good-subtype-detail works!</p>
+<nb-card>
+    <nb-card-body>
+        <form [formGroup]="form">
+
+            <div class="form-group row">
+                <input type="number" nbInput  fullWidth formControlName="numType" placeholder="ID Tipo"
+                [status]="(numType?.errors?.required || numType?.hasError('minlength') || numType?.hasError('maxlength') || numType?.hasError('pattern')) && numType.touched ? 'danger' : ''">
+                <ngx-validation-message label="ID Tipo" [showMinLength]="numType?.hasError('minlength')"
+                    [showMaxLength]="numType?.hasError('maxlength')"
+                    [showRequired]="numType?.errors?.required && numType.touched"
+                    [showPattern]="numType?.hasError('pattern') && numType.touched" minLength=1 maxLength=255>
+                </ngx-validation-message>
+            </div>
+
+            <div class="form-group row">
+                <input type="number" nbInput fullWidth formControlName="numRegister" placeholder="ID Registro"
+                [status]="(numRegister?.errors?.required || numRegister?.hasError('minlength') || numRegister?.hasError('maxlength') || numRegister?.hasError('pattern')) && numRegister.touched ? 'danger' : ''">
+                <ngx-validation-message label="ID Registro" [showMinLength]="numRegister?.hasError('minlength')"
+                    [showMaxLength]="numRegister?.hasError('maxlength')"
+                    [showRequired]="numRegister?.errors?.required && numRegister.touched"
+                    [showPattern]="numRegister?.hasError('pattern') && numRegister.touched" minLength=1 maxLength=255>
+                </ngx-validation-message>
+            </div>
+
+            <div class="form-group row">
+                <input type="text" nbInput fullWidth formControlName="description" placeholder="Descripción"
+                [status]="(description?.errors?.required || description?.hasError('minlength') || description?.hasError('maxlength') || description?.hasError('pattern')) && description.touched ? 'danger' : ''">
+                <ngx-validation-message label="Descripción" [showMinLength]="description?.hasError('minlength')"
+                    [showMaxLength]="description?.hasError('maxlength')"
+                    [showRequired]="description?.errors?.required && description.touched"
+                    [showPattern]="description?.hasError('pattern') && description.touched" minLength=1 maxLength=255>
+                </ngx-validation-message>
+            </div>
+       
+            <div class="form-group">
+                <div class="d-flex justify-content-center">
+                    <button type="submit" nbButton status="primary" [disabled]="!form.valid"
+                        (click)="register()">{{actionBtn}}</button>
+                </div>
+            </div>
+        </form>
+    </nb-card-body>
+</nb-card>

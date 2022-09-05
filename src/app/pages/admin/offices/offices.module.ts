@@ -23,10 +23,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
   imports: [
     CommonModule,
     OfficesRoutingModule,
-    FormsModule,
     ReactiveFormsModule,
     ComponentsModule,
-    CommonModule,
     ThemeModule,
     NbCardModule,
     Ng2SmartTableModule,
@@ -34,9 +32,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     NbButtonModule,
     NbInputModule,
     NbWindowModule.forChild(),
-    MatPaginatorModule,
-    MatInputModule,
-    MatFormFieldModule
+    MatPaginatorModule
   ]
 })
 export class OfficesModule { }

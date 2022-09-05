@@ -1,1 +1,33 @@
-<p>claim-conclusion-detail works!</p>
+<nb-card>
+    <nb-card-body>
+        <form [formGroup]="form">
+
+            <div class="form-group row">
+                <input type="text" nbInput fullWidth formControlName="description" placeholder="Descripción"
+                    [status]="(description?.errors?.required || description?.hasError('minlength') || description?.hasError('maxlength') || description?.hasError('pattern')) && description.touched ? 'danger' : ''">
+                <ngx-validation-message label="Descripción" [showMinLength]="description?.hasError('minlength')"
+                    [showMaxLength]="description?.hasError('maxlength')"
+                    [showRequired]="description?.errors?.required && description.touched"
+                    [showPattern]="description?.hasError('pattern') && description.touched" minLength=1 maxLength=255>
+                </ngx-validation-message>
+            </div>
+
+            <div class="form-group row">
+                <input type="number" nbInput fullWidth formControlName="flag" placeholder="Bandera"
+                    [status]="(flag?.errors?.required || flag?.hasError('minlength') || flag?.hasError('maxlength') || flag?.hasError('pattern')) && flag.touched ? 'danger' : ''">
+                <ngx-validation-message label="Bandera" [showMinLength]="flag?.hasError('minlength')"
+                    [showMaxLength]="flag?.hasError('maxlength')"
+                    [showRequired]="flag?.errors?.required && flag.touched"
+                    [showPattern]="flag?.hasError('pattern') && flag.touched" minLength=1 maxLength=255>
+                </ngx-validation-message>
+            </div>
+
+            <div class="form-group row">
+                <div class="offset-sm-3 col-sm-9">
+                    <button type="submit" nbButton status="primary" [disabled]="!form.valid"
+                        (click)="register()">{{actionBtn}}</button>
+                </div>
+            </div>
+        </form>
+    </nb-card-body>
+</nb-card>

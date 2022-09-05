@@ -1,69 +1,133 @@
 <nb-card>
     <nb-card-body>
         <form [formGroup]="formDetailDelegation">
-            <div class="form-group row">
-                <input nbInput fullWidth formControlName="nombre" matInput placeholder="nombre">
-                <label class="text-danger" *ngIf="validateDetailDelegation['nombre'].hasError('pattern')"><small>Ingrese un nombre válido!</small></label>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input nbInput fullWidth formControlName="name" placeholder="Nombre"
+                            [status]="(name?.errors?.required || name?.hasError('minlength') || name?.hasError('maxlength') || name?.hasError('pattern')) && name.touched ? 'danger' : ''">
+                        <ngx-validation-message label="Nombre" [showMinLength]="name?.hasError('minlength')"
+                            [showMaxLength]="name?.hasError('maxlength')"
+                            [showRequired]="name?.errors?.required && name.touched"
+                            [showPattern]="name?.hasError('pattern') && name.touched" minLength=1 maxLength=255>
+                        </ngx-validation-message>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input formControlName="description" placeholder="Nro delegacion" [nbAutocomplete]="auto"
+                            nbInput fullWidth
+                            [status]="(description?.errors?.required || description?.hasError('minlength') || description?.hasError('maxlength') || description?.hasError('pattern')) && description.touched ? 'danger' : ''">
+                        <nb-autocomplete #auto [activeFirst]="true"
+                            (selectedChange)="onSelectionChangeDelegation($event)">
+                            <nb-option *ngFor="let option of filteredOptions$ | async" [value]="option">
+                                {{ option.description }}
+                            </nb-option>
+                        </nb-autocomplete>
+                        <ngx-validation-message label="Nro delegacion"
+                            [showMinLength]="description?.hasError('minlength')"
+                            [showMaxLength]="description?.hasError('maxlength')"
+                            [showRequired]="description?.errors?.required && description.touched"
+                            [showPattern]="description?.hasError('pattern') && description.touched"
+                            minLength=1 maxLength=255>
+                        </ngx-validation-message>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input nbInput fullWidth formControlName="location" placeholder="ubicacion"
+                            [status]="(location?.errors?.required || location?.hasError('minlength') || location?.hasError('maxlength') || location?.hasError('pattern')) && location.touched ? 'danger' : ''">
+                        <ngx-validation-message label="Ubicacion" [showMinLength]="location?.hasError('minlength')"
+                            [showMaxLength]="location?.hasError('maxlength')"
+                            [showRequired]="location?.errors?.required && location.touched"
+                            [showPattern]="location?.hasError('pattern') && location.touched" minLength=1 maxLength=255>
+                        </ngx-validation-message>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input nbInput fullWidth formControlName="address" placeholder="direccion"
+                            [status]="(address?.errors?.required || address?.hasError('minlength') || address?.hasError('maxlength') || address?.hasError('pattern')) && address.touched ? 'danger' : ''">
+                        <ngx-validation-message label="direccion" [showMinLength]="address?.hasError('minlength')"
+                            [showMaxLength]="address?.hasError('maxlength')"
+                            [showRequired]="address?.errors?.required && address.touched"
+                            [showPattern]="address?.hasError('pattern') && address.touched" minLength=1 maxLength=255>
+                        </ngx-validation-message>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input nbInput fullWidth formControlName="position" placeholder="puesto"
+                            [status]="(positionF?.errors?.required || positionF?.hasError('minlength') || positionF?.hasError('maxlength') || positionF?.hasError('pattern')) && positionF.touched ? 'danger' : ''">
+                        <ngx-validation-message label="puesto" [showMinLength]="positionF?.hasError('minlength')"
+                            [showMaxLength]="positionF?.hasError('maxlength')"
+                            [showRequired]="positionF?.errors?.required && positionF.touched"
+                            [showPattern]="positionF?.hasError('pattern') && positionF.touched" minLength=1
+                            maxLength=255>
+                        </ngx-validation-message>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input nbInput fullWidth formControlName="area" placeholder="area"
+                            [status]="(area?.errors?.required || area?.hasError('minlength') || area?.hasError('maxlength') || area?.hasError('pattern')) && area.touched ? 'danger' : ''">
+                        <ngx-validation-message label="area" [showMinLength]="area?.hasError('minlength')"
+                            [showMaxLength]="area?.hasError('maxlength')"
+                            [showRequired]="area?.errors?.required && area.touched"
+                            [showPattern]="area?.hasError('pattern') && area.touched" minLength=1 maxLength=255>
+                        </ngx-validation-message>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type="email" nbInput fullWidth formControlName="mail" placeholder="correo"
+                            [status]="(mail?.errors?.required || mail?.hasError('minlength') || mail?.hasError('maxlength') || mail?.hasError('pattern')) && mail.touched ? 'danger' : ''">
+                        <ngx-validation-message label="correo" [showMinLength]="mail?.hasError('minlength')"
+                            [showMaxLength]="mail?.hasError('maxlength')"
+                            [showRequired]="mail?.errors?.required && mail.touched"
+                            [showPattern]="mail?.hasError('pattern') && mail.touched" minLength=1 maxLength=255>
+                        </ngx-validation-message>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type="number" nbInput fullWidth formControlName="numP1" placeholder="Telefono 1"
+                            [status]="(numP1?.errors?.required || numP1?.hasError('minlength') || numP1?.hasError('maxlength') || numP1?.hasError('pattern')) && numP1.touched ? 'danger' : ''">
+                        <ngx-validation-message label="Telefono 1" [showMinLength]="numP1?.hasError('minlength')"
+                            [showMaxLength]="numP1?.hasError('maxlength')"
+                            [showRequired]="numP1?.errors?.required && numP1.touched"
+                            [showPattern]="numP1?.hasError('pattern') && numP1.touched" minLength=1 maxLength=255>
+                        </ngx-validation-message>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type="number" nbInput fullWidth formControlName="numP2" placeholder="Telefono 2"
+                            [status]="(numP2?.errors?.required || numP2?.hasError('minlength') || numP2?.hasError('maxlength') || numP2?.hasError('pattern')) && numP2.touched ? 'danger' : ''">
+                        <ngx-validation-message label="Telefono 2" [showMinLength]="numP2?.hasError('minlength')"
+                            [showMaxLength]="numP2?.hasError('maxlength')"
+                            [showRequired]="numP2?.errors?.required && numP2.touched"
+                            [showPattern]="numP2?.hasError('pattern') && numP2.touched" minLength=1 maxLength=255>
+                        </ngx-validation-message>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type="number" nbInput fullWidth formControlName="numP3" placeholder="Telefono 3"
+                            [status]="(numP3?.errors?.required || numP3?.hasError('minlength') || numP3?.hasError('maxlength') || numP3?.hasError('pattern')) && numP3.touched ? 'danger' : ''">
+                        <ngx-validation-message label="Telefono 3" [showMinLength]="numP3?.hasError('minlength')"
+                            [showMaxLength]="numP3?.hasError('maxlength')"
+                            [showRequired]="numP3?.errors?.required && numP3.touched"
+                            [showPattern]="numP3?.hasError('pattern') && numP3.touched" minLength=1 maxLength=255>
+                        </ngx-validation-message>
+                    </div>
+                </div>
             </div>
 
-
-            <div class="form-group row">
-                <input formControlName="detalle_delegacion" matInput placeholder="Nro delegacion"  [nbAutocomplete]="auto"  nbInput>
-            
-
-                <nb-autocomplete #auto [activeFirst]="true" (selectedChange)="onSelectionChangeDelegation($event)">
-
-                    <nb-option *ngFor="let option of filteredOptions$ | async" [value]="option">
-
-                        {{ option.descripcion }}
-                    </nb-option>
-                
-                    </nb-autocomplete>
-                <label class="text-danger" *ngIf="validateDetailDelegation['no_delegacion'].hasError('min')"><small>Seleccione una delegacion!</small></label>
-
-               
-            </div>
-
-            
-            <div class="form-group row">
-                <input nbInput fullWidth formControlName="ubicacion" matInput placeholder="ubicacion">
-                <label class="text-danger" *ngIf="validateDetailDelegation['ubicacion'].hasError('required')"><small>Campo ubicación requerido!</small></label>
-            </div>
-
-            <div class="form-group row">
-                <input nbInput fullWidth formControlName="direccion" matInput placeholder="direccion">
-                <label class="text-danger" *ngIf="validateDetailDelegation['direccion'].hasError('required')"><small>Campo dirección requerido!</small></label>
-            </div>
-            <div class="form-group row">
-                <input nbInput fullWidth formControlName="puesto" matInput placeholder="puesto">
-                <label class="text-danger" *ngIf="validateDetailDelegation['puesto'].hasError('required')"><small>Campo puesto requerido!</small></label>
-            </div>
-            <div class="form-group row">
-                <input nbInput fullWidth formControlName="area" matInput placeholder="area">
-                <label class="text-danger" *ngIf="validateDetailDelegation['area'].hasError('required')"><small>Campo area requerido!</small></label>
-            </div>
-            <div class="form-group row">
-                <input type="email" nbInput fullWidth formControlName="correo" matInput placeholder="correo">
-                <label class="text-danger" *ngIf="validateDetailDelegation['correo'].hasError('email')"><small>Campo correo requerido!</small></label>
-            </div>
-
-
-            <div class="form-group row">
-                <input type="number" nbInput fullWidth formControlName="tel1" matInput placeholder="Telefono 1">
-                <label class="text-danger" *ngIf="validateDetailDelegation['tel1'].hasError('required')"><small>Ingrese un teléfono de contacto!</small></label>
-            </div>
-            <div class="form-group row">
-                <input type="number" nbInput fullWidth formControlName="tel2" matInput placeholder="Telefono 2">
-                <label class="text-danger" *ngIf="validateDetailDelegation['tel2'].hasError('required')"><small>Ingrese un teléfono de contacto!</small></label>
-            </div>
-            <div class="form-group row">
-                <input type="number" nbInput fullWidth formControlName="tel3" matInput placeholder="Telefono 3">
-                <label class="text-danger" *ngIf="validateDetailDelegation['tel3'].hasError('required')"><small>Ingrese un teléfono de contacto!</small></label>
-            </div>
-
-            <div class="form-group row">
-                <div class="offset-sm-3 col-sm-9">
-                    <button type="submit" nbButton status="primary" [disabled]="!formDetailDelegation.valid" (click)="register()">{{actionBtn}}</button>
+            <div class="form-group">
+                <div class="d-flex justify-content-center">
+                    <button type="submit" nbButton status="primary" [disabled]="!formDetailDelegation.valid"
+                        (click)="register()">{{actionBtn}}</button>
                 </div>
             </div>
         </form>

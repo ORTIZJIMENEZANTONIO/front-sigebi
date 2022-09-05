@@ -2,23 +2,27 @@ import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { NbWindowRef, NbWindowService, NB_WINDOW_CONTEXT } from '@nebular/theme';
+import { NbToastrService, NbWindowRef, NbWindowService, NB_WINDOW_CONTEXT } from '@nebular/theme';
 import { TypeSettelementService } from '../../../../@core/backend/common/services/typeSettelement.service';
+import { SweetAlertConstants, SweetalertModel } from '../../../../@core/interfaces/auction/sweetalert-model';
+import { TypeSettelementInterface } from '../../../../@core/interfaces/auction/TypeSettelement.model';
 import { BaseApp } from '../../../../@core/shared/base-app';
+import { BasePage } from '../../../../@core/shared/base-page';
+import { SweetalertService } from '../../../../shared/sweetalert.service';
 
 @Component({
   selector: 'ngx-type-settelement-detail',
   templateUrl: './type-settelement-detail.component.html',
   styleUrls: ['./type-settelement-detail.component.scss']
 })
-export class TypeSettelementDetailComponent extends BaseApp {
+export class TypeSettelementDetailComponent extends BasePage {
 
   Form: FormGroup;
-  data: any = {};
+  data: TypeSettelementInterface;
 
   constructor(private fb: FormBuilder, protected cd: ChangeDetectorRef, protected router: Router, private service: TypeSettelementService,
-    public windowRef: NbWindowRef, @Inject(NB_WINDOW_CONTEXT) context, private dom: DomSanitizer, private windowService: NbWindowService) {
-    super();
+    public windowRef: NbWindowRef, @Inject(NB_WINDOW_CONTEXT) context, private dom: DomSanitizer, private windowService: NbWindowService, public toastrService: NbToastrService, public sweetalertService: SweetalertService) {
+    super(toastrService);
     if (null != context.data) {
       this.data = context.data;
     }
@@ -28,52 +32,59 @@ export class TypeSettelementDetailComponent extends BaseApp {
   form = this.fb.group({
     cve: [null, Validators.compose([Validators.required])],
     name: [null, Validators.compose([Validators.pattern(""), Validators.required])],
-    version: [null, Validators.compose([Validators.pattern("[0-9]"), Validators.required])],
+    version: [null, Validators.compose([Validators.pattern(""), Validators.required])],
   });
 
   get validateOpinion() {
     return this.form.controls;
   }
+
   ngOnInit(): void {
     if (this.data.cve != null) {
       this.actionBtn = "Actualizar";
-      // this.formOpinion.controls['description'].setValue(this.opinion.description);
-      // this.formOpinion.controls['noRegistration'].setValue(this.opinion.noRegistration);
-      // this.formOpinion.controls['dict_ofi'].setValue(this.opinion.dict_ofi);
-      // this.formOpinion.controls['areaProcess'].setValue(this.opinion.areaProcess);
       this.form.patchValue(this.data);
+      this.form.controls['cve'].disable();
     }
-
   }
-
-
 
   register(): void {
     let params = {
-      userCreation: 'Paul',
+      userCreation: 'User',
       creationDate: new Date(),
-      userModificatio: 'Paul',
+      userModificatio: 'User',
       modificatioDate: new Date(),
-      name: this.form.value.name,
-      version: this.form.value.version,
       cve: this.form.value.cve,
+      name: this.form.value.name,
+      version: this.form.value.version      
     }
     if (this.actionBtn == "Guardar") {
       this.service.register(params).subscribe(data => {
-        this.windowRef.close();
+        this.onLoadFailed('success', 'Tipo Asentamiento', 'Registrado Correctamente');
       }, err => {
-        console.log(err);
-      })
+        let error = '';
+        if (err.status === 0) {
+          error = SweetAlertConstants.noConexion;
+        } else {
+          error = err.message;
+        }
+        this.onLoadFailed('danger', 'Error', error);
+      }, () => {
+        this.windowRef.close();
+      });
     } else {
-      delete params.cve;
-      console.log(this.data.cve)
       this.service.update(this.data.cve, params).subscribe(data => {
-        console.log(data);
-        this.windowRef.close();
+        this.onLoadFailed('success', 'Tipo Asentamiento', 'Actualizado Correctamente');
       }, err => {
-        console.log(err);
-      })
+        let error = '';
+        if (err.status === 0) {
+          error = SweetAlertConstants.noConexion;
+        } else {
+          error = err.message;
+        }
+        this.onLoadFailed('danger', 'Error', error);
+      }, () => {
+        this.windowRef.close();
+      });
     }
   }
-
 }

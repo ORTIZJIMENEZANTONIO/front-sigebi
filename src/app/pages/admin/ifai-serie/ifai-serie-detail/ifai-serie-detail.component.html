@@ -1,0 +1,73 @@
+<nb-card>
+  <nb-card-body>
+    <form [formGroup]="form">
+      <div class="form-group row">
+        <input type="text" nbInput maxlength="8" fullWidth formControlName="code"
+          placeholder="Código de serie ej. 1123"
+          [status]="(code?.errors?.required || code?.hasError('maxlength') || code?.hasError('pattern') ) && code.touched ? 'danger' : ''"
+        />
+        <ngx-validation-message label="Código" 
+          [showMinLength]="code?.hasError('minlength')"
+          [showMaxLength]="code?.hasError('maxlength')"
+          [showRequired]="code?.errors?.required && code.touched"
+          [showPattern]="code?.hasError('pattern') && code.touched" minLength=1 maxLength=8>
+        </ngx-validation-message>
+      </div>
+      
+      <div class="form-group row">
+        <input type="string" nbInput fullWidth formControlName="typeProcedure"
+          placeholder="Tipo de trámite"
+          [status]="(typeProcedure?.errors?.required || typeProcedure?.hasError('minlength') || typeProcedure?.hasError('maxlength') || typeProcedure?.hasError('pattern')) && typeProcedure.touched ? 'danger' : ''"
+        />
+        <ngx-validation-message label="Tipo de trámite" 
+          [showMinLength]="typeProcedure?.hasError('minlength')"
+          [showMaxLength]="typeProcedure?.hasError('maxlength')"
+          [showRequired]="typeProcedure?.errors?.required && typeProcedure.touched"
+          [showPattern]="typeProcedure?.hasError('pattern') && typeProcedure.touched" minLength=1 maxLength=2>
+        </ngx-validation-message>
+      </div>
+
+      <div class="form-group row">
+        <input type="text" nbInput fullWidth maxlength="80" formControlName="description"
+          placeholder="Descripción"
+          [status]="( description?.hasError('minlength') || description?.hasError('maxlength') || description?.hasError('pattern')) && description.touched ? 'danger' : ''"
+        />
+        <ngx-validation-message label="Descripción" 
+          [showMinLength]="description?.hasError('minlength')"
+          [showMaxLength]="description?.hasError('maxlength')"
+          [showPattern]="description?.hasError('pattern') && description.touched" minLength=1 maxLength=80>
+        </ngx-validation-message>
+      </div>
+
+      <div class="form-group row">
+        <input type="text" nbInput maxlength="1" fullWidth formControlName="status"
+          placeholder="Estado"
+          [status]="(estatus?.errors?.required || estatus?.hasError('minlength') || estatus?.hasError('maxlength') || estatus?.hasError('pattern')) && estatus.touched ? 'danger' : ''"
+        />
+        <ngx-validation-message label="Estado" 
+          [showMinLength]="estatus?.hasError('minlength')"
+          [showMaxLength]="estatus?.hasError('maxlength')"
+          [showRequired]="estatus?.errors?.required && estatus.touched"
+          [showPattern]="estatus?.hasError('pattern') && estatus.touched" minLength=1 maxLength=1>
+        </ngx-validation-message>
+      </div>
+
+      <div class="form-group row">
+        <input type="number" nbInput fullWidth formControlName="registryNumber"
+          placeholder="No. de registro"
+          [status]="(registryNumber?.hasError('pattern')) && registryNumber.touched ? 'danger' : ''"
+        />
+        <ngx-validation-message label="No. de registro" 
+          [showPattern]="registryNumber?.hasError('pattern') && registryNumber.touched" minLength=1 maxLength=255 min=0>
+        </ngx-validation-message>
+      </div>
+    
+      <div class="form-group">
+        <div class="d-flex justify-content-center">
+          <button type="submit" nbButton status="primary" [disabled]="!form.valid"
+            (click)="register()">{{actionBtn}}</button>
+        </div>
+      </div>
+    </form>
+  </nb-card-body>
+</nb-card>

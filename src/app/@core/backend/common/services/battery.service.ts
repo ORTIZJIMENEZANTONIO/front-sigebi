@@ -23,12 +23,14 @@ export class BatteryService {
   register( data: BatteryInterface ): Observable<BatteryInterface>{
     return this.api.register( data, this.url );
   }
-
-  update(id:number, data: BatteryInterface): Observable<BatteryInterface>{
-    return this.api.update( id, data, this.url );
+  update(id:Object, data: BatteryInterface): Observable<BatteryInterface>{
+    return this.api.updateCompose( id, data, this.url );
   }
 
   delete(id:number){
     return this.api.delete( id, this.url );
   }
+  search(text:string){
+    return this.api.search(text,this.url);
+}
 }

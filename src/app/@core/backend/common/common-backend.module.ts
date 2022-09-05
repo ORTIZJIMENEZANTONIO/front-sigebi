@@ -71,7 +71,7 @@ import { GoodTypeService } from './services/good-type.service';
 import { GoodSubtypeService } from './services/good-subtype.service';
 import { GoodSsubtypeService } from './services/good-ssubtype.service';
 import { GoodSssubtypeService } from './services/good-sssubtype.service';
-import { GoodSituacionService } from './services/good-situacion.service';
+import { GoodSituationService } from './services/good-situation.service';
 import { InstitutionClassificationService } from './services/institution-classification.service';
 import { IssuingInstitutionService } from './services/issuing-institution.service';
 import { MinpubService } from './services/minpub.service';
@@ -82,6 +82,47 @@ import { StorehouseService } from './services/storehouse.service';
 import { SafeService } from './services/safe.service';
 import { QuestionService } from './services/question.service';
 import { OriginService } from './services/origin.service';
+import { RegulatoryService } from './services/regulatory.service';
+import { BatchService } from './services/batch.service';
+import { StatusCodeService } from './services/status-code.service';
+import { SaveValuesService } from './services/save-values.service';
+import { IdentifierService } from './services/identifier.service';
+import { IndiciadosService } from './services/indiciados.service';
+import { OpinionService } from './services/opinion.service';
+import { PenaltyService } from './services/penalty.service';
+import { GoodsSubtypeService } from './services/goods-subtype.service';
+import { LegalSupportService } from './services/legal-support.service';
+import { SatSubclasificationService } from './services/sat-subclasification.service';
+import { SatClassificationService } from './services/sat-classification.service';
+import { OriginCisiService } from './services/origin-cisi.service';
+import { ScoreService } from './services/score.service';
+import { ZoneGeographicService } from './services/zone-geographic.service';
+import { IndicatorReportService } from './services/IndicatorReport.service';
+import { DoccompensationService } from './services/doccompensation.service';
+import { DoccompensationsatService } from './services/doccompesationsat.service';
+import { DoccompensationsatxmlService } from './services/doccompensationsatxml.service';
+import { ThirdPartyCompanyService } from './services/third-party-company.service';
+import { EntfedService } from './services/entfed.service';
+import { EstRpuveService } from './services/est-repuve.service';
+import { ManagementService } from './services/management.service';
+import { LabelOkeyService } from './services/label-okey.service';
+import { StageService } from './services/stage.service';
+import { SiseProcessService } from './services/sise-process.service';
+import { IfaiSerieService } from './services/ifai-serie.service';
+import { ServiceCatService } from './services/service-cat.service';
+import { ResponseService } from './services/response.service';
+import { AAccumulatedAssetsService } from './services/a-accumulated-assets.service'; 
+import { QAccumulatedGoodsService } from './services/q-accumulated-goods.service';
+
+import { ResponseRepuveService } from './services/reponse-repuve..service';
+import { RackService } from './services/rack.service';
+import { ServicesModule } from '../../../pages/admin/services/services.module';
+import { IfaiSerieModule } from '../../../pages/admin/ifai-serie/ifai-serie.module';
+import { ClaimsStatusModule } from '../../../pages/admin/claims-status/claims-status.module';
+import { ClaimsStatusService } from './services/claims-status.service';
+import { DrawerService } from './services/drawer.service';
+import { ShelvesService } from './services/shelves.service';
+
 
 
 const API = [
@@ -162,14 +203,54 @@ const SERVICES = [
   GoodSubtypeService,
   GoodSsubtypeService,
   GoodSssubtypeService,
-  GoodSituacionService,
+  GoodSituationService,
   InstitutionClassificationService,
   IssuingInstitutionService,
   MinpubService,
   PersonService,
   RevisionReasonService,
   SatSaeClassificationService,
-  StorehouseService
+  StorehouseService,
+  RegulatoryService,
+  StatusCodeService,
+  BatchService,
+  SaveValuesService,
+  IdentifierService,
+  IndiciadosService,
+  OpinionService,
+  PenaltyService,
+  GoodsSubtypeService,
+  LegalSupportService,
+  SatSubclasificationService,
+  SatClassificationService,
+  IndicatorReportService,
+  OriginCisiService,
+  ScoreService,
+  ScoreService,
+  ZoneGeographicService,
+  DoccompensationService,
+  DoccompensationsatService,
+  DoccompensationsatxmlService,
+  ThirdPartyCompanyService,
+  EntfedService,
+  EstRpuveService,
+  ManagementService,
+  LabelOkeyService,
+  StageService,
+  ServiceCatService,
+  SiseProcessService,
+  TypeServicesService,
+  IfaiSerieService,
+  ResponseService,
+  AAccumulatedAssetsService,
+  QAccumulatedGoodsService,
+  ResponseRepuveService,
+  RackService,
+  ServicesModule,
+  IfaiSerieModule,
+  ClaimsStatusService,
+  DrawerService,
+  ShelvesService
 ];
 
 @NgModule({
