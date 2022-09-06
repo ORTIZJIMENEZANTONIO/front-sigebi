@@ -58,7 +58,6 @@ const COMPONENTS = [
     ReactiveFormsModule,
     FormsModule,
     CommonModule, NbAutocompleteModule, NbButtonModule, NbCardModule, NbInputModule,
-    NgSelectModule,
     CommonModule,
     NbCardModule,
     Ng2SmartTableModule,

@@ -10,9 +10,9 @@
   
     <nb-card-body>
   
-      <form [formGroup]="formDelegation" (submit)="mostrarInfo()">
+      <form [formGroup]="form" (submit)="mostrarInfo()">
   
-          <ngx-deleg-subdeleg-shared [form]="formDelegation"></ngx-deleg-subdeleg-shared>
+          <ngx-deleg-subdeleg-shared [form]="form"></ngx-deleg-subdeleg-shared>
   
           <div class="row">
   
@@ -23,10 +23,10 @@
                                  placeholder="Selección de fecha"
                                  [nbDatepicker]="formpicker">
                           <nb-datepicker #formpicker></nb-datepicker>
+                          <ngx-validation-message label="fechaInicial" [showRequired]="fechaInicial?.errors?.required && fechaInicial.touched">
+                        </ngx-validation-message>
                   </div>
-                  <ngx-validation-message label="fechaInicial" 
-                           [showRequired]="fechaInicial?.errors?.required && fechaInicial.touched">
-                      </ngx-validation-message>
+                  
               </div>
       
               <div class="col-md-2">
@@ -36,10 +36,11 @@
                                  placeholder="Selección de fecha"
                                  [nbDatepicker]="formpicker2">
                           <nb-datepicker #formpicker2></nb-datepicker>
-                  </div>
-                  <ngx-validation-message label="fechaFinal" 
+                          <ngx-validation-message label="fechaFinal" 
                            [showRequired]="fechaFinal?.errors?.required && fechaFinal.touched">
                   </ngx-validation-message>
+                  </div>
+                  
               </div>
               
                   
@@ -47,7 +48,7 @@
       
           <div class="form-group">
               <div class="d-flex justify-content-center">
-                      <button type="submit" nbButton status="primary" [disabled]="!formDelegation.valid">Imprimir Reporte</button>
+                      <button type="submit" nbButton status="primary" [disabled]="!form.valid">Imprimir Reporte</button>
               </div>
           </div>
   

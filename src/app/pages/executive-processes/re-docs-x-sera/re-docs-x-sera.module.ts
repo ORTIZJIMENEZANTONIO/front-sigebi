@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ComponentsModule } from '../../../@components/components.module';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 
-import { NbAutocompleteModule, NbButtonModule, NbCardModule, NbInputModule, NbDatepickerModule, } from '@nebular/theme';
+import { NbButtonModule, NbCardModule, NbInputModule, NbDatepickerModule, } from '@nebular/theme';
 import { NgSelectModule } from '@ng-select/ng-select';
 
 import { ReDocsXSERARoutingModule } from './re-docs-x-sera-routing.module';
