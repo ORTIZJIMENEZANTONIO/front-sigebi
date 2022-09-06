@@ -9,7 +9,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class DailyRecFilesListComponent {
   
 
-  public formDelegation: FormGroup;
+  public form: FormGroup;
 
   constructor(
     private fb: FormBuilder) {  
@@ -19,20 +19,20 @@ export class DailyRecFilesListComponent {
     this.prepareForm();
   }
   private prepareForm() {
-    this.formDelegation = this.fb.group({
-      fechaInicial: ['', [Validators.required]],
-      fechaFinal: ['', [Validators.required]],
+    this.form = this.fb.group({
       nomDeleg: ['', [Validators.required]],
       nomSubDel: ['', [Validators.required]],
+      year: ['', [Validators.required]],
+      month: ['', [Validators.required]],
     });}
 
-  public get fechaInicial() { return this.formDelegation.get('fechaInicial'); }
-  public get fechaFinal() { return this.formDelegation.get('fechaFinal'); }
-  public get nomDeleg() { return this.formDelegation.get('nomDeleg'); }
-  public get nomSubDel() { return this.formDelegation.get('nomSubDel'); }
+  public get nomDeleg() { return this.form.get('nomDeleg'); }
+  public get nomSubDel() { return this.form.get('nomSubDel'); }
+  public get year() { return this.form.get('year'); }
+  public get month() { return this.form.get('month'); }
 
 mostrarInfo(): any{
-  console.log(this.formDelegation.value)
+  console.log(this.form.value)
 }
 }
 

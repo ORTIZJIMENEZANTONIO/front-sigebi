@@ -485,7 +485,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
       },
 
       {
-        title: 'Integración Simplificada de Recepción Documental',
+        title: '**Integración Simplificada de Recepción Documental',
         link: '/pages/executive-processes/sim-doc-Recep-Int',
       },
 

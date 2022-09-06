@@ -29,6 +29,9 @@ import { GoodsTypesFormComponent } from './goods-types-form/goods-types-form.com
 import { DestinationAreaSharedComponent } from './destination-area-shared/destination-area-shared.component';
 import { NoBienSharedComponent } from './no-bien-shared/no-bien-shared.component';
 import { StateCoordinationSharedComponent } from './state-coordination-shared/state-coordination-shared.component';
+import { TypesSharedComponent } from './types-shared/types-shared.component';
+import { NoVolanteSharedComponent } from './no-volante-shared/no-volante-shared.component';
+import { RequestProficientSharedComponent } from './request-proficient-shared/request-proficient-shared.component';
 
 
 
@@ -43,7 +46,10 @@ const COMPONENTS = [
   FileNumberSharedComponent,
   DestinationAreaSharedComponent,
   NoBienSharedComponent,
-  StateCoordinationSharedComponent
+  StateCoordinationSharedComponent,
+  TypesSharedComponent,
+  NoVolanteSharedComponent, 
+  RequestProficientSharedComponent
   
 ];
 
@@ -52,7 +58,6 @@ const COMPONENTS = [
     ReactiveFormsModule,
     FormsModule,
     CommonModule, NbAutocompleteModule, NbButtonModule, NbCardModule, NbInputModule,
-    NgSelectModule,
     CommonModule,
     NbCardModule,
     Ng2SmartTableModule,
