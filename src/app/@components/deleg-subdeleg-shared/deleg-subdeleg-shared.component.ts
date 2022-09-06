@@ -1,14 +1,7 @@
-import { Component, OnInit, Input, } from '@angular/core'; 
-import { FormGroup } from '@angular/forms';
-import { concat, Observable, of, Subject } from "rxjs";
-import {
-  catchError,
-  distinctUntilChanged,
-  map,
-  switchMap,
-  tap,
-} from "rxjs/operators";
-
+import { Component, OnInit, Input, } from '@angular/core';  
+import { FormGroup, AbstractControl } from '@angular/forms';
+import { DefaultSelect } from "../select/detault-select";
+import { ISelectParams } from "../select/select-params";
 
 
 @Component({
@@ -16,96 +9,60 @@ import {
   templateUrl: './deleg-subdeleg-shared.component.html',
   styleUrls: ['./deleg-subdeleg-shared.component.scss']
 })
+
 export class DelegSubdelegSharedComponent implements OnInit{
 
   @Input() form: FormGroup;
-  @Input() nomDeleg: string = "nomDeleg";
-  @Input() nomSubDel: string = "nomSubDel";
+  @Input() delegationField: string = "delegation";
+  @Input() subdelegationField: string = "subdelegation";
   @Input() showSubdelegation: boolean = true
-  delegations$: Observable<any[]>;
-  delegationsLoading = false;
-  delegationInput$ = new Subject<string>();
-  subDelegations$: Observable<any[]>;
-  subDelegationsLoading = false;
-  subDelegationInput$ = new Subject<string>();
 
-
-  ngOnInit(): void {
-    this.loadDelegations();
-    if(this.showSubdelegation) this.loadSubdelegations();
-  }
-
-  constructor() {}
-
+  delegations = new DefaultSelect();
+  subdelegations = new DefaultSelect();
   
+
   get delegation() {
-    return this.form.get(this.nomDeleg);
+    return this.form.get(this.delegationField);
   }
 
   get subdelegation() {
-    return this.form.get(this.nomSubDel);
+    return this.form.get(this.subdelegationField);
   }
 
-  delegations(search: string) {
-    return of([
-      { id: 1, name: "Delegacion 1" },
-      { id: 2, name: "Delegación 2" },
-    ]).pipe(
-      map((e) => e.filter((_e) => _e.name.toLowerCase().includes(search)))
-    );
+
+  constructor() {}
+
+  ngOnInit(): void {}
+
+  getDelegations(params: ISelectParams) {
+    // this.service.getTypes(params).subscribe((data) => {
+    //   this.types = new DefaultSelect([], 0);
+    // });
   }
 
-  subdelegations(search: string) {
-    return of([
-      { id: 1, name: "Subdelegacion 1 ", delId: 1 },
-      { id: 2, name: "Subdelegacion 2 ", delId: 1 },
-      { id: 3, name: "Subdelegacion 3 ", delId: 2 },
-      { id: 4, name: "Subdelegacion 4 ", delId: 2 },
-    ]).pipe(
-      map((e) =>
-        e.filter(
-          (_e) =>
-            _e.name.toLowerCase().includes(search.toLowerCase()) &&
-            _e.delId == this.delegation.value
-        )
-      )
-    );
+  getSubDelegations(params: ISelectParams) {
+    // this.service.getTypes(params).subscribe((data) => {
+    //   this.types = new DefaultSelect([], 0);
+    // });
   }
 
-  private loadDelegations() {
-    this.delegations$ = concat(
-      of([]),
-      this.delegationInput$.pipe(
-        distinctUntilChanged(),
-        tap(() => (this.delegationsLoading = true)),
-        switchMap((term) =>
-          this.delegations(term).pipe(
-            catchError(() => of([])),
-            tap(() => (this.delegationsLoading = false))
-          )
-        )
-      )
-    );
+  onDelegationsChange(type: any) {
+    this.resetFields([this.subdelegation]);
+    this.subdelegations = new DefaultSelect();
   }
 
-  loadSubdelegations() {
-    this.subDelegations$ = concat(
-      of([]),
-      this.subDelegationInput$.pipe(
-        distinctUntilChanged(),
-        tap(() => (this.subDelegationsLoading = true)),
-        switchMap((term) =>
-          this.subdelegations(term).pipe(
-            catchError(() => of([])),
-            tap(() => (this.subDelegationsLoading = false))
-          )
-        )
-      )
-    );
+  onSubDelegationsChange(subdelegation: any) {
+    this.delegations = new DefaultSelect([subdelegation.delegation], 1);
+    this.delegation.setValue(subdelegation.delegation.id);
+   
   }
 
-  onDelegationChange() {
-    if(this.showSubdelegation) this.subdelegation.setValue(null);
+  
+  resetFields(fields: AbstractControl[]) {
+    fields.forEach((field) => {
+      field.setValue(null);
+    });
+    this.form.updateValueAndValidity();
   }
 }
 

@@ -31,7 +31,7 @@ export class SelectComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
+    
     if(changes?.data?.currentValue.length === 0) {
       this.buffer = []
     }else if (changes.data && this.concat) {
