@@ -162,7 +162,7 @@ export class NonDeliveryReasonsListComponent extends BasePage {
         this.service.delete(event.data.id).subscribe(data =>{
           this.readReasons();
         },err =>{
-          console.log(err);
+          console.error(err);
         })
        
       }
