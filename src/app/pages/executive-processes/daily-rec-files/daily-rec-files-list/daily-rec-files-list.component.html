@@ -9,24 +9,24 @@
   
     <nb-card-body>
 
-        <form [formGroup]="formDelegation" (submit)="mostrarInfo()">
+        <form [formGroup]="form" (submit)="mostrarInfo()">
             
-            <ngx-deleg-subdeleg-shared [form]="formDelegation"></ngx-deleg-subdeleg-shared>
+            <ngx-deleg-subdeleg-shared [form]="form"></ngx-deleg-subdeleg-shared>
         
             <div class="row">
         
                 <div class="col-md-2">
                     <div class="form-group">
                         <label class="label">Recepciones del año:</label>
-                        <input nbInput fullWidth> 
+                        <input nbInput fullWidth formControlName="year">
+                        <ngx-validation-message label="year" [showRequired]="year?.errors?.required && year.touched"></ngx-validation-message>
                     </div>
                 </div>
         
                 <div class="col-lg-2">
                     <div class="form-group">
                         <label class="label">Al</label> &nbsp; 
-                        
-                          <nb-select fullWidth selected="Enero">
+                          <nb-select fullWidth selected="Enero" formControlName="month">
                             <nb-option value="Enero">Enero</nb-option>
                             <nb-option value="Febrero">Febrero</nb-option>
                             <nb-option value="Marzo">Marzo</nb-option>
@@ -40,7 +40,7 @@
                             <nb-option value="Noviembre">Noviembre</nb-option>
                             <nb-option value="Diciembre">Diciembre</nb-option>
                           </nb-select>
-                        
+                          <ngx-validation-message label="month" [showRequired]="month?.errors?.required && month.touched"></ngx-validation-message>
                     </div>
                 </div>
       
@@ -53,7 +53,7 @@
                 <div class="d-flex justify-content-center">
                     <!--<button type="submit" nbButton status="primary" [disabled]="!form.valid"
                         (click)="register()">{{actionBtn}}</button>  Boton con función--> 
-                        <button type="submit" nbButton status="primary" >Imprimir Reporte</button>
+                        <button type="submit" nbButton status="primary" [disabled]="!form.valid">Imprimir Reporte</button>
                 </div>
             </div>
         

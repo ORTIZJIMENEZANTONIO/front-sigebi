@@ -10,31 +10,32 @@
   
     <nb-card-body>
 
-        <form [formGroup]="formDelegation" (submit)="mostrarInfo()">
+        <form [formGroup]="form" (submit)="mostrarInfo()">
 
             <div class="row">
   
                 <div class="col-md-2">
                     <div class="form-group">
                         <label class="label">Acumulado del:</label>
-                        
-                          <input nbInput
+                          <input nbInput formControlName="fechaInicial"
                                  placeholder="Selección de fecha"
                                  [nbDatepicker]="formpicker">
                           <nb-datepicker #formpicker></nb-datepicker>
-                        
+                          <ngx-validation-message label="fechaInicial" [showRequired]="fechaInicial?.errors?.required && fechaInicial.touched">
+                        </ngx-validation-message>
                     </div>
+                    
                 </div>
         
                 <div class="col-md-2">
                     <div class="form-group">
                         <label class="label">Al</label>
-                        
-                          <input nbInput
+                          <input nbInput formControlName="fechaFinal"
                                  placeholder="Selección de fecha"
                                  [nbDatepicker]="formpicker2">
                           <nb-datepicker #formpicker2></nb-datepicker>
-                        
+                          <ngx-validation-message label="fechaFinal" [showRequired]="fechaFinal?.errors?.required && fechaFinal.touched">
+                        </ngx-validation-message>
                     </div>
                 </div>
                 
@@ -42,7 +43,7 @@
             </div>
 
         
-            <ngx-deleg-subdeleg-shared [form]="formDelegation"></ngx-deleg-subdeleg-shared>
+            <ngx-deleg-subdeleg-shared [form]="form"></ngx-deleg-subdeleg-shared>
           
               
               <div class="row">
@@ -50,7 +51,16 @@
                 <div class="col-md-1">
                     <div class="form-group">
                         <label class="label">Estatus</label>
-                        <input nbInput fullWidth  placeholder="">
+                        <input nbInput fullWidth placeholder="" formControlName="clave">
+                        <ngx-validation-message label="clave" [showRequired]="clave?.errors?.required && clave.touched">
+                        </ngx-validation-message>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="label">&nbsp;</label>
+                        <input nbInput fullWidth  placeholder="" formControlName="estatus" disabled>
                     </div>
                 </div>
                 
@@ -74,7 +84,7 @@
           
               <div class="form-group">
               <div class="d-flex justify-content-center">
-                      <button type="submit" nbButton status="primary" [disabled]="!formDelegation.valid">Imprimir Reporte</button>
+                      <button type="submit" nbButton status="primary" [disabled]="!form.valid">Imprimir Reporte</button>
               </div>
           </div>
 

@@ -1,4 +1,4 @@
-<nb-card class="cat-card"> 
+<nb-card class="cat-card">  
     <nb-card-header>
   
         <span class="title">
@@ -15,9 +15,9 @@
   
     <nb-card-body>
 
-        <form [formGroup]="formDelegation" (submit)="mostrarInfo()">
+        <form [formGroup]="form" (submit)="mostrarInfo()"> 
 
-            <ngx-deleg-subdeleg-shared [form]="formDelegation"></ngx-deleg-subdeleg-shared>
+            <ngx-deleg-subdeleg-shared [form]="form"></ngx-deleg-subdeleg-shared>
   
       <div class="row">
   
@@ -25,34 +25,43 @@
               <div class="form-group">
                   <label class="label">Fecha recepción del:</label>
                   
-                    <input nbInput
+                    <input formControlName="fechaInicial" nbInput
                            placeholder="Selección de fecha"
                            [nbDatepicker]="formpicker">
                     <nb-datepicker #formpicker></nb-datepicker>
-                  
               </div>
+              <ngx-validation-message label="fechaInicial" 
+                         [showRequired]="fechaInicial?.errors?.required && fechaInicial.touched">
+              </ngx-validation-message>
           </div>
   
           <div class="col-md-2">
               <div class="form-group">
                   <label class="label">Al</label>
                   
-                    <input nbInput
+                    <input formControlName="fechaFinal" nbInput
                            placeholder="Selección de fecha"
                            [nbDatepicker]="formpicker2">
                     <nb-datepicker #formpicker2></nb-datepicker>
                   
               </div>
+              <ngx-validation-message label="fechaFinal" 
+                         [showRequired]="fechaFinal?.errors?.required && fechaFinal.touched">
+            </ngx-validation-message>
           </div>
           
               
       </div>
 
-      <ngx-destination-area-shared></ngx-destination-area-shared>
+      <ngx-destination-area-shared [form]="form"></ngx-destination-area-shared>
+      <ngx-validation-message label="noAreaDestino" [showRequired]="noAreaDestino?.errors?.required && noAreaDestino.touched"></ngx-validation-message>
+      <ngx-validation-message label="claveAreaDestino" [showRequired]="claveAreaDestino?.errors?.required && claveAreaDestino.touched"></ngx-validation-message>
+      <ngx-validation-message label="descriptionAreaDestino" [showRequired]="descriptionAreaDestino?.errors?.required && descriptionAreaDestino.touched"></ngx-validation-message>
+      <ngx-validation-message label="nameAreaDestino" [showRequired]="nameAreaDestino?.errors?.required && nameAreaDestino.touched"></ngx-validation-message>
   
     <div class="form-group">
         <div class="d-flex justify-content-center">
-                <button type="submit" nbButton status="primary" [disabled]="!formDelegation.valid">Imprimir Reporte</button>
+                <button type="submit" nbButton status="primary" [disabled]="!form.valid">Imprimir Reporte</button>
         </div>
     </div>
         </form>

@@ -4,7 +4,7 @@ import { DefaultSelect } from "../select/detault-select";
 import { ISelectParams } from "../select/select-params";
 
 @Component({
-  selector: "ngx-goods-types-form",
+  selector: "ngx-goods-types-form", 
   templateUrl: "./goods-types-form.component.html",
   styleUrls: ["./goods-types-form.component.scss"],
 })
